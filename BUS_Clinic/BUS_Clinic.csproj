@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54558EF9-F801-4E31-9492-92640A5B2523}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BUS_Clinic</RootNamespace>
+    <AssemblyName>BUS_Clinic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BUS\BaseBUS.cs" />
+    <Compile Include="BUS\BUSManager.cs" />
+    <Compile Include="BUS\BUS_BCDoanhThu.cs" />
+    <Compile Include="BUS\BUS_BCSuDungThuoc.cs" />
+    <Compile Include="BUS\BUS_Benh.cs" />
+    <Compile Include="BUS\BUS_BenhNhan.cs" />
+    <Compile Include="BUS\BUS_CachDung.cs" />
+    <Compile Include="BUS\BUS_CTBaoCaoDoanhThu.cs" />
+    <Compile Include="BUS\BUS_CTPhieuKhamBenh.cs" />
+    <Compile Include="BUS\BUS_CTPhieuNhapThuoc.cs" />
+    <Compile Include="BUS\BUS_DonVi.cs" />
+    <Compile Include="BUS\BUS_HoaDon.cs" />
+    <Compile Include="BUS\BUS_PhieuKhamBenh.cs" />
+    <Compile Include="BUS\BUS_PhieuNhapThuoc.cs" />
+    <Compile Include="BUS\BUS_ThamSo.cs" />
+    <Compile Include="BUS\BUS_Thuoc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Clinic\DAL_Clinic.csproj">
+      <Project>{43de7b82-90a4-4255-8297-f0cf12aa7877}</Project>
+      <Name>DAL_Clinic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO_Clinic\DTO_Clinic.csproj">
+      <Project>{7f31ce30-d4e2-4edb-ad1c-783a41fbe80b}</Project>
+      <Name>DTO_Clinic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

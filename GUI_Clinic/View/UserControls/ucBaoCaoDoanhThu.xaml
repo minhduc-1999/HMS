@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="GUI_Clinic.View.UserControls.ucBaoCaoDoanhThu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_Clinic.View.UserControls"
+             mc:Ignorable="d" 
+             xmlns:cvt="clr-namespace:GUI_Clinic.Converter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <cvt:IndexConverter x:Key="IndexConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock x:Name="tblTitle" Margin="20 10" HorizontalAlignment="Left" Text="Báo cáo doanh thu" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#0078D7"/>
+        </Grid>
+
+        <!--Cac element binding tu selected item-->
+        <materialDesign:Card Grid.Row="1" Margin="5">
+            <Grid>
+                <StackPanel Margin="5 0 0 5" Orientation="Horizontal" >
+                    <ComboBox x:Name="cbxThang" Margin="5 5 15 5"   materialDesign:HintAssist.Hint="Tháng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <ComboBox x:Name="cbxNam" Margin="5 5 15 5"  materialDesign:HintAssist.Hint="Năm" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    <Button x:Name="btnLocBaoCao" 
+                            Command="{Binding FilterBaoCaoCommand}"
+                            Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                            ToolTip="Xem doanh thu"
+                            Background="#0078D7"
+                            BorderBrush="#0078D7"
+                            Width="40"
+                            Height="40"
+                            Margin="5 5 5 0">
+                        <materialDesign:PackIcon Kind="Filter" Height="24" Width="24" />
+                    </Button>
+
+                </StackPanel>
+
+                <Button Command="{Binding InBaoCaoCommand}"   
+                                     x:Name="btnInBaoCao"
+                                     HorizontalAlignment="Right"
+                                     Content="In báo cáo"
+                                     Foreground="White"
+                                     Background="#0078D7"
+                                     BorderBrush="#0078D7"
+                                     Margin="0 0 5 0">
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+
+
+        <!--<materialDesign:Card Grid.Row="1" Margin="5">
+            <WrapPanel>
+                <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
+                <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
+            </WrapPanel>
+        </materialDesign:Card>-->
+
+        <GroupBox Grid.Row="2" 
+                  Margin="5" 
+                  Header="Chi tiết doanh thu"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <ListView x:Name="lvCTBaoCaoDoanhThu"
+                      ItemsSource="{Binding ListCTBCDT, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                        <GridViewColumn Header="Ngày" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}/{1}/{2}">
+                                                <Binding Path="Ngay" />
+                                                <Binding Path="Thang"/>
+                                                <Binding Path="Nam"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Số bệnh nhân" DisplayMemberBinding="{Binding SoBenhNhan}"></GridViewColumn>
+                        <GridViewColumn Header="Doanh thu" DisplayMemberBinding="{Binding DoanhThu,StringFormat={}{0:N0} VNĐ}"></GridViewColumn>
+                        <GridViewColumn Header="Tỷ lệ" DisplayMemberBinding="{Binding TyLe, StringFormat={}{0:F2}%}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+
+        <materialDesign:Card x:Name="crdTongDoanhThu" Grid.Row="3" Margin="5" Height="50">
+            <Grid>
+                <DockPanel>
+                    <TextBlock x:Name="tblTongDoanhThu" Text="{Binding bCDoanhThu.TongDoanhThu, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}" FontSize="25" Margin="5" Foreground="#0078D7" FontWeight="Bold" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="Tổng doanh thu:" FontSize="20" Margin="5" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                    <Border></Border>
+                </DockPanel>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

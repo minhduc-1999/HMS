@@ -1,0 +1,121 @@
+﻿<Window x:Class="GUI_Clinic.View.Windows.wdHoaDon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Clinic.View.Windows"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowState="Normal"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Height="700"
+        Width="550"
+        BorderBrush="#0078D7"
+        BorderThickness="2">
+    <Grid>
+        <Button x:Name="btnThoat"
+                Click="btnThoat_Click"
+                HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top">
+            <materialDesign:PackIcon Kind="Close"/>
+        </Button>
+        <Button x:Name="btnInHoaDon"
+                Click="btnInHoaDon_Click"
+                HorizontalAlignment="Right" Margin="10 10 70 10" VerticalAlignment="Top">
+            <materialDesign:PackIcon Kind="Printer"/>
+        </Button>
+        <Grid x:Name="grdMain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Margin="30" Grid.Row="0">
+                <TextBlock Text="HÓA ĐƠN" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#0078D7"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="20">
+                <Grid HorizontalAlignment="Stretch">
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <TextBlock x:Name="tblTenBenhNhan" Text="{Binding HoaDon.PhieuKhamBenh.BenhNhan.TenBenhNhan}" 
+                                   FontSize="20" Margin="5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ngày khám:" FontSize="12" Margin="5"/>
+                            <TextBlock x:Name="tblNgayKham" Text="{Binding HoaDon.PhieuKhamBenh.NgayKham}"
+                                       FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mã phiếu khám bệnh:" FontSize="12" Margin="5"/>
+                            <TextBlock x:Name="tblMaPhieuKhamBenh" Text="{Binding HoaDon.Id}"
+                                FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="10 30 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="LOẠI" Grid.Column="0" FontSize="12" FontWeight="ExtraLight"/>
+                    <TextBlock Text="SỐ TIỀN (VNĐ)" Grid.Column="1" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right"/>
+                </Grid>
+                <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5"/>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem>
+                        <Grid HorizontalAlignment="Stretch" Margin="2" Width="480">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Tiền khám" Grid.Column="0"/>
+                            <TextBlock x:Name="tblTienKham" Text="{Binding HoaDon.TienKham,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}"
+                                Grid.Column="1" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <Grid HorizontalAlignment="Stretch" Margin="2" Width="480">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Tiền thuốc" Grid.Column="0"/>
+                            <TextBlock x:Name="tblTienThuoc" Text="{Binding HoaDon.TienThuoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}" 
+                                       Grid.Column="1" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Margin="20 0">
+                <Grid Margin="10 20 10 0">
+                    <TextBlock Text="TỔNG (VNĐ)" Grid.Column="3" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right"/>
+                </Grid>
+                <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5"/>
+                <Grid Margin="10">
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock x:Name="tblThanhTien" Text="{Binding HoaDon.ThanhTien,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}" 
+                                   FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="#0078D7" FontWeight="Bold"/>
+                    </StackPanel>
+                </Grid>
+                <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5"/>
+
+                <Grid Margin="0 20" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Heart" Foreground="#0078D7" Width="20" Height="20" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="Xin cảm ơn!" VerticalAlignment="Center" FontSize="20" Margin="5" FontWeight="Light"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

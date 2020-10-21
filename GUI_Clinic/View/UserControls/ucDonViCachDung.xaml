@@ -1,0 +1,380 @@
+﻿<UserControl x:Class="GUI_Clinic.View.UserControls.ucDonViCachDung"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_Clinic.View.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             xmlns:cvt="clr-namespace:GUI_Clinic.Converter">
+    <UserControl.Resources>
+        <cvt:IndexConverter x:Key="IndexConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Tieu de UC-->
+        <Grid Grid.Row="0">
+            <TextBlock x:Name="tblTitle"
+                       Margin="20 10"
+                       HorizontalAlignment="Left"
+                       Text="Bệnh, đơn vị và cách dùng"
+                       VerticalAlignment="Center"
+                       FontSize="35"
+                       FontWeight="Bold"
+                       Foreground="#0078D7" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <materialDesign:Card Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center" 
+                                       Text="Thông tin bệnh"
+                                       Foreground="Gray"
+                                       FontWeight="Bold"
+                                       FontSize="25"
+                                       Margin="10"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Tên bệnh:"
+                                           FontSize="17"
+                                           Margin="10"
+                                           FontWeight="Bold"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox x:Name="tbxTenBenh"
+                                         Text="{Binding TenBenhInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="15"
+                                         Margin="10"
+                                         FontWeight="DemiBold"
+                                         Foreground="Gray"
+                                         VerticalAlignment="Center"
+                                         KeyDown="tbxTenBenh_KeyDown"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto"/>
+                                <!--<ColumnDefinition Width="auto"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Button x:Name="btnThemBenh"
+                                        Margin="5"
+                                        Command="{Binding ThemBenhCommand}"
+                                        Content="Thêm"
+                                        Width="90"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Button x:Name="btnCapNhatBenh"
+                                        Margin="5"
+                                        Command="{Binding SuaBenhCommand}"
+                                        Content="Cập nhật"
+                                        Width="90"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <!--<Grid Grid.Column="2">
+                                <Button x:Name="btnXoaBenh"
+                                        Margin="5"
+                                        Command="{Binding XoaBenhCommand}"
+                                        Content="Xoá"
+                                        Width="90"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>-->
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="Danh sách bệnh"
+                                  Margin="10">
+                            <Grid>
+                                <ListView x:Name="lvBenh"
+                                          ItemsSource="{Binding ListBenh}"
+                                          SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
+                                          SelectedIndex="0"
+                                          ScrollViewer.CanContentScroll="True"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          SelectionChanged="lvBenh_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"/>
+                                            <GridViewColumn Header="Mã bệnh"
+                                                                DisplayMemberBinding="{Binding Id}"/>
+                                            <GridViewColumn Header="Tên bệnh"
+                                                                DisplayMemberBinding="{Binding TenBenh}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="2">
+            <materialDesign:Card Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center" 
+                                       Text="Thông tin đơn vị"
+                                       Foreground="Gray"
+                                       FontWeight="Bold"
+                                       FontSize="25"
+                                       Margin="10"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Tên đơn vị:"
+                                           FontSize="17"
+                                           Margin="10"
+                                           FontWeight="Bold"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox x:Name="tbxTenDonVi"
+                                         Text="{Binding TenDonViInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="15"
+                                         Margin="10"
+                                         FontWeight="DemiBold"
+                                         Foreground="Gray"
+                                         VerticalAlignment="Center"
+                                         KeyDown="tbxTenDonVi_KeyDown"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto"/>
+                                <!--<ColumnDefinition Width="auto"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Button x:Name="btnThemDonVi"
+                                        Margin="5"
+                                        Command="{Binding ThemDonViCommand}"
+                                        Content="Thêm"
+                                        Width="90"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Button x:Name="btnCapNhatDonVi"
+                                        Margin="5"
+                                        Command="{Binding SuaDonViCommand}"
+                                        Content="Cập nhật"
+                                        Width="90"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <!--<Grid Grid.Column="2">
+                                <Button x:Name="btnXoaDonVi"
+                                        Margin="5"
+                                        Command="{Binding XoaDonViCommand}"
+                                        Content="Xoá"
+                                        Width="90"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>-->
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="Danh sách đơn vị"
+                                  Margin="10">
+                            <Grid>
+                                <ListView x:Name="lvDonVi"
+                                          ItemsSource="{Binding ListDV}"
+                                          SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
+                                          SelectedIndex="0"
+                                          ScrollViewer.CanContentScroll="True"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          SelectionChanged="lvDonVi_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"/>
+                                            <GridViewColumn Header="Mã đơn vị"
+                                                                DisplayMemberBinding="{Binding Id}"/>
+                                            <GridViewColumn Header="Tên đơn vị"
+                                                                DisplayMemberBinding="{Binding TenDonVi}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="3">
+            <materialDesign:Card Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Text="Thông tin cách dùng"
+                                       Foreground="Gray"
+                                       FontWeight="Bold"
+                                       FontSize="25"
+                                       Margin="10"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Tên cách dùng:"
+                                           FontSize="17"
+                                           Margin="10"
+                                           FontWeight="Bold"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox x:Name="tbxTenCachDung"
+                                         Text="{Binding TenCachDungInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="15"
+                                         Margin="10"
+                                         FontWeight="DemiBold"
+                                         Foreground="Gray"
+                                         VerticalAlignment="Center"
+                                         KeyDown="tbxTenCachDung_KeyDown"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto"/>
+                                <!--<ColumnDefinition Width="auto"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Button x:Name="btnThemCachDung"
+                                        Margin="5"
+                                        Command="{Binding ThemCachDungCommand}"
+                                        Content="Thêm"
+                                        Width="90"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Button x:Name="btnCapNhatCachDung"
+                                        Margin="5"
+                                        Command="{Binding SuaCachDungCommand}"
+                                        Width="90"
+                                        Content="Cập nhật"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>
+                            <!--<Grid Grid.Column="2">
+                                <Button x:Name="btnXoaCachDung"
+                                        Margin="5"
+                                        Command="{Binding XoaCachDungCommand}"
+                                        Content="Xoá"
+                                        Width="90"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#0078D7"
+                                        BorderBrush="#0078D7"/>
+                            </Grid>-->
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="Danh sách cách dùng"
+                                  Margin="10">
+                            <Grid>
+                                <ListView x:Name="lvCachDung"
+                                          ItemsSource="{Binding ListCD}"
+                                          SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
+                                          SelectedIndex="0"
+                                          ScrollViewer.CanContentScroll="True"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          SelectionChanged="lvCachDung_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"/>
+                                            <GridViewColumn Header="Mã cách dùng"
+                                                                DisplayMemberBinding="{Binding Id}"/>
+                                            <GridViewColumn Header="Tên cách dùng"
+                                                                DisplayMemberBinding="{Binding TenCachDung}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,63 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">All</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>02c1d597-4d51-4679-8f5b-19dfc65904c2</ProjectGuid>
+    <OutputType>msi</OutputType>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Clinic Manager.aip</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <IsWindowsApplication>True</IsWindowsApplication>
+    <AssemblyName>Clinic Manager</AssemblyName>
+    <Name>Clinic Manager</Name>
+    <RootNamespace>Clinic Manager</RootNamespace>
+    <LoadFromTemplate>
+    </LoadFromTemplate>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
+  <ItemGroup>
+    <Compile Include="Clinic Manager.aip">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BUS_Clinic\BUS_Clinic.csproj">
+      <Name>BUS_Clinic</Name>
+      <Project>{54558ef9-f801-4e31-9492-92640a5b2523}</Project>
+      <Private>True</Private>
+      <OutputsToImport>PrimaryOutput;References;ContentOutput;DocumentationOutput;LocalizedResourcesOutput;SymbolsOutput;ComTypeLibraryOutput</OutputsToImport>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL_Clinic\DAL_Clinic.csproj">
+      <Name>DAL_Clinic</Name>
+      <Project>{43de7b82-90a4-4255-8297-f0cf12aa7877}</Project>
+      <Private>True</Private>
+      <OutputsToImport>PrimaryOutput;References;ContentOutput;DocumentationOutput;LocalizedResourcesOutput;SymbolsOutput;ComTypeLibraryOutput</OutputsToImport>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO_Clinic\DTO_Clinic.csproj">
+      <Name>DTO_Clinic</Name>
+      <Project>{7f31ce30-d4e2-4edb-ad1c-783a41fbe80b}</Project>
+      <Private>True</Private>
+      <OutputsToImport>PrimaryOutput;References;ContentOutput;DocumentationOutput;LocalizedResourcesOutput;SymbolsOutput;ComTypeLibraryOutput</OutputsToImport>
+    </ProjectReference>
+    <ProjectReference Include="..\GUI_Clinic\GUI_Clinic.csproj">
+      <Name>GUI_Clinic</Name>
+      <Project>{8eceda3c-584f-4510-bf76-d778f0f01008}</Project>
+      <Private>True</Private>
+      <OutputsToImport>PrimaryOutput;References;ContentOutput;DocumentationOutput;LocalizedResourcesOutput;SymbolsOutput;ComTypeLibraryOutput</OutputsToImport>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="Build">
+    <Error Text="This project requires Advanced Installer tool. Please download it from https://www.advancedinstaller.com/download.html" />
+  </Target>
+  <Target Name="Rebuild">
+    <Error Text="This project requires Advanced Installer tool. Please download it from https://www.advancedinstaller.com/download.html" />
+  </Target>
+  <Target Name="Clean">
+  </Target>
+  <Target Name="ResolveAssemblyReferences">
+  </Target>
+  <Import Condition="'$(AdvancedInstallerMSBuildTargets)' != ''" Project="$(AdvancedInstallerMSBuildTargets)\AdvInstExtTasks.Targets" />
+  <Import Condition="('$(AdvancedInstallerMSBuildTargets)' == '') And (Exists('$(MSBuildExtensionsPath32)\Caphyon\Advanced Installer\AdvInstExtTasks.Targets'))" Project="$(MSBuildExtensionsPath32)\Caphyon\Advanced Installer\AdvInstExtTasks.Targets" />
+</Project>

@@ -1,0 +1,204 @@
+﻿<Window x:Class="GUI_Clinic.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Clinic.View"
+        xmlns:uc="clr-namespace:GUI_Clinic.View.UserControls"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Clinic Management" Height="700" Width="1080" WindowStartupLocation="CenterScreen" MinWidth="1080" MinHeight="600" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized"
+        Closing="Window_Closing" 
+        Icon="/GUI_Clinic;component/Icons/Clinic.ico">
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grdMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="53"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="250"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grdMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="53"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="ToggleButtonMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="ToggleButtonMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--Grid Main-->
+        <Grid Grid.Column="1" x:Name="grdMain">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="GotFocus">
+                    <i:InvokeCommandAction Command="{Binding GotFocusGridMain}" CommandParameter="{Binding ElementName=toggleMenu}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="grdControl" Height="auto" Grid.Row="0">
+                <uc:ucControlBar x:Name="ucControlBar"></uc:ucControlBar>
+            </Grid>
+
+            <Grid x:Name="grdUserControl" Grid.Row="1">
+                <uc:ucBaoCaoDoanhThu x:Name="uc_BaoCaoDoanhThu" Visibility="Hidden"/>
+                <uc:ucBaoCaoSuDungThuoc x:Name="uc_BaoCaoSuDungThuoc" Visibility="Hidden"/>
+                <uc:ucDonViCachDung x:Name="uc_DonViCachDung" Visibility="Hidden"/>
+                <uc:ucQuanLyThuoc x:Name="uc_QuanLyThuoc" Visibility="Hidden"/>
+                <uc:ucQuanLyBenhNhan x:Name="uc_QuanLyBenhNhan" Visibility="Hidden"/>
+                <uc:ucDanhSachPhieuKhamBenh x:Name="uc_DanhSachPhieuKhamBenh" Visibility="Hidden"/>
+                <uc:ucDanhSachKhamBenh x:Name="uc_DanhSachKhamBenh"/>
+            </Grid>
+        </Grid>
+
+        <!--Grid Menu-->
+        <Grid x:Name="grdMenu"
+              Background="#0078D7"
+              HorizontalAlignment="Left"
+              Width="53"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ToggleButton Width="30" Height="30" Margin="12 10" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ToggleButtonMenu"  Foreground="White" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Grid.Row="0">
+            </ToggleButton>
+
+            <Image Margin="10" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/GUI_Clinic;component/Icons/clinic_logo.png"/>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="grdSelectedButton" Grid.Column="0" Height="60" VerticalAlignment="Top" Background="White"/>
+
+                <ListView SelectedIndex="0" 
+                          x:Name="ListViewMenu" 
+                          Grid.Column="1" 
+                          Foreground="White" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          SelectionChanged="ListViewMenu_SelectionChanged">
+                    <ListViewItem x:Name="itemMedical" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Doctor"  Height="25" Width="25" Margin="5 10"/>
+                            <TextBlock Text="Danh sách khám bệnh" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="itemPKB"
+                                  Height="60"
+                                  Uid="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileDocumentOutline"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Quản lý phiếu khám bệnh"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="itemPatient" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Height="25" Width="25" Margin="5 10"/>
+                            <TextBlock Text="Quản lý bệnh nhân" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="itemMedicine" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Medicine" Height="25" Width="25" Margin="5 10"/>
+                            <TextBlock Text="Quản lý thuốc" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+                    </ListViewItem>                    
+                    <ListViewItem x:Name="itemUnit"
+                                  Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Tools"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Các thiết lập khác"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="itemMedicineReport"
+                                  Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Báo cáo sử dụng thuốc"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="itemReport"
+                                  Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="MoneyUsd"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Doanh thu"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </Grid>
+
+            <Button x:Name="btnSetting" 
+                    Grid.Row="2" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Left" 
+                    Width="50" Height="50" 
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}" 
+                    ToolTip="Cài đặt"
+                    Click="btnSetting_Click">
+                <materialDesign:PackIcon Kind="Settings"/>
+            </Button>
+
+        </Grid>
+
+    </Grid>
+</Window>
