@@ -59,7 +59,7 @@
             </Grid.RowDefinitions>
 
             <Grid x:Name="grdControl" Height="auto" Grid.Row="0">
-                <uc:ucControlBar x:Name="ucControlBar"></uc:ucControlBar>
+                <uc:ucControlBar x:Name="ucControlBar" Loaded="ucControlBar_Loaded"></uc:ucControlBar>
             </Grid>
 
             <Grid x:Name="grdUserControl" Grid.Row="1">

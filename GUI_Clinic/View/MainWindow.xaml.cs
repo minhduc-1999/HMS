@@ -128,5 +128,10 @@ namespace GUI_Clinic.View
             wdThietLap wdThietLap = new wdThietLap();
             wdThietLap.ShowDialog();
         }
+
+        private void ucControlBar_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

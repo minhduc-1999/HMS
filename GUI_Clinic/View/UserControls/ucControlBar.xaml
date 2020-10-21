@@ -9,7 +9,7 @@
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
              MouseDoubleClick="btnMaximize_Click">
     <Grid Background="Transparent">
-        <TextBlock x:Name="tblWindowName" Text="Quản lý phòng mạch tư" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Foreground="#0078D7"/>
+        <TextBlock x:Name="tblWindowName" Text="Quản lý bệnh viện" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Foreground="#0078D7"/>
         <Button x:Name="btnShutdown"
                 Grid.Row="0"
                 VerticalAlignment="Center" 
