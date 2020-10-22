@@ -53,6 +53,7 @@
                                            HorizontalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="1">
+                                <local:ucCTPhieuKhamChuyenKhoa x:Name="ucCTPKCK" Grid.ColumnSpan="2"></local:ucCTPhieuKhamChuyenKhoa>
                                 <local:ucCTPhieuKhamBenh x:Name="ucCTPKB" Grid.ColumnSpan="2"></local:ucCTPhieuKhamBenh>
                             </Grid>
                         </Grid>
