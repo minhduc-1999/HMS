@@ -1,0 +1,97 @@
+﻿<Window x:Class="GUI_Clinic.View.Windows.wdDangNhap"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Clinic.View.Windows"
+        xmlns:uc="clr-namespace:GUI_Clinic.View.UserControls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowState="Normal"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        BorderBrush="#0078D7"
+        mc:Ignorable="d"
+        Title="wdDangNhap" Height="400" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <uc:ucControlBar/>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+              Background="#0078D7">
+                <materialDesign:PackIcon Kind="LocalHospital"
+                                         Width="170"
+                                         Height="160"
+                                         Foreground="White"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <Grid Width="200" 
+                      VerticalAlignment="Center" 
+                      HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <TextBlock Margin="0 0 0 20"
+                               Foreground="#0078D7"
+                               Text="Đăng Nhập"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="20"
+                               FontFamily="Arial Rounded MT Bold"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <TextBox Margin="0 10"
+                             materialDesign:HintAssist.Hint="Tên đăng nhập"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <PasswordBox Margin="0 10"
+                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                                 materialDesign:HintAssist.Background="#0078D7"
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Button Margin="0 10"
+                            Content="Đăng nhập"
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                            Width="110"
+                            Background="#0078D7"
+                            BorderBrush="#0078D7"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
