@@ -33,7 +33,7 @@ namespace GUI_Clinic.View.UserControls
             ucCTPKB.PKBAdded += UcCTPKB_PKBAdded;
             InitData();
             InitCommand();
-            grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
+            //grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
 
         private void UcCTPKB_PKBAdded(object sender, EventArgs e)
