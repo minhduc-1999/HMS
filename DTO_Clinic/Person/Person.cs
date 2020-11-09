@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DTO_Clinic
+namespace DTO_Clinic.Person
 {
-    public class DTO_BenhNhan : BaseModel
+    public class Person : BaseModel
     {
-        public string Id { get; set; }
-        public string TenBenhNhan
+        public Person()
         {
-            get => _tenBenhNhan;
+            IsDeleted = false;
+        }
+        private string _hoTen;
+        private DateTime _ngaySinh;
+        private bool _gioiTinh;
+        private string _diaChi;
+        private string _SDT;
+        private string _cmnd;
+        private string _email;
+        private bool _isDeleted;
+        public string Id { get; set; }
+
+        public string HoTen
+        {
+            get => _hoTen;
             set
             {
-                _tenBenhNhan = value;
+                _hoTen = value;
                 OnPropertyChanged();
             }
         }
@@ -51,32 +67,25 @@ namespace DTO_Clinic
                 OnPropertyChanged();
             }
         }
-        public virtual ICollection<DTO_PhieuKhamBenh> DSPhieuKhamBenh { get; set; }
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
 
-        private string _tenBenhNhan;
-        private DateTime _ngaySinh;
-        private bool _gioiTinh;
-        private string _diaChi;
-        private string _SDT;
-        private bool _isDeleted;
-
-        public DTO_BenhNhan()
+        public string Cmnd
         {
-            _isDeleted = false;
+            get => _cmnd;
+            set
+            {
+                _cmnd = value;
+                OnPropertyChanged();
+            }
         }
-        public DTO_BenhNhan(string name, bool gt, DateTime ngSinh, string diachi, string sdt)
+        public string Email
         {
-            TenBenhNhan = name;
-            GioiTinh = gt;
-            NgaySinh = Convert.ToDateTime(ngSinh.ToString("d"));
-            DiaChi = diachi;
-            SoDienThoai = sdt;
-            _isDeleted = false;
-        }
-        public override string ToString()
-        {
-            return Id + " - " + TenBenhNhan;
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

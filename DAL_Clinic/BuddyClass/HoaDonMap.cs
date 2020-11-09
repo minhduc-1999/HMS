@@ -1,4 +1,5 @@
 ﻿using DTO_Clinic;
+using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -15,9 +16,8 @@ namespace DAL_Clinic.BuddyClass
             ToTable("HOADON");
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("MaPKB");
-            Property(p => p.TienKham).IsRequired();
-            Property(p => p.TienThuoc).IsRequired();
             Property(p => p.ThanhTien).IsRequired();
+            Property(p => p.ChiTiet).IsRequired();
         }
     }
 }

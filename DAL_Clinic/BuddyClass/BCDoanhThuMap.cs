@@ -1,10 +1,5 @@
-﻿using DTO_Clinic;
-using System;
-using System.Collections.Generic;
+﻿using DTO_Clinic.Form;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL_Clinic.BuddyClass
 {
@@ -13,6 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public BCDoanhThuMap()
         {
             ToTable("BC_DOANHTHU");
+            Ignore(o => o.Id);
             HasKey(o => new { o.Thang, o.Nam });
             Property(p => p.TongDoanhThu).IsRequired();
         }

@@ -1,10 +1,5 @@
-﻿using DTO_Clinic;
-using System;
-using System.Collections.Generic;
+﻿using DTO_Clinic.Form;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL_Clinic.BuddyClass
 {
@@ -22,6 +17,7 @@ namespace DAL_Clinic.BuddyClass
             Property(p => p.SoBenhNhan).IsRequired();
             Property(p => p.DoanhThu).IsRequired();
             Property(p => p.TyLe).IsRequired();
+            Ignore(p => p.Id);
         }
     }
 }

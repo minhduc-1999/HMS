@@ -42,20 +42,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
-    <Compile Include="DTO_BCDoanhThu.cs" />
-    <Compile Include="DTO_BCSudungThuoc.cs" />
-    <Compile Include="DTO_Benh.cs" />
-    <Compile Include="DTO_BenhNhan.cs" />
-    <Compile Include="DTO_CachDung.cs" />
-    <Compile Include="DTO_CTBaoCaoDoanhThu.cs" />
-    <Compile Include="DTO_CTPhieuKhamBenh.cs" />
-    <Compile Include="DTO_CTPhieuNhapThuoc.cs" />
-    <Compile Include="DTO_DonVi.cs" />
-    <Compile Include="DTO_HoaDon.cs" />
-    <Compile Include="DTO_PhieuKhamBenh.cs" />
-    <Compile Include="DTO_PhieuNhapThuoc.cs" />
-    <Compile Include="DTO_ThamSo.cs" />
-    <Compile Include="DTO_Thuoc.cs" />
+    <Compile Include="Component\DTO_DonVi.cs" />
+    <Compile Include="Component\DTO_Thuoc.cs" />
+    <Compile Include="Form\DTO_BCDoanhThu.cs" />
+    <Compile Include="Form\DTO_BCSudungThuoc.cs" />
+    <Compile Include="Component\DTO_Benh.cs" />
+    <Compile Include="Component\DTO_CachDung.cs" />
+    <Compile Include="Form\DTO_CTBaoCaoDoanhThu.cs" />
+    <Compile Include="Form\DTO_CTPhieuNhapThuoc.cs" />
+    <Compile Include="Form\DTO_PhieuNhapThuoc.cs" />
+    <Compile Include="Component\DTO_Phong.cs" />
+    <Compile Include="Component\DTO_ThamSo.cs" />
+    <Compile Include="Form\DTO_CTDonThuoc.cs" />
+    <Compile Include="Form\DTO_DonThuoc.cs" />
+    <Compile Include="Form\DTO_HoaDon.cs" />
+    <Compile Include="Form\DTO_PKChuyenKhoa.cs" />
+    <Compile Include="Form\DTO_PKDaKhoa.cs" />
+    <Compile Include="Form\PhieuKhamBenh.cs" />
+    <Compile Include="Person\DTO_BenhNhan.cs" />
+    <Compile Include="Person\DTO_NhanVien.cs" />
+    <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

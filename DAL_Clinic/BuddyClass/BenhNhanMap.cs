@@ -1,10 +1,5 @@
-﻿using DTO_Clinic;
-using System;
-using System.Collections.Generic;
+﻿using DTO_Clinic.Person;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL_Clinic.BuddyClass
 {
@@ -15,11 +10,14 @@ namespace DAL_Clinic.BuddyClass
             ToTable("BENHNHAN");
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("MaBenhNhan");
-            Property(p => p.TenBenhNhan).HasMaxLength(50);
-            Property(p => p.TenBenhNhan).IsRequired();
+            Property(p => p.HoTen).HasMaxLength(50);
+            Property(p => p.HoTen).IsRequired();
+            Property(p => p.Cmnd).IsRequired();
+            Property(p => p.Cmnd).HasColumnName("SoCMND");
             Property(p => p.NgaySinh).IsRequired();
             Property(p => p.DiaChi).IsOptional();
             Property(p => p.SoDienThoai).IsRequired();
+            Property(p => p.Email).IsOptional();
         }
     }
 }

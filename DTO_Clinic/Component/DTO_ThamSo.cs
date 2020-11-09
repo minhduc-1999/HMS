@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO_Clinic
 {
-    public class DTO_ThamSo:BaseModel
+    public class DTO_ThamSo : BaseModel
     {
         private string _tenThamSo;
         private int _giaTri;

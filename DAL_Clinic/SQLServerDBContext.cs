@@ -1,12 +1,9 @@
 ﻿using DAL_Clinic.BuddyClass;
-using DAL_Clinic.Initializer;
 using DTO_Clinic;
-using System;
-using System.Collections.Generic;
+using DTO_Clinic.Component;
+using DTO_Clinic.Form;
+using DTO_Clinic.Person;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL_Clinic
 {
@@ -50,11 +47,12 @@ namespace DAL_Clinic
             modelBuilder.Configurations.Add(new HoaDonMap());
         }
         public DbSet<DTO_BenhNhan> BenhNhan { get; set; }
-        public DbSet<DTO_PhieuKhamBenh> PhieuKhamBenh { get; set; }
+        public DbSet<DTO_PKDaKhoa> PKDaKhoa { get; set; }
+        public DbSet<DTO_PKDaKhoa> PKChuyenKhoa { get; set; }
         public DbSet<DTO_Benh> Benh { get; set; }
         public DbSet<DTO_CachDung> CachDung { get; set; }
         public DbSet<DTO_DonVi> DonVi { get; set; }
-        public DbSet<DTO_CTPhieuKhamBenh> CTPhieuKhamBenh { get; set; }
+        public DbSet<DTO_DonThuoc> DonThuoc { get; set; }
         public DbSet<DTO_HoaDon> HoaDon { get; set; }
         public DbSet<DTO_PhieuNhapThuoc> PhieuNhapThuoc { get; set; }
         public DbSet<DTO_CTPhieuNhapThuoc> CTPhieuNhapThuoc { get; set; }
@@ -63,5 +61,8 @@ namespace DAL_Clinic
         public DbSet<DTO_CTBaoCaoDoanhThu> CT_BaoCaoDoanhThu { get; set; }
         public DbSet<DTO_BCSudungThuoc> BaoCaoSuDungThuoc { get; set; }
         public DbSet<DTO_ThamSo> ThamSo { get; set; }
+        public DbSet<DTO_NhanVien> NhanVien { get; set; }
+        public DbSet<DTO_Phong> Phong { get; set; }
+
     }
 }

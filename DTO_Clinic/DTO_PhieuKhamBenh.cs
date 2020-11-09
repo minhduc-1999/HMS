@@ -12,8 +12,8 @@ namespace DTO_Clinic
         private DateTime _ngayKham;
         private string _trieuChung;
         private bool _isDeleted;
-        public string TrieuChung { get => _trieuChung; set { _trieuChung = value; OnPropertyChanged(); }  }
-        public DateTime NgayKham { get => _ngayKham; set { _ngayKham = value; OnPropertyChanged(); }  }
+        public string TrieuChung { get => _trieuChung; set { _trieuChung = value; OnPropertyChanged(); } }
+        public DateTime NgayKham { get => _ngayKham; set { _ngayKham = value; OnPropertyChanged(); } }
         public string MaBenhNhan { get; set; }
         public string MaBenh { get; set; }
         public virtual DTO_HoaDon HoaDon { get; set; }
@@ -21,7 +21,7 @@ namespace DTO_Clinic
         public virtual DTO_BenhNhan BenhNhan { get; set; }
         public virtual ICollection<DTO_CTPhieuKhamBenh> DSCTPhieuKhamBenh { get; set; }
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
-        
+
         public DTO_PhieuKhamBenh()
         {
             IsDeleted = false;
