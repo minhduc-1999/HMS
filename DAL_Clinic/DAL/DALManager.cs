@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL_Clinic.DAL
+﻿namespace DAL_Clinic.DAL
 {
     public static class DALManager
     {
         private static DAL_BenhNhan _benhNhanDAL;
-        private static DAL_PhieuKhamBenh _phieuKhamBenhDAL;
-        private static DAL_CTPhieuKhamBenh _cTPhieuKhamBenhDAL;
         private static DAL_DonVi _donViDAL;
         private static DAL_CachDung _cachDungDAL;
         private static DAL_Benh _benhDAL;
@@ -30,26 +22,6 @@ namespace DAL_Clinic.DAL
                 if (_benhNhanDAL == null)
                     _benhNhanDAL = new DAL_BenhNhan();
                 return _benhNhanDAL;
-            }
-        }
-
-        public static DAL_PhieuKhamBenh PhieuKhamBenhDAL
-        {
-            get
-            {
-                if (_phieuKhamBenhDAL == null)
-                    _phieuKhamBenhDAL = new DAL_PhieuKhamBenh();
-                return _phieuKhamBenhDAL;
-            }
-        }
-
-        public static DAL_CTPhieuKhamBenh CTPhieuKhamBenhDAL
-        {
-            get
-            {
-                if (_cTPhieuKhamBenhDAL == null)
-                    _cTPhieuKhamBenhDAL = new DAL_CTPhieuKhamBenh();
-                return _cTPhieuKhamBenhDAL;
             }
         }
 

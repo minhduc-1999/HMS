@@ -19,8 +19,6 @@ namespace DTO_Clinic.Person
         private string _SDT;
         private string _cmnd;
         private string _email;
-        private bool _isDeleted;
-        public string Id { get; set; }
 
         public string HoTen
         {
@@ -67,7 +65,6 @@ namespace DTO_Clinic.Person
                 OnPropertyChanged();
             }
         }
-        public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
 
         public string Cmnd
         {

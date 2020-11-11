@@ -1,5 +1,6 @@
 ﻿using DTO_Clinic.Component;
 using DTO_Clinic.Person;
+using System.Collections.Generic;
 
 namespace DTO_Clinic.Form
 {
@@ -14,6 +15,8 @@ namespace DTO_Clinic.Form
         public virtual DTO_Benh Benh { get; set; }
         public virtual DTO_BenhNhan BenhNhan { get; set; }
         public virtual DTO_DonThuoc DonThuoc { get; set; }
+        public virtual ICollection<DTO_PKChuyenKhoa> DS_PKChuyenKhoa { get; set; }
+
 
         public DTO_PKDaKhoa() : base() { }
     }

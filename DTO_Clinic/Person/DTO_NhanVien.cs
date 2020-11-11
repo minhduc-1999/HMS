@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DTO_Clinic.Component;
 
 namespace DTO_Clinic.Person
 {
@@ -11,7 +7,7 @@ namespace DTO_Clinic.Person
         public enum ChucNang { BSDK, BSCK, DUOCSI, THUTUC };
         public virtual DTO_Phong Phong { get; set; }
         public int ChucVu { get => _chucVu; set => _chucVu = value; }
-
+        public string MaPhong { get; set; }
         private int _chucVu;
     }
 }

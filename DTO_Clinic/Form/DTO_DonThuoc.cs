@@ -8,7 +8,7 @@ namespace DTO_Clinic.Form
         {
 
         }
-        public string ID_PKDaKhoa { get; set; }
+        public string MaPKDK { get; set; }
         public DTO_PKDaKhoa PKDaKhoa { get; set; }
         public virtual ICollection<DTO_CTDonThuoc> DS_CTDonThuoc { get; set; }
     }

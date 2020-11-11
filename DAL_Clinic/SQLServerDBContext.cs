@@ -32,8 +32,10 @@ namespace DAL_Clinic
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new BenhNhanMap());
-            modelBuilder.Configurations.Add(new PhieuKhamBenhMap());
-            modelBuilder.Configurations.Add(new CT_PhieuKhamBenhMap());
+            modelBuilder.Configurations.Add(new PKDaKhoaMap());
+            modelBuilder.Configurations.Add(new PKChuyenKhoaMap());
+            modelBuilder.Configurations.Add(new NhanVienMap());
+            modelBuilder.Configurations.Add(new PhongMap());
             modelBuilder.Configurations.Add(new ThuocMap());
             modelBuilder.Configurations.Add(new BenhMap());
             modelBuilder.Configurations.Add(new CachDungMap());
@@ -45,10 +47,12 @@ namespace DAL_Clinic
             modelBuilder.Configurations.Add(new BCSuDungThuocMap());
             modelBuilder.Configurations.Add(new ThamSoMap());
             modelBuilder.Configurations.Add(new HoaDonMap());
+            modelBuilder.Configurations.Add(new CT_DonThuocMap());
+            modelBuilder.Configurations.Add(new DonThuocMap());
         }
         public DbSet<DTO_BenhNhan> BenhNhan { get; set; }
         public DbSet<DTO_PKDaKhoa> PKDaKhoa { get; set; }
-        public DbSet<DTO_PKDaKhoa> PKChuyenKhoa { get; set; }
+        public DbSet<DTO_PKChuyenKhoa> PKChuyenKhoa { get; set; }
         public DbSet<DTO_Benh> Benh { get; set; }
         public DbSet<DTO_CachDung> CachDung { get; set; }
         public DbSet<DTO_DonVi> DonVi { get; set; }
@@ -63,6 +67,8 @@ namespace DAL_Clinic
         public DbSet<DTO_ThamSo> ThamSo { get; set; }
         public DbSet<DTO_NhanVien> NhanVien { get; set; }
         public DbSet<DTO_Phong> Phong { get; set; }
+        public DbSet<DTO_CTDonThuoc> CT_DonThuoc { get; set; }
+
 
     }
 }

@@ -7,6 +7,7 @@ namespace DTO_Clinic.Form
         public string MaCachDung { get; set; }
         public virtual DTO_Thuoc Thuoc { get; set; }
         public virtual DTO_CachDung CachDung { get; set; }
+        public virtual DTO_DonThuoc DonThuoc { get; set; }
         public string MaDonThuoc { get; set; }
         public double DonGia { get => _donGia; set { _donGia = value; OnPropertyChanged(); } }
         public int SoLuong { get => _soLuong; set { _soLuong = value; OnPropertyChanged(); } }

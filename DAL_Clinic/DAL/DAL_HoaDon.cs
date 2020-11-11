@@ -1,4 +1,5 @@
 ﻿using DTO_Clinic;
+using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,13 +19,7 @@ namespace DAL_Clinic.DAL
         public void AddHoaDon(DTO_HoaDon hd)
         {
             SQLServerDBContext.Instant.HoaDon.Local.Add(hd);
-        }
-
-        public void LoadNPPhieuKhamBenh(DTO_HoaDon hoaDon)
-        {
-            var entry = SQLServerDBContext.Instant.Entry(hoaDon);
-            entry.Reference(c => c.PhieuKhamBenh).Load();
-        }
+        }     
 
         public ObservableCollection<DTO_HoaDon> GetListHoaDon()
         {

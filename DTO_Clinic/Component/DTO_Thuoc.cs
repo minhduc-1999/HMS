@@ -25,8 +25,10 @@ namespace DTO_Clinic.Component
             return TenThuoc;
         }
         public virtual DTO_DonVi DonVi { get; set; }
-        public virtual ICollection<DTO_CTPhieuNhapThuoc> DS_CTPhieuNhapThuoc { get; set; }
+        public virtual ICollection<DTO_CTDonThuoc> DS_CTDonThuoc { get; set; }
         public virtual ICollection<DTO_BCSudungThuoc> DS_BCSuDungThuoc { get; set; }
+        public virtual ICollection<DTO_CTPhieuNhapThuoc> DS_CTPhieuNhapThuoc { get; set; }
+
     }
 }
 
