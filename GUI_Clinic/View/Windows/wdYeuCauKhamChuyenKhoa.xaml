@@ -1,0 +1,90 @@
+﻿<Window x:Class="GUI_Clinic.View.Windows.wdYeuCauKhamChuyenKhoa"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Clinic.View.Windows"
+        mc:Ignorable="d"
+        xmlns:uc="clr-namespace:GUI_Clinic.View.UserControls"
+        xmlns:cvt="clr-namespace:GUI_Clinic.Converter"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowState="Normal"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        BorderBrush="#0078D7"
+        BorderThickness="2"
+        Title="wdYeuCauKhamChuyenKhoa" 
+        Height="290" 
+        Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <uc:ucControlBar Grid.Row="0"/>
+
+        <Grid Grid.Row="1"
+                      Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                               Text="Nhập yêu cầu khám chuyên khoa:"
+                               FontSize="20">
+            </TextBlock>
+            <Grid Grid.Row="1">
+                <TextBox BorderBrush="#0078D7"
+                                 x:Name="tbxYeuCauKhamChuyenKhoa"
+                                 BorderThickness="2"
+                                 Margin="0 5 5 0"
+                                 FontSize="16"
+                                 Height="130"
+                                 TextWrapping="Wrap"
+                                 Width="470"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left">
+                </TextBox>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Button x:Name="btnGuiYeuCau"
+                        Command="{Binding }"
+                        Content="Gửi yêu cầu"
+                        Width="110"
+                        Margin="5 5 5 10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Background="#0078D7"
+                        BorderBrush="#0078D7"></Button>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Button x:Name="btnHuy"
+                        Content="Hủy"
+                        Width="110"
+                        Margin="5 5 5 10"
+                        VerticalAlignment="Center"
+                        Background="#0078D7"
+                        BorderBrush="#0078D7"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

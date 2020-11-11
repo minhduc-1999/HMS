@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="GUI_Clinic.View.UserControls.ucDanhSachDonThuoc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:GUI_Clinic.View.UserControls"
+             xmlns:cvt="clr-namespace:GUI_Clinic.Converter"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <cvt:IndexConverter x:Key="IndexConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <!--Tieu de UC-->
+        <Grid Grid.Row="0">
+            <TextBlock x:Name="tblTieuDe"
+                       Margin="20 10"
+                       HorizontalAlignment="Left"
+                       Text="Danh sách đơn thuốc"
+                       VerticalAlignment="Center"
+                       FontSize="35"
+                       FontWeight="Bold"
+                       Foreground="#0078D7" />
+        </Grid>
+        <!--Cac element binding tu selected item-->
+        <Grid x:Name="grdPhieuKhamBenh" Grid.Row="1">
+            <Grid>
+                <materialDesign:Card Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <TextBlock x:Name="tblPhieuKhamBenh"
+                                        Grid.Row="0"
+                                        Text="Chi tiết đơn thuốc"
+                                        Foreground="Gray"
+                                        FontWeight="Bold"
+                                        FontSize="25"
+                                        Margin="10 12 10 8"
+                                        HorizontalAlignment="Left" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="grdNhapThuoc" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <ComboBox x:Name="cbxThuoc"
+                                Margin="10"
+                                ItemsSource="{Binding ListThuoc}"
+                                materialDesign:HintAssist.Hint="Thuốc"
+                                IsEditable="True"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TenThuoc}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBox x:Name="tbxSoLuong"
+                                                Margin="10"
+                                                materialDesign:HintAssist.Hint="Số lượng"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                                DataObject.Pasting="tbxSoLuong_Pasting"
+                                                PreviewTextInput="tbxSoLuong_PreviewTextInput">
+                                        <TextBox.Text>
+                                            <Binding Path="SoLuong" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <cvt:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <ComboBox x:Name="cbxCachDung"
+                                Margin="10"
+                                ItemsSource="{Binding ListCachDung}"
+                                materialDesign:HintAssist.Hint="Cách dùng"
+                                IsEditable="True"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TenCachDung}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <Button x:Name="btnThemThuoc"
+                            Command="{Binding ThemThuocCommand}"
+                            Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                            ToolTip="Thêm thuốc"
+                            Background="#0078D7"
+                            BorderBrush="#0078D7"
+                            HorizontalAlignment="Right"
+                            Margin="10"
+                            Height="30"
+                            Width="30">
+                                        <materialDesign:PackIcon Kind="Plus"
+                                                    Height="24"
+                                                    Width="24" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <GroupBox Header="Đơn thuốc"
+                                            Margin="5 10 10 10">
+                                    <Grid>
+                                        <ListView x:Name="lvThuoc"
+                                    ScrollViewer.CanContentScroll="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                                                    <GridViewColumn Header="Mã thuốc"
+                                                        DisplayMemberBinding="{Binding MaThuoc}"></GridViewColumn>
+                                                    <GridViewColumn Header="Tên thuốc"
+                                                        DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
+                                                    <GridViewColumn Header="Số lượng"
+                                                        DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
+                                                    <GridViewColumn Header="Đơn vị"
+                                                        DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                                                    <GridViewColumn Header="Cách dùng"
+                                                        DisplayMemberBinding="{Binding CachDung}"></GridViewColumn>
+                                                    <GridViewColumn Header="" Width="40">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button x:Name="btnXoa"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                                                        ToolTip="Xóa"
+                                                        Background="#0078D7"
+                                                        BorderBrush="#0078D7"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Click="RemoveCategory">
+                                                                    <materialDesign:PackIcon Kind="Minus"
+                                                                                Height="15" Width="15" />
+                                                                </Button>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <materialDesign:Card Margin="10 5 10 10"
+                                 VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <DatePicker x:Name="dpkNgayKham"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Width="100"
+                                        Margin="10"
+                                        materialDesign:HintAssist.Hint="Ngày khám"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDateChanged="dpkNgayKham_SelectedDateChanged" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                        </Grid>
+                        <Grid Grid.Column="2">
+                        </Grid>
+                        <Grid Grid.Column="3">
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <GroupBox Header="Danh sách đơn thuốc"
+                                  Margin="0">
+                            <Grid>
+                                <ListView x:Name="lvDSPKB"
+                                          ScrollViewer.CanContentScroll="True"                                          
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          MouseDoubleClick="lvDSPKB_MouseDoubleClick">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                                            <GridViewColumn Header="Mã PKB"
+                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                            <GridViewColumn Header="Ngày khám"
+                                                                DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
+                                            <GridViewColumn Header="Triệu chứng"
+                                                                DisplayMemberBinding="{Binding TrieuChung}"></GridViewColumn>
+                                            <GridViewColumn Header="Chẩn đoán"
+                                                            DisplayMemberBinding="{Binding Benh.TenBenh}"></GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</UserControl>

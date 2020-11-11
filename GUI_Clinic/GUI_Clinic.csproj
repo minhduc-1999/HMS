@@ -103,8 +103,14 @@
     <Compile Include="View\UserControls\ucCTPhieuKhamChuyenKhoa.xaml.cs">
       <DependentUpon>ucCTPhieuKhamChuyenKhoa.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\ucDanhSachDonThuoc.xaml.cs">
+      <DependentUpon>ucDanhSachDonThuoc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\ucDanhSachKhamBenh.xaml.cs">
       <DependentUpon>ucDanhSachKhamBenh.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ucDanhSachKhamChuyenKhoa.xaml.cs">
+      <DependentUpon>ucDanhSachKhamChuyenKhoa.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\ucDanhSachPhieuKhamBenh.xaml.cs">
       <DependentUpon>ucDanhSachPhieuKhamBenh.xaml</DependentUpon>
@@ -144,6 +150,9 @@
     </Compile>
     <Compile Include="View\Windows\wdThongTinThuoc.xaml.cs">
       <DependentUpon>wdThongTinThuoc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\wdYeuCauKhamChuyenKhoa.xaml.cs">
+      <DependentUpon>wdYeuCauKhamChuyenKhoa.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +224,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\ucDanhSachDonThuoc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\ucDanhSachKhamBenh.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ucDanhSachKhamChuyenKhoa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -268,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\wdThongTinThuoc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\wdYeuCauKhamChuyenKhoa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -234,13 +234,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Button x:Name="btnInPhieu"
-                        Command="{Binding InPhieuKhamCommand}"
-                        Content="In phiếu"
-                        Width="110"
+                <Button x:Name="btnKhamChuyenKhoa"
+                        Command="{Binding }"
+                        Content="Khám chuyên khoa"
+                        Width="155"
                         Margin="5 5 5 10"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
@@ -248,20 +249,30 @@
                         BorderBrush="#0078D7"></Button>
             </Grid>
             <Grid Grid.Column="1">
-                <Button x:Name="btnXemPKCK"
-                        IsEnabled="False"
-                        Content="Xem PKCK"
-                        Width="110"
+                <Button x:Name="btnInPhieu"
+                        Command="{Binding }"
+                        Content="In phiếu"
+                        Width="155"
                         Margin="5 5 5 10"
                         VerticalAlignment="Center"
                         Background="#0078D7"
                         BorderBrush="#0078D7"></Button>
             </Grid>
             <Grid Grid.Column="2">
+                <Button x:Name="btnXemPKCK"
+                        IsEnabled="False"
+                        Content="Xem PKCK"
+                        Width="155"
+                        Margin="5 5 5 10"
+                        VerticalAlignment="Center"
+                        Background="#0078D7"
+                        BorderBrush="#0078D7"></Button>
+            </Grid>
+            <Grid Grid.Column="3">
                 <Button x:Name="btnThanhToan"
                         Command="{Binding ThanhToanPhieuKhamCommand}"
                         Content="Thanh Toán"
-                        Width="110"
+                        Width="155"
                         Margin="5 5 5 10"
                         VerticalAlignment="Center"
                         Background="#0078D7"
