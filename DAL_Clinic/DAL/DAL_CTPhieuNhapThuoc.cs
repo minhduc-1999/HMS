@@ -22,7 +22,7 @@ namespace DAL_Clinic.DAL
         }
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.CTPhieuNhapThuoc.Load();
+            //SQLServerDBContext.Instant.CTPhieuNhapThuoc.Load();
         }
         public ObservableCollection<DTO_CTPhieuNhapThuoc> GetListCTPNT()
         {

@@ -1,5 +1,8 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
+using DTO_Clinic.Form;
+using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using GUI_Clinic.View.Windows;
@@ -39,8 +42,8 @@ namespace GUI_Clinic.View.UserControls
         #region Property
         public int SoLuong { get; set; }
         private DTO_BenhNhan benhNhan = new DTO_BenhNhan();
-        private DTO_PhieuKhamBenh phieuKhamBenh = new DTO_PhieuKhamBenh();
-        public ObservableCollection<DTO_CTPhieuKhamBenh> ListCTPKB { get; set; }
+        private DTO_PKDaKhoa phieuKhamBenh = new DTO_PKDaKhoa();
+        public ObservableCollection<DTO_PKDaKhoa> ListCTPKB { get; set; }
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_CachDung> ListCachDung { get; set; }
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
@@ -66,15 +69,15 @@ namespace GUI_Clinic.View.UserControls
             btnThanhToan.Content = "Thanh toán";
 
             benhNhan = bn;
-            tblTenBenhNhan.Text = bn.TenBenhNhan;
+            tblTenBenhNhan.Text = bn.HoTen;
             tblMaBenhNhan.Text = bn.Id;
             tblNgayKham.Text = DateTime.Now.ToString();
             lvThuoc.ItemsSource = ListCTPKB;
 
-            phieuKhamBenh = new DTO_PhieuKhamBenh(benhNhan.Id, DateTime.Now, null, null);
+            phieuKhamBenh = new DTO_PKDaKhoa();
         }
 
-        public void GetPKB(DTO_PhieuKhamBenh pkb)
+        public void GetPKB(DTO_PKDaKhoa pkb)
         {
             ResetPKB();
             IsSave = true;
@@ -83,17 +86,17 @@ namespace GUI_Clinic.View.UserControls
             BUSManager.PhieuKhamBenhBUS.LoadNPBenh(pkb);
             BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(pkb);
             BUSManager.PhieuKhamBenhBUS.LoadNPDSCTPhieuKhamBenh(pkb);
-            foreach (DTO_CTPhieuKhamBenh item in pkb.DSCTPhieuKhamBenh)
-            {
-                BUSManager.CTPhieuKhamBenhBUS.LoadNPThuoc(item);
-                BUSManager.ThuocBUS.LoadNPDonVi(item.Thuoc);
-                BUSManager.CTPhieuKhamBenhBUS.LoadNPCachDung(item);
-            }
+            //foreach (DTO_CTPhieuKhamBenh item in pkb.DSCTPhieuKhamBenh)
+            //{
+            //    BUSManager.CTPhieuKhamBenhBUS.LoadNPThuoc(item);
+            //    BUSManager.ThuocBUS.LoadNPDonVi(item.Thuoc);
+            //    BUSManager.CTPhieuKhamBenhBUS.LoadNPCachDung(item);
+            //}
             benhNhan = pkb.BenhNhan;
-            tblTenBenhNhan.Text = benhNhan.TenBenhNhan;
+            tblTenBenhNhan.Text = benhNhan.HoTen;
             tblMaBenhNhan.Text = benhNhan.Id;
             tblNgayKham.Text = pkb.NgayKham.ToString();
-            lvThuoc.ItemsSource = pkb.DSCTPhieuKhamBenh;
+            //lvThuoc.ItemsSource = pkb.DSCTPhieuKhamBenh;
             tbxTrieuChung.Text = pkb.TrieuChung;
             cbxChanDoan.Text = pkb.Benh.TenBenh;
 
@@ -107,7 +110,7 @@ namespace GUI_Clinic.View.UserControls
             ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
             ListCachDung = BUSManager.CachDungBUS.GetListCD();
             ListBenh = BUSManager.BenhBUS.GetListBenh();
-            ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
+           // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
             lvThuoc.ItemsSource = ListCTPKB;
         }
         public void InitCommmand()
@@ -123,36 +126,36 @@ namespace GUI_Clinic.View.UserControls
             }, (p) =>
             {
                 DTO_Thuoc newThuoc = cbxThuoc.SelectedItem as DTO_Thuoc;
-                if (BUSManager.ThuocBUS.CheckIfSoLuongThuocDu(newThuoc, SoLuong))
-                {
-                    DTO_CTPhieuKhamBenh cTPhieuKhamBenh = new DTO_CTPhieuKhamBenh(phieuKhamBenh.Id, newThuoc.Id, (cbxCachDung.SelectedItem as DTO_CachDung).Id, SoLuong, newThuoc.DonGia);
-                    BUSManager.ThuocBUS.LoadNPDonVi(newThuoc);
-                    cTPhieuKhamBenh.Thuoc = newThuoc;
-                    cTPhieuKhamBenh.CachDung = cbxCachDung.SelectedItem as DTO_CachDung;
+                //if (BUSManager.ThuocBUS.CheckIfSoLuongThuocDu(newThuoc, SoLuong))
+                //{
+                //    DTO_CTPhieuKhamBenh cTPhieuKhamBenh = new DTO_CTPhieuKhamBenh(phieuKhamBenh.Id, newThuoc.Id, (cbxCachDung.SelectedItem as DTO_CachDung).Id, SoLuong, newThuoc.DonGia);
+                //    BUSManager.ThuocBUS.LoadNPDonVi(newThuoc);
+                //    cTPhieuKhamBenh.Thuoc = newThuoc;
+                //    cTPhieuKhamBenh.CachDung = cbxCachDung.SelectedItem as DTO_CachDung;
 
-                    bool flag = true;
-                    foreach (DTO_CTPhieuKhamBenh item in ListCTPKB)
-                    {
-                        if (item.Thuoc.Id == cTPhieuKhamBenh.Thuoc.Id)
-                        {
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if (flag)
-                    {
-                        ListCTPKB.Add(cTPhieuKhamBenh);
-                    }
-                    else
-                    {
-                        MsgBox.Show("Thuốc đã có trong danh sách", MessageType.Error, MessageButtons.Ok);
-                    }
-                    ResetThuocInput();
-                }
-                else
-                {
-                    MsgBox.Show("Số lượng thuốc còn lại trong kho không đủ");
-                }
+                //    bool flag = true;
+                //    foreach (DTO_CTPhieuKhamBenh item in ListCTPKB)
+                //    {
+                //        if (item.Thuoc.Id == cTPhieuKhamBenh.Thuoc.Id)
+                //        {
+                //            flag = false;
+                //            break;
+                //        }
+                //    }
+                //    if (flag)
+                //    {
+                //        ListCTPKB.Add(cTPhieuKhamBenh);
+                //    }
+                //    else
+                //    {
+                //        MsgBox.Show("Thuốc đã có trong danh sách", MessageType.Error, MessageButtons.Ok);
+                //    }
+                //    ResetThuocInput();
+                //}
+                //else
+                //{
+                //    MsgBox.Show("Số lượng thuốc còn lại trong kho không đủ");
+                //}
             });
 
             InPhieuKhamCommand = new RelayCommand<Window>((p) =>
@@ -165,8 +168,8 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                wdPhieuKhamBenh wDPhieuKhamBenh = new wdPhieuKhamBenh(phieuKhamBenh);
-                wDPhieuKhamBenh.ShowDialog();
+                //wdPhieuKhamBenh wDPhieuKhamBenh = new wdPhieuKhamBenh(phieuKhamBenh);
+                //wDPhieuKhamBenh.ShowDialog();
             });
 
             ThanhToanPhieuKhamCommand = new RelayCommand<Window>((p) =>
@@ -178,46 +181,46 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                if (IsSave == false)
-                {
-                    DTO_PhieuKhamBenh newPhieuKhamBenh = new DTO_PhieuKhamBenh(benhNhan.Id, DateTime.Now, (cbxChanDoan.SelectedItem as DTO_Benh).Id, tbxTrieuChung.Text);
-                    BUSManager.PhieuKhamBenhBUS.AddPhieuKhamBenh(newPhieuKhamBenh);
-                    foreach (DTO_CTPhieuKhamBenh item in ListCTPKB)
-                    {
-                        item.MaPKB = newPhieuKhamBenh.Id;
-                        BUSManager.ThuocBUS.SuDungThuoc(item.MaThuoc, item.SoLuong);
-                        DTO_BCSudungThuoc bCSudungThuoc = new DTO_BCSudungThuoc(item.MaThuoc, item.SoLuong, DateTime.Now);
-                        BUSManager.BCSuDungThuocBUS.AddBCSuDungThuoc(bCSudungThuoc);
-                        BUSManager.CTPhieuKhamBenhBUS.AddCTPhieuKhamBenh(item);
-                    }
-                    phieuKhamBenh = BUSManager.PhieuKhamBenhBUS.GetPhieuKhamBenh(newPhieuKhamBenh.Id);
-                    BUSManager.PhieuKhamBenhBUS.SaveChange();
-                    if (PKBAdded != null)
-                        PKBAdded(newPhieuKhamBenh, new EventArgs());
+                //if (IsSave == false)
+                //{
+                //    DTO_PKDaKhoa newPhieuKhamBenh = new DTO_PKDaKhoa(benhNhan.Id, DateTime.Now, (cbxChanDoan.SelectedItem as DTO_Benh).Id, tbxTrieuChung.Text);
+                //    BUSManager.PhieuKhamBenhBUS.AddPhieuKhamBenh(newPhieuKhamBenh);
+                //    foreach (DTO_CTPhieuKhamBenh item in ListCTPKB)
+                //    {
+                //        item.MaPKB = newPhieuKhamBenh.Id;
+                //        BUSManager.ThuocBUS.SuDungThuoc(item.MaThuoc, item.SoLuong);
+                //        DTO_BCSudungThuoc bCSudungThuoc = new DTO_BCSudungThuoc(item.MaThuoc, item.SoLuong, DateTime.Now);
+                //        BUSManager.BCSuDungThuocBUS.AddBCSuDungThuoc(bCSudungThuoc);
+                //        BUSManager.CTPhieuKhamBenhBUS.AddCTPhieuKhamBenh(item);
+                //    }
+                //    phieuKhamBenh = BUSManager.PhieuKhamBenhBUS.GetPhieuKhamBenh(newPhieuKhamBenh.Id);
+                //    BUSManager.PhieuKhamBenhBUS.SaveChange();
+                //    if (PKBAdded != null)
+                //        PKBAdded(newPhieuKhamBenh, new EventArgs());
 
-                    DTO_HoaDon newHoaDon = new DTO_HoaDon(newPhieuKhamBenh);
-                    BUSManager.HoaDonBUS.XuatHoaDon(newHoaDon, newPhieuKhamBenh);
-                    DisablePKB();
-                    wdHoaDon hoaDon = new wdHoaDon(newHoaDon);
-                    hoaDon.ShowDialog();
-                }
-                else
-                {
-                    wdHoaDon hoaDon = new wdHoaDon(BUSManager.HoaDonBUS.GetHoaDonById(phieuKhamBenh.Id));
-                    hoaDon.ShowDialog();
-                }
-                IsSave = true;
+                //    DTO_HoaDon newHoaDon = new DTO_HoaDon(newPhieuKhamBenh);
+                //    BUSManager.HoaDonBUS.XuatHoaDon(newHoaDon, newPhieuKhamBenh);
+                //    DisablePKB();
+                //    wdHoaDon hoaDon = new wdHoaDon(newHoaDon);
+                //    hoaDon.ShowDialog();
+                //}
+                //else
+                //{
+                //    wdHoaDon hoaDon = new wdHoaDon(BUSManager.HoaDonBUS.GetHoaDonById(phieuKhamBenh.Id));
+                //    hoaDon.ShowDialog();
+                //}
+                //IsSave = true;
             });
         }
 
         private void RemoveCategory(object sender, RoutedEventArgs e)
         {
-            if (IsSave == false)
-            {
-                Button b = sender as Button;
-                DTO_CTPhieuKhamBenh item = b.CommandParameter as DTO_CTPhieuKhamBenh;
-                ListCTPKB.Remove(item);
-            }
+            //if (IsSave == false)
+            //{
+            //    Button b = sender as Button;
+            //    DTO_CTPhieuKhamBenh item = b.CommandParameter as DTO_CTPhieuKhamBenh;
+            //    ListCTPKB.Remove(item);
+            //}
             
         }
         private void ResetThuocInput()

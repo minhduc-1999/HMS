@@ -20,7 +20,7 @@ namespace DAL_Clinic.DAL
         }
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.CT_BaoCaoDoanhThu.Load();
+           // SQLServerDBContext.Instant.CT_BaoCaoDoanhThu.Load();
         }
     }
 }

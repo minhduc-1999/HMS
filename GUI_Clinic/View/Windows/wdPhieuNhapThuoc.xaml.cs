@@ -1,5 +1,7 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
+using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using GUI_Clinic.View.UserControls;

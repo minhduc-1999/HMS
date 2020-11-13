@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.View.Windows;
 using System;
@@ -36,7 +37,7 @@ namespace GUI_Clinic.View.UserControls
 
         #region Property                
         public ObservableCollection<DTO_BenhNhan> ListBN { get; set; }
-        public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
+       // public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
         private string MaBenhNhanSelected;
         public DTO_BenhNhan SelectedItem { get; set; }
         #endregion
@@ -45,17 +46,17 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         public void InitData()
         {
-            ListBN = BUSManager.BenhNhanBUS.GetListBN();
-            ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
+            //ListBN = BUSManager.BenhNhanBUS.GetListBN();
+            ////ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
 
-            lvBenhNhan.ItemsSource = ListBN;
-            lvDanhSachPKB.ItemsSource = ListPKB;
+            //lvBenhNhan.ItemsSource = ListBN;
+            ////lvDanhSachPKB.ItemsSource = ListPKB;
 
-            CollectionView viewBenhNhan = (CollectionView)CollectionViewSource.GetDefaultView(lvBenhNhan.ItemsSource);
-            viewBenhNhan.Filter = BenhNhanFilter;
+            //CollectionView viewBenhNhan = (CollectionView)CollectionViewSource.GetDefaultView(lvBenhNhan.ItemsSource);
+            //viewBenhNhan.Filter = BenhNhanFilter;
 
-            CollectionView viewPKB = (CollectionView)CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource);
-            viewPKB.Filter = PKBFilter;
+            //CollectionView viewPKB = (CollectionView)CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource);
+            //viewPKB.Filter = PKBFilter;
         }
 
         private bool BenhNhanFilter(Object item)
@@ -68,7 +69,7 @@ namespace GUI_Clinic.View.UserControls
             {
                 if (cbxLoaiTiemKiem.SelectedIndex == 0)
                 {
-                    return ((item as DTO_BenhNhan).TenBenhNhan.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return ((item as DTO_BenhNhan).HoTen.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 }
                 else if (cbxLoaiTiemKiem.SelectedIndex == 1)
                 {
@@ -87,14 +88,15 @@ namespace GUI_Clinic.View.UserControls
 
         private bool PKBFilter(Object item)
         {
-            if (MaBenhNhanSelected == null)
-            {
-                return true;
-            }
-            else
-            {
-                return (item as DTO_PhieuKhamBenh).MaBenhNhan == MaBenhNhanSelected;
-            }
+            //if (MaBenhNhanSelected == null)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return (item as DTO_PhieuKhamBenh).MaBenhNhan == MaBenhNhanSelected;
+            //}
+            return true;
         }
 
         private void tbxTimKiem_TextChanged(object sender, TextChangedEventArgs e)
@@ -118,13 +120,13 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvDanhSachPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
-            if (item != null)
-            {
-                //Mo PKB tuong ung
-                wdPhieuKhamBenh phieuKhamBenh = new wdPhieuKhamBenh(item);
-                phieuKhamBenh.ShowDialog();
-            }
+            //var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
+            //if (item != null)
+            //{
+            //    //Mo PKB tuong ung
+            //    wdPhieuKhamBenh phieuKhamBenh = new wdPhieuKhamBenh(item);
+            //    phieuKhamBenh.ShowDialog();
+            //}
         }
 
         private void lvBenhNhan_MouseDoubleClick(object sender, MouseButtonEventArgs e)

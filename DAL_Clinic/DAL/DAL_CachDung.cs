@@ -20,7 +20,7 @@ namespace DAL_Clinic.DAL
         //}
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.CachDung.Load();
+            //SQLServerDBContext.Instant.CachDung.Load();
         }
         public ObservableCollection<DTO_CachDung> GetListCD()
         {

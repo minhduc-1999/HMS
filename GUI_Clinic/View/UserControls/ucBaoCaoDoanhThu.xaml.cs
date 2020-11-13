@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DTO_Clinic.Form;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -137,8 +138,8 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(bCDoanhThu);
-                baoCaoDoanhThu.ShowDialog();
+                //wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(bCDoanhThu);
+                //baoCaoDoanhThu.ShowDialog();
             });
         }
     }

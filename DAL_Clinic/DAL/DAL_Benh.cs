@@ -19,7 +19,7 @@ namespace DAL_Clinic.DAL
         //}
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.Benh.Load();
+            //SQLServerDBContext.Instant.Benh.Load();
         }
         public ObservableCollection<DTO_Benh> GetListBenh()
         {

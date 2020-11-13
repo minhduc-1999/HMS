@@ -11,6 +11,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "DAL_Clinic.SQLServerDBContext";
         }
 

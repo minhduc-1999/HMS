@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
@@ -73,7 +74,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_Benh benh = new DTO_Benh(TenBenhInput);
+                DTO_Benh benh = new DTO_Benh();
                 if (BUSManager.BenhBUS.AddBenh(benh))
                 {
                     tbxTenBenh.Clear();
@@ -130,7 +131,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_DonVi donVi = new DTO_DonVi(TenDonViInput);
+                DTO_DonVi donVi = new DTO_DonVi();
                 if (BUSManager.DonViBUS.AddDonVi(donVi))
                 {
                     tbxTenDonVi.Clear();
@@ -185,7 +186,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_CachDung cachDung = new DTO_CachDung(TenCachDungInput);
+                DTO_CachDung cachDung = new DTO_CachDung();
                 if (BUSManager.CachDungBUS.AddCachDung(cachDung))
                 {
                     tbxTenCachDung.Clear();
@@ -284,7 +285,7 @@ namespace GUI_Clinic.View.UserControls
                     return;
                 }
 
-                DTO_Benh benh = new DTO_Benh(TenBenhInput);
+                DTO_Benh benh = new DTO_Benh();
                 if (BUSManager.BenhBUS.AddBenh(benh))
                 {
                     //benhView.Refresh();
@@ -307,7 +308,7 @@ namespace GUI_Clinic.View.UserControls
                     return;
                 }
 
-                DTO_DonVi donVi = new DTO_DonVi(TenDonViInput);
+                DTO_DonVi donVi = new DTO_DonVi();
                 if (BUSManager.DonViBUS.AddDonVi(donVi))
                 {
                     tbxTenDonVi.Clear();
@@ -329,7 +330,7 @@ namespace GUI_Clinic.View.UserControls
                     return;
                 }
 
-                DTO_CachDung cachDung = new DTO_CachDung(TenCachDungInput);
+                DTO_CachDung cachDung = new DTO_CachDung();
                 if (BUSManager.CachDungBUS.AddCachDung(cachDung))
                 {
                     tbxTenCachDung.Clear();

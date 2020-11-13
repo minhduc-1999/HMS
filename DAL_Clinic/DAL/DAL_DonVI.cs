@@ -27,7 +27,7 @@ namespace DAL_Clinic.DAL
         //}
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.DonVi.Load();
+            //SQLServerDBContext.Instant.DonVi.Load();
         }
         public ObservableCollection<DTO_DonVi> GetListDV()
         {

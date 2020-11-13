@@ -16,7 +16,7 @@ namespace DAL_Clinic.DAL
         }
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.BenhNhan.Load();
+            //SQLServerDBContext.Instant.BenhNhan.Load();
         }
         public ObservableCollection<DTO_BenhNhan> GetListBN()
         {

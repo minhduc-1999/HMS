@@ -13,7 +13,7 @@ namespace DAL_Clinic.DAL
     {
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.ThamSo.Load();
+           // SQLServerDBContext.Instant.ThamSo.Load();
         }
         public ObservableCollection<DTO_ThamSo> GetListThamSo()
         {

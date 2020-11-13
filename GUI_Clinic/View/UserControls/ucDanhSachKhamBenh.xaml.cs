@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
@@ -52,32 +53,32 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         public void InitData()
         {
-            RegionIDList = new List<string>();
-            //Doc danh sach ma vung so dien thoai
-            string line = "";
-            StreamReader streamReader = new StreamReader(System.IO.Path.Combine(Environment.CurrentDirectory.Replace("bin\\Debug", ""), "Resource\\MAVUNG.txt"));
+            //RegionIDList = new List<string>();
+            ////Doc danh sach ma vung so dien thoai
+            //string line = "";
+            //StreamReader streamReader = new StreamReader(System.IO.Path.Combine(Environment.CurrentDirectory.Replace("bin\\Debug", ""), "Resource\\MAVUNG.txt"));
 
-            while ((line = streamReader.ReadLine()) != null)
-            {
-                RegionIDList.Add(line);
-            }
-            dpkNgayKham.SelectedDate = DateTime.Now;
-            //set itemsource cho list view danh sách khám
-            ListBN1 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
-            ListBN2 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
-            CurSignedList = new ObservableCollection<DTO_BenhNhan>();
-            //set itemsource
-            cbxDSBenhNhan.ItemsSource = ListBN2;
-            lvDSKham.ItemsSource = CurSignedList;
-            //Lọc danh sách khám theo ngày
-            PreLoadCurListBN();
-            //Khoi tao filter danh sach kham
-            ListDKView = (CollectionView)CollectionViewSource.GetDefaultView(ListBN1);
-            ListDKView.Filter = BenhNhanFilterDate;
-            //Load tham so
-            thamSo = BUSManager.ThamSoBUS.GetThamSoSoBNToiDa();
-            //
-            cbxMaVungSDT.SelectedIndex = 223;
+            //while ((line = streamReader.ReadLine()) != null)
+            //{
+            //    RegionIDList.Add(line);
+            //}
+            //dpkNgayKham.SelectedDate = DateTime.Now;
+            ////set itemsource cho list view danh sách khám
+            //ListBN1 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
+            //ListBN2 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
+            //CurSignedList = new ObservableCollection<DTO_BenhNhan>();
+            ////set itemsource
+            //cbxDSBenhNhan.ItemsSource = ListBN2;
+            //lvDSKham.ItemsSource = CurSignedList;
+            ////Lọc danh sách khám theo ngày
+            //PreLoadCurListBN();
+            ////Khoi tao filter danh sach kham
+            //ListDKView = (CollectionView)CollectionViewSource.GetDefaultView(ListBN1);
+            //ListDKView.Filter = BenhNhanFilterDate;
+            ////Load tham so
+            //thamSo = BUSManager.ThamSoBUS.GetThamSoSoBNToiDa();
+            ////
+            //cbxMaVungSDT.SelectedIndex = 223;
         }
         public void InitCommand()
         {
@@ -94,27 +95,27 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                bool gt;
-                if (cbxGioiTinh.SelectedIndex == 0)
-                    gt = false;
-                else
-                    gt = true;
-                DTO_BenhNhan benhNhan = new DTO_BenhNhan(tbxHoTen.Text, gt, dpkNgaySinh.SelectedDate.Value, tbxDiaChi.Text, cbxMaVungSDT.Text + tbxSDT.Text);
-                if (BUSManager.BenhNhanBUS.AddBenhNhan(benhNhan))
-                {
-                    ListBN1.Add(benhNhan);
-                    ListBN2.Add(benhNhan);
-                    if (ckbDangKy.IsChecked.Value)
-                    {
-                        DangKyKham(benhNhan);
-                        MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
-                    }
-                    else
-                        MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
-                }
-                else
-                    MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
-                Clear();
+                //bool gt;
+                //if (cbxGioiTinh.SelectedIndex == 0)
+                //    gt = false;
+                //else
+                //    gt = true;
+                //DTO_BenhNhan benhNhan = new DTO_BenhNhan(tbxHoTen.Text, gt, dpkNgaySinh.SelectedDate.Value, tbxDiaChi.Text, cbxMaVungSDT.Text + tbxSDT.Text);
+                //if (BUSManager.BenhNhanBUS.AddBenhNhan(benhNhan))
+                //{
+                //    ListBN1.Add(benhNhan);
+                //    ListBN2.Add(benhNhan);
+                //    if (ckbDangKy.IsChecked.Value)
+                //    {
+                //        DangKyKham(benhNhan);
+                //        MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
+                //    }
+                //    else
+                //        MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
+                //}
+                //else
+                //    MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
+                //Clear();
             });
             SignedCommand = new RelayCommand<Window>((p) =>
             {
@@ -228,19 +229,19 @@ namespace GUI_Clinic.View.UserControls
 
         private void cbxDSBenhNhan_KeyUp(object sender, KeyEventArgs e)
         {
-            var Cmb = sender as ComboBox;
-            CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Cmb.ItemsSource);
+            //var Cmb = sender as ComboBox;
+            //CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Cmb.ItemsSource);
 
-            itemsViewOriginal.Filter = ((o) =>
-            {
-                if (String.IsNullOrEmpty(Cmb.Text))
-                    return true;
-                else
-                {
-                    return ((o as DTO_BenhNhan).TenBenhNhan.IndexOf(Cmb.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-            });
-            itemsViewOriginal.Refresh();
+            //itemsViewOriginal.Filter = ((o) =>
+            //{
+            //    if (String.IsNullOrEmpty(Cmb.Text))
+            //        return true;
+            //    else
+            //    {
+            //        return ((o as DTO_BenhNhan).TenBenhNhan.IndexOf(Cmb.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            //    }
+            //});
+            //itemsViewOriginal.Refresh();
         }
         public bool RemovePatientSigned(DTO_BenhNhan bn)
         {

@@ -45,7 +45,7 @@ namespace DAL_Clinic.DAL
         //}
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.PhieuNhapThuoc.Load();
+           // SQLServerDBContext.Instant.PhieuNhapThuoc.Load();
         }
         public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
         {

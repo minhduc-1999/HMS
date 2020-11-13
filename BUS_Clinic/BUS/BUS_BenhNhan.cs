@@ -1,5 +1,6 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace BUS_Clinic.BUS
         }
         public bool AddBenhNhan(DTO_BenhNhan bn)
         {
-            if(IsValidInfo(bn.TenBenhNhan, bn.SoDienThoai))
+            if(IsValidInfo(bn.HoTen, bn.SoDienThoai))
             {
                 bn.Id = AutoGenerateID();
                 DALManager.BenhNhanDAL.AddBenhNhan(bn);
@@ -52,7 +53,7 @@ namespace BUS_Clinic.BUS
         public bool IsValidInfo(string ten, string sdt, string id = "")
         {
             var list = DALManager.BenhNhanDAL.GetListBN();
-            var item = list.Where(x => x.TenBenhNhan == ten && x.SoDienThoai == sdt).FirstOrDefault();
+            var item = list.Where(x => x.HoTen == ten && x.SoDienThoai == sdt).FirstOrDefault();
             if (item != null)
                 return item.Id == id;
             return true;
@@ -61,7 +62,7 @@ namespace BUS_Clinic.BUS
         {
             if (IsValidInfo(ten, sdt, bn.Id))
             {
-                bn.TenBenhNhan = ten;
+                bn.HoTen = ten;
                 bn.DiaChi = diachi;
                 bn.GioiTinh = gioiTinh;
                 bn.NgaySinh = ngaySinh;

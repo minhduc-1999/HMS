@@ -24,5 +24,30 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
         }
+
+        private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void lvDSPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void RemoveCategory(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tbxSoLuong_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+
+        }
+
+        private void tbxSoLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace DAL_Clinic.DAL
     {
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.HoaDon.Load();
+           // SQLServerDBContext.Instant.HoaDon.Load();
         }
         public void AddHoaDon(DTO_HoaDon hd)
         {

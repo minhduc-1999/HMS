@@ -1,5 +1,7 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
+using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.View.Windows;
 using System;
@@ -143,8 +145,8 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 //Mo Thong tin thuoc tuong ung
-                wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
-                wdInfo.ShowDialog();
+                //wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
+                //wdInfo.ShowDialog();
             }
         }
     }

@@ -32,7 +32,7 @@ namespace DAL_Clinic.DAL
         }
         public override void LoadLocalData()
         {
-            SQLServerDBContext.Instant.Thuoc.Load();
+           // SQLServerDBContext.Instant.Thuoc.Load();
         }
         public ObservableCollection<DTO_Thuoc> GetListThuoc()
         {

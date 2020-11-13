@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
@@ -53,7 +54,7 @@ namespace GUI_Clinic.View.Windows
         }
         private bool IsHasDifference()
         {
-            bool rel = BenhNhan.TenBenhNhan == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) && tbxDiaChi.Text == BenhNhan.DiaChi
+            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) && tbxDiaChi.Text == BenhNhan.DiaChi
                 && tbxSDT.Text == BenhNhan.SoDienThoai && dpkNgaySinh.SelectedDate.Value.ToString("d") == BenhNhan.NgaySinh.ToString("d");
             return !rel;
         }

@@ -1,5 +1,6 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic;
+using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,10 +17,10 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public DTO_PhieuKhamBenh GetPhieuKhamBenh(string maPhieuKhamBenh)
+        public DTO_PKDaKhoa GetPhieuKhamBenh(string maPhieuKhamBenh)
         {
-            ObservableCollection<DTO_PhieuKhamBenh> ListPKB = GetListPKB();
-            foreach (DTO_PhieuKhamBenh item in ListPKB)
+            ObservableCollection<DTO_PKDaKhoa> ListPKB = GetListPKB();
+            foreach (DTO_PKDaKhoa item in ListPKB)
             {
                 if (item.Id == maPhieuKhamBenh)
                 {
@@ -29,45 +30,48 @@ namespace BUS_Clinic.BUS
 
             return null;
         }
-        public void AddPhieuKhamBenh(DTO_PhieuKhamBenh phieuKhamBenh)
+        public void AddPhieuKhamBenh(DTO_PKDaKhoa phieuKhamBenh)
         {
-            phieuKhamBenh.Id = AutoGenerateID();
-            DALManager.PhieuKhamBenhDAL.AddPhieuKhamBenh(phieuKhamBenh);
+            //phieuKhamBenh.Id = AutoGenerateID();
+            //DALManager.PhieuKhamBenhDAL.AddPhieuKhamBenh(phieuKhamBenh);
         }
-        public void LoadNPBenh(DTO_PhieuKhamBenh phieuKhamBenh)
+        public void LoadNPBenh(DTO_PKDaKhoa phieuKhamBenh)
         {
-            DALManager.PhieuKhamBenhDAL.LoadNPBenh(phieuKhamBenh);
+            //DALManager.PhieuKhamBenhDAL.LoadNPBenh(phieuKhamBenh);
         }
-        public void LoadNPBenhNhan(DTO_PhieuKhamBenh phieuKhamBenh)
+        public void LoadNPBenhNhan(DTO_PKDaKhoa phieuKhamBenh)
         {
-            DALManager.PhieuKhamBenhDAL.LoadNPBenhNhan(phieuKhamBenh);
+           // DALManager.PhieuKhamBenhDAL.LoadNPBenhNhan(phieuKhamBenh);
         }
-        public void LoadNPDSCTPhieuKhamBenh(DTO_PhieuKhamBenh phieuKhamBenh)
+        public void LoadNPDSCTPhieuKhamBenh(DTO_PKDaKhoa phieuKhamBenh)
         {
-            DALManager.PhieuKhamBenhDAL.LoadNPDSCTPhieuKhamBenh(phieuKhamBenh);
+           // DALManager.PhieuKhamBenhDAL.LoadNPDSCTPhieuKhamBenh(phieuKhamBenh);
         }
         public override void LoadLocalData()
         {
-            DALManager.PhieuKhamBenhDAL.LoadLocalData();
+           // DALManager.PhieuKhamBenhDAL.LoadLocalData();
         }
-        public ObservableCollection<DTO_PhieuKhamBenh> GetListPKB()
+        public ObservableCollection<DTO_PKDaKhoa> GetListPKB()
         {
-            return DALManager.PhieuKhamBenhDAL.GetListPKB();
+            //return DALManager.PhieuKhamBenhDAL.GetListPKB();
+            return null;
         }
         public List<string> GetListPKB(string ngayKham)
         {
-            var listpkb = DALManager.PhieuKhamBenhDAL.GetListPKB();
-            var result = from pkb in listpkb
-                         orderby pkb.NgayKham
-                         where pkb.NgayKham.ToString("d") == ngayKham
-                         select pkb.MaBenhNhan;                  
-            return new List<string>(result);
+            //var listpkb = DALManager.PhieuKhamBenhDAL.GetListPKB();
+            //var result = from pkb in listpkb
+            //             orderby pkb.NgayKham
+            //             where pkb.NgayKham.ToString("d") == ngayKham
+            //             select pkb.MaBenhNhan;                  
+            //return new List<string>(result);
+            return null;
         }
 
         public int DemSoPKB()
         {
-            int re = DALManager.PhieuKhamBenhDAL.GetListPKB().Count;
-            return re;
+            //int re = DALManager.PhieuKhamBenhDAL.GetListPKB().Count;
+            //return re;
+            return 10;
         }
         public string AutoGenerateID()
         {

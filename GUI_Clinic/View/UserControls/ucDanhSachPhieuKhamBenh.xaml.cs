@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
@@ -38,13 +39,13 @@ namespace GUI_Clinic.View.UserControls
 
         private void UcCTPKB_PKBAdded(object sender, EventArgs e)
         {
-            var pkb = sender as DTO_PhieuKhamBenh;
-            ListPKB.Add(pkb);
-            ListBNWaiting.Remove(BUSManager.BenhNhanBUS.GetBenhNhanById(pkb.MaBenhNhan));
+            //var pkb = sender as DTO_PhieuKhamBenh;
+            //ListPKB.Add(pkb);
+            //ListBNWaiting.Remove(BUSManager.BenhNhanBUS.GetBenhNhanById(pkb.MaBenhNhan));
         }
 
         #region Property
-        public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
+        //public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
         public CollectionView ViewPKB { get; set; }
         #endregion
@@ -56,12 +57,12 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         public void InitData()
         {
-            ListPKB = new ObservableCollection<DTO_PhieuKhamBenh>(BUSManager.PhieuKhamBenhBUS.GetListPKB());
-            ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
-            lvDSPKB.ItemsSource = ListPKB;
-            lvBenhNhan.ItemsSource = ListBNWaiting;
-            ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKB);
-            ViewPKB.Filter = PhieuKhamBenhFilter;
+            //ListPKB = new ObservableCollection<DTO_PhieuKhamBenh>(BUSManager.PhieuKhamBenhBUS.GetListPKB());
+            //ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
+            //lvDSPKB.ItemsSource = ListPKB;
+            //lvBenhNhan.ItemsSource = ListBNWaiting;
+            //ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKB);
+            //ViewPKB.Filter = PhieuKhamBenhFilter;
         }
 
         public void InitCommand()
@@ -80,14 +81,15 @@ namespace GUI_Clinic.View.UserControls
 
         private bool PhieuKhamBenhFilter(Object item)
         {
-            if (!dpkNgayKham.SelectedDate.HasValue)
-            {
-                return true;
-            }
-            else
-            {
-                return ((item as DTO_PhieuKhamBenh).NgayKham.Date.Equals(dpkNgayKham.SelectedDate.Value.Date));
-            }
+            //if (!dpkNgayKham.SelectedDate.HasValue)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return ((item as DTO_PhieuKhamBenh).NgayKham.Date.Equals(dpkNgayKham.SelectedDate.Value.Date));
+            //}
+            return true;
         }
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -104,12 +106,12 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvDSPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
-            if (item != null)
-            {
-                grdPhieuKhamBenh.Visibility = Visibility.Visible;
-                ucCTPKB.GetPKB(item);
-            }
+            //var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
+            //if (item != null)
+            //{
+            //    grdPhieuKhamBenh.Visibility = Visibility.Visible;
+            //    ucCTPKB.GetPKB(item);
+            //}
         }
         public void UpdateWaitingList(object bn)
         {
