@@ -12,8 +12,12 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_BenhNhan : BaseBUS
     {
-        private const string _idPrefix = "BN";
+        
         public BUS_BenhNhan()
+        {
+
+        }
+        public BUS_BenhNhan(DAL_BenhNhan dAL_BenhNhan) : base(dAL_BenhNhan)
         {
 
         }
@@ -27,15 +31,10 @@ namespace BUS_Clinic.BUS
         {
             if(IsValidInfo(bn.HoTen, bn.SoDienThoai))
             {
-                bn.Id = AutoGenerateID();
                 DALManager.BenhNhanDAL.AddBenhNhan(bn);
                 return true;
             }
             return false;
-        }
-        public override void LoadLocalData()
-        {
-            DALManager.BenhNhanDAL.LoadLocalData();
         }
         public ObservableCollection<DTO_BenhNhan> GetListBN()
         {
@@ -45,10 +44,6 @@ namespace BUS_Clinic.BUS
         {
             int re = DALManager.BenhNhanDAL.GetListBN().Count;
             return re;
-        }
-        public string AutoGenerateID()
-        {
-            return _idPrefix + (GetPatientAmount() + 1).ToString("D5");
         }
         public bool IsValidInfo(string ten, string sdt, string id = "")
         {

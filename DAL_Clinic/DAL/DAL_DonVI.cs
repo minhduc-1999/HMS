@@ -18,20 +18,16 @@ namespace DAL_Clinic.DAL
         }
         public void AddDonVi(DTO_DonVi dv)
         {
-            SQLServerDBContext.Instant.DonVi.Local.Add(dv);
         }
         //public void DelDonVi(DTO_DonVi dv)
         //{
         //    //dv.IsDeleted = true;
         //    SQLServerDBContext.Instant.DonVi.Local.Remove(dv);
         //}
-        public override void LoadLocalData()
-        {
-            //SQLServerDBContext.Instant.DonVi.Load();
-        }
+        
         public ObservableCollection<DTO_DonVi> GetListDV()
         {
-            return SQLServerDBContext.Instant.DonVi.Local;
+            return null;
         }
     }
 }

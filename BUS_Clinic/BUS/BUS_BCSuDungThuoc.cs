@@ -26,9 +26,5 @@ namespace BUS_Clinic.BUS
         {
             return DALManager.BCSuDungThuocDAL.GetListBCSuDungThuoc();
         }
-        public override void LoadLocalData()
-        {
-            DALManager.BCSuDungThuocDAL.LoadLocalData();
-        }
     }
 }

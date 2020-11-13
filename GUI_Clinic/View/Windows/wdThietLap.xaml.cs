@@ -64,7 +64,6 @@ namespace GUI_Clinic.View.Windows
             }, (p) =>
             {
                 BUSManager.ThamSoBUS.UpdateThamSo(TienKham, SoBNToiDa);
-                BUSManager.BCDoanhThuBUS.SaveChange();
                 MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
             });
             CancelCommand = new RelayCommand<Window>((p) =>

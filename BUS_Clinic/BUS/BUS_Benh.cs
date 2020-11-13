@@ -12,7 +12,6 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_Benh : BaseBUS
     {
-        private const string _idPrefix = "BE";
         public BUS_Benh()
         {
 
@@ -31,8 +30,6 @@ namespace BUS_Clinic.BUS
 
                 return false;
             }
-
-            benh.Id = AutoGenerateID();
             DALManager.BenhDAL.AddBenh(benh);
             return true;
         }
@@ -62,10 +59,7 @@ namespace BUS_Clinic.BUS
         //    }
         //    return false;
         //}
-        public override void LoadLocalData()
-        {
-            DALManager.BenhDAL.LoadLocalData();
-        }
+      
         public ObservableCollection<DTO_Benh> GetListBenh()
         {
             return DALManager.BenhDAL.GetListBenh();
@@ -74,10 +68,6 @@ namespace BUS_Clinic.BUS
         {
             int amount = DALManager.BenhDAL.GetListBenh().Count;
             return amount;
-        }
-        public string AutoGenerateID()
-        {
-            return _idPrefix + (GetBenhAmount() + 1).ToString("D5");
         }
 
         //public bool BenhFilter(Object item)

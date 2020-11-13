@@ -21,13 +21,13 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
-            SQLServerDBContext.Instant.ThamSo.Load();
-            if (SQLServerDBContext.Instant.ThamSo.Local.Count == 0)
-            {
-                context.ThamSo.AddOrUpdate(x => x.TenThamSo,
-                new DTO_ThamSo { TenThamSo = "Số bệnh nhân tối đa 1 ngày", GiaTri = 40 },
-                new DTO_ThamSo { TenThamSo = "Tiền khám", GiaTri = 30000 });
-            }
+            //SQLServerDBContext.Instant.ThamSo.Load();
+            //if (SQLServerDBContext.Instant.ThamSo.Local.Count == 0)
+            //{
+            //    context.ThamSo.AddOrUpdate(x => x.TenThamSo,
+            //    new DTO_ThamSo { TenThamSo = "Số bệnh nhân tối đa 1 ngày", GiaTri = 40 },
+            //    new DTO_ThamSo { TenThamSo = "Tiền khám", GiaTri = 30000 });
+            //}
         }
     }
 }

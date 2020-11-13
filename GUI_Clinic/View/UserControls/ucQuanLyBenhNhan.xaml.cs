@@ -32,7 +32,7 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();  
+            InitData();
         }
 
         #region Property                
@@ -44,12 +44,12 @@ namespace GUI_Clinic.View.UserControls
         #region Command
 
         #endregion
-        public void InitData()
+        public async Task InitData()
         {
-            //ListBN = BUSManager.BenhNhanBUS.GetListBN();
+            //ListBN = BUSManager.BenhNhanBUS.GetAll1();
             ////ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
 
-            //lvBenhNhan.ItemsSource = ListBN;
+            lvBenhNhan.ItemsSource = ListBN;
             ////lvDanhSachPKB.ItemsSource = ListPKB;
 
             //CollectionView viewBenhNhan = (CollectionView)CollectionViewSource.GetDefaultView(lvBenhNhan.ItemsSource);

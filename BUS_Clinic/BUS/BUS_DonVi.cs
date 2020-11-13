@@ -8,7 +8,6 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_DonVi : BaseBUS
     {
-        private const string _idPrefix = "DV";
         public BUS_DonVi()
         {
 
@@ -21,7 +20,6 @@ namespace BUS_Clinic.BUS
             {
                 return false;
             }
-            donVi.Id = AutoGenerateID();
             DALManager.DonViDAL.AddDonVi(donVi);
             return true;
         }
@@ -58,10 +56,7 @@ namespace BUS_Clinic.BUS
             
             return dv;
         }
-        public override void LoadLocalData()
-        {
-            DALManager.DonViDAL.LoadLocalData();
-        }
+    
         public ObservableCollection<DTO_DonVi> GetListDV()
         {
             return DALManager.DonViDAL.GetListDV();
@@ -70,10 +65,6 @@ namespace BUS_Clinic.BUS
         {
             int re = DALManager.DonViDAL.GetListDV().Count;
             return re;
-        }
-        public string AutoGenerateID()
-        {
-            return _idPrefix + (DemSoDonVi() + 1).ToString("D5");
         }
     }
 }

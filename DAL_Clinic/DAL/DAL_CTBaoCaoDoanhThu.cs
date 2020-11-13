@@ -12,15 +12,11 @@ namespace DAL_Clinic.DAL
         }
         public void AddCTBaoCaoDoanhThu(DTO_CTBaoCaoDoanhThu cTBaoCaoDoanhThu)
         {
-            SQLServerDBContext.Instant.CT_BaoCaoDoanhThu.Local.Add(cTBaoCaoDoanhThu);
         }
         public ObservableCollection<DTO_CTBaoCaoDoanhThu> GetListCTBCDT()
         {
-            return SQLServerDBContext.Instant.CT_BaoCaoDoanhThu.Local;
+            return null;
         }
-        public override void LoadLocalData()
-        {
-           // SQLServerDBContext.Instant.CT_BaoCaoDoanhThu.Load();
-        }
+      
     }
 }

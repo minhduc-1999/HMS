@@ -12,18 +12,13 @@ namespace DAL_Clinic.DAL
 {
     public class DAL_HoaDon : BaseDAL
     {
-        public override void LoadLocalData()
-        {
-           // SQLServerDBContext.Instant.HoaDon.Load();
-        }
         public void AddHoaDon(DTO_HoaDon hd)
         {
-            SQLServerDBContext.Instant.HoaDon.Local.Add(hd);
         }     
 
         public ObservableCollection<DTO_HoaDon> GetListHoaDon()
         {
-            return SQLServerDBContext.Instant.HoaDon.Local;
+            return null;
         }
     }
 }

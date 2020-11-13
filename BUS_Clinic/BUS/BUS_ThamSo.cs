@@ -11,10 +11,6 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_ThamSo : BaseBUS
     {
-        public override void LoadLocalData()
-        {
-            DALManager.ThamSoDAL.LoadLocalData();
-        }
         public void UpdateThamSo(int TienKham, int SoBNToiDa)
         {
             DALManager.ThamSoDAL.UpdateThamSo(TienKham, SoBNToiDa);

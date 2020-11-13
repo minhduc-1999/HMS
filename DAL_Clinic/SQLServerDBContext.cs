@@ -7,19 +7,8 @@ using System.Data.Entity;
 
 namespace DAL_Clinic
 {
-    internal class SQLServerDBContext : DbContext
+    public class SQLServerDBContext : DbContext
     {
-        private static SQLServerDBContext _instant;
-        public static SQLServerDBContext Instant
-        {
-            get
-            {
-                if (_instant == null)
-                    _instant = new SQLServerDBContext();
-                return _instant;
-            }
-            private set => _instant = value;
-        }
         public SQLServerDBContext() : base("name=connectionStringPMT")
         {
             var initializer = new MigrateDatabaseToLatestVersion<SQLServerDBContext, Migrations.Configuration>();

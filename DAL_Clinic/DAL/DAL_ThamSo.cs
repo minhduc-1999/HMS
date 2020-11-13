@@ -11,18 +11,14 @@ namespace DAL_Clinic.DAL
 {
     public class DAL_ThamSo : BaseDAL
     {
-        public override void LoadLocalData()
-        {
-           // SQLServerDBContext.Instant.ThamSo.Load();
-        }
+       
         public ObservableCollection<DTO_ThamSo> GetListThamSo()
         {
-            return SQLServerDBContext.Instant.ThamSo.Local;
+            return null;
         }
         public void UpdateThamSo(int TienKham, int SoBNToiDa)
         {
-            SQLServerDBContext.Instant.ThamSo.Local.Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault().GiaTri = SoBNToiDa;
-            SQLServerDBContext.Instant.ThamSo.Local.Where(x => x.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri = TienKham;
+            
         }
     }
 }

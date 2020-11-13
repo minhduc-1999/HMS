@@ -158,7 +158,7 @@ namespace GUI_Clinic.View.UserControls
         }
         private void RefreshList()
         {
-            MatchBNList = BUSManager.PhieuKhamBenhBUS.GetListPKB(dpkNgayKham.SelectedDate.Value.ToString("d"));
+            //MatchBNList = BUSManager.PhieuKhamBenhBUS.GetListPKB(dpkNgayKham.SelectedDate.Value.ToString("d"));
             ListDKView.Refresh();
         }
         public void Clear()
@@ -219,12 +219,12 @@ namespace GUI_Clinic.View.UserControls
         }
         private void PreLoadCurListBN()
         {
-            var listBN = BUSManager.PhieuKhamBenhBUS.GetListPKB(DateTime.Now.ToString("d"));
-            foreach (var id in listBN)
-            {
-                var bn = BUSManager.BenhNhanBUS.GetBenhNhanById(id);
-                CurSignedList.Add(bn);
-            }
+            //var listBN = BUSManager.PhieuKhamBenhBUS.GetListPKB(DateTime.Now.ToString("d"));
+            //foreach (var id in listBN)
+            //{
+            //    var bn = BUSManager.BenhNhanBUS.GetBenhNhanById(id);
+            //    CurSignedList.Add(bn);
+            //}
         }
 
         private void cbxDSBenhNhan_KeyUp(object sender, KeyEventArgs e)

@@ -36,7 +36,7 @@ namespace BUS_Clinic.BUS
             BUSManager.BCDoanhThuBUS.AddBCDoanhThu(bCDoanhThu);
             DALManager.CTBaoCaoDoanhThuDAL.AddCTBaoCaoDoanhThu(cTBaoCaoDoanhThu);
             BUSManager.BCDoanhThuBUS.GetBCDoanhThuToday().TongDoanhThu += cTBaoCaoDoanhThu.DoanhThu;
-            BUSManager.CTBaoCaoDoanhThuBUS.SaveChange();
+            //BUSManager.CTBaoCaoDoanhThuBUS.SaveChange();
             UpdateTyLe(ListCTBCDT);
         }
         public void UpdateTyLe(ObservableCollection<DTO_CTBaoCaoDoanhThu> ListCTBCDT)
@@ -50,10 +50,6 @@ namespace BUS_Clinic.BUS
         public ObservableCollection<DTO_CTBaoCaoDoanhThu> GetListCTBCDT()
         {
             return DALManager.CTBaoCaoDoanhThuDAL.GetListCTBCDT();
-        }
-        public override void LoadLocalData()
-        {
-            DALManager.CTBaoCaoDoanhThuDAL.LoadLocalData();
         }
     }
 }

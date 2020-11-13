@@ -62,13 +62,13 @@ namespace GUI_Clinic.View.UserControls
 
             bCDoanhThu = null;
             ListCTBCDT = null;
-            foreach (DTO_BCDoanhThu item in ListBCDT)
-            {
-                if (item.Thang == int.Parse(cbxThang.Text) && item.Nam == int.Parse(cbxNam.Text))
-                {
-                    bCDoanhThu = item;
-                }
-            }
+            //foreach (DTO_BCDoanhThu item in ListBCDT)
+            //{
+            //    if (item.Thang == int.Parse(cbxThang.Text) && item.Nam == int.Parse(cbxNam.Text))
+            //    {
+            //        bCDoanhThu = item;
+            //    }
+            //}
             if (bCDoanhThu != null)
             {
                 BUSManager.BCDoanhThuBUS.LoadNPCTBaoCaoDoanhThu(bCDoanhThu);

@@ -19,12 +19,10 @@ namespace DAL_Clinic.DAL
         }
         public void LoadNPCTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            var entry = SQLServerDBContext.Instant.Entry(phieuNhapThuoc);
-            entry.Collection(c => c.DS_CTPhieuNhapThuoc).Load();
+            
         }
         public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            SQLServerDBContext.Instant.PhieuNhapThuoc.Local.Add(phieuNhapThuoc);
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
         //{
@@ -43,13 +41,10 @@ namespace DAL_Clinic.DAL
         //        phieuNhapThuoc.TongTien += item.ThanhTien;
         //    }
         //}
-        public override void LoadLocalData()
-        {
-           // SQLServerDBContext.Instant.PhieuNhapThuoc.Load();
-        }
+  
         public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
         {
-            return SQLServerDBContext.Instant.PhieuNhapThuoc.Local;
+            return null;
         }
     }
 }

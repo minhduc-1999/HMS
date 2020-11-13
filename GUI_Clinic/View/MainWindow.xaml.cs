@@ -121,7 +121,7 @@ namespace GUI_Clinic.View
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            BUSManager.BenhNhanBUS.SaveChange();
+           // BUSManager.BenhNhanBUS.SaveChange();
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)

@@ -181,7 +181,7 @@ namespace GUI_Clinic.View.Windows
 
                 BUSManager.PhieuNhapThuocBUS.TinhTongTien(phieuNhapThuoc);
 
-                BUSManager.PhieuNhapThuocBUS.SaveChange();
+                //BUSManager.PhieuNhapThuocBUS.SaveChange();
 
                 this.Close();
             }

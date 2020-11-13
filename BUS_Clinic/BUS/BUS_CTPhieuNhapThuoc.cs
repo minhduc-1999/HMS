@@ -18,10 +18,7 @@ namespace BUS_Clinic.BUS
         {
             DALManager.CTPhieuNhapThuocDAL.LoadNPPhieuNhapThuoc(cTPhieuNhapThuoc);
         }
-        public override void LoadLocalData()
-        {
-            DALManager.CTPhieuNhapThuocDAL.LoadLocalData();
-        }
+      
         public ObservableCollection<DTO_CTPhieuNhapThuoc> GetListCTPNT()
         {
             return DALManager.CTPhieuNhapThuocDAL.GetListCTPNT();

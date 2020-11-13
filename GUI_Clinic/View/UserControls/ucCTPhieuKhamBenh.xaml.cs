@@ -83,9 +83,9 @@ namespace GUI_Clinic.View.UserControls
             IsSave = true;
             btnThanhToan.Content = "Hóa đơn";
 
-            BUSManager.PhieuKhamBenhBUS.LoadNPBenh(pkb);
-            BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(pkb);
-            BUSManager.PhieuKhamBenhBUS.LoadNPDSCTPhieuKhamBenh(pkb);
+            //BUSManager.PhieuKhamBenhBUS.LoadNPBenh(pkb);
+            //BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(pkb);
+            //BUSManager.PhieuKhamBenhBUS.LoadNPDSCTPhieuKhamBenh(pkb);
             //foreach (DTO_CTPhieuKhamBenh item in pkb.DSCTPhieuKhamBenh)
             //{
             //    BUSManager.CTPhieuKhamBenhBUS.LoadNPThuoc(item);

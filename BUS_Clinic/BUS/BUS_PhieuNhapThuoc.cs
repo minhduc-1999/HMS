@@ -5,14 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
     public class BUS_PhieuNhapThuoc : BaseBUS
     {
-        private const string _idPrefix = "PNT";
         public BUS_PhieuNhapThuoc()
         {
 
@@ -23,7 +20,6 @@ namespace BUS_Clinic.BUS
         }
         public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            phieuNhapThuoc.Id = AutoGenerateID();
             DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuoc(phieuNhapThuoc);
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
@@ -43,10 +39,6 @@ namespace BUS_Clinic.BUS
                 phieuNhapThuoc.TongTien += item.ThanhTien;
             }
         }
-        public override void LoadLocalData()
-        {
-            DALManager.PhieuNhapThuocDAL.LoadLocalData();
-        }
         public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
         {
             return DALManager.PhieuNhapThuocDAL.GetListPNT();
@@ -55,10 +47,6 @@ namespace BUS_Clinic.BUS
         {
             int amount = DALManager.PhieuNhapThuocDAL.GetListPNT().Count;
             return amount;
-        }
-        public string AutoGenerateID()
-        {
-            return _idPrefix + (GetPNTAmount() + 1).ToString("D5");
         }
     }
 }

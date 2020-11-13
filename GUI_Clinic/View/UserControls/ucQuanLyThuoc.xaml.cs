@@ -60,10 +60,10 @@ namespace GUI_Clinic.View.UserControls
             //BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
 
             ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
-            foreach (DTO_Thuoc item in ListThuoc)
-            {
-                BUSManager.ThuocBUS.LoadNPDonVi(item);
-            }
+            //foreach (DTO_Thuoc item in ListThuoc)
+            //{
+            //    BUSManager.ThuocBUS.LoadNPDonVi(item);
+            //}
 
             ListPNT = BUSManager.PhieuNhapThuocBUS.GetListPNT();
             ListCTPNT = BUSManager.CTPhieuNhapThuocBUS.GetListCTPNT();
@@ -73,13 +73,13 @@ namespace GUI_Clinic.View.UserControls
             lvCTPhieuNhapThuoc.ItemsSource = ListCTPNT;
 
             CollectionView viewThuoc = (CollectionView)CollectionViewSource.GetDefaultView(lvThuoc.ItemsSource);
-            viewThuoc.Filter = ThuocFilter;
+            //viewThuoc.Filter = ThuocFilter;
 
             CollectionView viewPNT = (CollectionView)CollectionViewSource.GetDefaultView(lvPhieuNhapThuoc.ItemsSource);
-            viewPNT.Filter = PNTFilter;
+            //viewPNT.Filter = PNTFilter;
 
             CollectionView viewCTPNT = (CollectionView)CollectionViewSource.GetDefaultView(lvCTPhieuNhapThuoc.ItemsSource);
-            viewCTPNT.Filter = CTPNTFilter;
+            //viewCTPNT.Filter = CTPNTFilter;
         }
 
         private bool ThuocFilter(object item)

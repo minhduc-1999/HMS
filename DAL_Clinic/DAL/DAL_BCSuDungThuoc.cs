@@ -17,15 +17,11 @@ namespace DAL_Clinic.DAL
         }
         public void AddBCSuDungThuoc(DTO_BCSudungThuoc bCSudungThuoc)
         {
-            SQLServerDBContext.Instant.BaoCaoSuDungThuoc.Local.Add(bCSudungThuoc);
         }
         public ObservableCollection<DTO_BCSudungThuoc> GetListBCSuDungThuoc()
         {
-            return SQLServerDBContext.Instant.BaoCaoSuDungThuoc.Local;
+            return null;
         }
-        public override void LoadLocalData()
-        {
-           // SQLServerDBContext.Instant.BaoCaoSuDungThuoc.Load();
-        }
+      
     }
 }
