@@ -246,7 +246,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         Background="#0078D7"
-                        BorderBrush="#0078D7"></Button>
+                        BorderBrush="#0078D7" Click="btnKhamChuyenKhoa_Click"></Button>
             </Grid>
             <Grid Grid.Column="1">
                 <Button x:Name="btnInPhieu"

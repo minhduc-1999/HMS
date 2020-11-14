@@ -255,5 +255,10 @@ namespace GUI_Clinic.View.UserControls
             }
 
         }
+
+        private void btnThemBN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

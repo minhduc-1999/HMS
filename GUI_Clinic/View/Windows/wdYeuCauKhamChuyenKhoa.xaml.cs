@@ -23,5 +23,10 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
         }
+
+        private void btnGuiYeuCau_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

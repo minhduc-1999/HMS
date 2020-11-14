@@ -280,5 +280,12 @@ namespace GUI_Clinic.View.UserControls
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
+
+        private void btnKhamChuyenKhoa_Click(object sender, RoutedEventArgs e)
+        {
+            wdYeuCauKhamChuyenKhoa wd = new wdYeuCauKhamChuyenKhoa();
+            wd.ShowDialog();
+        }
+
     }
 }
