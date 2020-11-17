@@ -52,7 +52,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_DonVi> donvis = DALManager.DonViDAL.GetListDV();
 
-            var dv = donvis.Where(c => c.Id == maDonVi).FirstOrDefault();
+            var dv = donvis.Where(c => c.MaDonVi == maDonVi).FirstOrDefault();
             
             return dv;
         }

@@ -8,16 +8,18 @@ namespace DAL_Clinic.BuddyClass
         public BenhNhanMap()
         {
             ToTable("BENHNHAN");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaBenhNhan");
-            Property(p => p.HoTen).HasMaxLength(50);
+            HasKey(p => p.MaBenhNhan);
             Property(p => p.HoTen).IsRequired();
-            Property(p => p.Cmnd).IsRequired();
-            Property(p => p.Cmnd).HasColumnName("SoCMND");
+            Property(p => p.SoCMND).IsRequired();
             Property(p => p.NgaySinh).IsRequired();
             Property(p => p.DiaChi).IsOptional();
             Property(p => p.SoDienThoai).IsRequired();
             Property(p => p.Email).IsOptional();
+
+            Property(p => p.SoCMND).HasMaxLength(20);
+            Property(p => p.HoTen).HasMaxLength(50);
+            Property(p => p.SoDienThoai).HasMaxLength(20);
+            Property(p => p.Email).HasMaxLength(50);
         }
     }
 }

@@ -6,20 +6,11 @@ using GUI_Clinic.CustomControl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -32,7 +23,7 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
             this.DataContext = this;
-            InitData();
+            InitDataAsync();
             InitCommand();
         }
         #region Property
@@ -51,7 +42,7 @@ namespace GUI_Clinic.View.UserControls
         #region
         public event EventHandler PatientSigned;
         #endregion
-        public void InitData()
+        public async System.Threading.Tasks.Task InitDataAsync()
         {
             //RegionIDList = new List<string>();
             ////Doc danh sach ma vung so dien thoai
@@ -65,10 +56,10 @@ namespace GUI_Clinic.View.UserControls
             //dpkNgayKham.SelectedDate = DateTime.Now;
             ////set itemsource cho list view danh sách khám
             //ListBN1 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
-            //ListBN2 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
+            ListBN2 = await BUSManager.BenhNhanBUS.GetListBNAsync();
             //CurSignedList = new ObservableCollection<DTO_BenhNhan>();
             ////set itemsource
-            //cbxDSBenhNhan.ItemsSource = ListBN2;
+            cbxDSBenhNhan.ItemsSource = ListBN2;
             //lvDSKham.ItemsSource = CurSignedList;
             ////Lọc danh sách khám theo ngày
             //PreLoadCurListBN();
@@ -87,7 +78,7 @@ namespace GUI_Clinic.View.UserControls
                 if (string.IsNullOrEmpty(tbxHoTen.Text) ||
                     string.IsNullOrEmpty(tbxDiaChi.Text) ||
                     string.IsNullOrEmpty(tbxSDT.Text) ||
-                    cbxMaVungSDT.SelectedIndex == -1 ||
+                    //cbxMaVungSDT.SelectedIndex == -1 ||
                     cbxGioiTinh.SelectedIndex == -1 ||
                     !dpkNgaySinh.SelectedDate.HasValue ||
                     tbxSDT.Text.Length != tbxSDT.MaxLength)
@@ -95,27 +86,36 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                //bool gt;
-                //if (cbxGioiTinh.SelectedIndex == 0)
-                //    gt = false;
-                //else
-                //    gt = true;
-                //DTO_BenhNhan benhNhan = new DTO_BenhNhan(tbxHoTen.Text, gt, dpkNgaySinh.SelectedDate.Value, tbxDiaChi.Text, cbxMaVungSDT.Text + tbxSDT.Text);
-                //if (BUSManager.BenhNhanBUS.AddBenhNhan(benhNhan))
+                bool gt;
+                if (cbxGioiTinh.SelectedIndex == 0)
+                    gt = false;
+                else
+                    gt = true;
+                DTO_BenhNhan benhNhan = new DTO_BenhNhan()
+                {
+                    HoTen = tbxHoTen.Text,
+                    NgaySinh = dpkNgaySinh.SelectedDate.Value,
+                    DiaChi = tbxDiaChi.Text,
+                    SoDienThoai = cbxMaVungSDT.Text + tbxSDT.Text,
+                    GioiTinh = gt,
+                    SoCMND = "1111111111",
+                };
+                BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan, ListBN2);
+                //if (BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan))
                 //{
-                //    ListBN1.Add(benhNhan);
-                //    ListBN2.Add(benhNhan);
-                //    if (ckbDangKy.IsChecked.Value)
-                //    {
-                //        DangKyKham(benhNhan);
-                //        MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
-                //    }
-                //    else
-                //        MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
+                //    //ListBN1.Add(benhNhan);
+                //    //ListBN2.Add(benhNhan);
+                //    //if (ckbDangKy.IsChecked.Value)
+                //    //{
+                //    //    DangKyKham(benhNhan);
+                //    //    MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
+                //    //}
+                //    //else
+                //    //    MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
                 //}
                 //else
-                //    MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
-                //Clear();
+                //MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
+                Clear();
             });
             SignedCommand = new RelayCommand<Window>((p) =>
             {
@@ -137,7 +137,7 @@ namespace GUI_Clinic.View.UserControls
             else
             {
                 if (MatchBNList != null)
-                    return (MatchBNList.Contains((item as DTO_BenhNhan).Id));
+                    return (MatchBNList.Contains((item as DTO_BenhNhan).MaBenhNhan));
                 return false;
             }
         }

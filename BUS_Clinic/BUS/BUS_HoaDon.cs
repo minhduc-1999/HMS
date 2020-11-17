@@ -46,7 +46,7 @@ namespace BUS_Clinic.BUS
 
         public DTO_HoaDon GetHoaDonById (string id)
         {
-            DTO_HoaDon hoaDon = GetListHoaDon().Where(x => x.Id == id).FirstOrDefault();
+            DTO_HoaDon hoaDon = GetListHoaDon().Where(x => x.MaHoaDon == id).FirstOrDefault();
             return hoaDon;
         }
     }

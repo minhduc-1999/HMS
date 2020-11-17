@@ -83,7 +83,6 @@
     <Compile Include="DAL\DAL_PhieuNhapThuoc.cs" />
     <Compile Include="DAL\DAL_ThamSo.cs" />
     <Compile Include="DAL\DAL_Thuoc.cs" />
-    <Compile Include="Initializer\MyInitializer.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLServerDBContext.cs" />

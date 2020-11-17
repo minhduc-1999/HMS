@@ -70,7 +70,7 @@ namespace GUI_Clinic.View.UserControls
 
             benhNhan = bn;
             tblTenBenhNhan.Text = bn.HoTen;
-            tblMaBenhNhan.Text = bn.Id;
+            tblMaBenhNhan.Text = bn.MaBenhNhan;
             tblNgayKham.Text = DateTime.Now.ToString();
             lvThuoc.ItemsSource = ListCTPKB;
 
@@ -94,7 +94,7 @@ namespace GUI_Clinic.View.UserControls
             //}
             benhNhan = pkb.BenhNhan;
             tblTenBenhNhan.Text = benhNhan.HoTen;
-            tblMaBenhNhan.Text = benhNhan.Id;
+            tblMaBenhNhan.Text = benhNhan.MaBenhNhan;
             tblNgayKham.Text = pkb.NgayKham.ToString();
             //lvThuoc.ItemsSource = pkb.DSCTPhieuKhamBenh;
             tbxTrieuChung.Text = pkb.TrieuChung;

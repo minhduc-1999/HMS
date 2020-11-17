@@ -4,6 +4,8 @@ namespace DTO_Clinic.Form
 {
     public class DTO_CTPhieuNhapThuoc : BaseModel
     {
+        private bool _isDeleted;
+        public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         private int _soLuongNhap;
         private double _donGiaNhap;
         private double _thanhTien;

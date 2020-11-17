@@ -17,7 +17,6 @@ namespace DAL_Clinic.BuddyClass
             Property(p => p.SoBenhNhan).IsRequired();
             Property(p => p.DoanhThu).IsRequired();
             Property(p => p.TyLe).IsRequired();
-            Ignore(p => p.Id);
         }
     }
 }

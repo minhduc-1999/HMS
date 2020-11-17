@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public PKDaKhoaMap()
         {
             ToTable("PKDAKHOA");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaPKDK");
+            HasKey(p => p.MaPKDK);
             Property(p => p.NgayKham).IsRequired();
             Property(p => p.TrieuChung).IsOptional();
             //reference to BENHNHAN table
@@ -25,6 +24,11 @@ namespace DAL_Clinic.BuddyClass
             //reference to DONTHUOC table
             HasOptional(p => p.DonThuoc)
                 .WithOptionalDependent(o => o.PKDaKhoa)
+                .WillCascadeOnDelete();
+            //reference to NHANVIEN table
+            HasOptional(p => p.NguoiLap)
+                .WithMany(n => n.DS_PKDKDaTao)
+                .HasForeignKey(p => p.MaNhanVien)
                 .WillCascadeOnDelete();
         }
     }

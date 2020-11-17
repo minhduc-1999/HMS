@@ -5,6 +5,9 @@ namespace DTO_Clinic.Component
 {
     public class DTO_CachDung: BaseModel
     {
+        public string MaCachDung { get; set; }
+        private bool _isDeleted;
+        public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         public string TenCachDung { get => _tenCachDung; set { _tenCachDung = value; OnPropertyChanged(); } }
 
         private string _tenCachDung;

@@ -29,8 +29,7 @@ namespace DAL_Clinic.BuddyClass
                 .HasForeignKey(e => e.MaThuoc)
                 .WillCascadeOnDelete();
             ToTable("THUOC");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaThuoc");
+            HasKey(p => p.MaThuoc);
             Property(p => p.TenThuoc).HasMaxLength(50);
             Property(p => p.DonGia).IsRequired();
             Property(p => p.TenThuoc).IsRequired();

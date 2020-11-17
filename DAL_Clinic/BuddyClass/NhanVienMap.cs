@@ -8,12 +8,9 @@ namespace DAL_Clinic.BuddyClass
         public NhanVienMap()
         {
             ToTable("NHANVIEN");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaNV");
+            HasKey(p => p.MaNhanVien);
             Property(p => p.HoTen).IsRequired();
-            Property(p => p.HoTen).HasMaxLength(50);
-            Property(p => p.Cmnd).IsRequired();
-            Property(p => p.Cmnd).HasColumnName("SoCMND");
+            Property(p => p.SoCMND).IsRequired();
             Property(p => p.GioiTinh).IsRequired();
             Property(p => p.NgaySinh).IsRequired();
             Property(p => p.SoDienThoai).IsRequired();
@@ -24,7 +21,10 @@ namespace DAL_Clinic.BuddyClass
                 .WithMany(m => m.DS_NhanVien)
                 .HasForeignKey(p => p.MaPhong)
                 .WillCascadeOnDelete();
-
+            Property(p => p.HoTen).HasMaxLength(50);
+            Property(p => p.SoCMND).HasMaxLength(20);
+            Property(p => p.SoDienThoai).HasMaxLength(20);
+            Property(p => p.Email).HasMaxLength(50);
         }
     }
 }

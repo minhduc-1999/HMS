@@ -195,21 +195,10 @@
                                                       BorderThickness="2"
                                                       IsEditable="True"
                                                       Margin="20 0 20 0"
+                                                      ItemsSource="{Binding ListBN2, Mode=OneWay}"
                                                       KeyUp="cbxDSBenhNhan_KeyUp"
                                                       VerticalAlignment="Center"
-                                                      FontSize="16">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock>
-                                                            <TextBlock.Text>
-                                                                <MultiBinding StringFormat="{}{0} - {1}">
-                                                                    <Binding Path="Id" />
-                                                                    <Binding Path="TenBenhNhan" />
-                                                                </MultiBinding>
-                                                            </TextBlock.Text>
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
+                                                      FontSize="16">                                                
                                             </ComboBox>
                                         </Grid>
                                     </Grid>

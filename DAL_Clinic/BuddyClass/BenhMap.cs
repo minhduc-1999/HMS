@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public BenhMap()
         {            
             ToTable("BENH");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaBenh");
+            HasKey(p => p.MaBenh);
             Property(p => p.TenBenh).HasMaxLength(50);
             Property(p => p.TenBenh).IsRequired();
         }

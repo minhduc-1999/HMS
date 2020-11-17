@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public DonThuocMap()
         {
             ToTable("DONTHUOC");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaDonThuoc");
+            HasKey(p => p.MaDonThuoc);
         }
     }
 }

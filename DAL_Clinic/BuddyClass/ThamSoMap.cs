@@ -16,8 +16,6 @@ namespace DAL_Clinic.BuddyClass
             HasKey(o => o.TenThamSo);
             Property(p => p.TenThamSo).HasMaxLength(50);
             Property(p => p.GiaTri).IsRequired();
-            Ignore(p => p.Id);
-            Ignore(p => p.IsDeleted);
         }
     }
 }

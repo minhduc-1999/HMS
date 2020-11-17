@@ -40,7 +40,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-            var kq = thuocs.Where(c => (c.Id == thuocVuaNhap.Id) && (c.MaDonVi == thuocVuaNhap.MaDonVi)).FirstOrDefault();
+            var kq = thuocs.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.MaDonVi == thuocVuaNhap.MaDonVi)).FirstOrDefault();
 
             if (kq != null)
             {
@@ -52,7 +52,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-            var kq = thuocs.Where(c => c.Id == idThuocSuDung).FirstOrDefault();
+            var kq = thuocs.Where(c => c.MaThuoc == idThuocSuDung).FirstOrDefault();
 
             if (kq != null)
             {
@@ -63,7 +63,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-            var kq = thuocs.Where(c => c.Id == thuocSuDung.Id).FirstOrDefault();
+            var kq = thuocs.Where(c => c.MaThuoc == thuocSuDung.MaThuoc).FirstOrDefault();
 
             if (kq != null)
             {
@@ -89,7 +89,7 @@ namespace BUS_Clinic.BUS
             var item = list.Where(x => x.TenThuoc == ten).FirstOrDefault();
             bool check;
             if (item != null)
-                check = item.Id == thuoc.Id;
+                check = item.MaThuoc == thuoc.MaThuoc;
             else
                 check = true;
             if (check)
