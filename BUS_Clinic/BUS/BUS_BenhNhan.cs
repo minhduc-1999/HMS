@@ -1,18 +1,15 @@
 ﻿using DAL_Clinic.DAL;
-using DTO_Clinic;
 using DTO_Clinic.Person;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
     public class BUS_BenhNhan : BaseBUS
     {
-        
+
         public BUS_BenhNhan()
         {
 
@@ -21,51 +18,36 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public DTO_BenhNhan GetBenhNhanById(string maBenhNhan)
+        public async Task<DTO_BenhNhan> GetBenhNhanByIdAsync(string maBenhNhan)
         {
-            ObservableCollection<DTO_BenhNhan> ListBN = GetListBN();
-            var result = ListBN.Where(c => c.Id == maBenhNhan).FirstOrDefault();
-            return result;
+            return await DALManager.BenhNhanDAL.GetBNByID(maBenhNhan);
         }
-        public bool AddBenhNhan(DTO_BenhNhan bn)
+        public async Task AddBenhNhanAsync(DTO_BenhNhan bn, ObservableCollection<DTO_BenhNhan> listBN)
         {
-            if(IsValidInfo(bn.HoTen, bn.SoDienThoai))
+            //if (!IsValidInfo(bn, listBN))
+            //    return;
+            var res = await DALManager.BenhNhanDAL.AddBenhNhanAsync(bn);
+            if (res != null)
             {
-                DALManager.BenhNhanDAL.AddBenhNhan(bn);
-                return true;
+                bn.MaBenhNhan = res;
+                listBN.Add(bn);
             }
-            return false;
         }
-        public ObservableCollection<DTO_BenhNhan> GetListBN()
+        public async Task<ObservableCollection<DTO_BenhNhan>> GetListBNAsync()
         {
-            return DALManager.BenhNhanDAL.GetListBN();
+            return await DALManager.BenhNhanDAL.GetListBNAsync();
         }
-        public int GetPatientAmount()
+        public bool IsValidInfo(DTO_BenhNhan bn, ObservableCollection<DTO_BenhNhan> list)
         {
-            int re = DALManager.BenhNhanDAL.GetListBN().Count;
-            return re;
-        }
-        public bool IsValidInfo(string ten, string sdt, string id = "")
-        {
-            var list = DALManager.BenhNhanDAL.GetListBN();
-            var item = list.Where(x => x.HoTen == ten && x.SoDienThoai == sdt).FirstOrDefault();
+            var item = list.Where(x => x.HoTen == bn.HoTen && x.SoDienThoai == bn.SoDienThoai && x.SoCMND == bn.SoCMND).FirstOrDefault();
             if (item != null)
-                return item.Id == id;
+                return false;
             return true;
         }
         public bool UpdateInfoBN(DTO_BenhNhan bn, string ten, string diachi, bool gioiTinh, string sdt, DateTime ngaySinh)
         {
-            if (IsValidInfo(ten, sdt, bn.Id))
-            {
-                bn.HoTen = ten;
-                bn.DiaChi = diachi;
-                bn.GioiTinh = gioiTinh;
-                bn.NgaySinh = ngaySinh;
-                bn.SoDienThoai = sdt;
-                return true;
-            }
-            else
-                return false;
+            //TODO
+            return true;
 
         }
     }

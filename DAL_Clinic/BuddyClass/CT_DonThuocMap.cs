@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public CT_DonThuocMap()
         {
             ToTable("CT_DONTHUOC");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaCTDT");
+            HasKey(p => new { p.MaDonThuoc, p.MaThuoc});
             //reference to THUOC table
             HasRequired(p => p.Thuoc)
                 .WithMany(m => m.DS_CTDonThuoc)

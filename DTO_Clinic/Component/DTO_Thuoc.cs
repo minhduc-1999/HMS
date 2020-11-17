@@ -4,6 +4,9 @@ namespace DTO_Clinic.Component
 {
     public class DTO_Thuoc : BaseModel
     {
+        public string MaThuoc { get; set; }
+        private bool _isDeleted;
+        public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         private string _tenThuoc;
         private string _congDung;
         private double _donGia;

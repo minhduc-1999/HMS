@@ -124,7 +124,7 @@ namespace GUI_Clinic.View.UserControls
             var tempMaPNTSelected = lvPhieuNhapThuoc.SelectedItem;
             if (tempMaPNTSelected != null)
             {
-                MaPNTSelected = (lvPhieuNhapThuoc.SelectedItem as DTO_PhieuNhapThuoc).Id;
+                MaPNTSelected = (lvPhieuNhapThuoc.SelectedItem as DTO_PhieuNhapThuoc).MaPNT;
                 CollectionViewSource.GetDefaultView(lvCTPhieuNhapThuoc.ItemsSource).Refresh();
             }
             else

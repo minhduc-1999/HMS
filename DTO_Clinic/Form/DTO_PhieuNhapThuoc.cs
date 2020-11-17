@@ -5,6 +5,9 @@ namespace DTO_Clinic.Form
 {
     public class DTO_PhieuNhapThuoc : BaseModel
     {
+        public string MaPNT { get; set; }
+        private bool _isDeleted;
+        public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         private DateTime _ngayNhap;
         private double _tongTien;
         public DateTime NgayNhap { get => _ngayNhap; set { _ngayNhap = value; OnPropertyChanged(); } }

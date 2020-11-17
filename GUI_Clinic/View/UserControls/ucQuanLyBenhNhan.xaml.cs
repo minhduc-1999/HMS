@@ -1,24 +1,13 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
 using DTO_Clinic.Person;
-using GUI_Clinic.Command;
 using GUI_Clinic.View.Windows;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -32,7 +21,7 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();
+            InitDataAsync();
         }
 
         #region Property                
@@ -44,10 +33,10 @@ namespace GUI_Clinic.View.UserControls
         #region Command
 
         #endregion
-        public async Task InitData()
+        public async Task InitDataAsync()
         {
-            //ListBN = BUSManager.BenhNhanBUS.GetAll1();
-            ////ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
+            ListBN = await BUSManager.BenhNhanBUS.GetListBNAsync();
+            //ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
 
             lvBenhNhan.ItemsSource = ListBN;
             ////lvDanhSachPKB.ItemsSource = ListPKB;
@@ -109,7 +98,7 @@ namespace GUI_Clinic.View.UserControls
             var tempMaBenhNhanSelected = lvBenhNhan.SelectedItem;
             if (tempMaBenhNhanSelected != null)
             {
-                MaBenhNhanSelected = (lvBenhNhan.SelectedItem as DTO_BenhNhan).Id;
+                MaBenhNhanSelected = (lvBenhNhan.SelectedItem as DTO_BenhNhan).MaBenhNhan;
                 CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource).Refresh();
             }
             else

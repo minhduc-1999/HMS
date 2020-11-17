@@ -107,9 +107,9 @@ namespace GUI_Clinic.View.Windows
                 {
                     DTO_Thuoc themThuoc = new DTO_Thuoc();
 
-                    themThuoc.Id = (cbxTenThuoc.SelectedItem as DTO_Thuoc).Id;
+                    themThuoc.MaThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).MaThuoc;
                     themThuoc.TenThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc;
-                    themThuoc.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).Id;
+                    themThuoc.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).MaDonVi;
                     themThuoc.DonVi = BUSManager.DonViBUS.GetDonViById(themThuoc.MaDonVi);
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
@@ -132,7 +132,7 @@ namespace GUI_Clinic.View.Windows
                 {
                     DTO_Thuoc thuocMoi = new DTO_Thuoc();
                     thuocMoi.TenThuoc = tbxTenThuocMoi.Text;
-                    thuocMoi.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).Id;
+                    thuocMoi.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).MaDonVi;
                     thuocMoi.DonVi = BUSManager.DonViBUS.GetDonViById(thuocMoi.MaDonVi);
                     thuocMoi.CongDung = tbxCongDungThuocMoi.Text;
                     thuocMoi.SoLuong = SoLuong;
@@ -162,7 +162,7 @@ namespace GUI_Clinic.View.Windows
             {
                 DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, 0);
                 BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuoc(phieuNhapThuoc);
-                string tempID = phieuNhapThuoc.Id;
+                string tempID = phieuNhapThuoc.MaPNT;
 
                 foreach (DTO_Thuoc item in List)
                 {
@@ -175,7 +175,7 @@ namespace GUI_Clinic.View.Windows
                         BUSManager.ThuocBUS.CapNhatThuocVuaNhap(item);
                     }    
 
-                    DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.Id, item.SoLuong, item.DonGia);
+                    DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                     BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
                 }
 

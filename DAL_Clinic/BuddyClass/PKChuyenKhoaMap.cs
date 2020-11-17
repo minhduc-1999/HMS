@@ -8,12 +8,12 @@ namespace DAL_Clinic.BuddyClass
         public PKChuyenKhoaMap()
         {
             ToTable("PKCHUYENKHOA");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaPKCK");
+            HasKey(p => p.MaPKCK);
             Property(p => p.KetQua).IsRequired();
-            HasRequired(p => p.PKDaKhoa)
-                .WithMany(m => m.DS_PKChuyenKhoa)
-                .HasForeignKey(p => p.MaPKDaKhoa)
+            //ref to NHANVIEN table
+            HasOptional(p => p.NguoiLap)
+                .WithMany(n => n.DS_PKCKDaTao)
+                .HasForeignKey(p => p.MaNhanVien)
                 .WillCascadeOnDelete();
         }
     }

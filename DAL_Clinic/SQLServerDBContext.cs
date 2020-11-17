@@ -7,14 +7,12 @@ using System.Data.Entity;
 
 namespace DAL_Clinic
 {
-    public class SQLServerDBContext : DbContext
+    internal class SQLServerDBContext : DbContext
     {
         public SQLServerDBContext() : base("name=connectionStringPMT")
         {
             var initializer = new MigrateDatabaseToLatestVersion<SQLServerDBContext, Migrations.Configuration>();
             Database.SetInitializer(initializer);
-            //var initializer = new MyInitializer();
-            //Database.SetInitializer(initializer);
             this.Configuration.LazyLoadingEnabled = false;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -57,7 +55,5 @@ namespace DAL_Clinic
         public DbSet<DTO_NhanVien> NhanVien { get; set; }
         public DbSet<DTO_Phong> Phong { get; set; }
         public DbSet<DTO_CTDonThuoc> CT_DonThuoc { get; set; }
-
-
     }
 }

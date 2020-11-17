@@ -58,10 +58,8 @@
     <Compile Include="Form\DTO_HoaDon.cs" />
     <Compile Include="Form\DTO_PKChuyenKhoa.cs" />
     <Compile Include="Form\DTO_PKDaKhoa.cs" />
-    <Compile Include="Form\PhieuKhamBenh.cs" />
     <Compile Include="Person\DTO_BenhNhan.cs" />
     <Compile Include="Person\DTO_NhanVien.cs" />
-    <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

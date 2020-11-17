@@ -14,8 +14,7 @@ namespace DAL_Clinic.BuddyClass
         public HoaDonMap()
         {
             ToTable("HOADON");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaPKB");
+            HasKey(p => p.MaHoaDon);
             Property(p => p.ThanhTien).IsRequired();
             Property(p => p.ChiTiet).IsRequired();
         }

@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public DonViMap()
         {
             ToTable("DONVI");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaDonVi");
+            HasKey(p => p.MaDonVi);
             Property(p => p.TenDonVi).HasMaxLength(50);
             Property(p => p.TenDonVi).IsRequired();
         }

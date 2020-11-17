@@ -31,7 +31,7 @@ namespace BUS_Clinic.BUS
             ObservableCollection<DTO_CTPhieuNhapThuoc> CTPNTs = DALManager.CTPhieuNhapThuocDAL.GetListCTPNT();
 
             var cTPNT = from p in CTPNTs
-                        where p.MaPNT == phieuNhapThuoc.Id
+                        where p.MaPNT == phieuNhapThuoc.MaPNT
                         select p;
 
             foreach (var item in cTPNT)

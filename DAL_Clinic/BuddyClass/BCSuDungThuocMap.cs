@@ -16,7 +16,6 @@ namespace DAL_Clinic.BuddyClass
             HasKey(o => new { o.Thang, o.Nam , o.MaThuoc});
             Property(p => p.SoLanDung).IsRequired();
             Property(p => p.SoLuongDung).IsRequired();
-            Ignore(p => p.Id);
         }
     }
 }

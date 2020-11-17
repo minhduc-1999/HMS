@@ -8,7 +8,6 @@ namespace DAL_Clinic.BuddyClass
         public BCDoanhThuMap()
         {
             ToTable("BC_DOANHTHU");
-            Ignore(o => o.Id);
             HasKey(o => new { o.Thang, o.Nam });
             Property(p => p.TongDoanhThu).IsRequired();
         }

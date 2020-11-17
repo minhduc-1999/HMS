@@ -8,8 +8,7 @@ namespace DAL_Clinic.BuddyClass
         public PhieuNhapThuocMap()
         {
             ToTable("PHIEUNHAPTHUOC");
-            HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("MaPNT");
+            HasKey(p => p.MaPNT);
             Property(p => p.NgayNhap).IsRequired();
             Property(p => p.TongTien).IsRequired();
         }
