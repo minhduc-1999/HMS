@@ -51,9 +51,13 @@ namespace GUI_Clinic.View
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Visible;
                     grdSelectedButton.Margin = new Thickness(0, 0, 0, 0);
+                    ucControlBar.Tag = "Danh sách khám bệnh";
                     break;
                 case 1:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
@@ -61,59 +65,125 @@ namespace GUI_Clinic.View
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
-                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Visible;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Visible;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
                     grdSelectedButton.Margin = new Thickness(0, 60, 0, 0);
+                    ucControlBar.Tag = "Danh sách khám chuyên khoa";
                     break;
                 case 2:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
                     uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
-                    uc_QuanLyBenhNhan.Visibility = Visibility.Visible;
-                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Visible;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
                     grdSelectedButton.Margin = new Thickness(0, 120, 0, 0);
+                    ucControlBar.Tag = "Quản lý phiếu khám bệnh";
                     break;
                 case 3:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
                     uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
-                    uc_QuanLyThuoc.Visibility = Visibility.Visible;
+                    uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Visible;
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
                     grdSelectedButton.Margin = new Thickness(0, 180, 0, 0);
+                    ucControlBar.Tag = "Quản lý phiếu khám chuyên khoa";
                     break;
                 case 4:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
                     uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
-                    uc_DonViCachDung.Visibility = Visibility.Visible;
+                    uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Visible;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
                     grdSelectedButton.Margin = new Thickness(0, 240, 0, 0);
+                    ucControlBar.Tag = "Danh sách đơn thuốc";
                     break;
                 case 5:
+                    uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
+                    uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
+                    uc_DonViCachDung.Visibility = Visibility.Collapsed;
+                    uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
+                    uc_QuanLyBenhNhan.Visibility = Visibility.Visible;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
+                    grdSelectedButton.Margin = new Thickness(0, 300, 0, 0);
+                    ucControlBar.Tag = "Quản lý bệnh nhân";
+                    break;
+                case 6:
+                    uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
+                    uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
+                    uc_DonViCachDung.Visibility = Visibility.Collapsed;
+                    uc_QuanLyThuoc.Visibility = Visibility.Visible;
+                    uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
+                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    ucControlBar.Tag = "Quản lý thuốc";
+                    break;
+                case 7:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
                     uc_BaoCaoSuDungThuoc.Visibility = Visibility.Visible;
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 300, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    ucControlBar.Tag = "Báo cáo sử dụng thuốc";
                     break;
-                case 6:
+                case 8:
                     uc_BaoCaoDoanhThu.Visibility = Visibility.Visible;
                     uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
                     uc_DonViCachDung.Visibility = Visibility.Collapsed;
                     uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
                     uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
                     grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    ucControlBar.Tag = "Báo cáo doanh thu";
+                    break;
+                case 9:
+                    uc_BaoCaoDoanhThu.Visibility = Visibility.Collapsed;
+                    uc_BaoCaoSuDungThuoc.Visibility = Visibility.Collapsed;
+                    uc_DonViCachDung.Visibility = Visibility.Visible;
+                    uc_QuanLyThuoc.Visibility = Visibility.Collapsed;
+                    uc_QuanLyBenhNhan.Visibility = Visibility.Collapsed;
+                    uc_DanhSachDonThuoc.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
+                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    ucControlBar.Tag = "Các thiết lập khác";
                     break;
                 default:
                     break;
@@ -128,11 +198,6 @@ namespace GUI_Clinic.View
         {
             wdThietLap wdThietLap = new wdThietLap();
             wdThietLap.ShowDialog();
-        }
-
-        private void ucControlBar_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

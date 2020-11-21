@@ -19,14 +19,14 @@
         </Grid.RowDefinitions>
         <!--Tieu de UC-->
         <Grid Grid.Row="0">
-            <TextBlock x:Name="tblTieuDe"
+            <!--<TextBlock x:Name="tblTieuDe"
                        Margin="20 10"
                        HorizontalAlignment="Left"
                        Text="Quản lý phiếu khám bệnh"
                        VerticalAlignment="Center"
                        FontSize="35"
                        FontWeight="Bold"
-                       Foreground="#0078D7" />
+                       Foreground="#0078D7" />-->
         </Grid>
         <!--Cac element binding tu selected item-->
         <Grid Grid.Row="1">
@@ -53,7 +53,6 @@
                                            HorizontalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="1">
-                                <local:ucCTPhieuKhamChuyenKhoa x:Name="ucCTPKCK" Grid.ColumnSpan="2"></local:ucCTPhieuKhamChuyenKhoa>
                                 <local:ucCTPhieuKhamBenh x:Name="ucCTPKB" Grid.ColumnSpan="2"></local:ucCTPhieuKhamBenh>
                             </Grid>
                         </Grid>

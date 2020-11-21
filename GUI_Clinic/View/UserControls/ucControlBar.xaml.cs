@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +25,7 @@ namespace GUI_Clinic.View.UserControls
         public ucControlBar()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         private void btnShutdown_Click(object sender, RoutedEventArgs e)
@@ -84,5 +87,8 @@ namespace GUI_Clinic.View.UserControls
 
             return parent;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }
