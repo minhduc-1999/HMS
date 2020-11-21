@@ -59,7 +59,7 @@
             </Grid.RowDefinitions>
 
             <Grid x:Name="grdControl" Height="auto" Grid.Row="0">
-                <uc:ucControlBar x:Name="ucControlBar" Loaded="ucControlBar_Loaded"></uc:ucControlBar>
+                <uc:ucControlBar x:Name="ucControlBar"></uc:ucControlBar>
             </Grid>
 
             <Grid x:Name="grdUserControl" Grid.Row="1">
@@ -68,7 +68,10 @@
                 <uc:ucDonViCachDung x:Name="uc_DonViCachDung" Visibility="Hidden"/>
                 <uc:ucQuanLyThuoc x:Name="uc_QuanLyThuoc" Visibility="Hidden"/>
                 <uc:ucQuanLyBenhNhan x:Name="uc_QuanLyBenhNhan" Visibility="Hidden"/>
+                <uc:ucDanhSachDonThuoc x:Name="uc_DanhSachDonThuoc" Visibility="Hidden"/>
+                <uc:ucDanhSachPhieuKhamChuyenKhoa x:Name="uc_DanhSachPhieuKhamChuyenKhoa" Visibility="Hidden"/>
                 <uc:ucDanhSachPhieuKhamBenh x:Name="uc_DanhSachPhieuKhamBenh" Visibility="Hidden"/>
+                <uc:ucDanhSachKhamChuyenKhoa x:Name="uc_DanhSachKhamChuyenKhoa" Visibility="Hidden"/>
                 <uc:ucDanhSachKhamBenh x:Name="uc_DanhSachKhamBenh"/>
             </Grid>
         </Grid>
@@ -104,13 +107,31 @@
                           Foreground="White" 
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           SelectionChanged="ListViewMenu_SelectionChanged">
-                    <ListViewItem x:Name="itemMedical" Height="60">
+                    <ListViewItem x:Name="itemDSKhamBenh" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Doctor"  Height="25" Width="25" Margin="5 10"/>
                             <TextBlock Text="Danh sách khám bệnh" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="itemPKB"
+
+                    <ListViewItem x:Name="itemDSKhamChuyenKhoa"
+                                  Height="60"
+                                  Uid="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Doctor"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Danh sách khám chuyên khoa"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                    
+                    <ListViewItem x:Name="itemQLPKB"
                                   Height="60"
                                   Uid="0">
                         <StackPanel Orientation="Horizontal">
@@ -118,7 +139,7 @@
                                                      Height="25"
                                                      Width="25"
                                                      Margin="5 10" />
-                            <TextBlock Text="Quản lý phiếu khám bệnh"
+                            <TextBlock Text="Q.lý phiếu khám bệnh"
                                        VerticalAlignment="Center"
                                        Margin="7 10"
                                        FontFamily="Arial"
@@ -126,34 +147,56 @@
                                        FontSize="15" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="itemPatient" Height="60">
+
+                    <ListViewItem x:Name="itemQLPKCK"
+                                  Height="60"
+                                  Uid="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileOutline"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Q.lý phiếu khám chuyên khoa"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="itemDSDonThuoc"
+                                  Height="60"
+                                  Uid="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FormatListBulletedType"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Danh sách đơn thuốc"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="itemQLBenhNhan" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Account" Height="25" Width="25" Margin="5 10"/>
                             <TextBlock Text="Quản lý bệnh nhân" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="itemMedicine" Height="60">
+                    
+                    <ListViewItem x:Name="itemQLThuoc" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Medicine" Height="25" Width="25" Margin="5 10"/>
                             <TextBlock Text="Quản lý thuốc" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
                         </StackPanel>
-                    </ListViewItem>                    
-                    <ListViewItem x:Name="itemUnit"
-                                  Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Tools"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="5 10" />
-                            <TextBlock Text="Các thiết lập khác"
-                                       VerticalAlignment="Center"
-                                       Margin="7 10"
-                                       FontFamily="Arial"
-                                       FontWeight="Bold"
-                                       FontSize="15" />
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem x:Name="itemMedicineReport"
+                    </ListViewItem>  
+                    
+                    <ListViewItem x:Name="itemBCSuDungThuoc"
                                   Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ChartBar"
@@ -168,7 +211,8 @@
                                        FontSize="15" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="itemReport"
+                    
+                    <ListViewItem x:Name="itemBCDoanhThu"
                                   Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="MoneyUsd"
@@ -176,6 +220,22 @@
                                                      Width="25"
                                                      Margin="5 10" />
                             <TextBlock Text="Doanh thu"
+                                       VerticalAlignment="Center"
+                                       Margin="7 10"
+                                       FontFamily="Arial"
+                                       FontWeight="Bold"
+                                       FontSize="15" />
+                        </StackPanel>
+                    </ListViewItem>
+                    
+                    <ListViewItem x:Name="itemThietLapKhac"
+                                  Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Tools"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="5 10" />
+                            <TextBlock Text="Các thiết lập khác"
                                        VerticalAlignment="Center"
                                        Margin="7 10"
                                        FontFamily="Arial"

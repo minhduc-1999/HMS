@@ -115,6 +115,9 @@
     <Compile Include="View\UserControls\ucDanhSachPhieuKhamBenh.xaml.cs">
       <DependentUpon>ucDanhSachPhieuKhamBenh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\ucDanhSachPhieuKhamChuyenKhoa.xaml.cs">
+      <DependentUpon>ucDanhSachPhieuKhamChuyenKhoa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\ucDonViCachDung.xaml.cs">
       <DependentUpon>ucDonViCachDung.xaml</DependentUpon>
     </Compile>
@@ -237,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\ucDanhSachPhieuKhamBenh.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ucDanhSachPhieuKhamChuyenKhoa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
