@@ -12,12 +12,7 @@ namespace DAL_Clinic.BuddyClass
     public class ThuocMap : EntityTypeConfiguration<DTO_Thuoc>
     {
         public ThuocMap()
-        {
-            //Create ref to table DONVI
-            HasRequired(e => e.DonVi)
-                .WithMany(p => p.DSThuoc)
-                .HasForeignKey(e => e.MaDonVi)
-                .WillCascadeOnDelete();
+        {            
             //create ref in table CT_PHIEUNHAPTHUOC
             HasMany(p => p.DS_CTPhieuNhapThuoc)
                 .WithRequired(e => e.Thuoc)

@@ -26,7 +26,6 @@ namespace DAL_Clinic
             modelBuilder.Configurations.Add(new ThuocMap());
             modelBuilder.Configurations.Add(new BenhMap());
             modelBuilder.Configurations.Add(new CachDungMap());
-            modelBuilder.Configurations.Add(new DonViMap());
             modelBuilder.Configurations.Add(new PhieuNhapThuocMap());
             modelBuilder.Configurations.Add(new CT_PhieuNhapThuocMap());
             modelBuilder.Configurations.Add(new BCDoanhThuMap());
@@ -34,6 +33,7 @@ namespace DAL_Clinic
             modelBuilder.Configurations.Add(new BCSuDungThuocMap());
             modelBuilder.Configurations.Add(new ThamSoMap());
             modelBuilder.Configurations.Add(new HoaDonMap());
+            modelBuilder.Configurations.Add(new CTHDThuocMap());
             modelBuilder.Configurations.Add(new CT_DonThuocMap());
             modelBuilder.Configurations.Add(new DonThuocMap());
         }
@@ -42,9 +42,9 @@ namespace DAL_Clinic
         public DbSet<DTO_PKChuyenKhoa> PKChuyenKhoa { get; set; }
         public DbSet<DTO_Benh> Benh { get; set; }
         public DbSet<DTO_CachDung> CachDung { get; set; }
-        public DbSet<DTO_DonVi> DonVi { get; set; }
         public DbSet<DTO_DonThuoc> DonThuoc { get; set; }
         public DbSet<DTO_HoaDon> HoaDon { get; set; }
+        public DbSet<DTO_CTHDThuoc> CTHoaDdonThuoc { get; set; }
         public DbSet<DTO_PhieuNhapThuoc> PhieuNhapThuoc { get; set; }
         public DbSet<DTO_CTPhieuNhapThuoc> CTPhieuNhapThuoc { get; set; }
         public DbSet<DTO_Thuoc> Thuoc { get; set; }

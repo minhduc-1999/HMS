@@ -37,7 +37,6 @@ namespace GUI_Clinic.View.UserControls
         }
         #region Property                
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
-        public ObservableCollection<DTO_DonVi> ListDV { get; set; }
         public ObservableCollection<DTO_CachDung> ListCD { get; set; }
         public string TenBenhInput { get; set; }
         public string TenDonViInput { get; set; }
@@ -60,7 +59,6 @@ namespace GUI_Clinic.View.UserControls
         public void InitData()
         {
             ListBenh = BUSManager.BenhBUS.GetListBenh();
-            ListDV = BUSManager.DonViBUS.GetListDV();
             ListCD = BUSManager.CachDungBUS.GetListCD();
             //benhView = (CollectionView)CollectionViewSource.GetDefaultView(ListBenh);
             //benhView.Filter = BUSManager.BenhBUS.BenhFilter;
@@ -131,16 +129,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_DonVi donVi = new DTO_DonVi();
-                if (BUSManager.DonViBUS.AddDonVi(donVi))
-                {
-                    tbxTenDonVi.Clear();
-                }
-                else
-                {
-                    MsgBox.Show("Tên đơn vị đã tồn tại", MessageType.Error);
-                    tbxTenDonVi.Clear();
-                }
+               
             });
 
             SuaDonViCommand = new RelayCommand<Window>((p) =>
@@ -152,11 +141,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_DonVi tempDonVi = ListDV.ElementAt<DTO_DonVi>(lvDonVi.SelectedIndex);
-                if (!BUSManager.DonViBUS.UpdateDonVi(tempDonVi, TenDonViInput))
-                {
-                    MsgBox.Show("Tên đơn vị mới đã tồn tại", MessageType.Error);
-                }    
+                   
             });
 
             //XoaDonViCommand = new RelayCommand<Window>((p) =>
@@ -250,16 +235,7 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvDonVi_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lvDonVi.SelectedIndex != -1)
-            {
-                TenDonViInput = ListDV.ElementAt<DTO_DonVi>(lvDonVi.SelectedIndex).TenDonVi;
-                tbxTenDonVi.Text = TenDonViInput;
-            }
-            else
-            {
-                TenDonViInput = null;
-                tbxTenDonVi.Text = TenDonViInput;
-            }
+           
         }
 
         private void lvCachDung_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -301,24 +277,7 @@ namespace GUI_Clinic.View.UserControls
 
         private void tbxTenDonVi_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                if (string.IsNullOrEmpty(TenDonViInput))
-                {
-                    return;
-                }
-
-                DTO_DonVi donVi = new DTO_DonVi();
-                if (BUSManager.DonViBUS.AddDonVi(donVi))
-                {
-                    tbxTenDonVi.Clear();
-                }
-                else
-                {
-                    MsgBox.Show("Tên đơn vị đã tồn tại", MessageType.Error);
-                    tbxTenDonVi.Clear();
-                }
-            }
+            
         }
 
         private void tbxTenCachDung_KeyDown(object sender, KeyEventArgs e)

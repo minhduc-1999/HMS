@@ -17,6 +17,8 @@ namespace DAL_Clinic.BuddyClass
             HasKey(p => p.MaHoaDon);
             Property(p => p.ThanhTien).IsRequired();
             Property(p => p.ChiTiet).IsRequired();
+            Property(p => p.LoaiHoaDon).IsRequired();
+
         }
     }
 }

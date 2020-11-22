@@ -10,7 +10,7 @@ namespace DTO_Clinic.Person
         public string MaNhanVien { get; set; }
         private bool _isDeleted;
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
-        public enum ChucNang { BSDK, BSCK, DUOCSI, THUTUC };
+        public enum ChucNang { ADMIN, BSDK, BSCK, DUOCSI, THUTUC };
         private int _chucVu;
         private string _hoTen;
         private DateTime _ngaySinh;
