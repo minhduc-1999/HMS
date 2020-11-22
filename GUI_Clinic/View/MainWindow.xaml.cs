@@ -23,12 +23,13 @@ namespace GUI_Clinic.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(int chucVu)
+        public MainWindow(DTO_NhanVien currentNV)
         {
             InitializeComponent();
+            ucControlBar.SetProfileInfo(currentNV);
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
-            switch (chucVu)
+            switch (currentNV.ChucVu)
             {
                 case 0: //ADMIN
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
@@ -58,7 +59,7 @@ namespace GUI_Clinic.View
                     itemThietLapKhac.Visibility = Visibility.Collapsed;
                     itemQLNhanVien.Visibility = Visibility.Collapsed;
                     btnSetting.Visibility = Visibility.Collapsed;
-                    ListViewMenu.SelectedIndex = 9;
+                    ListViewMenu.SelectedIndex = 2;
                     break;
                 case 2: //BSCK
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
@@ -73,7 +74,7 @@ namespace GUI_Clinic.View
                     itemThietLapKhac.Visibility = Visibility.Collapsed;
                     itemQLNhanVien.Visibility = Visibility.Collapsed;
                     btnSetting.Visibility = Visibility.Collapsed;
-                    ListViewMenu.SelectedIndex = 9;
+                    ListViewMenu.SelectedIndex = 3;
                     break;
                 case 3: //DUOCSI
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
@@ -88,7 +89,7 @@ namespace GUI_Clinic.View
                     itemThietLapKhac.Visibility = Visibility.Collapsed;
                     itemQLNhanVien.Visibility = Visibility.Collapsed;
                     btnSetting.Visibility = Visibility.Collapsed;
-                    ListViewMenu.SelectedIndex = 9;
+                    ListViewMenu.SelectedIndex = 4;
                     break;
                 case 4: //THUTUC
                     itemBCDoanhThu.Visibility = Visibility.Visible;
@@ -103,7 +104,7 @@ namespace GUI_Clinic.View
                     itemThietLapKhac.Visibility = Visibility.Collapsed;
                     itemQLNhanVien.Visibility = Visibility.Collapsed;
                     btnSetting.Visibility = Visibility.Collapsed;
-                    ListViewMenu.SelectedIndex = 9;
+                    ListViewMenu.SelectedIndex = 0;
                     break;
                 default:
                     break;
@@ -167,7 +168,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Visible;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 120, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 0, 0, 0);
                     ucControlBar.Tag = "Quản lý phiếu khám bệnh";
                     break;
                 case 3:
@@ -182,7 +183,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 180, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 0, 0, 0);
                     ucControlBar.Tag = "Quản lý phiếu khám chuyên khoa";
                     break;
                 case 4:
@@ -197,7 +198,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 240, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 0, 0, 0);
                     ucControlBar.Tag = "Danh sách đơn thuốc";
                     break;
                 case 5:
@@ -212,7 +213,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 300, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 60, 0, 0);
                     ucControlBar.Tag = "Quản lý bệnh nhân";
                     break;
                 case 6:
@@ -227,7 +228,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 60, 0, 0);
                     ucControlBar.Tag = "Quản lý thuốc";
                     break;
                 case 7:
@@ -242,7 +243,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 120, 0, 0);
                     ucControlBar.Tag = "Báo cáo sử dụng thuốc";
                     break;
                 case 8:
@@ -257,7 +258,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 180, 0, 0);
                     ucControlBar.Tag = "Báo cáo doanh thu";
                     break;
                 case 9:
@@ -272,7 +273,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 0, 0, 0);
                     ucControlBar.Tag = "Quản lý nhân viên";
                     break;
                 case 10:
@@ -287,7 +288,7 @@ namespace GUI_Clinic.View
                     uc_DanhSachPhieuKhamBenh.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamChuyenKhoa.Visibility = Visibility.Collapsed;
                     uc_DanhSachKhamBenh.Visibility = Visibility.Collapsed;
-                    grdSelectedButton.Margin = new Thickness(0, 360, 0, 0);
+                    grdSelectedButton.Margin = new Thickness(0, 60, 0, 0);
                     ucControlBar.Tag = "Các thiết lập khác";
                     break;
                 default:

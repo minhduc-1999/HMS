@@ -63,7 +63,7 @@ namespace GUI_Clinic.View.Windows
 
         private void InitMainWindow(DTO_NhanVien nhanVien)
         {
-            MainWindow mainWindow = new MainWindow(nhanVien.ChucVu);
+            MainWindow mainWindow = new MainWindow(nhanVien);
             mainWindow.Show();
             this.Close();
         }
