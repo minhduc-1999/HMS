@@ -124,6 +124,9 @@
     <Compile Include="View\UserControls\ucQuanLyBenhNhan.xaml.cs">
       <DependentUpon>ucQuanLyBenhNhan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\ucQuanLyNhanVien.xaml.cs">
+      <DependentUpon>ucQuanLyNhanVien.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\ucQuanLyThuoc.xaml.cs">
       <DependentUpon>ucQuanLyThuoc.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\ucQuanLyBenhNhan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ucQuanLyNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

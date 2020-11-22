@@ -3,6 +3,7 @@
     public static class DALManager
     {
         private static DAL_BenhNhan _benhNhanDAL;
+        private static DAL_NhanVien _nhanVienDAL;
         private static DAL_DonVi _donViDAL;
         private static DAL_CachDung _cachDungDAL;
         private static DAL_Benh _benhDAL;
@@ -22,6 +23,16 @@
                 if (_benhNhanDAL == null)
                     _benhNhanDAL = new DAL_BenhNhan();
                 return _benhNhanDAL;
+            }
+        }
+
+        public static DAL_NhanVien NhanVienDAL
+        {
+            get
+            {
+                if (_nhanVienDAL == null)
+                    _nhanVienDAL = new DAL_NhanVien();
+                return _nhanVienDAL;
             }
         }
 

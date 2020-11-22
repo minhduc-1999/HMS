@@ -12,6 +12,7 @@ namespace BUS_Clinic.BUS
     public static class BUSManager
     {
         private static BUS_BenhNhan _benhNhanBUS;
+        private static BUS_NhanVien _nhanVienBUS;
         private static BUS_DonVi _donViBUS;
         private static BUS_CachDung _cachDungBUS;
         private static BUS_Benh _benhBUS;
@@ -31,6 +32,16 @@ namespace BUS_Clinic.BUS
                 if (_benhNhanBUS == null)
                     _benhNhanBUS = new BUS_BenhNhan(DALManager.BenhNhanDAL);
                 return _benhNhanBUS;
+            }
+        }
+
+        public static BUS_NhanVien NhanVienBUS
+        {
+            get
+            {
+                if (_nhanVienBUS == null)
+                    _nhanVienBUS = new BUS_NhanVien(DALManager.NhanVienDAL);
+                return _nhanVienBUS;
             }
         }
 
