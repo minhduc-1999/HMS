@@ -29,6 +29,8 @@ namespace DAL_Clinic.BuddyClass
             Property(p => p.DonGia).IsRequired();
             Property(p => p.TenThuoc).IsRequired();
             Property(p => p.SoLuong).IsRequired();
+            Property(p => p.DonVi).IsRequired();
+            Property(p => p.DonVi).HasMaxLength(50);
         }
     }
 }

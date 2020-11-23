@@ -9,6 +9,7 @@ namespace DAL_Clinic.BuddyClass
         {
             ToTable("DONTHUOC");
             HasKey(p => p.MaDonThuoc);
+            
         }
     }
 }

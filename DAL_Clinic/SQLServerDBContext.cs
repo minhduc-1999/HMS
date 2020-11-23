@@ -2,6 +2,7 @@
 using DTO_Clinic;
 using DTO_Clinic.Component;
 using DTO_Clinic.Form;
+using DTO_Clinic.Permission;
 using DTO_Clinic.Person;
 using System.Data.Entity;
 
@@ -36,7 +37,11 @@ namespace DAL_Clinic
             modelBuilder.Configurations.Add(new CTHDThuocMap());
             modelBuilder.Configurations.Add(new CT_DonThuocMap());
             modelBuilder.Configurations.Add(new DonThuocMap());
+            modelBuilder.Configurations.Add(new AccountMap());
+            modelBuilder.Configurations.Add(new GroupMap());
         }
+        public DbSet<DTO_Account> Account { get; set; }
+        public DbSet<DTO_Group> Group { get; set; }
         public DbSet<DTO_BenhNhan> BenhNhan { get; set; }
         public DbSet<DTO_PKDaKhoa> PKDaKhoa { get; set; }
         public DbSet<DTO_PKChuyenKhoa> PKChuyenKhoa { get; set; }

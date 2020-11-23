@@ -8,9 +8,10 @@ namespace DAL_Clinic.BuddyClass
         public CTHDThuocMap()
         {
             ToTable("CT_HOADONTHUOC");
-            HasKey(p => p.MaCTHDThuoc);
+            HasKey(p => new { p.MaHoaDon, p.MaThuoc});
             Property(p => p.SoLuong).IsRequired();
             Property(p => p.DonGia).IsRequired();
+            Property(p => p.ThanhTien).IsRequired();
             //ref to HOADON
             HasRequired(p => p.HoaDon)
                 .WithMany(o => o.DS_Thuoc)

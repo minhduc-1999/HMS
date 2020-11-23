@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuddyClass\AccountMap.cs" />
     <Compile Include="BuddyClass\BCDoanhThuMap.cs" />
     <Compile Include="BuddyClass\BCSuDungThuocMap.cs" />
     <Compile Include="BuddyClass\BenhMap.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="BuddyClass\CT_DonThuocMap.cs" />
     <Compile Include="BuddyClass\CT_PhieuNhapThuocMap.cs" />
     <Compile Include="BuddyClass\DonThuocMap.cs" />
+    <Compile Include="BuddyClass\GroupMap.cs" />
     <Compile Include="BuddyClass\HoaDonMap.cs" />
     <Compile Include="BuddyClass\NhanVienMap.cs" />
     <Compile Include="BuddyClass\PhieuNhapThuocMap.cs" />

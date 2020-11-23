@@ -1,5 +1,6 @@
 ﻿using DTO_Clinic.Component;
 using DTO_Clinic.Form;
+using DTO_Clinic.Permission;
 using System;
 using System.Collections.Generic;
 
@@ -86,6 +87,7 @@ namespace DTO_Clinic.Person
         public string MaPhong { get; set; }
         public int ChucVu { get => _chucVu; set { _chucVu = value; OnPropertyChanged(); } }
 
+        public virtual DTO_Account Account { get; set; }
         public virtual DTO_Phong Phong { get; set; }
         public virtual ICollection<DTO_PKDaKhoa> DS_PKDKDaTao { get; set; }
         public virtual ICollection<DTO_PKChuyenKhoa> DS_PKCKDaTao { get; set; }

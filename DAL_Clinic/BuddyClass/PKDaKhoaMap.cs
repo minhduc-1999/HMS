@@ -22,9 +22,8 @@ namespace DAL_Clinic.BuddyClass
                 .HasForeignKey(e => e.MaBenh)
                 .WillCascadeOnDelete();
             //reference to DONTHUOC table
-            HasOptional(p => p.DonThuoc)
-                .WithOptionalDependent(o => o.PKDaKhoa)
-                .WillCascadeOnDelete();
+            HasOptional(dt => dt.DonThuoc)
+                .WithRequired(pk => pk.PKDaKhoa);
             //reference to NHANVIEN table
             HasOptional(p => p.NguoiLap)
                 .WithMany(n => n.DS_PKDKDaTao)
