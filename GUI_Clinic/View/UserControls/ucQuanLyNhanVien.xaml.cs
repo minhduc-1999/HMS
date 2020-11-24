@@ -30,12 +30,7 @@ namespace GUI_Clinic.View.UserControls
 
         }
 
-        private void lvBenhNhan_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void lvBenhNhan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void lvNhanVien_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -99,22 +99,21 @@
             </Grid.ColumnDefinitions>
 
             <!--<materialDesign:Card Grid.Column="0" Margin="5">-->
-            <GroupBox Header="Danh sách bệnh nhân" 
+            <GroupBox Header="Danh sách nhân viên" 
                       Margin="5"
                       Grid.Column="0"
                       Style="{DynamicResource MaterialDesignCardGroupBox}">
-                <ListView x:Name="lvBenhNhan"
+                <ListView x:Name="lvNhanVien"
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          SelectionChanged="lvBenhNhan_SelectionChanged"
-                          MouseDoubleClick="lvBenhNhan_MouseDoubleClick">
+                          SelectionChanged="lvNhanVien_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                            <GridViewColumn Header="Mã bệnh nhân"
+                            <GridViewColumn Header="Mã nhân viên"
                                             DisplayMemberBinding="{Binding MaBenhNhan}" />
                             <GridViewColumn Header="Họ và tên" 
                                             DisplayMemberBinding="{Binding HoTen}"/>
@@ -142,6 +141,8 @@
                             <GridViewColumn Header="Ngày Sinh" 
                                             DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"/>
                             <GridViewColumn Header="Số điện thoại"
+                                            DisplayMemberBinding="{Binding SoDienThoai}" />
+                            <GridViewColumn Header="Email"
                                             DisplayMemberBinding="{Binding SoDienThoai}" />
                             <GridViewColumn Header="Địa chỉ" 
                                             DisplayMemberBinding="{Binding DiaChi}"/>
