@@ -7,12 +7,14 @@ namespace DTO_Clinic.Form
         public string MaDonThuoc { get; set; }
         private bool _isDeleted;
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
+        private string _loiDan;
+        public string LoiDan { get => _loiDan; set { _loiDan = value; OnPropertyChanged(); } }
+
         public DTO_DonThuoc() : base()
         {
 
         }
-        public string MaPKDK { get; set; }
-        public DTO_PKDaKhoa PKDaKhoa { get; set; }
+        public virtual DTO_PKDaKhoa PKDaKhoa { get; set; }
         public virtual ICollection<DTO_CTDonThuoc> DS_CTDonThuoc { get; set; }
     }
 }

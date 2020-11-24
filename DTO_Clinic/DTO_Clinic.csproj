@@ -42,13 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
-    <Compile Include="Component\DTO_DonVi.cs" />
     <Compile Include="Component\DTO_Thuoc.cs" />
     <Compile Include="Form\DTO_BCDoanhThu.cs" />
     <Compile Include="Form\DTO_BCSudungThuoc.cs" />
     <Compile Include="Component\DTO_Benh.cs" />
     <Compile Include="Component\DTO_CachDung.cs" />
     <Compile Include="Form\DTO_CTBaoCaoDoanhThu.cs" />
+    <Compile Include="Form\DTO_CTHDThuoc.cs" />
     <Compile Include="Form\DTO_CTPhieuNhapThuoc.cs" />
     <Compile Include="Form\DTO_PhieuNhapThuoc.cs" />
     <Compile Include="Component\DTO_Phong.cs" />
@@ -58,6 +58,8 @@
     <Compile Include="Form\DTO_HoaDon.cs" />
     <Compile Include="Form\DTO_PKChuyenKhoa.cs" />
     <Compile Include="Form\DTO_PKDaKhoa.cs" />
+    <Compile Include="Permission\Account.cs" />
+    <Compile Include="Permission\Group.cs" />
     <Compile Include="Person\DTO_BenhNhan.cs" />
     <Compile Include="Person\DTO_NhanVien.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

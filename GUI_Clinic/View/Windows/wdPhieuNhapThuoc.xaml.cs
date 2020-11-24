@@ -47,7 +47,6 @@ namespace GUI_Clinic.View.Windows
         //public string CongDungThuocMoi { get; set; }
         public DateTime NgayNhapThuoc { get; set; }
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
-        public ObservableCollection<DTO_DonVi> ListDonVi { get; set; }
         public ObservableCollection<DTO_Thuoc> List { get; set; }
         #endregion
 
@@ -60,7 +59,6 @@ namespace GUI_Clinic.View.Windows
             NgayNhapThuoc = DateTime.Now;
 
             ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
-            ListDonVi = BUSManager.DonViBUS.GetListDV();
 
             foreach (DTO_Thuoc item in ListThuoc)
             {
@@ -109,8 +107,6 @@ namespace GUI_Clinic.View.Windows
 
                     themThuoc.MaThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).MaThuoc;
                     themThuoc.TenThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc;
-                    themThuoc.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).MaDonVi;
-                    themThuoc.DonVi = BUSManager.DonViBUS.GetDonViById(themThuoc.MaDonVi);
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
@@ -132,8 +128,6 @@ namespace GUI_Clinic.View.Windows
                 {
                     DTO_Thuoc thuocMoi = new DTO_Thuoc();
                     thuocMoi.TenThuoc = tbxTenThuocMoi.Text;
-                    thuocMoi.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).MaDonVi;
-                    thuocMoi.DonVi = BUSManager.DonViBUS.GetDonViById(thuocMoi.MaDonVi);
                     thuocMoi.CongDung = tbxCongDungThuocMoi.Text;
                     thuocMoi.SoLuong = SoLuong;
                     thuocMoi.DonGia = DonGia;
@@ -243,7 +237,7 @@ namespace GUI_Clinic.View.Windows
         //    DTO_Thuoc themThuoc = new DTO_Thuoc((cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc, (cbxDonVi.SelectedItem as DTO_DonVi).Id, DonGia, SoLuong, "");
         //    //themThuoc.Id = STTBatDau + 1;
         //    //themThuoc.TenThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc;
-        //    //themThuoc.MaDonVi = (cbxDonVi.SelectedItem as DTO_DonVi).Id;
+        //    //themThuoc.DonVi = (cbxDonVi.SelectedItem as DTO_DonVi).Id;
         //    //themThuoc.SoLuong = SoLuong;
         //    //themThuoc.DonGia = DonGia;
 
