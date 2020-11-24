@@ -51,16 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuddyClass\AccountMap.cs" />
     <Compile Include="BuddyClass\BCDoanhThuMap.cs" />
     <Compile Include="BuddyClass\BCSuDungThuocMap.cs" />
     <Compile Include="BuddyClass\BenhMap.cs" />
     <Compile Include="BuddyClass\BenhNhanMap.cs" />
     <Compile Include="BuddyClass\CachDungMap.cs" />
+    <Compile Include="BuddyClass\CTHDThuocMap.cs" />
     <Compile Include="BuddyClass\CT_BCDoanhThuMap.cs" />
     <Compile Include="BuddyClass\CT_DonThuocMap.cs" />
     <Compile Include="BuddyClass\CT_PhieuNhapThuocMap.cs" />
     <Compile Include="BuddyClass\DonThuocMap.cs" />
-    <Compile Include="BuddyClass\DonViMap.cs" />
+    <Compile Include="BuddyClass\GroupMap.cs" />
     <Compile Include="BuddyClass\HoaDonMap.cs" />
     <Compile Include="BuddyClass\NhanVienMap.cs" />
     <Compile Include="BuddyClass\PhieuNhapThuocMap.cs" />
@@ -78,7 +80,6 @@
     <Compile Include="DAL\DAL_CachDung.cs" />
     <Compile Include="DAL\DAL_CTBaoCaoDoanhThu.cs" />
     <Compile Include="DAL\DAL_CTPhieuNhapThuoc.cs" />
-    <Compile Include="DAL\DAL_DonVi.cs" />
     <Compile Include="DAL\DAL_HoaDon.cs" />
     <Compile Include="DAL\DAL_NhanVien.cs" />
     <Compile Include="DAL\DAL_PhieuNhapThuoc.cs" />

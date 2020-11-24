@@ -50,7 +50,6 @@
     <Compile Include="BUS\BUS_CachDung.cs" />
     <Compile Include="BUS\BUS_CTBaoCaoDoanhThu.cs" />
     <Compile Include="BUS\BUS_CTPhieuNhapThuoc.cs" />
-    <Compile Include="BUS\BUS_DonVi.cs" />
     <Compile Include="BUS\BUS_HoaDon.cs" />
     <Compile Include="BUS\BUS_NhanVien.cs" />
     <Compile Include="BUS\BUS_PhieuNhapThuoc.cs" />

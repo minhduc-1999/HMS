@@ -32,7 +32,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-            bool has = thuocs.Any(t => (t.TenThuoc.Equals(thuocMoi.TenThuoc, StringComparison.OrdinalIgnoreCase)) && (t.MaDonVi == thuocMoi.MaDonVi));
+            bool has = thuocs.Any(t => (t.TenThuoc.Equals(thuocMoi.TenThuoc, StringComparison.OrdinalIgnoreCase)) && (t.DonVi == thuocMoi.DonVi));
 
             return has;
         }
@@ -40,7 +40,7 @@ namespace BUS_Clinic.BUS
         {
             ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-            var kq = thuocs.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.MaDonVi == thuocVuaNhap.MaDonVi)).FirstOrDefault();
+            var kq = thuocs.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.DonVi == thuocVuaNhap.DonVi)).FirstOrDefault();
 
             if (kq != null)
             {

@@ -4,7 +4,6 @@
     {
         private static DAL_BenhNhan _benhNhanDAL;
         private static DAL_NhanVien _nhanVienDAL;
-        private static DAL_DonVi _donViDAL;
         private static DAL_CachDung _cachDungDAL;
         private static DAL_Benh _benhDAL;
         private static DAL_Thuoc _thuocDAL;
@@ -32,20 +31,9 @@
             {
                 if (_nhanVienDAL == null)
                     _nhanVienDAL = new DAL_NhanVien();
+            }
                 return _nhanVienDAL;
-            }
         }
-
-        public static DAL_DonVi DonViDAL
-        {
-            get
-            {
-                if (_donViDAL == null)
-                    _donViDAL = new DAL_DonVi();
-                return _donViDAL;
-            }
-        }
-
         public static DAL_CachDung CachDungDAL
         {
             get
