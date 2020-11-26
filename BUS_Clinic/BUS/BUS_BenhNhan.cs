@@ -50,5 +50,9 @@ namespace BUS_Clinic.BUS
             return true;
 
         }
+        public bool LoadNP_DSPKDK(DTO_BenhNhan bn)
+        {
+            return DALManager.BenhNhanDAL.LoadNP_DSPKDK(bn);
+        }
     }
 }
