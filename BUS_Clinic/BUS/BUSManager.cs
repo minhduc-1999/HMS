@@ -23,6 +23,7 @@ namespace BUS_Clinic.BUS
         private static BUS_CTBaoCaoDoanhThu _cTBaoCaoDoanhThuBUS;
         private static BUS_HoaDon _hoaDonBUS;
         private static BUS_ThamSo _thamSoBUS;
+        private static BUS_Account _accountBUS;
 
         public static BUS_BenhNhan BenhNhanBUS
         {
@@ -139,6 +140,16 @@ namespace BUS_Clinic.BUS
                 if (_thamSoBUS == null)
                     _thamSoBUS = new BUS_ThamSo();
                 return _thamSoBUS;
+            }
+        }
+
+        public static BUS_Account AccountBUS
+        {
+            get
+            {
+                if (_accountBUS == null)
+                    _accountBUS = new BUS_Account(DALManager.AccountDAL);
+                return _accountBUS;
             }
         }
     }

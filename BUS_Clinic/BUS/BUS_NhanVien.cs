@@ -17,6 +17,11 @@ namespace BUS_Clinic.BUS
         {
 
         }
+
+        public void LoadNPAccount(DTO_NhanVien nhanVien)
+        {
+            DALManager.NhanVienDAL.LoadNPAccount(nhanVien);
+        }
         public async Task<ObservableCollection<DTO_NhanVien>> GetListNVAsync()
         {
             return await DALManager.NhanVienDAL.GetListNVAsync();

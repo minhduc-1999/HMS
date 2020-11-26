@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BUS\BaseBUS.cs" />
     <Compile Include="BUS\BUSManager.cs" />
+    <Compile Include="BUS\BUS_Account.cs" />
     <Compile Include="BUS\BUS_BCDoanhThu.cs" />
     <Compile Include="BUS\BUS_BCSuDungThuoc.cs" />
     <Compile Include="BUS\BUS_Benh.cs" />

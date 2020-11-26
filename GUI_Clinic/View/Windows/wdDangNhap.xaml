@@ -21,7 +21,8 @@
         BorderBrush="#0078D7"
         mc:Ignorable="d"
         Title="wdDangNhap" Height="400" Width="600"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

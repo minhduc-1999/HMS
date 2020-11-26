@@ -302,8 +302,8 @@ namespace GUI_Clinic.View
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
-            wdThietLap wdThietLap = new wdThietLap();
-            wdThietLap.ShowDialog();
+            //wdThietLap wdThietLap = new wdThietLap();
+            //wdThietLap.ShowDialog();
         }
     }
 }

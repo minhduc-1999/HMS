@@ -14,6 +14,7 @@
         private static DAL_CTBaoCaoDoanhThu _cTBaoCaoDoanhThuDAL;
         private static DAL_HoaDon _hoaDonDAL;
         private static DAL_ThamSo _thamSoDAL;
+        private static DAL_Account _accountDAL;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -31,8 +32,8 @@
             {
                 if (_nhanVienDAL == null)
                     _nhanVienDAL = new DAL_NhanVien();
-            }
                 return _nhanVienDAL;
+            }
         }
         public static DAL_CachDung CachDungDAL
         {
@@ -129,6 +130,16 @@
                 if (_thamSoDAL == null)
                     _thamSoDAL = new DAL_ThamSo();
                 return _thamSoDAL;
+            }
+        }
+
+        public static DAL_Account AccountDAL
+        {
+            get
+            {
+                if (_accountDAL == null)
+                    _accountDAL = new DAL_Account();
+                return _accountDAL;
             }
         }
     }

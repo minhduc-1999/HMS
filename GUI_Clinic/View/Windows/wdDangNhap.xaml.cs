@@ -1,4 +1,5 @@
 ﻿using BUS_Clinic.BUS;
+using DTO_Clinic.Permission;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
@@ -24,7 +25,7 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdDangNhap : Window
     {
-        public ObservableCollection<DTO_NhanVien> ListNV { get; set; }
+        public ObservableCollection<DTO_Account> ListAcc { get; set; }
         public ICommand LoginCommand { get; set; }
         private DTO_NhanVien currentUser;
 
@@ -46,14 +47,18 @@ namespace GUI_Clinic.View.Windows
                 return true;
             }, (p) =>
             {
-                foreach (DTO_NhanVien item in ListNV)
+                foreach (DTO_Account item in ListAcc)
                 {
-                    if (item.TenDangNhap == tbxTenDangNhap.Text
-                        && item.MatKhau == tbxMatKhau.Password)
+                    if (item.Username == tbxTenDangNhap.Text
+                        && item.Password == tbxMatKhau.Password)
                     {
-                        currentUser = item;
-                        InitMainWindow(currentUser);
-                        return;
+                        BUSManager.AccountBUS.LoadNPNhanVien(item);
+                        if (item.NhanVien != null)
+                        {
+                            currentUser = item.NhanVien;
+                            InitMainWindow(currentUser);
+                            return;
+                        }
                     }
                 }
                 MsgBox.Show("Tài khoản hoặc mật khẩu không hợp lệ");
@@ -70,7 +75,7 @@ namespace GUI_Clinic.View.Windows
 
         public async Task InitDataAsync()
         {
-            ListNV = await BUSManager.NhanVienBUS.GetListNVAsync();
+            ListAcc = await BUSManager.AccountBUS.GetListAccAsync();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -80,18 +85,22 @@ namespace GUI_Clinic.View.Windows
                 if (!string.IsNullOrEmpty(tbxTenDangNhap.Text) ||
                     !string.IsNullOrEmpty(tbxMatKhau.Password))
                 {
-                    foreach (DTO_NhanVien item in ListNV)
+                    foreach (DTO_Account item in ListAcc)
                     {
-                        if (item.TenDangNhap == tbxTenDangNhap.Text
-                            && item.MatKhau == tbxMatKhau.Password)
+                        if (item.Username == tbxTenDangNhap.Text
+                            && item.Password == tbxMatKhau.Password)
                         {
-                            currentUser = item;
-                            InitMainWindow(currentUser);
-                            return;
+                            BUSManager.AccountBUS.LoadNPNhanVien(item);
+                            if (item.NhanVien != null)
+                            {
+                                currentUser = item.NhanVien;
+                                InitMainWindow(currentUser);
+                                return;
+                            }
                         }
                     }
                     MsgBox.Show("Tài khoản hoặc mật khẩu không hợp lệ");
-                }    
+                }
             }
         }
     }

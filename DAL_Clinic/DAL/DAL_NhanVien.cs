@@ -17,9 +17,6 @@ namespace DAL_Clinic.DAL
             ObservableCollection<DTO_NhanVien> res = null;
             using (var context = new SQLServerDBContext())
             {
-                //context.Database.Log = s => Debug.WriteLine(s);
-                //context.BenhNhan.Load();
-                //res = context.BenhNhan.Local;
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
@@ -32,6 +29,22 @@ namespace DAL_Clinic.DAL
                 }
             }
             return res;
+        }
+
+        public void LoadNPAccount(DTO_NhanVien nhanVien)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    var entry = context.Entry(nhanVien);
+                    entry.Reference(c => c.Account).Load();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+            }
         }
     }
 }
