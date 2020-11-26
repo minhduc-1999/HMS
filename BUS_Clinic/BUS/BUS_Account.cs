@@ -20,9 +20,9 @@ namespace BUS_Clinic.BUS
 
         }
 
-        public void LoadNPNhanVien(DTO_Account acc)
+        public bool LoadNPNhanVien(DTO_Account acc)
         {
-            DALManager.AccountDAL.LoadNPNhanVienAsync(acc);
+            return DALManager.AccountDAL.LoadNPNhanVien(acc);
         }
         public async Task<ObservableCollection<DTO_Account>> GetListAccAsync()
         {

@@ -31,21 +31,23 @@ namespace DAL_Clinic.DAL
             return res;
         }
 
-        public void LoadNPNhanVienAsync(DTO_Account acc)
+        public bool LoadNPNhanVien(DTO_Account acc)
         {
-            using (var context = new SQLServerDBContext())
+            try
             {
-                try
+                using (var context = new SQLServerDBContext())
                 {
-                    var tempAcc = context.Account.Where(c => c.MaNhanVien == acc.MaNhanVien).FirstOrDefault();
-                    var entry = context.Entry(tempAcc);
-                    entry.Reference(c => c.NhanVien).Load();
-                    acc.NhanVien = tempAcc.NhanVien;
+                    context.Account.Attach(acc);
+                    var entry = context.Entry(acc);
+                    if (!entry.Reference(p => p.NhanVien).IsLoaded)
+                        entry.Reference(p => p.NhanVien).Load();
+                    return true;
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("[ERROR] " + e.Message);
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL ACCOUNT] {e.Message}");
+                return false;
             }
         }
 

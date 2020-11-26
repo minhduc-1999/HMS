@@ -23,6 +23,15 @@ namespace GUI_Clinic.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        //
+        //temp mainwindow
+        //
+        public MainWindow()
+        {
+            InitializeComponent();
+            uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
+            uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
+        }
         public MainWindow(DTO_NhanVien currentNV)
         {
             InitializeComponent();
