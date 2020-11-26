@@ -60,10 +60,10 @@
                             Họ và tên
                         </ComboBoxItem>
                         <ComboBoxItem>
-                            Địa chỉ
+                            Mã nhân viên
                         </ComboBoxItem>
                         <ComboBoxItem>
-                            Số điện thoại
+                            Chức vụ
                         </ComboBoxItem>
                     </ComboBox>
                     <TextBox x:Name="tbxTimKiem"
@@ -93,10 +93,10 @@
         </materialDesign:Card>
 
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
+            <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>-->
 
             <!--<materialDesign:Card Grid.Column="0" Margin="5">-->
             <GroupBox Header="Danh sách nhân viên" 
@@ -114,7 +114,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                             <GridViewColumn Header="Mã nhân viên"
-                                            DisplayMemberBinding="{Binding MaBenhNhan}" />
+                                            DisplayMemberBinding="{Binding MaNhanVien}" />
                             <GridViewColumn Header="Họ và tên" 
                                             DisplayMemberBinding="{Binding HoTen}"/>
                             <GridViewColumn Header="Giới tính">
@@ -142,10 +142,48 @@
                                             DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"/>
                             <GridViewColumn Header="Số điện thoại"
                                             DisplayMemberBinding="{Binding SoDienThoai}" />
+                            <GridViewColumn Header="Số CMND"
+                                            DisplayMemberBinding="{Binding SoCMND}" />
                             <GridViewColumn Header="Email"
-                                            DisplayMemberBinding="{Binding SoDienThoai}" />
+                                            DisplayMemberBinding="{Binding Email}" />
                             <GridViewColumn Header="Địa chỉ" 
                                             DisplayMemberBinding="{Binding DiaChi}"/>
+                            <GridViewColumn Header="Chức vụ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text"
+                                                            Value="Admin"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="1">
+                                                            <Setter Property="Text"
+                                                                    Value="BS Đa khoa" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="2">
+                                                            <Setter Property="Text"
+                                                                    Value="BS Chuyên khoa" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="3">
+                                                            <Setter Property="Text"
+                                                                    Value="Dược sĩ" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="4">
+                                                            <Setter Property="Text"
+                                                                    Value="NV Thủ tục" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -153,8 +191,8 @@
             <!--</materialDesign:Card>-->
 
             <!--<materialDesign:Card Grid.Column="1" Margin="5">-->
-            <Grid Grid.Column="1" Margin="5">
-                <!--<GroupBox Header="Lịch sử khám"
+            <!--<Grid Grid.Column="1" Margin="5">
+                <GroupBox Header="Lịch sử khám"
                           Style="{DynamicResource MaterialDesignCardGroupBox}">
                     <ListView ItemsSource="{Binding ListPKB}"
                               SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
@@ -173,8 +211,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </GroupBox>-->
-            </Grid>
+                </GroupBox>
+            </Grid>-->
             <!--</materialDesign:Card>-->
 
         </Grid>
