@@ -35,7 +35,7 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
-            InitData();
+            InitDataAsync();
             InitCommand();
         }
 
@@ -54,16 +54,16 @@ namespace GUI_Clinic.View.Windows
         public ICommand ThemThuocCommand { get; set; }
         #endregion
 
-        private void InitData()
+        private async Task InitDataAsync()
         {
             NgayNhapThuoc = DateTime.Now;
 
-            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
 
-            foreach (DTO_Thuoc item in ListThuoc)
-            {
-                BUSManager.ThuocBUS.LoadNPDonVi(item);
-            }
+            //foreach (DTO_Thuoc item in ListThuoc)
+            //{
+            //    BUSManager.ThuocBUS.LoadNPDonVi(item);
+            //}
 
             //ListSTT = new List<int>();
             //lvSTT.ItemsSource = ListSTT;
@@ -110,14 +110,14 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    if (BUSManager.ThuocBUS.CheckIfThuocDaTonTai(themThuoc))
-                    {
-                        List.Add(themThuoc);
-                    }
-                    else
-                    {
-                        MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
-                    }
+                    //if (BUSManager.ThuocBUS.CheckIfThuocDaTonTai(themThuoc))
+                    //{
+                    //    List.Add(themThuoc);
+                    //}
+                    //else
+                    //{
+                    //    MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
+                    //}
 
                     cbxTenThuoc.SelectedIndex = -1;
                     cbxDonVi.SelectedIndex = -1;
@@ -132,14 +132,14 @@ namespace GUI_Clinic.View.Windows
                     thuocMoi.SoLuong = SoLuong;
                     thuocMoi.DonGia = DonGia;
 
-                    if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(thuocMoi))
-                    {
-                        List.Add(thuocMoi);
-                    }
-                    else
-                    {
-                        MsgBox.Show("Thuốc với đơn vị bạn nhập đã tồn tại trong cơ sở dữ liệu");
-                    }
+                    //if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(thuocMoi))
+                    //{
+                    //    List.Add(thuocMoi);
+                    //}
+                    //else
+                    //{
+                    //    MsgBox.Show("Thuốc với đơn vị bạn nhập đã tồn tại trong cơ sở dữ liệu");
+                    //}
 
                     tbxTenThuocMoi.Clear();
                     cbxDonVi.SelectedIndex = -1;
@@ -160,20 +160,20 @@ namespace GUI_Clinic.View.Windows
 
                 foreach (DTO_Thuoc item in List)
                 {
-                    if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
-                    {
-                        BUSManager.ThuocBUS.AddThuoc(item);
-                    }
-                    else
-                    {
-                        BUSManager.ThuocBUS.CapNhatThuocVuaNhap(item);
-                    }    
+                    //if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
+                    //{
+                    //    BUSManager.ThuocBUS.AddThuoc(item);
+                    //}
+                    //else
+                    //{
+                    //    BUSManager.ThuocBUS.CapNhatThuocVuaNhap(item);
+                    //}    
 
                     DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                     BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
                 }
 
-                BUSManager.PhieuNhapThuocBUS.TinhTongTien(phieuNhapThuoc);
+                //BUSManager.PhieuNhapThuocBUS.TinhTongTien(phieuNhapThuoc);
 
                 //BUSManager.PhieuNhapThuocBUS.SaveChange();
 

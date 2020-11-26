@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -19,7 +20,10 @@ namespace DAL_Clinic.DAL
         }
         public void LoadNPCTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            
+            using (var context = new SQLServerDBContext())
+            {
+                context.Entry(phieuNhapThuoc).Collection(s => s.DS_CTPhieuNhapThuoc).Load();
+            }
         }
         public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
@@ -42,9 +46,22 @@ namespace DAL_Clinic.DAL
         //    }
         //}
   
-        public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
+        public async Task<ObservableCollection<DTO_PhieuNhapThuoc>> GetListPNTAsync()
         {
-            return null;
+            ObservableCollection<DTO_PhieuNhapThuoc> res = null;
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    var list = await context.PhieuNhapThuoc.SqlQuery("select * from PHIEUNHAPTHUOC").ToListAsync();
+                    res = new ObservableCollection<DTO_PhieuNhapThuoc>(list);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+            }
+            return res;
         }
     }
 }

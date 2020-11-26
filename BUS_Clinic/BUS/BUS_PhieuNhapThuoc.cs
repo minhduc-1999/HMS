@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
@@ -26,27 +27,9 @@ namespace BUS_Clinic.BUS
         //{
         //    DALManager.PhieuNhapThuocDAL.TransferTongTien(phieuNhapThuoc);
         //}
-        public void TinhTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task<ObservableCollection<DTO_PhieuNhapThuoc>> GetListPNTAsync()
         {
-            ObservableCollection<DTO_CTPhieuNhapThuoc> CTPNTs = DALManager.CTPhieuNhapThuocDAL.GetListCTPNT();
-
-            var cTPNT = from p in CTPNTs
-                        where p.MaPNT == phieuNhapThuoc.MaPNT
-                        select p;
-
-            foreach (var item in cTPNT)
-            {
-                phieuNhapThuoc.TongTien += item.ThanhTien;
-            }
-        }
-        public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
-        {
-            return DALManager.PhieuNhapThuocDAL.GetListPNT();
-        }
-        public int GetPNTAmount()
-        {
-            int amount = DALManager.PhieuNhapThuocDAL.GetListPNT().Count;
-            return amount;
+            return await DALManager.PhieuNhapThuocDAL.GetListPNTAsync();
         }
     }
 }

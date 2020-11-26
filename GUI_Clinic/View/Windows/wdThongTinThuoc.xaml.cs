@@ -35,7 +35,7 @@ namespace GUI_Clinic.View.Windows
         #endregion
         private void InitData()
         {
-            BUSManager.ThuocBUS.LoadNPDonVi(Thuoc);
+            //BUSManager.ThuocBUS.LoadNPDonVi(Thuoc);
         }
         private bool IsHasDifference()
         {
@@ -56,13 +56,13 @@ namespace GUI_Clinic.View.Windows
                 return true;
             }, (p) =>
             {
-                if (BUSManager.ThuocBUS.UpdateInfoThuoc(Thuoc, tbxTenThuoc.Text, tbxCongDung.Text, Convert.ToDouble(tbxDonGia.Text)))
-                {
-                    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
-                    this.Close();
-                }
-                else
-                    MsgBox.Show("Tên thuốc này đã tồn tại", MessageType.Error);
+                //if (BUSManager.ThuocBUS.UpdateInfoThuoc(Thuoc, tbxTenThuoc.Text, tbxCongDung.Text, Convert.ToDouble(tbxDonGia.Text)))
+                //{
+                //    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                //    this.Close();
+                //}
+                //else
+                //    MsgBox.Show("Tên thuốc này đã tồn tại", MessageType.Error);
             });
             CancelCommand = new RelayCommand<Window>((p) =>
             {

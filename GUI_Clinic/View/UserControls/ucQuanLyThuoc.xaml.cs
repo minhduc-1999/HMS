@@ -30,7 +30,7 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
             this.DataContext = this;
-            InitData();
+            InitDataAsync();
         }
 
         #region Property
@@ -48,7 +48,7 @@ namespace GUI_Clinic.View.UserControls
 
         #endregion
 
-        private void InitData()
+        private async Task InitDataAsync()
         {
             //thuoc = new DTO_Thuoc("thuoc ngu", 2, 50000, 10, "ngu");
             //BUSManager.ThuocBUS.AddThuoc(thuoc);
@@ -59,13 +59,13 @@ namespace GUI_Clinic.View.UserControls
             //cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(0, 0, 12, 500);
             //BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
 
-            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             //foreach (DTO_Thuoc item in ListThuoc)
             //{
             //    BUSManager.ThuocBUS.LoadNPDonVi(item);
             //}
 
-            ListPNT = BUSManager.PhieuNhapThuocBUS.GetListPNT();
+            ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
             ListCTPNT = BUSManager.CTPhieuNhapThuocBUS.GetListCTPNT();
 
             lvThuoc.ItemsSource = ListThuoc;
