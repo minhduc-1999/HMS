@@ -95,16 +95,16 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvBenhNhan_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var tempMaBenhNhanSelected = lvBenhNhan.SelectedItem;
-            if (tempMaBenhNhanSelected != null)
-            {
-                MaBenhNhanSelected = (lvBenhNhan.SelectedItem as DTO_BenhNhan).MaBenhNhan;
-                CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource).Refresh();
-            }
-            else
-            {
-                return;
-            }
+            //var tempMaBenhNhanSelected = lvBenhNhan.SelectedItem;
+            //if (tempMaBenhNhanSelected != null)
+            //{
+            //    MaBenhNhanSelected = (lvBenhNhan.SelectedItem as DTO_BenhNhan).MaBenhNhan;
+            //    CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource).Refresh();
+            //}
+            //else
+            //{
+            //    return;
+            //}
         }
 
         private void lvDanhSachPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -124,8 +124,9 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 //Mo thong tin benh nhan tuong ung
-                wdBenhNhan benhNhan = new wdBenhNhan(item);
-                benhNhan.ShowDialog();
+                //wdBenhNhan benhNhan = new wdBenhNhan(item);
+                //benhNhan.ShowDialog();
+                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(item);
             }
         }
     }

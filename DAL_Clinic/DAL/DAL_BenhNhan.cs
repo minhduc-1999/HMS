@@ -69,7 +69,26 @@ namespace DAL_Clinic.DAL
             }
             return res;
         }
+        public bool LoadNP_DSPKDK(DTO_BenhNhan bn)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.BenhNhan.Attach(bn);
+                    var entry = context.Entry(bn);
+                    if (!entry.Collection(p => p.DS_PKDaKhoa).IsLoaded)
+                        entry.Collection(p => p.DS_PKDaKhoa).Load();
+                    return true;
+                }
+            }
+           catch(Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL BENHNHAN] {e.Message}");
+                return false;
+            }
 
+        }
         public async Task<DTO_BenhNhan> GetBNByID(string id)
         {
             if (id == null) return null;
