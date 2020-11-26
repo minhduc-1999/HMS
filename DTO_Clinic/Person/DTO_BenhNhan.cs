@@ -6,6 +6,11 @@ namespace DTO_Clinic.Person
 {
     public class DTO_BenhNhan : BaseModel
     {
+        public DTO_BenhNhan()
+        {
+            MaBenhNhan = "";
+            IsDeleted = false;
+        }
         private string _hoTen;
         private DateTime _ngaySinh;
         private bool _gioiTinh;

@@ -14,7 +14,7 @@
         BorderThickness="2"
         WindowStartupLocation="CenterScreen"
         Height="480"
-        Width="400"
+        Width="600"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ShowInTaskbar="False"
         Title="wdBenhNhan">
@@ -53,11 +53,13 @@
                             Value="10"></Setter>
                     <Setter Property="FontSize"
                             Value="16"></Setter>
-                </Style>
+                </Style>           
             </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -93,7 +95,7 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
@@ -112,7 +114,26 @@
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Số CMND:">
+                </TextBlock>
+                <Grid Grid.Column="1">
+                    <TextBox BorderBrush="#0078D7"
+                             x:Name="tbxCMND"
+                             BorderThickness="2"
+                             Margin="0 5 20 5"
+                             FontSize="16"
+                             Text="{Binding BenhNhan.SoCMND, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                             VerticalAlignment="Center">
+                    </TextBox>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid>
@@ -139,9 +160,9 @@
                 </Grid>
 
             </Grid>
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
                     <ColumnDefinition />
                     <!--<ColumnDefinition Width="auto" />
                                             <ColumnDefinition />-->
@@ -168,9 +189,9 @@
                     </ComboBox>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="5">
+            <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
@@ -187,9 +208,9 @@
                     </TextBox>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="6">
+            <Grid Grid.Row="7">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
@@ -200,20 +221,50 @@
                              x:Name="tbxSDT"
                              BorderThickness="2"
                              Margin="0 5 20 5"
-                             FontSize="16"
-                             MaxLength="{Binding BenhNhan.SoDienThoai.Length,Mode=OneTime}"
+                             FontSize="16"                             
+                             MaxLength="12"
                              Text="{Binding BenhNhan.SoDienThoai, Mode=OneTime}"
                              VerticalAlignment="Center"
                              DataObject.Pasting="tbxSDT_Pasting"
                              PreviewTextInput="tbxSDT_PreviewTextInput" />
                 </Grid>
             </Grid>
-            <Grid Grid.Row="7">
+            <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Email:">
+                </TextBlock>
+                <Grid Grid.Column="1">
+                    <TextBox BorderBrush="#0078D7"
+                             x:Name="tbxEmail"
+                             BorderThickness="2"
+                             Margin="0 5 20 5"
+                             FontSize="16"
+                             Text="{Binding BenhNhan.Email, Mode=OneTime}"
+                             VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="9">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
+                    <Button x:Name="btnThem"
+                            Margin="10 10"
+                            Command="{Binding AddCommand}"
+                            Content="Thêm"
+                            Width="90"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Background="#0078D7"
+                            BorderBrush="#0078D7"></Button>
+                </Grid>
+                <Grid Grid.Column="1">
                     <Button x:Name="btnCapNhat"
                             Margin="10 10"
                             Command="{Binding UpdateCommand}"
@@ -224,18 +275,19 @@
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="2">
                     <Button x:Name="btnHuy"
                             Margin="10 10"
                             Command="{Binding CancelCommand}"
                             Content="Huỷ"
                             Width="90"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>
                 </Grid>
             </Grid>
+
         </Grid>
     </Grid>
 </Window>

@@ -20,6 +20,10 @@ namespace DAL_Clinic.DAL
                 try
                 {
                     var emailParam = new SqlParameter("@7", System.Data.SqlDbType.NVarChar);
+                    var nameParam = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    var addressParam = new SqlParameter("@4", System.Data.SqlDbType.NVarChar);
+                    nameParam.Value = bn.HoTen;
+                    addressParam.Value = bn.DiaChi;
                     if (string.IsNullOrEmpty(bn.Email))
                         emailParam.Value = DBNull.Value;
                     else
@@ -27,14 +31,14 @@ namespace DAL_Clinic.DAL
                     res = await context.Database.SqlQuery<string>("exec proc_BenhNhan_insert @1, @2, @3, @4, @5, @6, @7",
                             new SqlParameter[]
                             {
-                    new SqlParameter("@1", bn.HoTen),
+                    nameParam,
                     new SqlParameter("@2", bn.NgaySinh),
                     new SqlParameter("@3", bn.GioiTinh),
-                    new SqlParameter("@4", bn.DiaChi),
+                    addressParam,
                     new SqlParameter("@5", bn.SoDienThoai),
                     new SqlParameter("@6", bn.SoCMND),
                     emailParam
-                            }).FirstOrDefaultAsync();                   
+                            }).FirstOrDefaultAsync();
                     //else
                     //    Debug.WriteLine("no id return");
                     //Debug.WriteLine(list.Count);

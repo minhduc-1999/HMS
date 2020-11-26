@@ -11,7 +11,7 @@ end
 
 --select * from PHIEUNHAPTHUOC
 --select * from CT_PHIEUNHAPTHUOC
-insert into CT_PHIEUNHAPTHUOC values ('PNT00001', 'TH00002', 0, 1000, 10000, 10000000)
+--insert into CT_PHIEUNHAPTHUOC values ('PNT00001', 'TH00002', 0, 1000, 10000, 10000000)
 
 go
 create trigger Tr_CTHoaDonThuoc_insert on CT_HOADONTHUOC

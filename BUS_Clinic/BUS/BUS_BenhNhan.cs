@@ -22,12 +22,12 @@ namespace BUS_Clinic.BUS
         {
             return await DALManager.BenhNhanDAL.GetBNByID(maBenhNhan);
         }
-        public async Task AddBenhNhanAsync(DTO_BenhNhan bn, ObservableCollection<DTO_BenhNhan> listBN)
+        public async Task AddBenhNhanAsync(DTO_BenhNhan bn, ObservableCollection<DTO_BenhNhan> listBN = null)
         {
             //if (!IsValidInfo(bn, listBN))
             //    return;
             var res = await DALManager.BenhNhanDAL.AddBenhNhanAsync(bn);
-            if (res != null)
+            if (res != null && listBN != null)
             {
                 bn.MaBenhNhan = res;
                 listBN.Add(bn);
