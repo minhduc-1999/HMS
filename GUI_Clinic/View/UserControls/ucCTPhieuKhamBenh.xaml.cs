@@ -35,7 +35,7 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();
+            InitDataAsync();
             InitCommmand();
         }
 
@@ -105,9 +105,9 @@ namespace GUI_Clinic.View.UserControls
             DisablePKB();
         }
 
-        public void InitData()
+        public async Task InitDataAsync()
         {
-            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             ListCachDung = BUSManager.CachDungBUS.GetListCD();
             ListBenh = BUSManager.BenhBUS.GetListBenh();
            // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
