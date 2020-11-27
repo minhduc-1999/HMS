@@ -38,9 +38,9 @@ namespace GUI_Clinic.View
             ucControlBar.SetProfileInfo(currentNV);
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
-            switch (currentNV.ChucVu)
+            switch (currentNV.Nhom.TenNhom)
             {
-                case 0: //ADMIN
+                case "admin": //ADMIN
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
                     itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
                     itemDSDonThuoc.Visibility = Visibility.Collapsed;
@@ -55,7 +55,7 @@ namespace GUI_Clinic.View
                     btnSetting.Visibility = Visibility.Visible;
                     ListViewMenu.SelectedIndex = 9;
                     break;
-                case 1: //BSDK
+                case "Bác sĩ đa khoa": //BSDK
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
                     itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
                     itemDSDonThuoc.Visibility = Visibility.Collapsed;
@@ -70,7 +70,7 @@ namespace GUI_Clinic.View
                     btnSetting.Visibility = Visibility.Collapsed;
                     ListViewMenu.SelectedIndex = 2;
                     break;
-                case 2: //BSCK
+                case "Bác sĩ chuyên khoa": //BSCK
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
                     itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
                     itemDSDonThuoc.Visibility = Visibility.Collapsed;
@@ -85,7 +85,7 @@ namespace GUI_Clinic.View
                     btnSetting.Visibility = Visibility.Collapsed;
                     ListViewMenu.SelectedIndex = 3;
                     break;
-                case 3: //DUOCSI
+                case "Dược sĩ": //DUOCSI
                     itemBCDoanhThu.Visibility = Visibility.Collapsed;
                     itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
                     itemDSDonThuoc.Visibility = Visibility.Visible;
@@ -100,7 +100,7 @@ namespace GUI_Clinic.View
                     btnSetting.Visibility = Visibility.Collapsed;
                     ListViewMenu.SelectedIndex = 4;
                     break;
-                case 4: //THUTUC
+                case "Nhân viên thủ tục": //THUTUC
                     itemBCDoanhThu.Visibility = Visibility.Visible;
                     itemBCSuDungThuoc.Visibility = Visibility.Visible;
                     itemDSDonThuoc.Visibility = Visibility.Collapsed;

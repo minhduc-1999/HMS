@@ -107,7 +107,7 @@
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          SelectionChanged="lvNhanVien_SelectionChanged">
+                          MouseDoubleClick="lvNhanVien_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
@@ -148,41 +148,8 @@
                                             DisplayMemberBinding="{Binding Email}" />
                             <GridViewColumn Header="Địa chỉ" 
                                             DisplayMemberBinding="{Binding DiaChi}"/>
-                            <GridViewColumn Header="Chức vụ">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock>
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Text"
-                                                            Value="Admin"></Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ChucVu}"
-                                                                     Value="1">
-                                                            <Setter Property="Text"
-                                                                    Value="BS Đa khoa" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding ChucVu}"
-                                                                     Value="2">
-                                                            <Setter Property="Text"
-                                                                    Value="BS Chuyên khoa" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding ChucVu}"
-                                                                     Value="3">
-                                                            <Setter Property="Text"
-                                                                    Value="Dược sĩ" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding ChucVu}"
-                                                                     Value="4">
-                                                            <Setter Property="Text"
-                                                                    Value="NV Thủ tục" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
+                            <GridViewColumn Header="Chức vụ"
+                                            DisplayMemberBinding="{Binding Nhom.TenNhom}">
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>

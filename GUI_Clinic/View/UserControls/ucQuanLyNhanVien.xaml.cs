@@ -1,20 +1,12 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic.Person;
+using GUI_Clinic.View.Windows;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -35,6 +27,10 @@ namespace GUI_Clinic.View.UserControls
         private async Task InitDataAsync()
         {
             ListNV = await BUSManager.NhanVienBUS.GetListNVAsync();
+            foreach (DTO_NhanVien item in ListNV)
+            {
+                BUSManager.NhanVienBUS.LoadNPGroup(item);
+            }
 
             lvNhanVien.ItemsSource = ListNV;
 
@@ -58,10 +54,11 @@ namespace GUI_Clinic.View.UserControls
                 {
                     return ((item as DTO_NhanVien).MaNhanVien.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 }
-                //else if (cbxLoaiTiemKiem.SelectedIndex == 2)
-                //{
-                //    return ((item as DTO_NhanVien).ChucVu.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                //}
+                else if (cbxLoaiTiemKiem.SelectedIndex == 2)
+                {
+                    BUSManager.NhanVienBUS.LoadNPGroup(item as DTO_NhanVien);
+                    return ((item as DTO_NhanVien).Nhom.TenNhom.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                }
                 else
                 {
                     return false;
@@ -74,9 +71,14 @@ namespace GUI_Clinic.View.UserControls
             CollectionViewSource.GetDefaultView(lvNhanVien.ItemsSource).Refresh();
         }
 
-        private void lvNhanVien_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lvNhanVien_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_NhanVien;
+            if (item != null)
+            {
+                wdNhanVien nhanVien = new wdNhanVien();
+                nhanVien.ShowDialog();
+            }
         }
     }
 }
