@@ -3,6 +3,7 @@
     public static class DALManager
     {
         private static DAL_BenhNhan _benhNhanDAL;
+        private static DAL_NhanVien _nhanVienDAL;
         private static DAL_CachDung _cachDungDAL;
         private static DAL_Benh _benhDAL;
         private static DAL_Thuoc _thuocDAL;
@@ -13,6 +14,7 @@
         private static DAL_CTBaoCaoDoanhThu _cTBaoCaoDoanhThuDAL;
         private static DAL_HoaDon _hoaDonDAL;
         private static DAL_ThamSo _thamSoDAL;
+        private static DAL_Account _accountDAL;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -24,6 +26,15 @@
             }
         }
 
+        public static DAL_NhanVien NhanVienDAL
+        {
+            get
+            {
+                if (_nhanVienDAL == null)
+                    _nhanVienDAL = new DAL_NhanVien();
+                return _nhanVienDAL;
+            }
+        }
         public static DAL_CachDung CachDungDAL
         {
             get
@@ -119,6 +130,16 @@
                 if (_thamSoDAL == null)
                     _thamSoDAL = new DAL_ThamSo();
                 return _thamSoDAL;
+            }
+        }
+
+        public static DAL_Account AccountDAL
+        {
+            get
+            {
+                if (_accountDAL == null)
+                    _accountDAL = new DAL_Account();
+                return _accountDAL;
             }
         }
     }

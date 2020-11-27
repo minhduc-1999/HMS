@@ -73,6 +73,7 @@
     <Compile Include="BuddyClass\ThuocMap.cs" />
     <Compile Include="DAL\BaseDAL.cs" />
     <Compile Include="DAL\DALManager.cs" />
+    <Compile Include="DAL\DAL_Account.cs" />
     <Compile Include="DAL\DAL_BCDoanhThu.cs" />
     <Compile Include="DAL\DAL_BCSuDungThuoc.cs" />
     <Compile Include="DAL\DAL_Benh.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="DAL\DAL_CTBaoCaoDoanhThu.cs" />
     <Compile Include="DAL\DAL_CTPhieuNhapThuoc.cs" />
     <Compile Include="DAL\DAL_HoaDon.cs" />
+    <Compile Include="DAL\DAL_NhanVien.cs" />
     <Compile Include="DAL\DAL_PhieuNhapThuoc.cs" />
     <Compile Include="DAL\DAL_ThamSo.cs" />
     <Compile Include="DAL\DAL_Thuoc.cs" />

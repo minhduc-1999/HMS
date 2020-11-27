@@ -1,0 +1,220 @@
+﻿<UserControl x:Class="GUI_Clinic.View.UserControls.ucQuanLyNhanVien"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_Clinic.View.UserControls"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cvt="clr-namespace:GUI_Clinic.Converter"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <cvt:IndexConverter x:Key="IndexConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <!--<TextBlock x:Name="tblTieuDe"
+                       Margin="20 10" 
+                       HorizontalAlignment="Left" 
+                       Text="Quản lý bệnh nhân"
+                       VerticalAlignment="Center"
+                       FontSize="35" 
+                       FontWeight="Bold" 
+                       Foreground="#0078D7"/>-->
+        </Grid>
+
+        <!--Cac element binding tu selected item-->
+        <materialDesign:Card Grid.Row="1" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Tìm kiếm" FontWeight="Bold" FontSize="20" Margin="15 5 5 5" Foreground="Gray"/>
+
+                <WrapPanel Grid.Row="1"
+                           Margin="0 0 0 10">
+                    <materialDesign:PackIcon Kind="FilterOutline"
+                                             Height="24"
+                                             Width="24"
+                                             VerticalAlignment="Center"
+                                             Margin="5 5 0 5"
+                                             Foreground="Gray" />
+                    <ComboBox x:Name="cbxLoaiTiemKiem"
+                              Margin="5"
+                              Foreground="Gray">
+                        <ComboBoxItem IsSelected="True">
+                            Họ và tên
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Mã nhân viên
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Chức vụ
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="tbxTimKiem"
+                             Margin="5 5 15 3"
+                             materialDesign:HintAssist.Hint="Nội dung tìm kiếm"
+                             VerticalAlignment="Center"
+                             MinWidth="100" 
+                             TextChanged="tbxTimKiem_TextChanged"/>
+                </WrapPanel>
+
+                <!--<materialDesign:Chip Command="{Binding Command}"
+                                     x:Name="btnMedHistory"
+                                     Grid.Row="1"
+                                     HorizontalAlignment="Right"
+                                     Content="Lịch sử khám"
+                                     ToolTip="Xem lịch sử khám của bệnh nhân"
+                                     Foreground="White"
+                                     IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                     IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                     Background="Gray"
+                                     Margin="0 0 5 0">
+                    <materialDesign:Chip.Icon>
+                        <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
+                    </materialDesign:Chip.Icon>
+                </materialDesign:Chip>-->
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Row="2">
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>-->
+
+            <!--<materialDesign:Card Grid.Column="0" Margin="5">-->
+            <GroupBox Header="Danh sách nhân viên" 
+                      Margin="5"
+                      Grid.Column="0"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}">
+                <ListView x:Name="lvNhanVien"
+                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          SelectionChanged="lvNhanVien_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                            <GridViewColumn Header="Mã nhân viên"
+                                            DisplayMemberBinding="{Binding MaNhanVien}" />
+                            <GridViewColumn Header="Họ và tên" 
+                                            DisplayMemberBinding="{Binding HoTen}"/>
+                            <GridViewColumn Header="Giới tính">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text"
+                                                            Value="Nam"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GioiTinh}"
+                                                                     Value="True">
+                                                            <Setter Property="Text"
+                                                                    Value="Nữ" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày Sinh" 
+                                            DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"/>
+                            <GridViewColumn Header="Số điện thoại"
+                                            DisplayMemberBinding="{Binding SoDienThoai}" />
+                            <GridViewColumn Header="Số CMND"
+                                            DisplayMemberBinding="{Binding SoCMND}" />
+                            <GridViewColumn Header="Email"
+                                            DisplayMemberBinding="{Binding Email}" />
+                            <GridViewColumn Header="Địa chỉ" 
+                                            DisplayMemberBinding="{Binding DiaChi}"/>
+                            <GridViewColumn Header="Chức vụ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text"
+                                                            Value="Admin"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="1">
+                                                            <Setter Property="Text"
+                                                                    Value="BS Đa khoa" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="2">
+                                                            <Setter Property="Text"
+                                                                    Value="BS Chuyên khoa" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="3">
+                                                            <Setter Property="Text"
+                                                                    Value="Dược sĩ" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ChucVu}"
+                                                                     Value="4">
+                                                            <Setter Property="Text"
+                                                                    Value="NV Thủ tục" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <!--</materialDesign:Card>-->
+
+            <!--<materialDesign:Card Grid.Column="1" Margin="5">-->
+            <!--<Grid Grid.Column="1" Margin="5">
+                <GroupBox Header="Lịch sử khám"
+                          Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <ListView ItemsSource="{Binding ListPKB}"
+                              SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
+                              x:Name="lvDanhSachPKB"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              MouseDoubleClick="lvDanhSachPKB_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                   {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                   Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                                <GridViewColumn Header="Mã phiếu khám" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
+                                <GridViewColumn Header="Loại bệnh" DisplayMemberBinding="{Binding Benh.TenBenh}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+            </Grid>-->
+            <!--</materialDesign:Card>-->
+
+        </Grid>
+    </Grid>
+</UserControl>

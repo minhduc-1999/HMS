@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO_Clinic.Person;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,10 +23,53 @@ namespace GUI_Clinic.View.UserControls
     /// </summary>
     public partial class ucControlBar : UserControl
     {
+        public DTO_NhanVien currentNV;
         public ucControlBar()
         {
             InitializeComponent();
             this.DataContext = this;
+            if (currentNV == null)
+            {
+                grdInfo.Visibility = Visibility.Collapsed;
+            }
+            
+        }
+
+        public void SetProfileInfo(DTO_NhanVien nv)
+        {
+            if (nv != null)
+            {
+                tblTenNhanVien.Text = nv.HoTen;
+                switch (nv.ChucVu)
+                {
+                    case 0:
+                        tblChucVu.Text = "Admin";
+                        break;
+                    case 1:
+                        tblChucVu.Text = "Bác sĩ đa khoa";
+                        break;
+                    case 2:
+                        tblChucVu.Text = "Bác sĩ chuyên khoa";
+                        break;
+                    case 3:
+                        tblChucVu.Text = "Dược sĩ";
+                        break;
+                    case 4:
+                        tblChucVu.Text = "Nhân viên thủ tục";
+                        break;
+                    default:
+                        break;
+                }
+                currentNV = nv;
+            }
+            if (currentNV == null)
+            {
+                grdInfo.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                grdInfo.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnShutdown_Click(object sender, RoutedEventArgs e)

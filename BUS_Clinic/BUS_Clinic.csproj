@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BUS\BaseBUS.cs" />
     <Compile Include="BUS\BUSManager.cs" />
+    <Compile Include="BUS\BUS_Account.cs" />
     <Compile Include="BUS\BUS_BCDoanhThu.cs" />
     <Compile Include="BUS\BUS_BCSuDungThuoc.cs" />
     <Compile Include="BUS\BUS_Benh.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="BUS\BUS_CTBaoCaoDoanhThu.cs" />
     <Compile Include="BUS\BUS_CTPhieuNhapThuoc.cs" />
     <Compile Include="BUS\BUS_HoaDon.cs" />
+    <Compile Include="BUS\BUS_NhanVien.cs" />
     <Compile Include="BUS\BUS_PhieuNhapThuoc.cs" />
     <Compile Include="BUS\BUS_ThamSo.cs" />
     <Compile Include="BUS\BUS_Thuoc.cs" />
