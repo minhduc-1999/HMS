@@ -63,6 +63,7 @@
             </Grid>
 
             <Grid x:Name="grdUserControl" Grid.Row="1">
+                <uc:ucQuanLyNhanVien x:Name="uc_QuanLyNhanVien" Visibility="Hidden"/>
                 <uc:ucBaoCaoDoanhThu x:Name="uc_BaoCaoDoanhThu" Visibility="Hidden"/>
                 <uc:ucBaoCaoSuDungThuoc x:Name="uc_BaoCaoSuDungThuoc" Visibility="Hidden"/>
                 <uc:ucDonViCachDung x:Name="uc_DonViCachDung" Visibility="Hidden"/>
@@ -72,7 +73,7 @@
                 <uc:ucDanhSachPhieuKhamChuyenKhoa x:Name="uc_DanhSachPhieuKhamChuyenKhoa" Visibility="Hidden"/>
                 <uc:ucDanhSachPhieuKhamBenh x:Name="uc_DanhSachPhieuKhamBenh" Visibility="Hidden"/>
                 <uc:ucDanhSachKhamChuyenKhoa x:Name="uc_DanhSachKhamChuyenKhoa" Visibility="Hidden"/>
-                <uc:ucDanhSachKhamBenh x:Name="uc_DanhSachKhamBenh"/>
+                <uc:ucDanhSachKhamBenh x:Name="uc_DanhSachKhamBenh" Visibility="Hidden"/>
             </Grid>
         </Grid>
 
@@ -101,8 +102,7 @@
 
                 <Grid x:Name="grdSelectedButton" Grid.Column="0" Height="60" VerticalAlignment="Top" Background="White"/>
 
-                <ListView SelectedIndex="0" 
-                          x:Name="ListViewMenu" 
+                <ListView x:Name="ListViewMenu" 
                           Grid.Column="1" 
                           Foreground="White" 
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -227,7 +227,14 @@
                                        FontSize="15" />
                         </StackPanel>
                     </ListViewItem>
-                    
+
+                    <ListViewItem x:Name="itemQLNhanVien" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Height="25" Width="25" Margin="5 10"/>
+                            <TextBlock Text="Quản lý nhân viên" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+                    </ListViewItem>
+
                     <ListViewItem x:Name="itemThietLapKhac"
                                   Height="60">
                         <StackPanel Orientation="Horizontal">

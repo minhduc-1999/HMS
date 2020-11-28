@@ -12,6 +12,7 @@ namespace BUS_Clinic.BUS
     public static class BUSManager
     {
         private static BUS_BenhNhan _benhNhanBUS;
+        private static BUS_NhanVien _nhanVienBUS;
         private static BUS_CachDung _cachDungBUS;
         private static BUS_Benh _benhBUS;
         private static BUS_Thuoc _thuocBUS;
@@ -22,6 +23,7 @@ namespace BUS_Clinic.BUS
         private static BUS_CTBaoCaoDoanhThu _cTBaoCaoDoanhThuBUS;
         private static BUS_HoaDon _hoaDonBUS;
         private static BUS_ThamSo _thamSoBUS;
+        private static BUS_Account _accountBUS;
 
         public static BUS_BenhNhan BenhNhanBUS
         {
@@ -33,6 +35,15 @@ namespace BUS_Clinic.BUS
             }
         }
 
+        public static BUS_NhanVien NhanVienBUS
+        {
+            get
+            {
+                if (_nhanVienBUS == null)
+                    _nhanVienBUS = new BUS_NhanVien(DALManager.NhanVienDAL);
+                return _nhanVienBUS;
+            }
+        }
         public static BUS_CachDung CachDungBUS
         {
             get
@@ -129,6 +140,16 @@ namespace BUS_Clinic.BUS
                 if (_thamSoBUS == null)
                     _thamSoBUS = new BUS_ThamSo();
                 return _thamSoBUS;
+            }
+        }
+
+        public static BUS_Account AccountBUS
+        {
+            get
+            {
+                if (_accountBUS == null)
+                    _accountBUS = new BUS_Account(DALManager.AccountDAL);
+                return _accountBUS;
             }
         }
     }

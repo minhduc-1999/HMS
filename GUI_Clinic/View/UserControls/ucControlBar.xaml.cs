@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BUS_Clinic.BUS;
+using DTO_Clinic.Person;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,10 +24,35 @@ namespace GUI_Clinic.View.UserControls
     /// </summary>
     public partial class ucControlBar : UserControl
     {
+        public DTO_NhanVien currentNV;
         public ucControlBar()
         {
             InitializeComponent();
             this.DataContext = this;
+            if (currentNV == null)
+            {
+                grdInfo.Visibility = Visibility.Collapsed;
+            }
+            
+        }
+
+        public void SetProfileInfo(DTO_NhanVien nv)
+        {
+            if (nv != null)
+            {
+                BUSManager.NhanVienBUS.LoadNPGroup(nv);
+                tblTenNhanVien.Text = nv.HoTen;
+                tblChucVu.Text = nv.Nhom.TenNhom;
+                currentNV = nv;
+            }
+            if (currentNV == null)
+            {
+                grdInfo.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                grdInfo.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnShutdown_Click(object sender, RoutedEventArgs e)

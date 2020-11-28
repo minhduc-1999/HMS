@@ -124,6 +124,9 @@
     <Compile Include="View\UserControls\ucQuanLyBenhNhan.xaml.cs">
       <DependentUpon>ucQuanLyBenhNhan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\ucQuanLyNhanVien.xaml.cs">
+      <DependentUpon>ucQuanLyNhanVien.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\ucQuanLyThuoc.xaml.cs">
       <DependentUpon>ucQuanLyThuoc.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,9 @@
     </Compile>
     <Compile Include="View\Windows\wdInBaoCaoSuDungThuoc.xaml.cs">
       <DependentUpon>wdInBaoCaoSuDungThuoc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\wdNhanVien.xaml.cs">
+      <DependentUpon>wdNhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\wdPhieuKhamBenh.xaml.cs">
       <DependentUpon>wdPhieuKhamBenh.xaml</DependentUpon>
@@ -255,6 +261,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\ucQuanLyNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\ucQuanLyThuoc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -276,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\wdInBaoCaoSuDungThuoc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\wdNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

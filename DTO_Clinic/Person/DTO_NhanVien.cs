@@ -11,8 +11,6 @@ namespace DTO_Clinic.Person
         public string MaNhanVien { get; set; }
         private bool _isDeleted;
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
-        public enum ChucNang { ADMIN, BSDK, BSCK, DUOCSI, THUTUC };
-        private int _chucVu;
         private string _hoTen;
         private DateTime _ngaySinh;
         private bool _gioiTinh;
@@ -85,7 +83,8 @@ namespace DTO_Clinic.Person
             }
         }
         public string MaPhong { get; set; }
-        public int ChucVu { get => _chucVu; set { _chucVu = value; OnPropertyChanged(); } }
+        public string MaNhom { get; set; }
+        public virtual DTO_Group Nhom { get; set; }
 
         public virtual DTO_Account Account { get; set; }
         public virtual DTO_Phong Phong { get; set; }

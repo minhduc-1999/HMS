@@ -21,6 +21,9 @@ namespace DAL_Clinic.BuddyClass
                 .WithMany(m => m.DS_NhanVien)
                 .HasForeignKey(p => p.MaPhong)
                 .WillCascadeOnDelete();
+            HasRequired(ac => ac.Nhom)
+                .WithMany(gr => gr.DS_NhanVien)
+                .HasForeignKey(ac => ac.MaNhom);
             Property(p => p.HoTen).HasMaxLength(50);
             Property(p => p.SoCMND).HasMaxLength(20);
             Property(p => p.SoDienThoai).HasMaxLength(20);

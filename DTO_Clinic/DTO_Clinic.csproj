@@ -58,8 +58,8 @@
     <Compile Include="Form\DTO_HoaDon.cs" />
     <Compile Include="Form\DTO_PKChuyenKhoa.cs" />
     <Compile Include="Form\DTO_PKDaKhoa.cs" />
-    <Compile Include="Permission\Account.cs" />
-    <Compile Include="Permission\Group.cs" />
+    <Compile Include="Permission\DTO_Account.cs" />
+    <Compile Include="Permission\DTO_Group.cs" />
     <Compile Include="Person\DTO_BenhNhan.cs" />
     <Compile Include="Person\DTO_NhanVien.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

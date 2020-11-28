@@ -20,7 +20,9 @@
         ResizeMode="NoResize"
         BorderBrush="#0078D7"
         mc:Ignorable="d"
-        Title="wdDangNhap" Height="400" Width="600">
+        Title="wdDangNhap" Height="400" Width="600"
+        KeyDown="Window_KeyDown"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -71,19 +73,24 @@
 
                     <Grid Grid.Row="1">
                         <TextBox Margin="0 10"
+                                 x:Name="tbxTenDangNhap"
                              materialDesign:HintAssist.Hint="Tên đăng nhập"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     </Grid>
 
                     <Grid Grid.Row="2">
                         <PasswordBox Margin="0 10"
+                                     x:Name="tbxMatKhau"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
                                  materialDesign:HintAssist.Background="#0078D7"
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
                     </Grid>
 
                     <Grid Grid.Row="3">
-                        <Button Margin="0 10"
+                        <Button 
+                            x:Name="btnDangNhap"
+                            Command="{Binding LoginCommand}"
+                            Margin="0 10"
                             Content="Đăng nhập"
                             Style="{StaticResource MaterialDesignRaisedAccentButton}"
                             Width="110"
