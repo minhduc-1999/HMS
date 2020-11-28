@@ -108,8 +108,8 @@ namespace GUI_Clinic.View.UserControls
         public async Task InitDataAsync()
         {
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
-            ListCachDung = BUSManager.CachDungBUS.GetListCD();
-            ListBenh = BUSManager.BenhBUS.GetListBenh();
+            ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
+            ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
            // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
             lvThuoc.ItemsSource = ListCTPKB;
         }

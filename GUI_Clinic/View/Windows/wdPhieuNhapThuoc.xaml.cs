@@ -105,7 +105,7 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    if (BUSManager.ThuocBUS.CheckIfThuocDaTonTai(themThuoc))
+                    if (BUSManager.ThuocBUS.IsThuocDaTonTai(themThuoc))
                     {
                         List.Add(themThuoc);
                     }

@@ -35,15 +35,15 @@ namespace BUS_Clinic.BUS
             return DALManager.ThuocDAL.GetDonViByTenThuoc(tenThuoc);
         }
 
-        public bool CheckIfThuocDaTonTai(DTO_Thuoc thuocMoi)
+        public bool IsThuocDaTonTai(DTO_Thuoc thuocMoi)
         {
             return DALManager.ThuocDAL.CheckIfThuocDaTonTai(thuocMoi);
         }
 
-        public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
-        {
-            DALManager.ThuocDAL.UpdateThuocVuaNhap(thuocVuaNhap);
-        }
+        //public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
+        //{
+        //    DALManager.ThuocDAL.UpdateThuocVuaNhap(thuocVuaNhap);
+        //}
         //public void SuDungThuoc(string idThuocSuDung, int soLuongThuocSuDung)
         //{
         //    ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();

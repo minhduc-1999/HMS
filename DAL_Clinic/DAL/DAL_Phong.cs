@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace DAL_Clinic.DAL
 {
-    public class DAL_Benh : BaseDAL
+    public class DAL_Phong : BaseDAL
     {
-        public DAL_Benh()
+        public DAL_Phong()
         {
         }
-        public async Task<string> AddBenhAsync(DTO_Benh benh)
+        public async Task<string> AddPhongAsync(DTO_Phong phong)
         {
             using (var context = new SQLServerDBContext())
             {
                 string res = null;
                 try
                 {
-                    var tenBenh = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
-                    tenBenh.Value = benh.TenBenh;
-                    res = await context.Database.SqlQuery<string>("exec proc_Benh_insert @1",
+                    var tenPhong = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    tenPhong.Value = phong.TenPhong;
+                    res = await context.Database.SqlQuery<string>("exec proc_Phong_insert @1",
                         new SqlParameter[]
                         {
-                            tenBenh
+                            tenPhong
                         }).FirstOrDefaultAsync();
                 }
                 catch (Exception e)
@@ -36,21 +36,17 @@ namespace DAL_Clinic.DAL
                 return res;
             }
         }
-        //public void DelBenh(DTO_Benh benh)
-        //{
-        //    SQLServerDBContext.Instant.Benh.Local.Where(x => x.Id == benh.Id).FirstOrDefault().IsDeleted=true;
-        //}
 
-        public async Task<ObservableCollection<DTO_Benh>> GetListBenhAsync()
+        public async Task<ObservableCollection<DTO_Phong>> GetListPhongAsync()
         {
-            ObservableCollection<DTO_Benh> res = null;
+            ObservableCollection<DTO_Phong> res = null;
             using (var context = new SQLServerDBContext())
             {
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
-                    var list = await context.Benh.SqlQuery("select * from BENH").ToListAsync();
-                    res = new ObservableCollection<DTO_Benh>(list);
+                    var list = await context.Phong.SqlQuery("select * from PHONG").ToListAsync();
+                    res = new ObservableCollection<DTO_Phong>(list);
                 }
                 catch (Exception e)
                 {
@@ -60,16 +56,16 @@ namespace DAL_Clinic.DAL
             return res;
         }
 
-        public bool UpdateBenh(DTO_Benh benh, string tenBenhMoi)
+        public bool UpdatePhong(DTO_Phong phong, string tenPhongMoi)
         {
             using (var context = new SQLServerDBContext())
             {
-                var benhMatch = context.Benh.Where(t => t.TenBenh.Equals(tenBenhMoi, StringComparison.OrdinalIgnoreCase));
+                var phongMatch = context.Phong.Where(t => t.TenPhong.Equals(tenPhongMoi, StringComparison.OrdinalIgnoreCase));
 
-                if (benhMatch == null)
+                if (phongMatch == null)
                     return false;
 
-                benh.TenBenh = tenBenhMoi;
+                phong.TenPhong = tenPhongMoi;
                 return true;
             }
         }

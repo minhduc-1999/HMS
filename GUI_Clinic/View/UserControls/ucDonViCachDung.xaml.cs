@@ -32,14 +32,17 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();
+            InitDataAsync();
             InitCommand();
+
+            //lvCachDung.ItemsSource = ListCD;
         }
         #region Property                
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
+        public ObservableCollection<DTO_Phong> ListPhong { get; set; }
         public ObservableCollection<DTO_CachDung> ListCD { get; set; }
         public string TenBenhInput { get; set; }
-        public string TenDonViInput { get; set; }
+        public string TenPhongInput { get; set; }
         public string TenCachDungInput { get; set; }
         //public CollectionView benhView { get; set; }
         #endregion
@@ -48,18 +51,23 @@ namespace GUI_Clinic.View.UserControls
         //public ICommand XoaBenhCommand { get; set; }
         public ICommand SuaBenhCommand { get; set; }
 
-        public ICommand ThemDonViCommand { get; set; }
+        public ICommand ThemPhongCommand { get; set; }
         //public ICommand XoaDonViCommand { get; set; }
-        public ICommand SuaDonViCommand { get; set; }
+        public ICommand SuaPhongCommand { get; set; }
 
         public ICommand ThemCachDungCommand { get; set; }
         //public ICommand XoaCachDungCommand { get; set; }
         public ICommand SuaCachDungCommand { get; set; }
         #endregion
-        public void InitData()
+        public async Task InitDataAsync()
         {
-            ListBenh = BUSManager.BenhBUS.GetListBenh();
-            ListCD = BUSManager.CachDungBUS.GetListCD();
+            ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
+            ListPhong = await BUSManager.PhongBUS.GetListPhongAsync();
+            ListCD = await BUSManager.CachDungBUS.GetListCDAsync();
+
+            lvBenh.ItemsSource = ListBenh;
+            lvPhong.ItemsSource = ListPhong;
+            lvCachDung.ItemsSource = ListCD;
             //benhView = (CollectionView)CollectionViewSource.GetDefaultView(ListBenh);
             //benhView.Filter = BUSManager.BenhBUS.BenhFilter;
         }
@@ -70,11 +78,15 @@ namespace GUI_Clinic.View.UserControls
                 if (string.IsNullOrEmpty(TenBenhInput))
                     return false;
                 return true;
-            }, (p) =>
+            }, async (p) =>
             {
+                
                 DTO_Benh benh = new DTO_Benh();
-                if (BUSManager.BenhBUS.AddBenh(benh))
+                benh.TenBenh = tbxTenBenh.Text;
+                var benhMoi = await BUSManager.BenhBUS.AddBenhAsync(benh);
+                if (benhMoi != null)
                 {
+                    ListBenh.Add(benhMoi);
                     tbxTenBenh.Clear();
                     //benhView.Refresh();
                 }
@@ -95,7 +107,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_Benh tempBenh = ListBenh.ElementAt<DTO_Benh>(lvBenh.SelectedIndex);
+                DTO_Benh tempBenh = ListBenh.ElementAt(lvBenh.SelectedIndex);
                 if (!BUSManager.BenhBUS.UpdateBenh(tempBenh, TenBenhInput))
                 {
                     MsgBox.Show("Tên bệnh mới đã tồn tại", MessageType.Error);
@@ -122,46 +134,43 @@ namespace GUI_Clinic.View.UserControls
             //    }
             //});
 
-            ThemDonViCommand = new RelayCommand<Window>((p) =>
+            ThemPhongCommand = new RelayCommand<Window>((p) =>
             {
-                if (string.IsNullOrEmpty(TenDonViInput))
+                if (string.IsNullOrEmpty(TenPhongInput))
                     return false;
                 return true;
-            }, (p) =>
+            }, async (p) =>
             {
-               
+                DTO_Phong phong = new DTO_Phong();
+                phong.TenPhong = tbxTenPhong.Text;
+                var phongMoi = await BUSManager.PhongBUS.AddPhongAsync(phong);
+                if (phongMoi != null)
+                {
+                    ListPhong.Add(phongMoi);
+                    tbxTenPhong.Clear();
+                }
+                else
+                {
+                    MsgBox.Show("Tên phòng đã tồn tại", MessageType.Error);
+                    tbxTenPhong.Clear();
+                }
             });
 
-            SuaDonViCommand = new RelayCommand<Window>((p) =>
+            SuaPhongCommand = new RelayCommand<Window>((p) =>
             {
-                if (string.IsNullOrEmpty(TenDonViInput) || lvDonVi.SelectedIndex == -1)
+                if (string.IsNullOrEmpty(TenPhongInput) || lvPhong.SelectedIndex == -1)
                 {
                     return false;
                 }
                 return true;
             }, (p) =>
             {
-                   
+                DTO_Phong tempPhong = ListPhong.ElementAt(lvPhong.SelectedIndex);
+                if (!BUSManager.PhongBUS.UpdatePhong(tempPhong, TenPhongInput))
+                {
+                    MsgBox.Show("Tên phòng mới đã tồn tại", MessageType.Error);
+                }
             });
-
-            //XoaDonViCommand = new RelayCommand<Window>((p) =>
-            //{
-            //    if (string.IsNullOrEmpty(TenDonViInput) || lvDonVi.SelectedIndex == -1)
-            //        return false;
-            //    return true;
-            //}, (p) =>
-            //{
-            //    ObservableCollection<DTO_DonVi> listDonViXoa = new ObservableCollection<DTO_DonVi>();
-            //    foreach (DTO_DonVi item in lvDonVi.SelectedItems)
-            //    {
-            //        listDonViXoa.Add(item);
-            //    }
-
-            //    foreach (DTO_DonVi item in listDonViXoa)
-            //    {
-            //        BUSManager.DonViBUS.DelDonVi(item);
-            //    }
-            //});
 
 
             ThemCachDungCommand = new RelayCommand<Window>((p) =>
@@ -169,18 +178,21 @@ namespace GUI_Clinic.View.UserControls
                 if (string.IsNullOrEmpty(TenCachDungInput))
                     return false;
                 return true;
-            }, (p) =>
+            }, async (p) =>
             {
                 DTO_CachDung cachDung = new DTO_CachDung();
-                if (BUSManager.CachDungBUS.AddCachDung(cachDung))
+                cachDung.TenCachDung = tbxTenCachDung.Text;
+                var cachDungMoi = await BUSManager.CachDungBUS.AddCachDungAsync(cachDung);
+                if (cachDungMoi != null)
                 {
+                    ListCD.Add(cachDungMoi);
                     tbxTenCachDung.Clear();
                 }
                 else
                 {
                     MsgBox.Show("Tên cách dùng đã tồn tại", MessageType.Error);
                     tbxTenCachDung.Clear();
-                }    
+                }
             });
 
             SuaCachDungCommand = new RelayCommand<Window>((p) =>
@@ -192,7 +204,7 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                DTO_CachDung tempCachDung = ListCD.ElementAt<DTO_CachDung>(lvCachDung.SelectedIndex);
+                DTO_CachDung tempCachDung = ListCD.ElementAt(lvCachDung.SelectedIndex);
                 if (!BUSManager.CachDungBUS.UpdateCachDung(tempCachDung, TenCachDungInput))
                 {
                     MsgBox.Show("Tên cách dùng mới đã tồn tại", MessageType.Error);
@@ -223,8 +235,9 @@ namespace GUI_Clinic.View.UserControls
         {
             if (lvBenh.SelectedIndex != -1)
             {
-                TenBenhInput = ListBenh.ElementAt<DTO_Benh>(lvBenh.SelectedIndex).TenBenh;
+                TenBenhInput = ListBenh.ElementAt(lvBenh.SelectedIndex).TenBenh;
                 tbxTenBenh.Text = TenBenhInput;
+                //btnThemBenh.IsEnabled = false;
             }
             else
             {
@@ -233,16 +246,25 @@ namespace GUI_Clinic.View.UserControls
             }
         }
 
-        private void lvDonVi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lvPhong_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            if (lvPhong.SelectedIndex != -1)
+            {
+                TenPhongInput = ListPhong.ElementAt(lvPhong.SelectedIndex).TenPhong;
+                tbxTenPhong.Text = TenPhongInput;
+            }
+            else
+            {
+                TenPhongInput = null;
+                tbxTenPhong.Text = TenPhongInput;
+            }
         }
 
         private void lvCachDung_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lvCachDung.SelectedIndex != -1)
             {
-                TenCachDungInput = ListCD.ElementAt<DTO_CachDung>(lvCachDung.SelectedIndex).TenCachDung;
+                TenCachDungInput = ListCD.ElementAt(lvCachDung.SelectedIndex).TenCachDung;
                 tbxTenCachDung.Text = TenCachDungInput;
             }
             else
@@ -252,20 +274,23 @@ namespace GUI_Clinic.View.UserControls
             }
         }
 
-        private void tbxTenBenh_KeyDown(object sender, KeyEventArgs e)
+        private async void tbxTenBenh_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (string.IsNullOrEmpty(TenBenhInput))
+                if (string.IsNullOrEmpty(TenBenhInput) || lvBenh.SelectedIndex != -1)
                 {
                     return;
                 }
 
                 DTO_Benh benh = new DTO_Benh();
-                if (BUSManager.BenhBUS.AddBenh(benh))
+                benh.TenBenh = tbxTenBenh.Text;
+                var benhMoi = await BUSManager.BenhBUS.AddBenhAsync(benh);
+                if (benhMoi != null)
                 {
-                    //benhView.Refresh();
+                    ListBenh.Add(benhMoi);
                     tbxTenBenh.Clear();
+                    //benhView.Refresh();
                 }
                 else
                 {
@@ -275,23 +300,47 @@ namespace GUI_Clinic.View.UserControls
             }
         }
 
-        private void tbxTenDonVi_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void tbxTenCachDung_KeyDown(object sender, KeyEventArgs e)
+        private async void tbxTenPhong_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (string.IsNullOrEmpty(TenCachDungInput))
+                if (string.IsNullOrEmpty(TenPhongInput) || lvPhong.SelectedIndex != -1)
+                {
+                    return;
+                }
+
+                DTO_Phong phong = new DTO_Phong();
+                phong.TenPhong = tbxTenPhong.Text;
+                var phongMoi = await BUSManager.PhongBUS.AddPhongAsync(phong);
+                if (phongMoi != null)
+                {
+                    ListPhong.Add(phongMoi);
+                    tbxTenPhong.Clear();
+                    //benhView.Refresh();
+                }
+                else
+                {
+                    MsgBox.Show("Tên phòng đã tồn tại", MessageType.Error);
+                    tbxTenPhong.Clear();
+                }
+            }
+        }
+
+        private async void tbxTenCachDung_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (string.IsNullOrEmpty(TenCachDungInput) || lvCachDung.SelectedIndex != -1)
                 {
                     return;
                 }
 
                 DTO_CachDung cachDung = new DTO_CachDung();
-                if (BUSManager.CachDungBUS.AddCachDung(cachDung))
+                cachDung.TenCachDung = tbxTenCachDung.Text;
+                var cachDungMoi = await BUSManager.CachDungBUS.AddCachDungAsync(cachDung);
+                if (cachDungMoi != null)
                 {
+                    ListCD.Add(cachDungMoi);
                     tbxTenCachDung.Clear();
                 }
                 else

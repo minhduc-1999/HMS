@@ -36,7 +36,7 @@ namespace BUS_Clinic.BUS
 
             foreach (DTO_Thuoc item in listThuoc)
             {
-                if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
+                if (!BUSManager.ThuocBUS.IsThuocDaTonTai(item))
                 {
                     await BUSManager.ThuocBUS.AddThuocAsync(item);
                 }

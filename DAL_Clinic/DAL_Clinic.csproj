@@ -84,6 +84,7 @@
     <Compile Include="DAL\DAL_HoaDon.cs" />
     <Compile Include="DAL\DAL_NhanVien.cs" />
     <Compile Include="DAL\DAL_PhieuNhapThuoc.cs" />
+    <Compile Include="DAL\DAL_Phong.cs" />
     <Compile Include="DAL\DAL_ThamSo.cs" />
     <Compile Include="DAL\DAL_Thuoc.cs" />
     <Compile Include="Migrations\Configuration.cs" />

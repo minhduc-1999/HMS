@@ -30,7 +30,7 @@ namespace DAL_Clinic.DAL
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"[ERRROR DAL THUOC] {e.Message}");
+                Debug.WriteLine($"[ERRROR DAL BENH] {e.Message}");
                 return false;
             }
         }
@@ -44,6 +44,9 @@ namespace DAL_Clinic.DAL
                     var donVi = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
                     var tenThuoc = new SqlParameter("@2", System.Data.SqlDbType.NVarChar);
                     var congDung = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    donVi.Value = thuoc.DonVi;
+                    tenThuoc.Value = thuoc.TenThuoc;
+                    congDung.Value = thuoc.CongDung;
                     res = await context.Database.SqlQuery<string>("exec proc_Thuoc_insert @1, @2, @3, @4, @5",
                         new SqlParameter[]
                         {

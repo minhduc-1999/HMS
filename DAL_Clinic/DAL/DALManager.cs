@@ -15,6 +15,7 @@
         private static DAL_HoaDon _hoaDonDAL;
         private static DAL_ThamSo _thamSoDAL;
         private static DAL_Account _accountDAL;
+        private static DAL_Phong _phongDAL;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -140,6 +141,16 @@
                 if (_accountDAL == null)
                     _accountDAL = new DAL_Account();
                 return _accountDAL;
+            }
+        }
+
+        public static DAL_Phong PhongDAL
+        {
+            get
+            {
+                if (_phongDAL == null)
+                    _phongDAL = new DAL_Phong();
+                return _phongDAL;
             }
         }
     }

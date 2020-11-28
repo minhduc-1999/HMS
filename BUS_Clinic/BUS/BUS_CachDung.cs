@@ -16,54 +16,27 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public bool AddCachDung(DTO_CachDung cachDung)
+        public async Task<DTO_CachDung> AddCachDungAsync(DTO_CachDung cachDung)
         {
-            ObservableCollection<DTO_CachDung> cachdungs = DALManager.CachDungDAL.GetListCD();
+            ObservableCollection<DTO_CachDung> cachDungs = await DALManager.CachDungDAL.GetListCDAsync();
 
-            if(cachdungs.Any(c => c.TenCachDung.Equals(cachDung.TenCachDung, StringComparison.OrdinalIgnoreCase)))
+            if (cachDungs.Any(b => b.TenCachDung.Equals(cachDung.TenCachDung, StringComparison.OrdinalIgnoreCase)))
             {
-                return false;
+                return null;
             }
+            cachDung.MaCachDung = await DALManager.CachDungDAL.AddCachDungAsync(cachDung);
+            return cachDung;
 
-            DALManager.CachDungDAL.AddCachDung(cachDung);
-            return true;
-            
         }
         public bool UpdateCachDung(DTO_CachDung cachDung, string tenCachDungMoi)
         {
-            ObservableCollection<DTO_CachDung> cachdungs = DALManager.CachDungDAL.GetListCD();
-
-            if(cachDung.TenCachDung == tenCachDungMoi || cachdungs.Any(c => c.TenCachDung.Equals(tenCachDungMoi, StringComparison.OrdinalIgnoreCase)))
-            {
-                return false;
-            }
-
-            cachDung.TenCachDung = tenCachDungMoi;
-            return true;
+            return DALManager.CachDungDAL.UpdateCachDung(cachDung, tenCachDungMoi);
             
         }
-        //public bool DelCachDung(DTO_CachDung cachDung)
-        //{
-        //    ObservableCollection<DTO_CachDung> cachdungs = DALManager.CachDungDAL.GetListCD();
-        //    if (cachDung != null)
-        //    {
-        //        if (cachdungs.Any(c => c.TenCachDung.Equals(cachDung.TenCachDung, StringComparison.OrdinalIgnoreCase)))
-        //        {
-        //            DALManager.CachDungDAL.DelCachDung(cachDung);
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
      
-        public ObservableCollection<DTO_CachDung> GetListCD()
+        public async Task<ObservableCollection<DTO_CachDung>> GetListCDAsync()
         {
-            return DALManager.CachDungDAL.GetListCD();
-        }
-        public int DemSoCachDung()
-        {
-            int re = DALManager.CachDungDAL.GetListCD().Count;
-            return re;
+            return await DALManager.CachDungDAL.GetListCDAsync();
         }
     
     }
