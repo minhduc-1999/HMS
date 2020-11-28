@@ -9,6 +9,7 @@ namespace DAL_Clinic.BuddyClass
         {
             ToTable("BENHNHAN");
             HasKey(p => p.MaBenhNhan);
+            HasIndex(p => p.SoCMND).IsUnique();
             Property(p => p.HoTen).IsRequired();
             Property(p => p.SoCMND).IsRequired();
             Property(p => p.NgaySinh).IsRequired();

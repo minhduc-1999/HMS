@@ -19,9 +19,9 @@ namespace DAL_Clinic.BuddyClass
                 .WithMany(bs => bs.DS_PKCKhoaDaKham)
                 .HasForeignKey(p => p.MaBacSi).WillCascadeOnDelete(false);
             //ref to BENHNHAN table
-            HasRequired(p => p.BenhNhan)
-                .WithMany(bn => bn.DS_PKCKhoa)
-                .HasForeignKey(p => p.MaBenhNhan).WillCascadeOnDelete(false);
+            HasRequired(p => p.PhieuKhamDaKhoa)
+                .WithMany(bn => bn.DS_PKhamChuyenKhoa)
+                .HasForeignKey(p => p.MaPKDaKhoa).WillCascadeOnDelete(false);
         }
     }
 }

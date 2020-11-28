@@ -107,7 +107,7 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             Text="{Binding BenhNhan.TenBenhNhan, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding BenhNhan.HoTen, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
                              VerticalAlignment="Center">
                     </TextBox>
                 </Grid>

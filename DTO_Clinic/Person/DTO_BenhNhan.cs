@@ -86,7 +86,6 @@ namespace DTO_Clinic.Person
         private bool _isDeleted;
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         public virtual ICollection<DTO_PKDaKhoa> DS_PKDaKhoa { get; set; }
-        public virtual ICollection<DTO_PKChuyenKhoa> DS_PKCKhoa { get; set; }
         public virtual ICollection<DTO_HoaDon> DS_HoaDon { get; set; }
 
         public override string ToString()

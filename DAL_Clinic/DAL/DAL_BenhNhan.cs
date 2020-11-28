@@ -39,15 +39,10 @@ namespace DAL_Clinic.DAL
                     new SqlParameter("@6", bn.SoCMND),
                     emailParam
                             }).FirstOrDefaultAsync();
-                    //else
-                    //    Debug.WriteLine("no id return");
-                    //Debug.WriteLine(list.Count);
-                    //foreach (var str in list)
-                    //    Debug.WriteLine(str);
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR] " + e.Message);
+                    Debug.WriteLine("[ERROR ADD PATIENT] " + e.Message);
                 }
                 return res;
             }
@@ -68,7 +63,7 @@ namespace DAL_Clinic.DAL
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR] "+ e.Message);
+                    Debug.WriteLine("[ERROR GET LIST PATIENT] "+ e.Message);
                 }
             }
             return res;
@@ -88,7 +83,7 @@ namespace DAL_Clinic.DAL
             }
            catch(Exception e)
             {
-                Debug.WriteLine($"[ERRROR DAL BENHNHAN] {e.Message}");
+                Debug.WriteLine($"[ERRROR LOADNP_DSPKDK] {e.Message}");
                 return false;
             }
 
