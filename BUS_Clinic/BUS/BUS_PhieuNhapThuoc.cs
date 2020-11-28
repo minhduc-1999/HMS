@@ -15,13 +15,14 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPCTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public bool LoadNP_CTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            DALManager.PhieuNhapThuocDAL.LoadNPCTPhieuNhapThuoc(phieuNhapThuoc);
+            return DALManager.PhieuNhapThuocDAL.LoadNP_CTPhieuNhapThuoc(phieuNhapThuoc);
         }
-        public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuoc(phieuNhapThuoc);
+            await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
+            
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
         //{

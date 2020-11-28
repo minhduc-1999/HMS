@@ -1,11 +1,8 @@
 ﻿using DAL_Clinic.DAL;
-using DTO_Clinic;
 using DTO_Clinic.Component;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
@@ -20,43 +17,33 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPCTPhieuNhapThuoc(DTO_Thuoc thuoc)
+        public bool LoadNP_CTPhieuNhapThuoc(DTO_Thuoc thuoc)
         {
-            DALManager.ThuocDAL.LoadNPCTPhieuNhapThuoc(thuoc);
+            return DALManager.ThuocDAL.LoadNP_CTPhieuNhapThuoc(thuoc);
         }
-        public async Task AddThuocAsync(DTO_Thuoc thuoc, ObservableCollection<DTO_Thuoc> listThuoc)
+        public async Task AddThuocAsync(DTO_Thuoc thuoc)
         {
-            var res = await DALManager.ThuocDAL.AddThuocAsync(thuoc);
-            if (res != null)
-            {
-                thuoc.MaThuoc = res;
-                listThuoc.Add(thuoc);
-            }
+            await DALManager.ThuocDAL.AddThuocAsync(thuoc);
         }
         public async Task<ObservableCollection<DTO_Thuoc>> GetListThuocAsync()
         {
             return await DALManager.ThuocDAL.GetListThuocAsync();
         }
-        //public bool CheckIfThuocDaTonTai(DTO_Thuoc thuocMoi)
-        //{
-        //    ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
 
-        //    bool has = thuocs.Any(t => (t.TenThuoc.Equals(thuocMoi.TenThuoc, StringComparison.OrdinalIgnoreCase)) && (t.DonVi == thuocMoi.DonVi));
+        public List<string> GetDonViByTenThuoc(string tenThuoc)
+        {
+            return DALManager.ThuocDAL.GetDonViByTenThuoc(tenThuoc);
+        }
 
-        //    return has;
-        //}
-        //public void CapNhatThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
-        //{
-        //    ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
+        public bool CheckIfThuocDaTonTai(DTO_Thuoc thuocMoi)
+        {
+            return DALManager.ThuocDAL.CheckIfThuocDaTonTai(thuocMoi);
+        }
 
-        //    var kq = thuocs.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.DonVi == thuocVuaNhap.DonVi)).FirstOrDefault();
-
-        //    if (kq != null)
-        //    {
-        //        kq.SoLuong += thuocVuaNhap.SoLuong;
-        //        kq.DonGia = thuocVuaNhap.DonGia;
-        //    }
-        //}
+        public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
+        {
+            DALManager.ThuocDAL.UpdateThuocVuaNhap(thuocVuaNhap);
+        }
         //public void SuDungThuoc(string idThuocSuDung, int soLuongThuocSuDung)
         //{
         //    ObservableCollection<DTO_Thuoc> thuocs = DALManager.ThuocDAL.GetListThuoc();
@@ -102,6 +89,6 @@ namespace BUS_Clinic.BUS
         //    else
         //        return false;
         //}
-        
+
     }
 }

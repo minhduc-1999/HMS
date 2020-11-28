@@ -1,28 +1,16 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
 using DTO_Clinic.Component;
 using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
-using GUI_Clinic.View.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Policy;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.Windows
 {
@@ -35,7 +23,7 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
-            InitDataAsync();
+            _ = InitDataAsync();
             InitCommand();
         }
 
@@ -47,6 +35,8 @@ namespace GUI_Clinic.View.Windows
         //public string CongDungThuocMoi { get; set; }
         public DateTime NgayNhapThuoc { get; set; }
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
+        public ObservableCollection<DTO_PhieuNhapThuoc> ListPNT { get; set; }
+        public List<string> ListDonViGroupWithThuoc { get; set; }
         public ObservableCollection<DTO_Thuoc> List { get; set; }
         #endregion
 
@@ -59,6 +49,9 @@ namespace GUI_Clinic.View.Windows
             NgayNhapThuoc = DateTime.Now;
 
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            cbxTenThuoc.ItemsSource = ListThuoc;
+
+            ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
 
             //foreach (DTO_Thuoc item in ListThuoc)
             //{
@@ -86,6 +79,7 @@ namespace GUI_Clinic.View.Windows
                     {
                         return false;
                     }
+                    
                     return true;
                 }
                 else
@@ -107,17 +101,19 @@ namespace GUI_Clinic.View.Windows
 
                     themThuoc.MaThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).MaThuoc;
                     themThuoc.TenThuoc = (cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc;
+                    themThuoc.DonVi = cbxDonVi.SelectedItem.ToString();
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    //if (BUSManager.ThuocBUS.CheckIfThuocDaTonTai(themThuoc))
-                    //{
-                    //    List.Add(themThuoc);
-                    //}
-                    //else
-                    //{
-                    //    MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
-                    //}
+                    if (BUSManager.ThuocBUS.CheckIfThuocDaTonTai(themThuoc))
+                    {
+                        List.Add(themThuoc);
+                    }
+                    else
+                    {
+                        MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
+                    }
+                    //ListDonViGroupWithThuoc = null;
 
                     cbxTenThuoc.SelectedIndex = -1;
                     cbxDonVi.SelectedIndex = -1;
@@ -155,27 +151,29 @@ namespace GUI_Clinic.View.Windows
             if (List.Count != 0)
             {
                 DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, 0);
-                BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuoc(phieuNhapThuoc);
-                string tempID = phieuNhapThuoc.MaPNT;
+                //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuocAsync(phieuNhapThuoc, ListPNT);
+                //string tempID = phieuNhapThuoc.MaPNT;
 
-                foreach (DTO_Thuoc item in List)
-                {
-                    //if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
-                    //{
-                    //    BUSManager.ThuocBUS.AddThuoc(item);
-                    //}
-                    //else
-                    //{
-                    //    BUSManager.ThuocBUS.CapNhatThuocVuaNhap(item);
-                    //}    
+                //foreach (DTO_Thuoc item in List)
+                //{
+                //    if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
+                //    {
+                //        BUSManager.ThuocBUS.AddThuocAsync(item, ListThuoc);
+                //    }
+                //    else
+                //    {
+                //        BUSManager.ThuocBUS.UpdateThuocVuaNhap(item);
+                //    }
 
-                    DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
-                    BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
-                }
+                //    DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
+                //    BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
+                //}
 
                 //BUSManager.PhieuNhapThuocBUS.TinhTongTien(phieuNhapThuoc);
 
                 //BUSManager.PhieuNhapThuocBUS.SaveChange();
+
+                BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc);
 
                 this.Close();
             }
@@ -231,7 +229,22 @@ namespace GUI_Clinic.View.Windows
             }
         }
 
-        
+        private void cbxDonVi_PreviewMouse(object sender, RoutedEventArgs e)
+        {
+            if (cbxTenThuoc.SelectedIndex == -1)
+            {
+                MsgBox.Show("Vui lòng chọn thuốc trước");
+            }
+        }
+
+        private void cbxTenThuoc_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbxTenThuoc.SelectedItem != null)
+            {
+                ListDonViGroupWithThuoc = BUSManager.ThuocBUS.GetDonViByTenThuoc(cbxTenThuoc.SelectedItem.ToString());
+                cbxDonVi.ItemsSource = ListDonViGroupWithThuoc;
+            }
+        }
         //private void btnThemThuoc_Click(object sender, RoutedEventArgs e)
         //{
         //    DTO_Thuoc themThuoc = new DTO_Thuoc((cbxTenThuoc.SelectedItem as DTO_Thuoc).TenThuoc, (cbxDonVi.SelectedItem as DTO_DonVi).Id, DonGia, SoLuong, "");

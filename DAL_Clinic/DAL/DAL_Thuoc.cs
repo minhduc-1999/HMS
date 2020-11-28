@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL_Clinic.DAL
@@ -15,27 +15,41 @@ namespace DAL_Clinic.DAL
         {
 
         }
-        public void LoadNPCTPhieuNhapThuoc(DTO_Thuoc thuoc)
+        public bool LoadNP_CTPhieuNhapThuoc(DTO_Thuoc thuoc)
         {
-            using (var context = new SQLServerDBContext())
+            try
             {
-                context.Entry(thuoc).Collection(s => s.DS_CTPhieuNhapThuoc).Load();
+                using (var context = new SQLServerDBContext())
+                {
+                    context.Thuoc.Attach(thuoc);
+                    var entry = context.Entry(thuoc);
+                    if (!entry.Collection(p => p.DS_CTPhieuNhapThuoc).IsLoaded)
+                        entry.Collection(p => p.DS_CTPhieuNhapThuoc).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL THUOC] {e.Message}");
+                return false;
             }
         }
         public async Task<string> AddThuocAsync(DTO_Thuoc thuoc)
         {
             using (var context = new SQLServerDBContext())
             {
-                context.Database.Log = s => Debug.WriteLine(s);
                 string res = null;
                 try
                 {
+                    var donVi = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    var tenThuoc = new SqlParameter("@2", System.Data.SqlDbType.NVarChar);
+                    var congDung = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
                     res = await context.Database.SqlQuery<string>("exec proc_Thuoc_insert @1, @2, @3, @4, @5",
                         new SqlParameter[]
                         {
-                            new SqlParameter("@1", thuoc.DonVi),
-                            new SqlParameter("@2", thuoc.TenThuoc),
-                            new SqlParameter("@3", thuoc.CongDung),
+                            donVi,
+                            tenThuoc,
+                            congDung,
                             new SqlParameter("@4", thuoc.DonGia),
                             new SqlParameter("@5", thuoc.SoLuong)
                         }).FirstOrDefaultAsync();
@@ -65,6 +79,37 @@ namespace DAL_Clinic.DAL
                 }
             }
             return res;
+        }
+
+        public List<string> GetDonViByTenThuoc(string tenThuoc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var donVi = context.Thuoc.Where(t => t.TenThuoc == tenThuoc).Select(t => t.DonVi).ToList<string>();
+                return donVi;
+            }
+        }
+
+        public bool CheckIfThuocDaTonTai(DTO_Thuoc thuocMoi)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                return context.Thuoc.Any(t => (t.TenThuoc.Equals(thuocMoi.TenThuoc, StringComparison.OrdinalIgnoreCase)) && (t.DonVi == thuocMoi.DonVi));
+            }
+        }
+
+        public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.Thuoc.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.DonVi == thuocVuaNhap.DonVi)).FirstOrDefault();
+
+                if (res != null)
+                {
+                    res.SoLuong += thuocVuaNhap.SoLuong;
+                    res.DonGia = thuocVuaNhap.DonGia;
+                }
+            }
         }
     }
 }
