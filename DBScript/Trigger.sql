@@ -1,3 +1,5 @@
+use HMS
+go
 ------------TRIGER VERSION 1-----------------
 create trigger Tr_CTPhieuNhapThuoc_insert on CT_PHIEUNHAPTHUOC
 for insert

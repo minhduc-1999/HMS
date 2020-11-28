@@ -1,6 +1,7 @@
 ﻿----------STORE PROCEDURE VERSION 1------------------
 -----------
 use HMS
+go
 --insert benhnhan proc
 create PROC proc_BenhNhan_insert
 	@hoten nvarchar(50),
@@ -18,6 +19,7 @@ AS
 		insert into BENHNHAN values (@id, @hoten, @ngaysinh, @gt, @diachi, @sdt, @cmnd, @email, 0)
 		select @id
 	END;
+	go
 --test command
 
 --select * from BENHNHAN
@@ -35,7 +37,7 @@ AS
 		insert into BENH values (@id, 0, @tenbenh)
 		select @id
 	END;
-
+	go
 --select * from BENH
 --exec proc_Benh_insert 'HIV'
 
@@ -50,7 +52,7 @@ AS
 		insert into CACHDUNG values (@id, 0, @tencachdung)
 		select @id
 	END;
-
+	go
 --select * from CACHDUNG
 --exec proc_CachDung_insert 'Ngay 3 lan'
 
@@ -70,7 +72,7 @@ AS
 		insert into THUOC values (@id, 0, @donvi, @tenthuoc, @congdung, @dongia, @soluong)
 		select @id
 	END;
-
+	go
 --select * from THUOC
 --exec proc_Thuoc_insert 'Chai', 'Trĩ', 'Chữa trĩ', 200000, 100 
 
@@ -79,17 +81,17 @@ AS
 create Proc proc_PKDK_insert
 	@ngaykham datetime,
 	@mabenhnhan nvarchar(128),
-	@mabenh nvarchar(128),
-	@manhanvien nvarchar(128)
+	@manhanvien nvarchar(128),
+	@mabacsi nvarchar(128)
 AS
 	BEGIN
 		declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKDK'
 		select @max = COUNT(*) from PKDAKHOA
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PKDAKHOA values (@id, 0, @ngaykham, null, @mabenhnhan, @mabenh, @manhanvien, null)
+		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, null, @manhanvien, @mabacsi)
 		select @id
 	END;
-
+	go
 --select * from PKDAKHOA
 --exec proc_PKDK_insert '2020-2-2', 'BN00001', 'BE00001', 'NV00001'
 
@@ -97,16 +99,18 @@ AS
 create Proc proc_PKCK_insert
 	@ngaykham datetime,
 	@yeucau nvarchar(max),
-	@manhanvien nvarchar(128)
+	@manhanvien nvarchar(128),
+	@mabenhnhan nvarchar(128),
+	@mabacsi nvarchar(128)
 AS
 	BEGIN
 		declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKCK'
 		select @max = COUNT(*) from PKCHUYENKHOA
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PKCHUYENKHOA values (@id, 0, @ngaykham, @yeucau, '', @manhanvien)
+		insert into PKCHUYENKHOA values (@id, 0, @ngaykham, @yeucau, '', @manhanvien, @mabenhnhan, @mabacsi)
 		select @id
 	END;
-
+	go
 --select * from PKCHUYENKHOA
 --exec proc_PKCK_insert '2020-2-2', 'Noi soi tim', 'NV00001'
 
@@ -121,22 +125,23 @@ AS
 		insert into PHONG values (@id, 0, @tenphong)
 		select @id
 	END;
-
+	go
 --select * from PHONG
 --exec proc_Phong_insert 'Phong noi soi'
 
 --insert PhieuNhapThuoc proc
 create Proc proc_PNhapThuoc_insert
-	@ngaynhap datetime
+	@ngaynhap datetime,
+	@maduocsi nvarchar(128)
 AS
 	BEGIN
 		declare @id nvarchar(128), @max int, @prefix varchar(3) = 'PNT'
 		select @max = COUNT(*) from PHIEUNHAPTHUOC
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PHIEUNHAPTHUOC values (@id, 0, @ngaynhap, 0)
+		insert into PHIEUNHAPTHUOC values (@id, 0, @ngaynhap, 0, @maduocsi)
 		select @id
 	END;
-
+	go
 --select * from PHIEUNHAPTHUOC
 --exec proc_PNhapThuoc_insert '2020-3-2'
 
@@ -158,7 +163,7 @@ AS
 		insert into HOADON values (@id, 0, @chitiet, @thanhtien, @ngaylap, @loaihoadon, @mabenhnhan, @manhanvien)
 		select @id
 	END;
-
+	go
 --select * from HOADON
 --exec proc_HoaDon_insert 'Tien thuoc', '3000000', '2020-2-2', 1, 'BN00001', 'NV00001'
 

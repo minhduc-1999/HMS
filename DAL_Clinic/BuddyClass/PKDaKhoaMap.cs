@@ -15,20 +15,24 @@ namespace DAL_Clinic.BuddyClass
             HasRequired(p => p.BenhNhan)
                 .WithMany(m => m.DS_PKDaKhoa)
                 .HasForeignKey(p => p.MaBenhNhan)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(false);
             //reference to BENH table
-            HasRequired(e => e.Benh)
+            HasOptional(e => e.Benh)
                 .WithMany(p => p.DS_PKDaKhoa)
                 .HasForeignKey(e => e.MaBenh)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(false);
             //reference to DONTHUOC table
             HasOptional(dt => dt.DonThuoc)
                 .WithRequired(pk => pk.PKDaKhoa);
             //reference to NHANVIEN table
-            HasOptional(p => p.NguoiLap)
+            HasRequired(p => p.NguoiLap)
                 .WithMany(n => n.DS_PKDKDaTao)
                 .HasForeignKey(p => p.MaNhanVien)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(false) ;
+            HasRequired(p => p.BacSiChuaTri)
+                .WithMany(bs => bs.DS_PKDKhoaDaKham)
+                .HasForeignKey(p => p.MaBacSi)
+                .WillCascadeOnDelete(false);
         }
     }
 }

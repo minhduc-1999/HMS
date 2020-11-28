@@ -27,15 +27,18 @@ namespace GUI_Clinic.View.UserControls
         private async Task InitDataAsync()
         {
             ListNV = await BUSManager.NhanVienBUS.GetListNVAsync();
-            foreach (DTO_NhanVien item in ListNV)
+            if(ListNV != null)
             {
-                BUSManager.NhanVienBUS.LoadNPGroup(item);
-            }
+                foreach (DTO_NhanVien item in ListNV)
+                {
+                    BUSManager.NhanVienBUS.LoadNPGroup(item);
+                }
 
-            lvNhanVien.ItemsSource = ListNV;
+                lvNhanVien.ItemsSource = ListNV;
 
-            CollectionView viewNhanVien = (CollectionView)CollectionViewSource.GetDefaultView(lvNhanVien.ItemsSource);
-            viewNhanVien.Filter = NhanVienFilter;
+                CollectionView viewNhanVien = (CollectionView)CollectionViewSource.GetDefaultView(lvNhanVien.ItemsSource);
+                viewNhanVien.Filter = NhanVienFilter;
+            }            
         }
 
         private bool NhanVienFilter(Object item)

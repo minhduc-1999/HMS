@@ -11,10 +11,17 @@ namespace DAL_Clinic.BuddyClass
             HasKey(p => p.MaPKCK);
             Property(p => p.KetQua).IsRequired();
             //ref to NHANVIEN table
-            HasOptional(p => p.NguoiLap)
+            HasRequired(p => p.NguoiLap)
                 .WithMany(n => n.DS_PKCKDaTao)
                 .HasForeignKey(p => p.MaNhanVien)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(false);
+            HasRequired(p => p.BacSiThucHien)
+                .WithMany(bs => bs.DS_PKCKhoaDaKham)
+                .HasForeignKey(p => p.MaBacSi).WillCascadeOnDelete(false);
+            //ref to BENHNHAN table
+            HasRequired(p => p.BenhNhan)
+                .WithMany(bn => bn.DS_PKCKhoa)
+                .HasForeignKey(p => p.MaBenhNhan).WillCascadeOnDelete(false);
         }
     }
 }

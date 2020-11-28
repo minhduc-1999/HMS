@@ -90,6 +90,10 @@ namespace DTO_Clinic.Person
         public virtual DTO_Phong Phong { get; set; }
         public virtual ICollection<DTO_PKDaKhoa> DS_PKDKDaTao { get; set; }
         public virtual ICollection<DTO_PKChuyenKhoa> DS_PKCKDaTao { get; set; }
+        public virtual ICollection<DTO_PKDaKhoa> DS_PKDKhoaDaKham { get; set; }
+        public virtual ICollection<DTO_PKChuyenKhoa> DS_PKCKhoaDaKham { get; set; }
+        public virtual ICollection<DTO_PhieuNhapThuoc> DS_PhieuNhapThuoc { get; set; }
+        public virtual ICollection<DTO_HoaDon> DS_HoaDon { get; set; }
 
     }
 }

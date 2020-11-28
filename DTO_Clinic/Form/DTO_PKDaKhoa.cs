@@ -19,8 +19,10 @@ namespace DTO_Clinic.Form
         public string MaBenhNhan { get; set; }
         public string MaBenh { get; set; }
         public string MaNhanVien { get; set; }
+        public string MaBacSi { get; set; }
         public virtual DTO_Benh Benh { get; set; }
-        public virtual DTO_NhanVien NguoiLap { get; set; } 
+        public virtual DTO_NhanVien NguoiLap { get; set; }
+        public virtual DTO_NhanVien BacSiChuaTri { get; set; }
         public virtual DTO_BenhNhan BenhNhan { get; set; }
         public virtual DTO_DonThuoc DonThuoc { get; set; }
         public DTO_PKDaKhoa() : base() { }

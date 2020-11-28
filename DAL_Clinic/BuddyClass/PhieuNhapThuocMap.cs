@@ -11,6 +11,10 @@ namespace DAL_Clinic.BuddyClass
             HasKey(p => p.MaPNT);
             Property(p => p.NgayNhap).IsRequired();
             Property(p => p.TongTien).IsRequired();
+            //ref to duoc si
+            HasRequired(p => p.NguoiLap)
+                .WithMany(ds => ds.DS_PhieuNhapThuoc)
+                .HasForeignKey(p => p.MaDuocSi);
         }
     }
 }
