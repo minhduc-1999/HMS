@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace DAL_Clinic.DAL
 {
     public class DAL_BenhNhan : BaseDAL
     {
-        public async Task<string> AddBenhNhanAsync(DTO_BenhNhan bn)
+        public async Task<List<string>> AddBenhNhanAsync(DTO_BenhNhan bn)
         {
             using (var context = new SQLServerDBContext())
             {
@@ -19,18 +20,24 @@ namespace DAL_Clinic.DAL
                 string res = null;
                 try
                 {
-                    var emailParam = new SqlParameter("@7", System.Data.SqlDbType.NVarChar);
-                    var nameParam = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
-                    var addressParam = new SqlParameter("@4", System.Data.SqlDbType.NVarChar);
+                    var returnCode = new SqlParameter();
+                    returnCode.ParameterName = "@ReturnCode";
+                    returnCode.SqlDbType = SqlDbType.Int;
+                    returnCode.Direction = ParameterDirection.Output;
+
+                    var emailParam = new SqlParameter("@7", SqlDbType.NVarChar);
+                    var nameParam = new SqlParameter("@1", SqlDbType.NVarChar);
+                    var addressParam = new SqlParameter("@4", SqlDbType.NVarChar);
                     nameParam.Value = bn.HoTen;
                     addressParam.Value = bn.DiaChi;
                     if (string.IsNullOrEmpty(bn.Email))
                         emailParam.Value = DBNull.Value;
                     else
                         emailParam.Value = bn.Email;
-                    res = await context.Database.SqlQuery<string>("exec proc_BenhNhan_insert @1, @2, @3, @4, @5, @6, @7",
-                            new SqlParameter[]
-                            {
+                    res = await context.Database.SqlQuery<string>("exec @ReturnCode = proc_BenhNhan_insert @1, @2, @3, @4, @5, @6, @7",
+                           new SqlParameter[]
+                           {
+                    returnCode,
                     nameParam,
                     new SqlParameter("@2", bn.NgaySinh),
                     new SqlParameter("@3", bn.GioiTinh),
@@ -38,13 +45,15 @@ namespace DAL_Clinic.DAL
                     new SqlParameter("@5", bn.SoDienThoai),
                     new SqlParameter("@6", bn.SoCMND),
                     emailParam
-                            }).FirstOrDefaultAsync();
+                           }).FirstOrDefaultAsync();
+                    var code = ((int)returnCode.Value).ToString();
+                    return new List<string> { code, res };
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine("[ERROR ADD PATIENT] " + e.Message);
+                    throw e;
                 }
-                return res;
             }
         }
         public async Task<ObservableCollection<DTO_BenhNhan>> GetListBNAsync()
@@ -63,7 +72,7 @@ namespace DAL_Clinic.DAL
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR GET LIST PATIENT] "+ e.Message);
+                    Debug.WriteLine("[ERROR GET LIST PATIENT] " + e.Message);
                 }
             }
             return res;
@@ -81,7 +90,7 @@ namespace DAL_Clinic.DAL
                     return true;
                 }
             }
-           catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine($"[ERRROR LOADNP_DSPKDK] {e.Message}");
                 return false;

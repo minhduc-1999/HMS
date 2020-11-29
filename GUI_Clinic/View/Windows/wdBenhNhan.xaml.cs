@@ -47,7 +47,8 @@ namespace GUI_Clinic.View.Windows
         }
         private bool IsHasDifference()
         {
-            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) && tbxDiaChi.Text == BenhNhan.DiaChi
+            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) 
+                && tbxDiaChi.Text == BenhNhan.DiaChi && tbxCMND.Text == BenhNhan.SoCMND
                 && tbxSDT.Text == BenhNhan.SoDienThoai && dpkNgaySinh.SelectedDate.Value.ToString("d") == BenhNhan.NgaySinh.ToString("d");
             return !rel;
         }
@@ -58,6 +59,7 @@ namespace GUI_Clinic.View.Windows
                 if (action != Action.Add)
                     return false;
                 if (string.IsNullOrEmpty(tbxHoTen.Text) ||
+                    string.IsNullOrEmpty(tbxCMND.Text) ||
                     string.IsNullOrEmpty(tbxDiaChi.Text) ||
                     string.IsNullOrEmpty(tbxSDT.Text) ||
                     cbxGioiTinh.SelectedIndex == -1 ||
@@ -80,9 +82,21 @@ namespace GUI_Clinic.View.Windows
                     SoDienThoai = tbxSDT.Text,
                     GioiTinh = gt,
                     SoCMND = tbxCMND.Text,
-                    Email = tbxEmail.Text,                  
+                    Email = tbxEmail.Text,
                 };
-                await BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan);
+                try
+                {
+                    var maBN = await BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan);
+                    benhNhan.MaBenhNhan = maBN;
+                    BenhNhan = benhNhan;
+                    MsgBox.Show("Thêm bệnh nhân thành công", MessageType.Info);
+                    this.Close();
+                }
+                catch (Exception e)
+                {
+                    MsgBox.Show(e.Message, MessageType.Error);
+                    tbxCMND.Clear();
+                }
                 //if (BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan))
                 //{
                 //    //ListBN1.Add(benhNhan);
@@ -105,6 +119,7 @@ namespace GUI_Clinic.View.Windows
                         return false;
                     if (string.IsNullOrEmpty(tbxHoTen.Text) ||
                        string.IsNullOrEmpty(tbxDiaChi.Text) ||
+                       string.IsNullOrEmpty(tbxCMND.Text) ||
                        string.IsNullOrEmpty(tbxSDT.Text) ||
                        cbxGioiTinh.SelectedIndex == -1 ||
                        !dpkNgaySinh.SelectedDate.HasValue ||
