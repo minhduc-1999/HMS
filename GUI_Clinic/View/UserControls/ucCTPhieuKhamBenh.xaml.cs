@@ -66,7 +66,7 @@ namespace GUI_Clinic.View.UserControls
             EnablePKB();
             ResetPKB();
             IsSave = false;
-            btnThanhToan.Content = "Thanh toán";
+            btnXuatDon.Content = "Xuất đơn thuốc";
 
             benhNhan = bn;
             tblTenBenhNhan.Text = bn.HoTen;
@@ -81,7 +81,7 @@ namespace GUI_Clinic.View.UserControls
         {
             ResetPKB();
             IsSave = true;
-            btnThanhToan.Content = "Hóa đơn";
+            btnXuatDon.Content = "Đơn thuốc";
 
             //BUSManager.PhieuKhamBenhBUS.LoadNPBenh(pkb);
             //BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(pkb);
@@ -287,5 +287,9 @@ namespace GUI_Clinic.View.UserControls
             wd.ShowDialog();
         }
 
+        private void btnXuatDon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

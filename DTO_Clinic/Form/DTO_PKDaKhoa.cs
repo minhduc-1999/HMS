@@ -26,7 +26,6 @@ namespace DTO_Clinic.Form
         public virtual DTO_BenhNhan BenhNhan { get; set; }
         public virtual DTO_DonThuoc DonThuoc { get; set; }
         public virtual ICollection<DTO_PKChuyenKhoa> DS_PKhamChuyenKhoa { get; set; }
-
         public DTO_PKDaKhoa() : base() { }
     }
 }
