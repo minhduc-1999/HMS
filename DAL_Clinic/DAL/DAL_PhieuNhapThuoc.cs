@@ -39,10 +39,11 @@ namespace DAL_Clinic.DAL
                 string res = null;
                 try
                 {
-                    res = await context.Database.SqlQuery<string>("exec proc_PNhapThuoc_insert @1",
+                    res = await context.Database.SqlQuery<string>("exec proc_PNhapThuoc_insert @1, @2",
                         new SqlParameter[]
                         {
-                            new SqlParameter("@1", phieuNhapThuoc.NgayNhap)
+                            new SqlParameter("@1", phieuNhapThuoc.NgayNhap),
+                            new SqlParameter("@2", phieuNhapThuoc.MaDuocSi)
                         }).FirstOrDefaultAsync();
                 }
                 catch (Exception e)

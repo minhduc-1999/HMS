@@ -137,6 +137,13 @@ namespace GUI_Clinic.View.UserControls
         {
             wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc();
             wd.ShowDialog();
+
+            wd.Closing += Wd_Closing;
+        }
+
+        private async void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
         }
 
         private void lvThuoc_MouseDoubleClick(object sender, MouseButtonEventArgs e)

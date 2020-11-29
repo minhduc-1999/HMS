@@ -20,9 +20,10 @@ namespace DTO_Clinic.Form
         {
         }
 
-        public DTO_PhieuNhapThuoc(DateTime ngayNhap, double tongTien) : base()
+        public DTO_PhieuNhapThuoc(DateTime ngayNhap, string maDuocSi, double tongTien) : base()
         {
             NgayNhap = ngayNhap;
+            MaDuocSi = maDuocSi;
             TongTien = tongTien;
         }
     }

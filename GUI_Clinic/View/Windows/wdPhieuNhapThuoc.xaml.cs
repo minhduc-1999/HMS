@@ -3,6 +3,7 @@ using DTO_Clinic.Component;
 using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
+using GUI_Clinic.View.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -84,7 +85,7 @@ namespace GUI_Clinic.View.Windows
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(tbxTenThuocMoi.Text) || cbxDonVi.SelectedIndex == -1 ||
+                    if (string.IsNullOrEmpty(tbxTenThuocMoi.Text) || string.IsNullOrEmpty(tbxDonViThuocMoi.Text) ||
                         tbxDonGia.Text == "0" || tbxSoLuong.Text == "0" ||
                         string.IsNullOrEmpty(tbxSoLuong.Text) || string.IsNullOrEmpty(tbxDonGia.Text) ||
                         string.IsNullOrEmpty(tbxCongDungThuocMoi.Text))
@@ -105,14 +106,14 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    if (BUSManager.ThuocBUS.IsThuocDaTonTai(themThuoc))
-                    {
-                        List.Add(themThuoc);
-                    }
-                    else
-                    {
-                        MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
-                    }
+                    //if (BUSManager.ThuocBUS.IsThuocDaTonTai(themThuoc))
+                    //{
+                    //    List.Add(themThuoc);
+                    //}
+                    //else
+                    //{
+                    //    MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
+                    //}
                     //ListDonViGroupWithThuoc = null;
 
                     cbxTenThuoc.SelectedIndex = -1;
@@ -124,20 +125,22 @@ namespace GUI_Clinic.View.Windows
                 {
                     DTO_Thuoc thuocMoi = new DTO_Thuoc();
                     thuocMoi.TenThuoc = tbxTenThuocMoi.Text;
+                    thuocMoi.DonVi = tbxDonViThuocMoi.Text;
                     thuocMoi.CongDung = tbxCongDungThuocMoi.Text;
                     thuocMoi.SoLuong = SoLuong;
                     thuocMoi.DonGia = DonGia;
 
-                    //if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(thuocMoi))
-                    //{
-                    //    List.Add(thuocMoi);
-                    //}
-                    //else
-                    //{
-                    //    MsgBox.Show("Thuốc với đơn vị bạn nhập đã tồn tại trong cơ sở dữ liệu");
-                    //}
+                    if (!BUSManager.ThuocBUS.IsThuocDaTonTai(thuocMoi))
+                    {
+                        List.Add(thuocMoi);
+                    }
+                    else
+                    {
+                        MsgBox.Show("Thuốc với đơn vị bạn nhập đã tồn tại");
+                    }
 
                     tbxTenThuocMoi.Clear();
+                    tbxDonViThuocMoi.Clear();
                     cbxDonVi.SelectedIndex = -1;
                     tbxDonGia.Text = "0";
                     tbxSoLuong.Text = "0";
@@ -148,9 +151,10 @@ namespace GUI_Clinic.View.Windows
 
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {
-            if (List.Count != 0)
+            if (List.Count != 0 && ucControlBar.currentNV != null)
             {
-                DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, 0);
+                string maDuocSiNhapThuoc = ucControlBar.currentNV.MaNhanVien;
+                DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, maDuocSiNhapThuoc, 0);
                 //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuocAsync(phieuNhapThuoc, ListPNT);
                 //string tempID = phieuNhapThuoc.MaPNT;
 
@@ -186,14 +190,20 @@ namespace GUI_Clinic.View.Windows
         private void ckbThuocMoi_Checked(object sender, RoutedEventArgs e)
         {
             cbxTenThuoc.Visibility = Visibility.Hidden;
-            tbxTenThuocMoi.Visibility = Visibility.Visible;
+            cbxDonVi.Visibility = Visibility.Hidden;
+            //tbxTenThuocMoi.Visibility = Visibility.Visible;
+            //tbxDonViThuocMoi.Visibility = Visibility.Visible;
+            stpnlThuocMoi.Visibility = Visibility.Visible;
             tbxCongDungThuocMoi.Visibility = Visibility.Visible;
         }
 
         private void ckbThuocMoi_Unchecked(object sender, RoutedEventArgs e)
         {
             cbxTenThuoc.Visibility = Visibility.Visible;
-            tbxTenThuocMoi.Visibility = Visibility.Hidden;
+            cbxDonVi.Visibility = Visibility.Visible;
+            //tbxTenThuocMoi.Visibility = Visibility.Hidden;
+            //tbxDonViThuocMoi.Visibility = Visibility.Hidden;
+            stpnlThuocMoi.Visibility = Visibility.Hidden;
             tbxCongDungThuocMoi.Visibility = Visibility.Collapsed;
         }
 

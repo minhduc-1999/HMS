@@ -32,7 +32,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <uc:ucControlBar Grid.Row="0"/>
+        <uc:ucControlBar x:Name="ucControlBar"
+                         Grid.Row="0"/>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -156,15 +157,25 @@
                               Checked="ckbThuocMoi_Checked"
                               Unchecked="ckbThuocMoi_Unchecked">
                     </CheckBox>
-                    <TextBox x:Name="tbxTenThuocMoi" 
-                             Visibility="Hidden"
+                    <StackPanel x:Name="stpnlThuocMoi"
+                                Visibility="Hidden"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                        <TextBox x:Name="tbxTenThuocMoi"
                              Width="150" 
                              Height="45"
                              Margin="15 5 15 15" 
                              FontSize="16"
                              materialDesign:HintAssist.Hint="Tên thuốc"
-                             HorizontalAlignment="Left"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox x:Name="tbxDonViThuocMoi"
+                             Width="100" 
+                             Height="45"
+                             Margin="15 5 15 15" 
+                             FontSize="16"
+                             materialDesign:HintAssist.Hint="Đơn vị"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </StackPanel>
                 </Grid>
             </materialDesign:Card>
 
