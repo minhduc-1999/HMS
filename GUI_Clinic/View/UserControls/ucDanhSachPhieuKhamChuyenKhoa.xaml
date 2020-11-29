@@ -45,7 +45,7 @@
                                 <Grid>
                                     <TextBlock x:Name="tblPhieuKhamBenh"
                                            Grid.Row="0"
-                                           Text="Phiếu khám bệnh"
+                                           Text="Phiếu khám chuyên khoa"
                                            Foreground="Gray"
                                            FontWeight="Bold"
                                            FontSize="25"

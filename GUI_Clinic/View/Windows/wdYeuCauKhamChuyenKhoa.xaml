@@ -83,7 +83,7 @@
                         Margin="5 5 5 10"
                         VerticalAlignment="Center"
                         Background="#0078D7"
-                        BorderBrush="#0078D7"></Button>
+                        BorderBrush="#0078D7" Click="btnHuy_Click"></Button>
             </Grid>
         </Grid>
     </Grid>

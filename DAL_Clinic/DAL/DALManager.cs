@@ -16,6 +16,10 @@
         private static DAL_ThamSo _thamSoDAL;
         private static DAL_Account _accountDAL;
         private static DAL_Phong _phongDAL;
+        private static DAL_PKDaKhoa _pKDaKhoa;
+        private static DAL_PKChuyenKhoa _pKChuyenKhoa;
+        private static DAL_DonThuoc _donThuoc;
+        private static DAL_CTDonThuoc _ctDonThuoc;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -153,5 +157,47 @@
                 return _phongDAL;
             }
         }
+
+        public static DAL_PKDaKhoa PKDaKhoaDAL
+        {
+            get
+            {
+                if (_pKDaKhoa == null)
+                    _pKDaKhoa = new DAL_PKDaKhoa();
+                return PKDaKhoaDAL;
+            }
+        }
+
+        public static DAL_PKChuyenKhoa PKChuyenKhoaDAL
+        {
+            get
+            {
+                if (_pKChuyenKhoa == null)
+                    _pKChuyenKhoa = new DAL_PKChuyenKhoa();
+                return PKChuyenKhoaDAL;
+            }
+        }
+
+        public static DAL_DonThuoc DonThuocDAL
+        {
+            get
+            {
+                if (_donThuoc == null)
+                    _donThuoc = new DAL_DonThuoc();
+                return DonThuocDAL;
+            }
+        }
+
+        public static DAL_CTDonThuoc CTDonThuocDAL
+        {
+            get
+            {
+                if (_ctDonThuoc == null)
+                    _ctDonThuoc = new DAL_CTDonThuoc();
+                return CTDonThuocDAL;
+            }
+        }
+
+
     }
 }
