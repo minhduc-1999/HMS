@@ -143,8 +143,12 @@
                                             DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"/>
                             <GridViewColumn Header="Số điện thoại"
                                             DisplayMemberBinding="{Binding SoDienThoai}" />
+                            <GridViewColumn Header="Số CMND"
+                                            DisplayMemberBinding="{Binding SoCMND}" />
                             <GridViewColumn Header="Địa chỉ" 
                                             DisplayMemberBinding="{Binding DiaChi}"/>
+                            <GridViewColumn Header="Email"
+                                            DisplayMemberBinding="{Binding Email}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -167,3 +167,4 @@ AS
 --select * from HOADON
 --exec proc_HoaDon_insert 'Tien thuoc', '3000000', '2020-2-2', 1, 'BN00001', 'NV00001'
 
+

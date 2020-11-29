@@ -172,8 +172,15 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnThemBN_Click(object sender, RoutedEventArgs e)
         {
-            wdBenhNhan benhNhan = new wdBenhNhan(null, wdBenhNhan.Action.Add);
-            benhNhan.ShowDialog();
+            wdBenhNhan wdbenhNhan = new wdBenhNhan(null, wdBenhNhan.Action.Add);
+            wdbenhNhan.Closing += WdbenhNhan_Closing;
+            wdbenhNhan.ShowDialog();
+        }
+
+        private void WdbenhNhan_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var wd = sender as wdBenhNhan;
+            ListBN2.Add(wd.BenhNhan);
         }
 
         private void cbxPhong_KeyUp(object sender, KeyEventArgs e)
