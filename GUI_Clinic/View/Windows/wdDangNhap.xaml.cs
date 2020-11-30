@@ -47,17 +47,20 @@ namespace GUI_Clinic.View.Windows
                 return true;
             }, (p) =>
             {
-                foreach (DTO_Account item in ListAcc)
+                if (ListAcc != null)
                 {
-                    if (item.Username == tbxTenDangNhap.Text
-                        && item.Password == tbxMatKhau.Password)
+                    foreach (DTO_Account item in ListAcc)
                     {
-                        BUSManager.AccountBUS.LoadNPNhanVien(item);
-                        if (item.NhanVien != null)
+                        if (item.Username == tbxTenDangNhap.Text
+                            && item.Password == tbxMatKhau.Password)
                         {
-                            currentUser = item.NhanVien;
-                            InitMainWindow(currentUser);
-                            return;
+                            BUSManager.AccountBUS.LoadNPNhanVien(item);
+                            if (item.NhanVien != null)
+                            {
+                                currentUser = item.NhanVien;
+                                InitMainWindow(currentUser);
+                                return;
+                            }
                         }
                     }
                 }
@@ -85,17 +88,20 @@ namespace GUI_Clinic.View.Windows
                 if (!string.IsNullOrEmpty(tbxTenDangNhap.Text) ||
                     !string.IsNullOrEmpty(tbxMatKhau.Password))
                 {
-                    foreach (DTO_Account item in ListAcc)
+                    if (ListAcc != null)
                     {
-                        if (item.Username == tbxTenDangNhap.Text
-                            && item.Password == tbxMatKhau.Password)
+                        foreach (DTO_Account item in ListAcc)
                         {
-                            BUSManager.AccountBUS.LoadNPNhanVien(item);
-                            if (item.NhanVien != null)
+                            if (item.Username == tbxTenDangNhap.Text
+                                && item.Password == tbxMatKhau.Password)
                             {
-                                currentUser = item.NhanVien;
-                                InitMainWindow(currentUser);
-                                return;
+                                BUSManager.AccountBUS.LoadNPNhanVien(item);
+                                if (item.NhanVien != null)
+                                {
+                                    currentUser = item.NhanVien;
+                                    InitMainWindow(currentUser);
+                                    return;
+                                }
                             }
                         }
                     }

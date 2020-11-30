@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -136,7 +137,7 @@ namespace DAL_Clinic.DAL
             return res;
         }
 
-        public async Task<string> AddNhanVienAsync(DTO_NhanVien nv)
+        public async Task<List<string>> AddNhanVienAsync(DTO_NhanVien nv)
         {
             using (var context = new SQLServerDBContext())
             {
@@ -144,33 +145,42 @@ namespace DAL_Clinic.DAL
                 string res = null;
                 try
                 {
-                    var emailParam = new SqlParameter("@7", System.Data.SqlDbType.NVarChar);
+                    var returnCode = new SqlParameter();
+                    returnCode.ParameterName = "@ReturnCode";
+                    returnCode.SqlDbType = SqlDbType.Int;
+                    returnCode.Direction = ParameterDirection.Output;
+
+                    var emailParam = new SqlParameter("@7", SqlDbType.NVarChar);
+                    var nameParam = new SqlParameter("@1", SqlDbType.NVarChar);
+                    var addressParam = new SqlParameter("@4", SqlDbType.NVarChar);
+                    nameParam.Value = nv.HoTen;
+                    addressParam.Value = nv.DiaChi;
                     if (string.IsNullOrEmpty(nv.Email))
                         emailParam.Value = DBNull.Value;
                     else
                         emailParam.Value = nv.Email;
-                    res = await context.Database.SqlQuery<string>("exec proc_NhanVien_insert @1, @2, @3, @4, @5, @6, @7",
-                            new SqlParameter[]
-                            {
-                                new SqlParameter("@1", nv.HoTen),
-                                new SqlParameter("@2", nv.NgaySinh),
-                                new SqlParameter("@3", nv.GioiTinh),
-                                new SqlParameter("@4", nv.DiaChi),
-                                new SqlParameter("@5", nv.SoDienThoai),
-                                new SqlParameter("@6", nv.SoCMND),
-                                emailParam
-                            }).FirstOrDefaultAsync();
-                    //else
-                    //    Debug.WriteLine("no id return");
-                    //Debug.WriteLine(list.Count);
-                    //foreach (var str in list)
-                    //    Debug.WriteLine(str);
+                    res = await context.Database.SqlQuery<string>("exec @ReturnCode = proc_NhanVien_insert @1, @2, @3, @4, @5, @6, @7, @8, @9",
+                           new SqlParameter[]
+                           {
+                    returnCode,
+                    nameParam,
+                    new SqlParameter("@2", nv.NgaySinh),
+                    new SqlParameter("@3", nv.GioiTinh),
+                    addressParam,
+                    new SqlParameter("@5", nv.SoDienThoai),
+                    new SqlParameter("@6", nv.SoCMND),
+                    emailParam,
+                    new SqlParameter("@8", nv.MaNhom),
+                    new SqlParameter("@9", nv.MaPhong)
+                           }).FirstOrDefaultAsync();
+                    var code = ((int)returnCode.Value).ToString();
+                    return new List<string> { code, res };
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR] " + e.Message);
+                    Debug.WriteLine("[ERROR ADD NHANVIEN] " + e.Message);
+                    throw e;
                 }
-                return res;
             }
         }
     }

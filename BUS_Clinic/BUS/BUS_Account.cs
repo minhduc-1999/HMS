@@ -33,6 +33,12 @@ namespace BUS_Clinic.BUS
             return DALManager.AccountDAL.IsAccDaTonTai(acc);
         }
 
+        public async Task<DTO_Account> AddAccAsync(DTO_Account acc)
+        {
+            acc.MaNhanVien = await DALManager.AccountDAL.AddAccAsync(acc);
+            return acc;
+        }
+
         public bool UpdateInfoAcc(DTO_Account acc, string username, string password)
         {
             if (DALManager.AccountDAL.UpdateInfoAcc(acc, username, password))

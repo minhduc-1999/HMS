@@ -27,9 +27,6 @@ namespace BUS_Clinic.BUS
         {
             return await DALManager.PhongDAL.GetPhongById(strMaPhong);
         }
-    }
-}
-
         public bool UpdatePhong(DTO_Phong phong, string tenPhongMoi)
         {
             return DALManager.PhongDAL.UpdatePhong(phong, tenPhongMoi);
@@ -47,3 +44,5 @@ namespace BUS_Clinic.BUS
             phong.MaPhong = await DALManager.PhongDAL.AddPhongAsync(phong);
             return phong;
         }
+    }
+}

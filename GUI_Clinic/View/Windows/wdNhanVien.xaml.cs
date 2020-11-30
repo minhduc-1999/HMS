@@ -163,33 +163,49 @@ namespace GUI_Clinic.View.Windows
                    string.IsNullOrEmpty(tbxEmail.Text) ||
                    string.IsNullOrEmpty(tbxDiaChi.Text) ||
                    string.IsNullOrEmpty(tbxSDT.Text) ||
-                   tbxSDT.Text.Length != tbxSDT.MaxLength ||
+                   //tbxSDT.Text.Length != tbxSDT.MaxLength ||
                    string.IsNullOrEmpty(tbxCMND.Text) ||
-                   tbxCMND.Text.Length != tbxCMND.MaxLength ||
+                   //tbxCMND.Text.Length != tbxCMND.MaxLength ||
                    cbxChucVu.SelectedIndex == -1)
                     return false;
                 return true;
-            }, (p) =>
+            }, async (p) =>
             {
-                currentNV.HoTen = tbxHoTen.Text;
-                currentNV.NgaySinh = dpkNgaySinh.SelectedDate.Value;
-                currentNV.GioiTinh = (cbxGioiTinh.SelectedIndex == 0 ? false : true);
-                currentNV.Email = tbxEmail.Text;
-                currentNV.DiaChi = tbxDiaChi.Text;
-                currentNV.SoDienThoai = tbxSDT.Text;
-                currentNV.SoCMND = tbxCMND.Text;
-                currentNV.MaNhom = (cbxChucVu.SelectedItem as DTO_Group).MaNhom;
-                currentNV.MaPhong = (cbxPhong.SelectedItem as DTO_Phong).MaPhong;
-                //if tao nv moi
-                if (!BUSManager.NhanVienBUS.IsNVDaTonTai(currentNV)) // kiem tra trung
+                DTO_NhanVien newNV = new DTO_NhanVien()
                 {
-                    //thuc hien them nhan vien
+                    HoTen = tbxHoTen.Text,
+                    NgaySinh = dpkNgaySinh.SelectedDate.Value,
+                    GioiTinh = (cbxGioiTinh.SelectedIndex == 0 ? false : true),
+                    Email = tbxEmail.Text,
+                    DiaChi = tbxDiaChi.Text,
+                    SoDienThoai = tbxSDT.Text,
+                    SoCMND = tbxCMND.Text,
+                    MaNhom = "NH0000" + (cbxChucVu.SelectedIndex + 1).ToString(),
+                    //MaNhom = (cbxChucVu.SelectedItem as DTO_Group).MaNhom,
+                    MaPhong = (cbxPhong.SelectedItem as DTO_Phong).MaPhong
+                };
+                try
+                {
+                    var maNV = await BUSManager.NhanVienBUS.AddNhanVienAsync(newNV);
+                    newNV.MaNhanVien = maNV;
+                    BUSManager.NhanVienBUS.LoadNPGroup(newNV);
+                    BUSManager.NhanVienBUS.LoadNPPhong(newNV);
+                    DTO_Account newAcc = new DTO_Account()
+                    {
+                        MaNhanVien = maNV,
+                        NhanVien = newNV,
+                        Username = currentNV.Account.Username,
+                        Password = currentNV.Account.Password
+                    };
+                    BUSManager.AccountBUS.AddAccAsync(newAcc);
+                    currentNV = newNV;
                     MsgBox.Show("Thêm nhân viên thành công", MessageType.Info);
                     this.Close();
                 }
-                else
+                catch (Exception e)
                 {
-                    MsgBox.Show("Thông tin nhân viên này đã tồn tại", MessageType.Error);
+                    MsgBox.Show(e.Message, MessageType.Error);
+                    tbxCMND.Clear();
                 }
             });
             CancelCommand = new RelayCommand<Window>((p) =>

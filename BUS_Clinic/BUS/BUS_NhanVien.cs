@@ -62,15 +62,25 @@ namespace BUS_Clinic.BUS
             return false;
         }
 
-        public async Task AddNhanVienAsync(DTO_NhanVien nv, ObservableCollection<DTO_NhanVien> listNV)
+        public async Task<string> AddNhanVienAsync(DTO_NhanVien nv)
         {
-            //if (!IsValidInfo(bn, listBN))
-            //    return;
-            var res = await DALManager.NhanVienDAL.AddNhanVienAsync(nv);
-            if (res != null)
+            try
             {
-                nv.MaNhanVien = res;
-                listNV.Add(nv);
+                var res = await DALManager.NhanVienDAL.AddNhanVienAsync(nv);
+                if (res.Count == 2)
+                {
+                    var code = Convert.ToInt32(res[0]);
+                    if (code == SUCCESS_CODE)
+                        return res[1];
+                    var errorNumber = Convert.ToInt32(res[1]);
+                    if (code == 1 && errorNumber == 2601)
+                        throw new Exception("Số CMND này đã tồn tại. Vui lòng kiểm tra lại.");
+                }
+                throw new Exception("Đã có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }
