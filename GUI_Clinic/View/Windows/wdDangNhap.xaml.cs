@@ -27,7 +27,7 @@ namespace GUI_Clinic.View.Windows
     {
         public ObservableCollection<DTO_Account> ListAcc { get; set; }
         public ICommand LoginCommand { get; set; }
-        private DTO_NhanVien currentUser;
+        public DTO_NhanVien currentUser { get; set; }
 
         public wdDangNhap()
         {

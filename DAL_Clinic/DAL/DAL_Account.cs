@@ -51,6 +51,32 @@ namespace DAL_Clinic.DAL
             }
         }
 
+        public bool IsAccDaTonTai(DTO_Account acc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                return context.Account.Any(t => (t.Username == acc.Username));
+            }
+        }
+
+        public bool UpdateInfoAcc(DTO_Account acc, string username, string password)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.Account.FirstOrDefault(a => a.Username == acc.Username);
+                if (res != null)
+                {
+                    res.Username = username;
+                    res.Password = password;
+
+                    context.SaveChanges();
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public async Task<DTO_Account> GetAccByID(string strMaNV)
         {
             if (strMaNV == null) return null;

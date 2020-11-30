@@ -1,5 +1,12 @@
-﻿using System;
+﻿using BUS_Clinic.BUS;
+using DTO_Clinic.Component;
+using DTO_Clinic.Permission;
+using DTO_Clinic.Person;
+using GUI_Clinic.Command;
+using GUI_Clinic.CustomControl;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +26,239 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdNhanVien : Window
     {
-        public wdNhanVien()
+        #region Command
+        public ICommand OpenAccountInfoCommand { get; set; }
+        public ICommand UpdateCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+        #endregion
+        #region
+        public DTO_NhanVien currentNV { get; set; }
+        public DTO_Account currentAcc { get; set; }
+        public ObservableCollection<DTO_Phong> ListPhong { get; set; }
+        #endregion
+
+        public wdNhanVien(DTO_NhanVien nv)
         {
             InitializeComponent();
+            this.DataContext = this;
+            currentNV = nv;
+            InitDataAsync();
+            InitCommand();
+        }
+        public wdNhanVien(DTO_Account acc)
+        {
+            InitializeComponent();
+            currentNV = new DTO_NhanVien();
+            currentNV.Account = acc;
+            this.DataContext = this;
+            InitDataAsyncForNewNV();
+            InitCreateNewNVCommand();
+        }
+
+        private async Task InitDataAsyncForNewNV()
+        {
+            ListPhong = await BUSManager.PhongBUS.GetListPhongAsync();
+            cbxPhong.ItemsSource = ListPhong;
+        }
+
+        private async Task InitDataAsync()
+        {
+            ListPhong = await BUSManager.PhongBUS.GetListPhongAsync();
+            cbxPhong.ItemsSource = ListPhong;
+
+            foreach (DTO_Phong item in ListPhong)
+            {
+                if (currentNV.MaPhong == item.MaPhong)
+                {
+                    cbxPhong.SelectedItem = item;
+                }
+            }
+
+            if (currentNV.GioiTinh == false)
+            {
+                cbxGioiTinh.SelectedIndex = 0;
+            }
+            else
+            {
+                cbxGioiTinh.SelectedIndex = 1;
+            }
+
+            //BUSManager.NhanVienBUS.LoadNPGroup(currentNV);
+            if (currentNV.MaNhom == "NH00001")
+            {
+                cbxChucVu.SelectedIndex = 0;
+            }
+            else if (currentNV.MaNhom == "NH00002")
+            {
+                cbxChucVu.SelectedIndex = 1;
+            }
+            else if (currentNV.MaNhom == "NH00003")
+            {
+                cbxChucVu.SelectedIndex = 2;
+            }
+            else if (currentNV.MaNhom == "NH00004")
+            {
+                cbxChucVu.SelectedIndex = 3;
+            }
+            else
+            {
+                cbxChucVu.SelectedIndex = 4;
+            }
+        }
+
+        private bool IsHasDifference()
+        {
+            int tempChucVuIndex;
+            if (currentNV.MaNhom == "NH00001")
+            {
+                tempChucVuIndex = 0;
+            }
+            else if (currentNV.MaNhom == "NH00002")
+            {
+                tempChucVuIndex = 1;
+            }
+            else if (currentNV.MaNhom == "NH00003")
+            {
+                tempChucVuIndex = 2;
+            }
+            else if (currentNV.MaNhom == "NH00004")
+            {
+                tempChucVuIndex = 3;
+            }
+            else
+            {
+                tempChucVuIndex = 4;
+            }
+
+            bool rel = currentNV.HoTen == tbxHoTen.Text
+                && dpkNgaySinh.SelectedDate.Value.ToString("d") == currentNV.NgaySinh.ToString("d")
+                && currentNV.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true)
+                && tbxEmail.Text == currentNV.Email 
+                && tbxDiaChi.Text == currentNV.DiaChi
+                && tbxSDT.Text == currentNV.SoDienThoai
+                && tbxCMND.Text == currentNV.SoCMND
+                && tempChucVuIndex == cbxChucVu.SelectedIndex
+                && (cbxPhong.SelectedItem as DTO_Phong).MaPhong == currentNV.Phong.MaPhong;
+            return !rel;
+        }
+
+        private void ResetInfo()
+        {
+            tbxHoTen.Text = currentNV.HoTen;
+            dpkNgaySinh.SelectedDate = currentNV.NgaySinh;
+            InitDataAsync();
+            tbxEmail.Text = currentNV.Email;
+            tbxDiaChi.Text = currentNV.DiaChi;
+            tbxSDT.Text = currentNV.SoDienThoai;
+            tbxCMND.Text = currentNV.SoCMND;
+        }
+
+        public void InitCreateNewNVCommand()
+        {
+            UpdateCommand = new RelayCommand<Window>((p) =>
+            {
+                if (string.IsNullOrEmpty(tbxHoTen.Text) ||
+                   !dpkNgaySinh.SelectedDate.HasValue ||
+                   cbxGioiTinh.SelectedIndex == -1 ||
+                   string.IsNullOrEmpty(tbxEmail.Text) ||
+                   string.IsNullOrEmpty(tbxDiaChi.Text) ||
+                   string.IsNullOrEmpty(tbxSDT.Text) ||
+                   tbxSDT.Text.Length != tbxSDT.MaxLength ||
+                   string.IsNullOrEmpty(tbxCMND.Text) ||
+                   tbxCMND.Text.Length != tbxCMND.MaxLength ||
+                   cbxChucVu.SelectedIndex == -1)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                currentNV.HoTen = tbxHoTen.Text;
+                currentNV.NgaySinh = dpkNgaySinh.SelectedDate.Value;
+                currentNV.GioiTinh = (cbxGioiTinh.SelectedIndex == 0 ? false : true);
+                currentNV.Email = tbxEmail.Text;
+                currentNV.DiaChi = tbxDiaChi.Text;
+                currentNV.SoDienThoai = tbxSDT.Text;
+                currentNV.SoCMND = tbxCMND.Text;
+                currentNV.MaNhom = (cbxChucVu.SelectedItem as DTO_Group).MaNhom;
+                currentNV.MaPhong = (cbxPhong.SelectedItem as DTO_Phong).MaPhong;
+                //if tao nv moi
+                if (!BUSManager.NhanVienBUS.IsNVDaTonTai(currentNV)) // kiem tra trung
+                {
+                    //thuc hien them nhan vien
+                    MsgBox.Show("Thêm nhân viên thành công", MessageType.Info);
+                    this.Close();
+                }
+                else
+                {
+                    MsgBox.Show("Thông tin nhân viên này đã tồn tại", MessageType.Error);
+                }
+            });
+            CancelCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                this.Close();
+            });
+        }
+        public void InitCommand()
+        {
+            OpenAccountInfoCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (IsHasDifference())
+                {
+                    if (MsgBox.Show1("Các thay đổi chưa được lưu lại\nĐể tiếp tục, các thay đổi sẽ bị hủy bỏ", MessageType.Info, MessageButtons.OkCancel))
+                    {
+                        ResetInfo();
+                        BUSManager.NhanVienBUS.LoadNPAccount(currentNV);
+                        wdTaiKhoan taiKhoan = new wdTaiKhoan(currentNV.Account);
+                        taiKhoan.ShowDialog();
+                    }
+                }
+                else
+                {
+                    BUSManager.NhanVienBUS.LoadNPAccount(currentNV);
+                    wdTaiKhoan taiKhoan = new wdTaiKhoan(currentNV.Account);
+                    taiKhoan.ShowDialog();
+                }
+            });
+            UpdateCommand = new RelayCommand<Window>((p) =>
+            {
+                if (string.IsNullOrEmpty(tbxHoTen.Text) ||
+                   !dpkNgaySinh.SelectedDate.HasValue ||
+                   cbxGioiTinh.SelectedIndex == -1 ||
+                   string.IsNullOrEmpty(tbxEmail.Text) ||
+                   string.IsNullOrEmpty(tbxDiaChi.Text) ||
+                   string.IsNullOrEmpty(tbxSDT.Text) ||
+                   tbxSDT.Text.Length != tbxSDT.MaxLength ||
+                   string.IsNullOrEmpty(tbxCMND.Text) ||
+                   tbxCMND.Text.Length != tbxCMND.MaxLength ||
+                   cbxChucVu.SelectedIndex == -1)
+                    return false;
+                if (!IsHasDifference())
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                if (BUSManager.NhanVienBUS.UpdateInfoNV(currentNV, tbxHoTen.Text, dpkNgaySinh.SelectedDate.Value, Convert.ToBoolean(cbxGioiTinh.SelectedIndex), tbxEmail.Text, tbxDiaChi.Text, tbxSDT.Text, tbxCMND.Text, "NH0000" + (cbxChucVu.SelectedIndex + 1).ToString(), (cbxPhong.SelectedItem as DTO_Phong).MaPhong))
+                {
+                    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                    this.Close();
+                }
+                else
+                {
+                    MsgBox.Show("Cập nhật thay đổi không thành công", MessageType.Error);
+                }
+            });
+            CancelCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                this.Close();
+            });
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

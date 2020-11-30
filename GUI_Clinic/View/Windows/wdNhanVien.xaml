@@ -64,6 +64,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
@@ -87,7 +88,7 @@
                 <Grid Grid.Column="1">
                     <TextBlock Margin="0 5 20 5"
                                FontSize="16"
-                               Text="{Binding BenhNhan.Id, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding currentNV.MaNhanVien, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
                                VerticalAlignment="Center">
                     </TextBlock>
                 </Grid>
@@ -106,7 +107,7 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             Text="{Binding BenhNhan.TenBenhNhan, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding currentNV.HoTen, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
                              VerticalAlignment="Center">
                     </TextBox>
                 </Grid>
@@ -135,7 +136,7 @@
                                     Width="120"
                                     Height="30"
                                     FontSize="16" 
-                                    SelectedDate="{Binding BenhNhan.NgaySinh, Mode=OneTime}"/>
+                                    SelectedDate="{Binding currentNV.NgaySinh, Mode=OneTime}"/>
                     </Border>
                 </Grid>
 
@@ -183,7 +184,7 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             Text="{Binding BenhNhan.DiaChi,Mode=OneTime}"
+                             Text="{Binding currentNV.Email,Mode=OneTime}"
                              VerticalAlignment="Center">
                     </TextBox>
                 </Grid>
@@ -202,7 +203,7 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             Text="{Binding BenhNhan.DiaChi,Mode=OneTime}"
+                             Text="{Binding currentNV.DiaChi,Mode=OneTime}"
                              VerticalAlignment="Center">
                     </TextBox>
                 </Grid>
@@ -221,8 +222,8 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             MaxLength="{Binding BenhNhan.SoDienThoai.Length,Mode=OneTime}"
-                             Text="{Binding BenhNhan.SoDienThoai, Mode=OneTime}"
+                             MaxLength="{Binding currentNV.SoDienThoai.Length,Mode=OneTime}"
+                             Text="{Binding currentNV.SoDienThoai, Mode=OneTime}"
                              VerticalAlignment="Center"
                              />
                     <!--DataObject.Pasting="tbxSDT_Pasting"
@@ -243,8 +244,8 @@
                              BorderThickness="2"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             MaxLength="{Binding BenhNhan.SoDienThoai.Length,Mode=OneTime}"
-                             Text="{Binding BenhNhan.SoDienThoai, Mode=OneTime}"
+                             MaxLength="{Binding currentNV.SoCMND.Length,Mode=OneTime}"
+                             Text="{Binding currentNV.SoCMND, Mode=OneTime}"
                              VerticalAlignment="Center"
                               />
                     <!--DataObject.Pasting="tbxSDT_Pasting"
@@ -285,14 +286,46 @@
             </Grid>
             <Grid Grid.Row="10">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition />
+                    <!--<ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />-->
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock Grid.Column="0"
+                               Text="Phòng:">
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <ComboBox BorderBrush="#0078D7"
+                              BorderThickness="2"
+                              x:Name="cbxPhong"
+                              Width="150"
+                              Margin="0 5 10 5"
+                              IsEditable="true"
+                              HorizontalContentAlignment="Center"
+                              FontSize="16"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TenPhong}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="11">
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Grid Grid.Column="0" x:Name="grdAcc">
                     <Button x:Name="btnAccount"
                             Margin="10 10"
-                            Command="{Binding UpdateCommand}"
+                            Command="{Binding OpenAccountInfoCommand}"
                             Content="Tài khoản"
                             Width="100"
                             HorizontalAlignment="Right"
@@ -300,7 +333,7 @@
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1" x:Name="grdCapNhat">
                     <Button x:Name="btnCapNhat"
                             Margin="10 10"
                             Command="{Binding UpdateCommand}"
@@ -311,7 +344,7 @@
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>
                 </Grid>
-                <Grid Grid.Column="2">
+                <Grid Grid.Column="2" x:Name="grdHuy">
                     <Button x:Name="btnHuy"
                             Margin="10 10"
                             Command="{Binding CancelCommand}"

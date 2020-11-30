@@ -20,79 +20,87 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <!--<TextBlock x:Name="tblTieuDe"
-                       Margin="20 10" 
-                       HorizontalAlignment="Left" 
-                       Text="Quản lý bệnh nhân"
-                       VerticalAlignment="Center"
-                       FontSize="35" 
-                       FontWeight="Bold" 
-                       Foreground="#0078D7"/>-->
-        </Grid>
-
         <!--Cac element binding tu selected item-->
-        <materialDesign:Card Grid.Row="1" Margin="5">
+        <materialDesign:Card Grid.Row="0" Margin="5">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Tìm kiếm" FontWeight="Bold" FontSize="20" Margin="15 5 5 5" Foreground="Gray"/>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <WrapPanel Grid.Row="1"
-                           Margin="0 0 0 10">
-                    <materialDesign:PackIcon Kind="FilterOutline"
-                                             Height="24"
-                                             Width="24"
-                                             VerticalAlignment="Center"
-                                             Margin="5 5 0 5"
-                                             Foreground="Gray" />
-                    <ComboBox x:Name="cbxLoaiTiemKiem"
-                              Margin="5"
-                              Foreground="Gray">
-                        <ComboBoxItem IsSelected="True">
-                            Họ và tên
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            Mã nhân viên
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            Chức vụ
-                        </ComboBoxItem>
-                    </ComboBox>
-                    <TextBox x:Name="tbxTimKiem"
-                             Margin="5 5 15 3"
-                             materialDesign:HintAssist.Hint="Nội dung tìm kiếm"
-                             VerticalAlignment="Center"
-                             MinWidth="100" 
-                             TextChanged="tbxTimKiem_TextChanged"/>
-                </WrapPanel>
+                    <TextBlock Grid.Row="0" Text="Tìm kiếm" FontWeight="Bold" FontSize="20" Margin="15 5 5 5" Foreground="Gray"/>
 
-                <!--<materialDesign:Chip Command="{Binding Command}"
-                                     x:Name="btnMedHistory"
-                                     Grid.Row="1"
-                                     HorizontalAlignment="Right"
-                                     Content="Lịch sử khám"
-                                     ToolTip="Xem lịch sử khám của bệnh nhân"
-                                     Foreground="White"
-                                     IconBackground="{DynamicResource PrimaryHueDarkBrush}"
-                                     IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                                     Background="Gray"
-                                     Margin="0 0 5 0">
-                    <materialDesign:Chip.Icon>
-                        <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
-                    </materialDesign:Chip.Icon>
-                </materialDesign:Chip>-->
+                    <WrapPanel Grid.Row="1"
+                               Margin="0 0 0 10">
+                        <materialDesign:PackIcon Kind="FilterOutline"
+                                                 Height="24"
+                                                 Width="24"
+                                                 VerticalAlignment="Center"
+                                                 Margin="5 5 0 5"
+                                                 Foreground="Gray" />
+                        <ComboBox x:Name="cbxLoaiTiemKiem"
+                                  Margin="5"
+                                  Foreground="Gray">
+                            <ComboBoxItem IsSelected="True">
+                                Họ và tên
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                Mã nhân viên
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                Chức vụ
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox x:Name="tbxTimKiem"
+                                 Margin="5 5 15 3"
+                                 materialDesign:HintAssist.Hint="Nội dung tìm kiếm"
+                                 VerticalAlignment="Center"
+                                 MinWidth="100" 
+                                 TextChanged="tbxTimKiem_TextChanged"/>
+                    </WrapPanel>
+
+                    <!--<materialDesign:Chip Command="{Binding Command}"
+                                         x:Name="btnMedHistory"
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Right"
+                                         Content="Lịch sử khám"
+                                         ToolTip="Xem lịch sử khám của bệnh nhân"
+                                         Foreground="White"
+                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                         Background="Gray"
+                                         Margin="0 0 5 0">
+                        <materialDesign:Chip.Icon>
+                            <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
+                        </materialDesign:Chip.Icon>
+                    </materialDesign:Chip>-->
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Button x:Name="btnThemNV"
+                            Content="Thêm nhân viên" 
+                            Margin="5" 
+                            Width="150" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center" 
+                            Background="#0078D7" 
+                            BorderBrush="#0078D7" 
+                            Click="btnThemNV_Click"/>
+                </Grid>
             </Grid>
         </materialDesign:Card>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
@@ -150,6 +158,9 @@
                                             DisplayMemberBinding="{Binding DiaChi}"/>
                             <GridViewColumn Header="Chức vụ"
                                             DisplayMemberBinding="{Binding Nhom.TenNhom}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Phong"
+                                            DisplayMemberBinding="{Binding Phong.TenPhong}">
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>

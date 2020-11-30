@@ -26,16 +26,17 @@ namespace GUI_Clinic.View
         //
         //temp mainwindow
         //
-        public MainWindow()
-        {
-            InitializeComponent();
-            uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
-            uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
-        }
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //    uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
+        //    uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
+        //}
         public MainWindow(DTO_NhanVien currentNV)
         {
             InitializeComponent();
             ucControlBar.SetProfileInfo(currentNV);
+            uc_QuanLyNhanVien.currentNV = currentNV;
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             switch (currentNV.Nhom.TenNhom)

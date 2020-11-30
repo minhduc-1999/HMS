@@ -16,6 +16,7 @@ namespace GUI_Clinic.View.UserControls
     public partial class ucQuanLyNhanVien : UserControl
     {
         public ObservableCollection<DTO_NhanVien> ListNV { get; set; }
+        public DTO_NhanVien currentNV { get; set; }
         public ucQuanLyNhanVien()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace GUI_Clinic.View.UserControls
             foreach (DTO_NhanVien item in ListNV)
             {
                 BUSManager.NhanVienBUS.LoadNPGroup(item);
+                BUSManager.NhanVienBUS.LoadNPPhong(item);
             }
 
             lvNhanVien.ItemsSource = ListNV;
@@ -76,9 +78,15 @@ namespace GUI_Clinic.View.UserControls
             var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_NhanVien;
             if (item != null)
             {
-                wdNhanVien nhanVien = new wdNhanVien();
+                wdNhanVien nhanVien = new wdNhanVien(item);
                 nhanVien.ShowDialog();
             }
+        }
+
+        private void btnThemNV_Click(object sender, RoutedEventArgs e)
+        {
+            wdTaiKhoan newTaiKhoan = new wdTaiKhoan(currentNV);
+            newTaiKhoan.ShowDialog();
         }
     }
 }

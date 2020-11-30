@@ -84,12 +84,19 @@ namespace DTO_Clinic.Person
         }
         public string MaPhong { get; set; }
         public string MaNhom { get; set; }
-        public virtual DTO_Group Nhom { get; set; }
+        private DTO_Group _nhom;
+        public virtual DTO_Group Nhom { get => _nhom; set { _nhom = value; OnPropertyChanged(); } }
 
         public virtual DTO_Account Account { get; set; }
-        public virtual DTO_Phong Phong { get; set; }
+        private DTO_Phong _phong;
+        public virtual DTO_Phong Phong { get => _phong; set { _phong = value; OnPropertyChanged(); } }
         public virtual ICollection<DTO_PKDaKhoa> DS_PKDKDaTao { get; set; }
         public virtual ICollection<DTO_PKChuyenKhoa> DS_PKCKDaTao { get; set; }
+
+        public override string ToString()
+        {
+            return MaNhanVien + " - " + HoTen;
+        }
 
     }
 }
