@@ -44,3 +44,46 @@ namespace DAL_Clinic.DAL
         }
     }
 }
+
+        public DAL_Phong()
+        {
+        }
+        {
+        public async Task<string> AddPhongAsync(DTO_Phong phong)
+            using (var context = new SQLServerDBContext())
+            {
+                string res = null;
+                try
+                {
+                    var tenPhong = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    tenPhong.Value = phong.TenPhong;
+                        new SqlParameter[]
+                    res = await context.Database.SqlQuery<string>("exec proc_Phong_insert @1",
+                        {
+                            tenPhong
+                        }).FirstOrDefaultAsync();
+                catch (Exception e)
+                }
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+            }
+                return res;
+        }
+
+        public bool UpdatePhong(DTO_Phong phong, string tenPhongMoi)
+        {
+            {
+            using (var context = new SQLServerDBContext())
+                var phongMatch = context.Phong.Where(t => t.TenPhong.Equals(tenPhongMoi, StringComparison.OrdinalIgnoreCase));
+
+                    return false;
+                if (phongMatch == null)
+
+                phong.TenPhong = tenPhongMoi;
+                return true;
+            }
+        }
+
+    }
+}

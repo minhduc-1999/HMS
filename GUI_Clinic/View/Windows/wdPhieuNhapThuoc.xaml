@@ -74,8 +74,8 @@
                         <ComboBox x:Name="cbxTenThuoc" 
                                   Width="150" Height="45"
                                   Margin="5 5 15 5"
-                                  ItemsSource="{Binding ListThuoc}"
-                                  materialDesign:HintAssist.Hint="Thuốc" 
+                                  materialDesign:HintAssist.Hint="Thuốc"
+                                  SelectionChanged="cbxTenThuoc_SelectionChanged"
                                   IsEditable="True" 
                                   FontSize="16"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -88,16 +88,11 @@
                         <ComboBox x:Name="cbxDonVi" 
                                   Width="100" Height="45"
                                   Margin="5 5 15 5"
-                                  ItemsSource="{Binding ListDonVi}"
+                                  PreviewMouseLeftButtonDown="cbxDonVi_PreviewMouse"
                                   materialDesign:HintAssist.Hint="Đơn vị" 
                                   IsEditable="True" 
                                   FontSize="16"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding TenDonVi}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
                         </ComboBox>
                         <TextBox x:Name="tbxSoLuong" 
                                  Width="100" Height="45"

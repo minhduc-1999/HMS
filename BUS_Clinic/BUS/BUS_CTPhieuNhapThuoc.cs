@@ -1,6 +1,9 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic.Form;
+using DTO_Clinic.Component;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
@@ -10,23 +13,37 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPThuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
+        public void LoadNP_Thuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {
-            DALManager.CTPhieuNhapThuocDAL.LoadNPThuoc(cTPhieuNhapThuoc);
+            DALManager.CTPhieuNhapThuocDAL.LoadNP_PhieuNhapThuoc(cTPhieuNhapThuoc);
         }
-        public void LoadNPPhieuNhapThuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
+        public void LoadNP_PhieuNhapThuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {
-            DALManager.CTPhieuNhapThuocDAL.LoadNPPhieuNhapThuoc(cTPhieuNhapThuoc);
-        }
-      
-        public ObservableCollection<DTO_CTPhieuNhapThuoc> GetListCTPNT()
-        {
-            return DALManager.CTPhieuNhapThuocDAL.GetListCTPNT();
+            DALManager.CTPhieuNhapThuocDAL.LoadNP_PhieuNhapThuoc(cTPhieuNhapThuoc);
         }
 
-        public void AddCTPhieuNhapThuoc (DTO_CTPhieuNhapThuoc ctPhieuNhapThuoc)
+        public async Task<ObservableCollection<DTO_CTPhieuNhapThuoc>> GetListCTPNTAsync()
         {
-            DALManager.CTPhieuNhapThuocDAL.AddCTPhieuNhapThuoc(ctPhieuNhapThuoc);
+            return await DALManager.CTPhieuNhapThuocDAL.GetListCTPNTAsync();
+        }
+
+        public async Task AddCTPhieuNhapThuocAsync(ObservableCollection<DTO_Thuoc> listThuoc, DTO_PhieuNhapThuoc phieuNhapThuoc)
+        {
+            string tempID = await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
+
+            if (tempID == null)
+                return;
+
+            foreach (DTO_Thuoc item in listThuoc)
+            {
+                if (!BUSManager.ThuocBUS.IsThuocDaTonTai(item))
+                {
+                    await BUSManager.ThuocBUS.AddThuocAsync(item);
+                }
+
+                DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
+                DALManager.CTPhieuNhapThuocDAL.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
+            }
         }
     }
 }

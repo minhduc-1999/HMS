@@ -1,12 +1,8 @@
-﻿using DTO_Clinic;
-using DTO_Clinic.Form;
+﻿using DTO_Clinic.Form;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace DAL_Clinic.DAL
@@ -17,12 +13,44 @@ namespace DAL_Clinic.DAL
         {
 
         }
-        public void LoadNPCTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public bool LoadNP_CTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.PhieuNhapThuoc.Attach(phieuNhapThuoc);
+                    var entry = context.Entry(phieuNhapThuoc);
+                    if (!entry.Collection(p => p.DS_CTPhieuNhapThuoc).IsLoaded)
+                        entry.Collection(p => p.DS_CTPhieuNhapThuoc).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL THUOC] {e.Message}");
+                return false;
+            }
         }
-        public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task<string> AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
+            using (var context = new SQLServerDBContext())
+            {
+                string res = null;
+                try
+                {
+                    res = await context.Database.SqlQuery<string>("exec proc_PNhapThuoc_insert @1",
+                        new SqlParameter[]
+                        {
+                            new SqlParameter("@1", phieuNhapThuoc.NgayNhap)
+                        }).FirstOrDefaultAsync();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+                return res;
+            }
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
         //{
@@ -42,9 +70,22 @@ namespace DAL_Clinic.DAL
         //    }
         //}
   
-        public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
+        public async Task<ObservableCollection<DTO_PhieuNhapThuoc>> GetListPNTAsync()
         {
-            return null;
+            ObservableCollection<DTO_PhieuNhapThuoc> res = null;
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    var list = await context.PhieuNhapThuoc.SqlQuery("select * from PHIEUNHAPTHUOC").ToListAsync();
+                    res = new ObservableCollection<DTO_PhieuNhapThuoc>(list);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+            }
+            return res;
         }
     }
 }

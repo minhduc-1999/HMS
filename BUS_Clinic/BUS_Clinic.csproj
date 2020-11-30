@@ -50,12 +50,16 @@
     <Compile Include="BUS\BUS_BenhNhan.cs" />
     <Compile Include="BUS\BUS_CachDung.cs" />
     <Compile Include="BUS\BUS_CTBaoCaoDoanhThu.cs" />
+    <Compile Include="BUS\BUS_CTDonThuoc.cs" />
     <Compile Include="BUS\BUS_CTPhieuNhapThuoc.cs" />
+    <Compile Include="BUS\BUS_DonThuoc.cs" />
     <Compile Include="BUS\BUS_Group.cs" />
     <Compile Include="BUS\BUS_HoaDon.cs" />
     <Compile Include="BUS\BUS_NhanVien.cs" />
     <Compile Include="BUS\BUS_PhieuNhapThuoc.cs" />
     <Compile Include="BUS\BUS_Phong.cs" />
+    <Compile Include="BUS\BUS_PKChuyenKhoa.cs" />
+    <Compile Include="BUS\BUS_PKDaKhoa.cs" />
     <Compile Include="BUS\BUS_ThamSo.cs" />
     <Compile Include="BUS\BUS_Thuoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

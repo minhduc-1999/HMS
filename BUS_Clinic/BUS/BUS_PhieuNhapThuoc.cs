@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
@@ -14,39 +15,22 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPCTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public bool LoadNP_CTPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            DALManager.PhieuNhapThuocDAL.LoadNPCTPhieuNhapThuoc(phieuNhapThuoc);
+            return DALManager.PhieuNhapThuocDAL.LoadNP_CTPhieuNhapThuoc(phieuNhapThuoc);
         }
-        public void AddPhieuNhapThuoc(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuoc(phieuNhapThuoc);
+            await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
+            
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
         //{
         //    DALManager.PhieuNhapThuocDAL.TransferTongTien(phieuNhapThuoc);
         //}
-        public void TinhTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task<ObservableCollection<DTO_PhieuNhapThuoc>> GetListPNTAsync()
         {
-            ObservableCollection<DTO_CTPhieuNhapThuoc> CTPNTs = DALManager.CTPhieuNhapThuocDAL.GetListCTPNT();
-
-            var cTPNT = from p in CTPNTs
-                        where p.MaPNT == phieuNhapThuoc.MaPNT
-                        select p;
-
-            foreach (var item in cTPNT)
-            {
-                phieuNhapThuoc.TongTien += item.ThanhTien;
-            }
-        }
-        public ObservableCollection<DTO_PhieuNhapThuoc> GetListPNT()
-        {
-            return DALManager.PhieuNhapThuocDAL.GetListPNT();
-        }
-        public int GetPNTAmount()
-        {
-            int amount = DALManager.PhieuNhapThuocDAL.GetListPNT().Count;
-            return amount;
+            return await DALManager.PhieuNhapThuocDAL.GetListPNTAsync();
         }
     }
 }

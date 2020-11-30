@@ -1,22 +1,11 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.Windows
 {
@@ -25,21 +14,24 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdBenhNhan : Window
     {
+        public enum Action { Add, Watch }
+        private Action action;
         public wdBenhNhan()
         {
             InitializeComponent();
         }
-        public wdBenhNhan(DTO_BenhNhan bn)
+        public wdBenhNhan(DTO_BenhNhan bn, Action action)
         {
             InitializeComponent();
             this.DataContext = this;
-            InitCommand();
             BenhNhan = bn;
+            this.action = action;
+            InitCommand();
             InitData();
-            
         }
         #region Command
         public ICommand UpdateCommand { get; set; }
+        public ICommand AddCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         #endregion
         #region
@@ -47,41 +39,105 @@ namespace GUI_Clinic.View.Windows
         #endregion
         private void InitData()
         {
-            if (BenhNhan.GioiTinh)
-                cbxGioiTinh.SelectedIndex = 1;
-            else
-                cbxGioiTinh.SelectedIndex = 0;
+            if (BenhNhan != null)
+                if (BenhNhan.GioiTinh)
+                    cbxGioiTinh.SelectedIndex = 1;
+                else
+                    cbxGioiTinh.SelectedIndex = 0;
         }
         private bool IsHasDifference()
         {
-            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) && tbxDiaChi.Text == BenhNhan.DiaChi
+            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) 
+                && tbxDiaChi.Text == BenhNhan.DiaChi && tbxCMND.Text == BenhNhan.SoCMND
                 && tbxSDT.Text == BenhNhan.SoDienThoai && dpkNgaySinh.SelectedDate.Value.ToString("d") == BenhNhan.NgaySinh.ToString("d");
             return !rel;
         }
         private void InitCommand()
         {
-            UpdateCommand = new RelayCommand<Window>((p) =>
+            AddCommand = new RelayCommand<Window>((p) =>
             {
-                if (string.IsNullOrEmpty(tbxHoTen.Text) ||
-                   string.IsNullOrEmpty(tbxDiaChi.Text) ||
-                   string.IsNullOrEmpty(tbxSDT.Text) ||
-                   cbxGioiTinh.SelectedIndex == -1 ||
-                   !dpkNgaySinh.SelectedDate.HasValue ||
-                   tbxSDT.Text.Length != tbxSDT.MaxLength)
+                if (action != Action.Add)
                     return false;
-                if (!IsHasDifference())
+                if (string.IsNullOrEmpty(tbxHoTen.Text) ||
+                    string.IsNullOrEmpty(tbxCMND.Text) ||
+                    string.IsNullOrEmpty(tbxDiaChi.Text) ||
+                    string.IsNullOrEmpty(tbxSDT.Text) ||
+                    cbxGioiTinh.SelectedIndex == -1 ||
+                    !dpkNgaySinh.SelectedDate.HasValue ||
+                    tbxSDT.Text.Length > tbxSDT.MaxLength)
                     return false;
                 return true;
-            }, (p) =>
+            }, async (p) =>
             {
-                if (BUSManager.BenhNhanBUS.UpdateInfoBN(BenhNhan, tbxHoTen.Text, tbxDiaChi.Text, Convert.ToBoolean(cbxGioiTinh.SelectedIndex), tbxSDT.Text, dpkNgaySinh.SelectedDate.Value))
+                bool gt;
+                if (cbxGioiTinh.SelectedIndex == 0)
+                    gt = false;
+                else
+                    gt = true;
+                DTO_BenhNhan benhNhan = new DTO_BenhNhan()
                 {
-                    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                    HoTen = tbxHoTen.Text,
+                    NgaySinh = dpkNgaySinh.SelectedDate.Value,
+                    DiaChi = tbxDiaChi.Text,
+                    SoDienThoai = tbxSDT.Text,
+                    GioiTinh = gt,
+                    SoCMND = tbxCMND.Text,
+                    Email = tbxEmail.Text,
+                };
+                try
+                {
+                    var maBN = await BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan);
+                    benhNhan.MaBenhNhan = maBN;
+                    BenhNhan = benhNhan;
+                    MsgBox.Show("Thêm bệnh nhân thành công", MessageType.Info);
                     this.Close();
                 }
-                else
-                    MsgBox.Show("Thông tin bệnh nhân này đã tồn tại", MessageType.Error);
+                catch (Exception e)
+                {
+                    MsgBox.Show(e.Message, MessageType.Error);
+                    tbxCMND.Clear();
+                }
+                //if (BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan))
+                //{
+                //    //ListBN1.Add(benhNhan);
+                //    //ListBN2.Add(benhNhan);
+                //    //if (ckbDangKy.IsChecked.Value)
+                //    //{
+                //    //    DangKyKham(benhNhan);
+                //    //    MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
+                //    //}
+                //    //else
+                //    //    MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
+                //}
+                //else
+                //MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
             });
+
+            UpdateCommand = new RelayCommand<Window>((p) =>
+                {
+                    if (action != Action.Watch)
+                        return false;
+                    if (string.IsNullOrEmpty(tbxHoTen.Text) ||
+                       string.IsNullOrEmpty(tbxDiaChi.Text) ||
+                       string.IsNullOrEmpty(tbxCMND.Text) ||
+                       string.IsNullOrEmpty(tbxSDT.Text) ||
+                       cbxGioiTinh.SelectedIndex == -1 ||
+                       !dpkNgaySinh.SelectedDate.HasValue ||
+                       tbxSDT.Text.Length != tbxSDT.MaxLength)
+                        return false;
+                    if (!IsHasDifference())
+                        return false;
+                    return true;
+                }, (p) =>
+                {
+                    if (BUSManager.BenhNhanBUS.UpdateInfoBN(BenhNhan, tbxHoTen.Text, tbxDiaChi.Text, Convert.ToBoolean(cbxGioiTinh.SelectedIndex), tbxSDT.Text, dpkNgaySinh.SelectedDate.Value))
+                    {
+                        MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                        this.Close();
+                    }
+                    else
+                        MsgBox.Show("Thông tin bệnh nhân này đã tồn tại", MessageType.Error);
+                });
             CancelCommand = new RelayCommand<Window>((p) =>
             {
                 return true;

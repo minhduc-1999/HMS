@@ -29,3 +29,21 @@ namespace BUS_Clinic.BUS
         }
     }
 }
+
+        public bool UpdatePhong(DTO_Phong phong, string tenPhongMoi)
+        {
+            return DALManager.PhongDAL.UpdatePhong(phong, tenPhongMoi);
+        }
+
+
+        public async Task<DTO_Phong> AddPhongAsync(DTO_Phong phong)
+        {
+            ObservableCollection<DTO_Phong> phongs = await DALManager.PhongDAL.GetListPhongAsync();
+            if (phongs.Any(b => b.TenPhong.Equals(phong.TenPhong, StringComparison.OrdinalIgnoreCase)))
+
+            {
+                return null;
+            }
+            phong.MaPhong = await DALManager.PhongDAL.AddPhongAsync(phong);
+            return phong;
+        }

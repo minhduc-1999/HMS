@@ -124,9 +124,8 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 //Mo thong tin benh nhan tuong ung
-                //wdBenhNhan benhNhan = new wdBenhNhan(item);
-                //benhNhan.ShowDialog();
-                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(item);
+                wdBenhNhan benhNhan = new wdBenhNhan(item, wdBenhNhan.Action.Watch);
+                benhNhan.ShowDialog();
             }
         }
     }

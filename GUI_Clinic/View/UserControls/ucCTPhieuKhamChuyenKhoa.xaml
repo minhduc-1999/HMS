@@ -125,9 +125,8 @@
                                FontSize="20">
                     </TextBlock>
                     <Grid Grid.Row="1">
-                        <TextBox BorderBrush="#0078D7"
-                                 x:Name="tbxYeuCauKhamChuyenKhoa"
-                                 BorderThickness="2"
+                        <TextBlock 
+                                 x:Name="tblYeuCauKhamChuyenKhoa"
                                  Margin="0 5 20 0"
                                  FontSize="16"
                                  Height="50"
@@ -135,7 +134,7 @@
                                  Width="450"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Left">
-                        </TextBox>
+                        </TextBlock>
                     </Grid>
                 </Grid>
 

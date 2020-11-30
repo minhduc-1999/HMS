@@ -1,5 +1,6 @@
 ﻿using DTO_Clinic.Person;
 using System;
+using System.Collections.Generic;
 
 namespace DTO_Clinic.Form
 {
@@ -15,9 +16,11 @@ namespace DTO_Clinic.Form
         public string YeuCau { get => _yeuCau; set { _yeuCau = value; OnPropertyChanged(); } }
         public string KetQua { get => _ketQua; set { _ketQua = value; OnPropertyChanged(); } }
         public string MaNhanVien { get; set; }
-
+        public string MaPKDaKhoa { get; set; }
+        public string MaBacSi { get; set; }
         public virtual DTO_NhanVien NguoiLap { get; set; }
-
+        public virtual DTO_PKDaKhoa PhieuKhamDaKhoa { get; set; }
+        public virtual DTO_NhanVien BacSiThucHien { get; set; }
         public DTO_PKChuyenKhoa() : base() { }
     }
 }

@@ -35,7 +35,7 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();
+            InitDataAsync();
             InitCommmand();
         }
 
@@ -66,7 +66,7 @@ namespace GUI_Clinic.View.UserControls
             EnablePKB();
             ResetPKB();
             IsSave = false;
-            btnThanhToan.Content = "Thanh toán";
+            btnXuatDon.Content = "Xuất đơn thuốc";
 
             benhNhan = bn;
             tblTenBenhNhan.Text = bn.HoTen;
@@ -81,7 +81,7 @@ namespace GUI_Clinic.View.UserControls
         {
             ResetPKB();
             IsSave = true;
-            btnThanhToan.Content = "Hóa đơn";
+            btnXuatDon.Content = "Đơn thuốc";
 
             //BUSManager.PhieuKhamBenhBUS.LoadNPBenh(pkb);
             //BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(pkb);
@@ -105,11 +105,11 @@ namespace GUI_Clinic.View.UserControls
             DisablePKB();
         }
 
-        public void InitData()
+        public async Task InitDataAsync()
         {
-            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
-            ListCachDung = BUSManager.CachDungBUS.GetListCD();
-            ListBenh = BUSManager.BenhBUS.GetListBenh();
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
+            ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
            // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
             lvThuoc.ItemsSource = ListCTPKB;
         }
@@ -287,5 +287,9 @@ namespace GUI_Clinic.View.UserControls
             wd.ShowDialog();
         }
 
+        private void btnXuatDon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -6,6 +6,11 @@ namespace DTO_Clinic.Person
 {
     public class DTO_BenhNhan : BaseModel
     {
+        public DTO_BenhNhan()
+        {
+            MaBenhNhan = "";
+            IsDeleted = false;
+        }
         private string _hoTen;
         private DateTime _ngaySinh;
         private bool _gioiTinh;
@@ -81,6 +86,8 @@ namespace DTO_Clinic.Person
         private bool _isDeleted;
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         public virtual ICollection<DTO_PKDaKhoa> DS_PKDaKhoa { get; set; }
+        public virtual ICollection<DTO_HoaDon> DS_HoaDon { get; set; }
+
         public override string ToString()
         {
             return MaBenhNhan + " - " + HoTen;

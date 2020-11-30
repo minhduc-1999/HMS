@@ -16,9 +16,9 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public bool AddBenh(DTO_Benh benh)
+        public async Task<DTO_Benh> AddBenhAsync(DTO_Benh benh)
         {
-            ObservableCollection<DTO_Benh> benhs = DALManager.BenhDAL.GetListBenh();
+            ObservableCollection<DTO_Benh> benhs = await DALManager.BenhDAL.GetListBenhAsync();
 
             //if (benhs.Any(b => b.TenBenh.Equals(benh.TenBenh, StringComparison.OrdinalIgnoreCase) && b.IsDeleted == true))
             //{
@@ -27,23 +27,14 @@ namespace BUS_Clinic.BUS
             //}
             if (benhs.Any(b => b.TenBenh.Equals(benh.TenBenh, StringComparison.OrdinalIgnoreCase)))
             {
-
-                return false;
+                return null;
             }
-            DALManager.BenhDAL.AddBenh(benh);
-            return true;
+            benh.MaBenh = await DALManager.BenhDAL.AddBenhAsync(benh);
+            return benh;
         }
         public bool UpdateBenh(DTO_Benh benh, string tenBenhMoi)
         {
-            ObservableCollection<DTO_Benh> benhs = DALManager.BenhDAL.GetListBenh();
-
-            if (benh.TenBenh == tenBenhMoi || benhs.Any(b => b.TenBenh.Equals(tenBenhMoi, StringComparison.OrdinalIgnoreCase)))
-            {
-                return false;
-            }
-
-            benh.TenBenh = tenBenhMoi;
-            return true;
+            return DALManager.BenhDAL.UpdateBenh(benh, tenBenhMoi);
             
         }
         //public bool Delbenh(DTO_Benh benh)
@@ -60,15 +51,15 @@ namespace BUS_Clinic.BUS
         //    return false;
         //}
       
-        public ObservableCollection<DTO_Benh> GetListBenh()
+        public async Task<ObservableCollection<DTO_Benh>> GetListBenhAsync()
         {
-            return DALManager.BenhDAL.GetListBenh();
+            return await DALManager.BenhDAL.GetListBenhAsync();
         }
-        public int GetBenhAmount()
-        {
-            int amount = DALManager.BenhDAL.GetListBenh().Count;
-            return amount;
-        }
+        //public int GetBenhAmount()
+        //{
+        //    int amount = DALManager.BenhDAL.GetListBenhAsync().Count;
+        //    return amount;
+        //}
 
         //public bool BenhFilter(Object item)
         //{

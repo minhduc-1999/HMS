@@ -22,15 +22,25 @@ namespace BUS_Clinic.BUS
         {
             return await DALManager.BenhNhanDAL.GetBNByID(maBenhNhan);
         }
-        public async Task AddBenhNhanAsync(DTO_BenhNhan bn, ObservableCollection<DTO_BenhNhan> listBN)
+        public async Task<string> AddBenhNhanAsync(DTO_BenhNhan bn)
         {
-            //if (!IsValidInfo(bn, listBN))
-            //    return;
-            var res = await DALManager.BenhNhanDAL.AddBenhNhanAsync(bn);
-            if (res != null)
+            try
             {
-                bn.MaBenhNhan = res;
-                listBN.Add(bn);
+                var res = await DALManager.BenhNhanDAL.AddBenhNhanAsync(bn);
+                if (res.Count == 2)
+                {
+                    var code = Convert.ToInt32(res[0]);
+                    if (code == SUCCESS_CODE)
+                        return res[1];
+                    var errorNumber = Convert.ToInt32(res[1]);
+                    if (code == 1 && errorNumber == 2601)
+                        throw new Exception("Số CMND này đã tồn tại. Vui lòng kiểm tra lại.");
+                }               
+                throw new Exception("Đã có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
         public async Task<ObservableCollection<DTO_BenhNhan>> GetListBNAsync()

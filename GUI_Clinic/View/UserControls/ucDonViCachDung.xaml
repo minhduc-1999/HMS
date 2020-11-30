@@ -12,23 +12,12 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <!--Tieu de UC-->
         <Grid Grid.Row="0">
-            <!--<TextBlock x:Name="tblTitle"
-                       Margin="20 10"
-                       HorizontalAlignment="Left"
-                       Text="Bệnh, đơn vị và cách dùng"
-                       VerticalAlignment="Center"
-                       FontSize="35"
-                       FontWeight="Bold"
-                       Foreground="#0078D7" />-->
-        </Grid>
-        <Grid Grid.Row="1">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -132,7 +121,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"/>
                                             <GridViewColumn Header="Mã bệnh"
-                                                                DisplayMemberBinding="{Binding Id}"/>
+                                                                DisplayMemberBinding="{Binding MaBenh}"/>
                                             <GridViewColumn Header="Tên bệnh"
                                                                 DisplayMemberBinding="{Binding TenBenh}"/>
                                         </GridView>
@@ -144,7 +133,7 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -160,7 +149,7 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock HorizontalAlignment="Center" 
-                                       Text="Thông tin đơn vị"
+                                       Text="Thông tin phòng"
                                        Foreground="Gray"
                                        FontWeight="Bold"
                                        FontSize="25"
@@ -172,7 +161,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <TextBlock Text="Tên đơn vị:"
+                                <TextBlock Text="Tên phòng:"
                                            FontSize="17"
                                            Margin="10"
                                            FontWeight="Bold"
@@ -180,14 +169,14 @@
                                            VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Column="1">
-                                <TextBox x:Name="tbxTenDonVi"
-                                         Text="{Binding TenDonViInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <TextBox x:Name="tbxTenPhong"
+                                         Text="{Binding TenPhongInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          FontSize="15"
                                          Margin="10"
                                          FontWeight="DemiBold"
                                          Foreground="Gray"
                                          VerticalAlignment="Center"
-                                         KeyDown="tbxTenDonVi_KeyDown"/>
+                                         KeyDown="tbxTenPhong_KeyDown"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="3">
@@ -197,9 +186,9 @@
                                 <!--<ColumnDefinition Width="auto"/>-->
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <Button x:Name="btnThemDonVi"
+                                <Button x:Name="btnThemPhong"
                                         Margin="5"
-                                        Command="{Binding ThemDonViCommand}"
+                                        Command="{Binding ThemPhongCommand}"
                                         Content="Thêm"
                                         Width="90"
                                         HorizontalAlignment="Right"
@@ -208,9 +197,9 @@
                                         BorderBrush="#0078D7"/>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Button x:Name="btnCapNhatDonVi"
+                                <Button x:Name="btnCapNhatPhong"
                                         Margin="5"
-                                        Command="{Binding SuaDonViCommand}"
+                                        Command="{Binding SuaPhongCommand}"
                                         Content="Cập nhật"
                                         Width="90"
                                         HorizontalAlignment="Center"
@@ -232,25 +221,25 @@
                         </Grid>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <GroupBox Header="Danh sách đơn vị"
+                        <GroupBox Header="Danh sách phòng"
                                   Margin="10">
                             <Grid>
-                                <ListView x:Name="lvDonVi"
-                                          ItemsSource="{Binding ListDV}"
+                                <ListView x:Name="lvPhong"
+                                          ItemsSource="{Binding ListPhong}"
                                           SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
                                           SelectedIndex="0"
                                           ScrollViewer.CanContentScroll="True"
                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                          SelectionChanged="lvDonVi_SelectionChanged">
+                                          SelectionChanged="lvPhong_SelectionChanged">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"/>
-                                            <GridViewColumn Header="Mã đơn vị"
-                                                                DisplayMemberBinding="{Binding Id}"/>
-                                            <GridViewColumn Header="Tên đơn vị"
-                                                                DisplayMemberBinding="{Binding TenDonVi}"/>
+                                            <GridViewColumn Header="Mã phòng"
+                                                                DisplayMemberBinding="{Binding MaPhong}"/>
+                                            <GridViewColumn Header="Tên phòng"
+                                                                DisplayMemberBinding="{Binding TenPhong}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -260,7 +249,7 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -364,7 +353,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"/>
                                             <GridViewColumn Header="Mã cách dùng"
-                                                                DisplayMemberBinding="{Binding Id}"/>
+                                                                DisplayMemberBinding="{Binding MaCachDung}"/>
                                             <GridViewColumn Header="Tên cách dùng"
                                                                 DisplayMemberBinding="{Binding TenCachDung}"/>
                                         </GridView>
