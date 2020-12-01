@@ -25,27 +25,27 @@ namespace GUI_Clinic.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        //
-        //temp mainwindow
-        //
-        //public MainWindow()
-        //{
-        //    InitializeComponent();
-        //    uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
-        //    uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
-        //}
-        public ObservableCollection<DTO_Group> ListNhom { get; set; }
-        public MainWindow(DTO_NhanVien currentNV)
+        //public ObservableCollection<DTO_Group> ListNhom { get; set; }
+        public MainWindow(DTO_NhanVien currentNV, ObservableCollection<DTO_Group> ListNhom)
         {
             InitializeComponent();
             ucControlBar.SetProfileInfo(currentNV);
             uc_QuanLyNhanVien.currentNV = currentNV;
-            GetListNhomAsync();
+            
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             if (ListNhom != null)
             {
-                int index = ListNhom.IndexOf(currentNV.Nhom);
+                int index = -1;
+                for (int i = 0; i < ListNhom.Count; i++)
+                {
+                    if (currentNV.Nhom.MaNhom == ListNhom[i].MaNhom)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
                 switch (index)
                 {
                     case 0: //ADMIN
@@ -131,7 +131,7 @@ namespace GUI_Clinic.View
 
         public async Task GetListNhomAsync()
         {
-            ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
+            //ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
         }
 
         private void Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved(object sender, EventArgs e)

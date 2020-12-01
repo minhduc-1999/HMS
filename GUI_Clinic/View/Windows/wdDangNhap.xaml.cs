@@ -58,7 +58,7 @@ namespace GUI_Clinic.View.Windows
                             if (item.NhanVien != null)
                             {
                                 currentUser = item.NhanVien;
-                                InitMainWindow(currentUser);
+                                InitMainWindowAsync(currentUser);
                                 return;
                             }
                         }
@@ -69,9 +69,10 @@ namespace GUI_Clinic.View.Windows
 
         }
 
-        private void InitMainWindow(DTO_NhanVien nhanVien)
+        private async Task InitMainWindowAsync(DTO_NhanVien nhanVien)
         {
-            MainWindow mainWindow = new MainWindow(nhanVien);
+            ObservableCollection<DTO_Group>  ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
+            MainWindow mainWindow = new MainWindow(nhanVien, ListNhom);
             mainWindow.Show();
             this.Close();
         }
@@ -99,7 +100,7 @@ namespace GUI_Clinic.View.Windows
                                 if (item.NhanVien != null)
                                 {
                                     currentUser = item.NhanVien;
-                                    InitMainWindow(currentUser);
+                                    InitMainWindowAsync(currentUser);
                                     return;
                                 }
                             }

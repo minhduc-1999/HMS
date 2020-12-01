@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -32,8 +33,8 @@ namespace DAL_Clinic.DAL
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
-                    var list = await context.Group.SqlQuery("select * from GROUP").ToListAsync();
-                    res = new ObservableCollection<DTO_Group>(list);
+                    await context.Group.LoadAsync();
+                    res = context.Group.Local;
                 }
                 catch (Exception e)
                 {
