@@ -24,10 +24,5 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
         }
-
-        private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
