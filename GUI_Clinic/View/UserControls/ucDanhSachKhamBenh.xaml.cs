@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
@@ -28,11 +29,11 @@ namespace GUI_Clinic.View.UserControls
             InitCommand();
         }
         #region Property
-        public ObservableCollection<DTO_BenhNhan> ListBN1 { get; set; }
-        public ObservableCollection<DTO_BenhNhan> ListBN2 { get; set; }
+        public ObservableCollection<DTO_Phong> ListRoom { get; set; }
+        public ObservableCollection<DTO_BenhNhan> ListPatient { get; set; }
+        public ObservableCollection<DTO_BenhNhan> ExaminedPatientList { get; set; }
         public List<string> MatchBNList { get; set; }
         public ObservableCollection<DTO_BenhNhan> CurSignedList { get; set; }
-        public List<string> RegionIDList { get; set; }
         public DTO_ThamSo thamSo { get; set; }
         public CollectionView ListDKView { get; set; }
         #endregion
@@ -45,32 +46,17 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         public async System.Threading.Tasks.Task InitDataAsync()
         {
-            //RegionIDList = new List<string>();
-            ////Doc danh sach ma vung so dien thoai
-            //string line = "";
-            //StreamReader streamReader = new StreamReader(System.IO.Path.Combine(Environment.CurrentDirectory.Replace("bin\\Debug", ""), "Resource\\MAVUNG.txt"));
-
-            //while ((line = streamReader.ReadLine()) != null)
-            //{
-            //    RegionIDList.Add(line);
-            //}
-            //dpkNgayKham.SelectedDate = DateTime.Now;
-            ////set itemsource cho list view danh sách khám
-            //ListBN1 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
-            ListBN2 = await BUSManager.BenhNhanBUS.GetListBNAsync();
-            //CurSignedList = new ObservableCollection<DTO_BenhNhan>();
-            ////set itemsource
-            cbxDSBenhNhan.ItemsSource = ListBN2;
+            dpkNgayKham.SelectedDate = DateTime.Now;
+            ListPatient = await BUSManager.BenhNhanBUS.GetListBNAsync();
+            cbxDSBenhNhan.ItemsSource = ListPatient;
             //lvDSKham.ItemsSource = CurSignedList;
             ////Lọc danh sách khám theo ngày
             //PreLoadCurListBN();
             ////Khoi tao filter danh sach kham
             //ListDKView = (CollectionView)CollectionViewSource.GetDefaultView(ListBN1);
             //ListDKView.Filter = BenhNhanFilterDate;
-            ////Load tham so
-            //thamSo = BUSManager.ThamSoBUS.GetThamSoSoBNToiDa();
-            ////
-            //cbxMaVungSDT.SelectedIndex = 223;
+            //Load tham so
+            thamSo = BUSManager.ThamSoBUS.GetThamSoSoBNToiDa();
         }
         public void InitCommand()
         {
@@ -91,18 +77,18 @@ namespace GUI_Clinic.View.UserControls
         }
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dpkNgayKham.SelectedDate.HasValue)
-            {
-                if (dpkNgayKham.SelectedDate.Value.ToString("d") == DateTime.Now.ToString("d"))
-                {
-                    lvDSKham.ItemsSource = CurSignedList;
-                }
-                else
-                {
-                    lvDSKham.ItemsSource = ListBN1;
-                    RefreshList();
-                }
-            }
+            //if (dpkNgayKham.SelectedDate.HasValue)
+            //{
+            //    if (dpkNgayKham.SelectedDate.Value.ToString("d") == DateTime.Now.ToString("d"))
+            //    {
+            //        lvDSKham.ItemsSource = CurSignedList;
+            //    }
+            //    else
+            //    {
+            //        //lvDSKham.ItemsSource = ListBN1;
+            //        RefreshList();
+            //    }
+            //}
         }
         private void RefreshList()
         {
@@ -180,7 +166,7 @@ namespace GUI_Clinic.View.UserControls
         private void WdbenhNhan_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var wd = sender as wdBenhNhan;
-            ListBN2.Add(wd.BenhNhan);
+            ListPatient.Add(wd.BenhNhan);
         }
 
         private void cbxPhong_KeyUp(object sender, KeyEventArgs e)
