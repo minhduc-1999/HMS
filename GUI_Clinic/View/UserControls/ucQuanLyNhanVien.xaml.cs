@@ -88,7 +88,7 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnThemNV_Click(object sender, RoutedEventArgs e)
         {
-            wdTaiKhoan newTaiKhoan = new wdTaiKhoan(currentNV);
+            wdTaiKhoan newTaiKhoan = new wdTaiKhoan(ListNV);
             newTaiKhoan.ShowDialog();
         }
     }

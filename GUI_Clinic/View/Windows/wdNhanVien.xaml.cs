@@ -45,14 +45,14 @@ namespace GUI_Clinic.View.Windows
             InitDataAsync();
             InitCommand();
         }
-        public wdNhanVien(DTO_Account acc)
+        public wdNhanVien(DTO_Account acc, ObservableCollection<DTO_NhanVien> listNV)
         {
             InitializeComponent();
             currentNV = new DTO_NhanVien();
             currentNV.Account = acc;
             this.DataContext = this;
             InitDataAsyncForNewNV();
-            InitCreateNewNVCommand();
+            InitCreateNewNVCommand(listNV);
         }
 
         private async Task InitDataAsyncForNewNV()
@@ -153,7 +153,7 @@ namespace GUI_Clinic.View.Windows
             tbxCMND.Text = currentNV.SoCMND;
         }
 
-        public void InitCreateNewNVCommand()
+        public void InitCreateNewNVCommand(ObservableCollection<DTO_NhanVien> listNV)
         {
             UpdateCommand = new RelayCommand<Window>((p) =>
             {
@@ -200,6 +200,7 @@ namespace GUI_Clinic.View.Windows
                     BUSManager.AccountBUS.AddAccAsync(newAcc);
                     currentNV = newNV;
                     MsgBox.Show("Thêm nhân viên thành công", MessageType.Info);
+                    listNV.Add(currentNV);
                     this.Close();
                 }
                 catch (Exception e)

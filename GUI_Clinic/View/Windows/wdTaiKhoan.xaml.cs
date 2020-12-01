@@ -5,6 +5,7 @@ using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace GUI_Clinic.View.Windows
         public ICommand CancelCommand { get; set; }
         #endregion
         #region
+        public ObservableCollection<DTO_NhanVien> ListNV { get; set; }
         public DTO_Account currentAcc { get; set; }
         public DTO_Account newAcc { get; set; }
         #endregion
@@ -40,11 +42,11 @@ namespace GUI_Clinic.View.Windows
             InitCommand();
             currentAcc = acc;
         }
-        public wdTaiKhoan(DTO_NhanVien currentNV)
+        public wdTaiKhoan(ObservableCollection<DTO_NhanVien> listNV)
         {
             InitializeComponent();
+            ListNV = listNV;
             newAcc = new DTO_Account();
-            newAcc.MaNhanVien = currentNV.MaNhanVien;
             btnCapNhat.Content = "Đăng ký";
             this.DataContext = this;
             InitCreateNewAccCommand();
@@ -102,7 +104,7 @@ namespace GUI_Clinic.View.Windows
                 newAcc.Password = tbxPassword.Text;
                 if (!BUSManager.AccountBUS.IsAccDaTonTai(newAcc))
                 {
-                    wdNhanVien newNhanVien = new wdNhanVien(newAcc);
+                    wdNhanVien newNhanVien = new wdNhanVien(newAcc, ListNV);
                     newNhanVien.ShowDialog();
                     this.Close();
                 }

@@ -124,6 +124,7 @@
                                     <ListView x:Name="lvDSDangChoDKChuyenKhoa"
                                               SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                                               ScrollViewer.CanContentScroll="True"
+                                              SelectionChanged="lvDSDangChoDKChuyenKhoa_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Grid.ColumnSpan="2">
                                         <ListView.View>
@@ -200,6 +201,7 @@
                                     <ListView x:Name="lvDSDKChuyenKhoa"
                                               SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                                               ScrollViewer.CanContentScroll="True"
+                                              SelectionChanged="lvDSDKChuyenKhoa_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Grid.ColumnSpan="2">
                                         <ListView.View>
