@@ -36,7 +36,7 @@
         </Grid>
         <!--Cac element binding tu selected item-->
         <Grid  Grid.Row="1">
-            <materialDesign:Card Margin="10 10 10 5">
+            <!--<materialDesign:Card Margin="10 10 10 5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -67,7 +67,7 @@
                         </Grid>
                     </Grid>
                 </Grid>
-            </materialDesign:Card>
+            </materialDesign:Card>-->
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -81,20 +81,40 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid>
+                        <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <DatePicker HorizontalAlignment="Right"
+                                <DatePicker HorizontalAlignment="Left"
                                             x:Name="dpkNgayKham"
                                             VerticalAlignment="Center"
-                                            SelectedDateChanged="dpkNgayKham_SelectedDateChanged"
                                             Width="100"
                                             Margin="10">
                                 </DatePicker>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           FontSize="15"
+                                           Margin="10"
+                                           Text="Số bệnh nhân được yêu cầu khám chuyên khoa">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontSize="20"
+                                       x:Name="tblSoBN"
+                                       FontWeight="Bold"
+                                       Margin="10"
+                                       Text="20">
+                                </TextBlock>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
@@ -104,6 +124,7 @@
                                     <ListView x:Name="lvDSDangChoDKChuyenKhoa"
                                               SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                                               ScrollViewer.CanContentScroll="True"
+                                              SelectionChanged="lvDSDangChoDKChuyenKhoa_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Grid.ColumnSpan="2">
                                         <ListView.View>
@@ -149,14 +170,38 @@
                                 </Grid>
                             </GroupBox>
                         </Grid>
-
                         <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           FontSize="15"
+                                           Margin="10"
+                                           Text="Số bệnh nhân đã đăng ký khám chuyên khoa">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontSize="20"
+                                       x:Name="tblSoBNDaDK"
+                                       FontWeight="Bold"
+                                       Margin="10"
+                                       Text="20">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
                             <GroupBox Header="Danh sách bệnh nhân đã đăng ký khám chuyên khoa"
                                       Margin="0">
                                 <Grid>
                                     <ListView x:Name="lvDSDKChuyenKhoa"
                                               SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                                               ScrollViewer.CanContentScroll="True"
+                                              SelectionChanged="lvDSDKChuyenKhoa_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Grid.ColumnSpan="2">
                                         <ListView.View>
@@ -300,16 +345,17 @@
                             <materialDesign:Card Margin="5 5 10 10">
                                 <Grid Margin="5">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="3*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Row="0"
@@ -323,7 +369,22 @@
 
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="135" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="Mã bệnh nhân:">
+                                        </TextBlock>
+                                        <Grid Grid.Column="1">
+                                            <TextBlock Grid.Column="0"
+                                                   Text="BN00001">
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="135" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
@@ -331,13 +392,13 @@
                                         </TextBlock>
                                         <Grid Grid.Column="1">
                                             <TextBlock Grid.Column="0"
-                                                   Text="Họ và tên:">
+                                                   Text="Võ Thanh Bình">
                                             </TextBlock>
                                         </Grid>
                                     </Grid>
-                                    <Grid Grid.Row="2">
+                                    <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="135" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid>
@@ -347,14 +408,14 @@
                                         </Grid>
                                         <Grid Grid.Column="1">
                                             <TextBlock Grid.Column="0"
-                                                   Text="Họ và tên:">
+                                                   Text="22/04/2000">
                                             </TextBlock>
                                         </Grid>
 
                                     </Grid>
-                                    <Grid Grid.Row="3">
+                                    <Grid Grid.Row="4">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="135" />
                                             <ColumnDefinition />
                                             <!--<ColumnDefinition Width="auto" />
                                             <ColumnDefinition />-->
@@ -367,28 +428,31 @@
 
                                         <Grid Grid.Column="1">
                                             <TextBlock Grid.Column="0"
-                                                   Text="Họ và tên:">
+                                                   Text="Nam">
                                             </TextBlock>
                                         </Grid>
                                     </Grid>
-                                    <Grid Grid.Row="4">
+                                    <Grid Grid.Row="5">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="135" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
-                                                   Text="Địa chỉ:">
+                                                   Text="Địa chỉ:"
+                                                   VerticalAlignment="Top">
                                         </TextBlock>
                                         <Grid Grid.Column="1">
                                             <TextBlock Grid.Column="0"
-                                                   Text="Họ và tên:">
+                                                       VerticalAlignment="Top"
+                                                       Text="Quảng Nam Quảng Nam Quảng Nam Quảng Nam"
+                                                       TextWrapping="Wrap">
                                             </TextBlock>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid Grid.Row="5">
+                                    <Grid Grid.Row="6">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="135" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
@@ -396,39 +460,36 @@
                                         </TextBlock>
                                         <Grid Grid.Column="1">
                                             <TextBlock Grid.Column="0"
-                                                   Text="Họ và tên:">
+                                                   Text="0123123123">
                                             </TextBlock>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid Grid.Row="6">
+                                    <Grid Grid.Row="7">
                                         <TextBlock Grid.Column="0"
                                                    Text="Yêu cầu:">
                                         </TextBlock>
                                     </Grid>
 
-                                    <Grid Grid.Row="7">
-                                        <TextBlock Grid.Column="0"
-                                                   Height="40"
-                                                   MaxWidth="300"                    
-                                                   TextWrapping="Wrap">
+                                    <Grid Grid.Row="8">
+                                        <TextBlock Grid.Column="0"  
+                                                   VerticalAlignment="Top"
+                                                   TextWrapping="Wrap"
+                                                   Text="Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam Quảng Nam">
                                         </TextBlock>
                                     </Grid>
 
-                                    <Grid Grid.Row="8">
+                                    <Grid Grid.Row="9">
                                         <CheckBox Content="Đã đăng ký khám chuyên khoa"
                                                   x:Name="ckbDangKy"
                                                   IsChecked="True"
+                                                  HorizontalAlignment="Center"
                                                   Margin="20 5 20 5"
                                                   FontSize="16">
                                         </CheckBox>
                                     </Grid>
 
-                                    <Grid Grid.Row="9">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="33*"/>
-                                            <ColumnDefinition Width="100*"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="10">
                                         <Button Command="{Binding }"
                                                 x:Name="btnDKKhamChuyenKhoa"
                                                 Background="#0078D7"

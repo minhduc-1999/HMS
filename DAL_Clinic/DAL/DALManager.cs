@@ -20,6 +20,7 @@
         private static DAL_PKChuyenKhoa _pKChuyenKhoa;
         private static DAL_DonThuoc _donThuoc;
         private static DAL_CTDonThuoc _ctDonThuoc;
+        private static DAL_Group _groupDAL;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -195,6 +196,17 @@
                 if (_ctDonThuoc == null)
                     _ctDonThuoc = new DAL_CTDonThuoc();
                 return CTDonThuocDAL;
+            }
+        }
+
+
+        public static DAL_Group GroupDAL
+        {
+            get
+            {
+                if (_groupDAL == null)
+                    _groupDAL = new DAL_Group();
+                return _groupDAL;
             }
         }
 

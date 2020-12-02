@@ -20,7 +20,10 @@
         ResizeMode="NoResize"
         BorderBrush="#0078D7"
         mc:Ignorable="d"
-        Title="wdDangNhap" Height="400" Width="600"
+        Title="wdDangNhap" 
+        Height="400" 
+        Width="600"
+        ShowInTaskbar="False"
         KeyDown="Window_KeyDown"
         >
     <Grid>

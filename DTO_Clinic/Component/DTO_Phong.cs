@@ -21,5 +21,9 @@ namespace DTO_Clinic.Component
         private string _tenPhong;
         public virtual ICollection<DTO_NhanVien> DS_NhanVien { get; set; }
 
+        public override string ToString()
+        {
+            return TenPhong;
+        }
     }
 }

@@ -25,7 +25,12 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
         }
 
-        private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void lvDSDangChoDKChuyenKhoa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void lvDSDKChuyenKhoa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -27,7 +27,7 @@ namespace GUI_Clinic.View.Windows
     {
         public ObservableCollection<DTO_Account> ListAcc { get; set; }
         public ICommand LoginCommand { get; set; }
-        private DTO_NhanVien currentUser;
+        public DTO_NhanVien currentUser { get; set; }
 
         public wdDangNhap()
         {
@@ -47,17 +47,20 @@ namespace GUI_Clinic.View.Windows
                 return true;
             }, (p) =>
             {
-                foreach (DTO_Account item in ListAcc)
+                if (ListAcc != null)
                 {
-                    if (item.Username == tbxTenDangNhap.Text
-                        && item.Password == tbxMatKhau.Password)
+                    foreach (DTO_Account item in ListAcc)
                     {
-                        BUSManager.AccountBUS.LoadNPNhanVien(item);
-                        if (item.NhanVien != null)
+                        if (item.Username == tbxTenDangNhap.Text
+                            && item.Password == tbxMatKhau.Password)
                         {
-                            currentUser = item.NhanVien;
-                            InitMainWindow(currentUser);
-                            return;
+                            BUSManager.AccountBUS.LoadNPNhanVien(item);
+                            if (item.NhanVien != null)
+                            {
+                                currentUser = item.NhanVien;
+                                InitMainWindowAsync(currentUser);
+                                return;
+                            }
                         }
                     }
                 }
@@ -66,9 +69,10 @@ namespace GUI_Clinic.View.Windows
 
         }
 
-        private void InitMainWindow(DTO_NhanVien nhanVien)
+        private async Task InitMainWindowAsync(DTO_NhanVien nhanVien)
         {
-            MainWindow mainWindow = new MainWindow(nhanVien);
+            ObservableCollection<DTO_Group>  ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
+            MainWindow mainWindow = new MainWindow(nhanVien, ListNhom);
             mainWindow.Show();
             this.Close();
         }
@@ -85,17 +89,20 @@ namespace GUI_Clinic.View.Windows
                 if (!string.IsNullOrEmpty(tbxTenDangNhap.Text) ||
                     !string.IsNullOrEmpty(tbxMatKhau.Password))
                 {
-                    foreach (DTO_Account item in ListAcc)
+                    if (ListAcc != null)
                     {
-                        if (item.Username == tbxTenDangNhap.Text
-                            && item.Password == tbxMatKhau.Password)
+                        foreach (DTO_Account item in ListAcc)
                         {
-                            BUSManager.AccountBUS.LoadNPNhanVien(item);
-                            if (item.NhanVien != null)
+                            if (item.Username == tbxTenDangNhap.Text
+                                && item.Password == tbxMatKhau.Password)
                             {
-                                currentUser = item.NhanVien;
-                                InitMainWindow(currentUser);
-                                return;
+                                BUSManager.AccountBUS.LoadNPNhanVien(item);
+                                if (item.NhanVien != null)
+                                {
+                                    currentUser = item.NhanVien;
+                                    InitMainWindowAsync(currentUser);
+                                    return;
+                                }
                             }
                         }
                     }

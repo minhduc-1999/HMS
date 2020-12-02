@@ -31,6 +31,29 @@ namespace DAL_Clinic.DAL
             return res;
         }
 
+        public async Task<string> AddAccAsync(DTO_Account acc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                string res = null;
+                try
+                {
+                    res = await context.Database.SqlQuery<string>("insert into ACCOUNT values(@1,@2, @3)",
+                        new SqlParameter[]
+                        {
+                            new SqlParameter("@1", acc.MaNhanVien),
+                            new SqlParameter("@2", acc.Username),
+                            new SqlParameter("@3", acc.Password)
+                        }).FirstOrDefaultAsync();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+                return res;
+            }
+        }
+
         public bool LoadNPNhanVien(DTO_Account acc)
         {
             try
@@ -49,6 +72,32 @@ namespace DAL_Clinic.DAL
                 Debug.WriteLine($"[ERRROR DAL ACCOUNT] {e.Message}");
                 return false;
             }
+        }
+
+        public bool IsAccDaTonTai(DTO_Account acc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                return context.Account.Any(t => (t.Username == acc.Username));
+            }
+        }
+
+        public bool UpdateInfoAcc(DTO_Account acc, string username, string password)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.Account.FirstOrDefault(a => a.Username == acc.Username);
+                if (res != null)
+                {
+                    res.Username = username;
+                    res.Password = password;
+
+                    context.SaveChanges();
+
+                    return true;
+                }
+            }
+            return false;
         }
 
         public async Task<DTO_Account> GetAccByID(string strMaNV)

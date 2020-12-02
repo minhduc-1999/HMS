@@ -24,6 +24,7 @@ namespace BUS_Clinic.BUS
         private static BUS_HoaDon _hoaDonBUS;
         private static BUS_ThamSo _thamSoBUS;
         private static BUS_Account _accountBUS;
+        private static BUS_Group _groupBUS;
         private static BUS_Phong _phongBUS;
 
         public static BUS_BenhNhan BenhNhanBUS
@@ -154,12 +155,22 @@ namespace BUS_Clinic.BUS
             }
         }
 
+        public static BUS_Group GroupBUS
+        {
+            get
+            {
+                if (_groupBUS == null)
+                    _groupBUS = new BUS_Group(DALManager.GroupDAL);
+                return _groupBUS;
+            }
+        }
+
         public static BUS_Phong PhongBUS
         {
             get
             {
                 if (_phongBUS == null)
-                    _phongBUS = new BUS_Phong();
+                    _phongBUS = new BUS_Phong(DALManager.PhongDAL);
                 return _phongBUS;
             }
         }
