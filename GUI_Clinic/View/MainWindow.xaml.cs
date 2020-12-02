@@ -31,7 +31,8 @@ namespace GUI_Clinic.View
             InitializeComponent();
             ucControlBar.SetProfileInfo(currentNV);
             uc_QuanLyNhanVien.currentNV = currentNV;
-            
+            uc_QuanLyThuoc.maDuocSi = currentNV.MaNhanVien;
+            GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             if (ListNhom != null)

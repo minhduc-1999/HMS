@@ -41,6 +41,7 @@ namespace GUI_Clinic.View.UserControls
         public DTO_PhieuNhapThuoc phieuNhapThuoc { get; set; }
         public DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc { get; set; }
         private string MaPNTSelected;
+        public string maDuocSi;
 
         #endregion
 
@@ -135,7 +136,7 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {
-            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc();
+            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi);
             wd.ShowDialog();
 
             wd.Closing += Wd_Closing;

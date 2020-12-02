@@ -202,7 +202,7 @@
                             <GridViewColumn Header="Thuốc" 
                                             DisplayMemberBinding="{Binding TenThuoc}"/>
                             <GridViewColumn Header="Đơn vị" 
-                                            DisplayMemberBinding="{Binding DonVi.TenDonVi}"/>
+                                            DisplayMemberBinding="{Binding DonVi}"/>
                             <GridViewColumn Header="Số lượng" 
                                             DisplayMemberBinding="{Binding SoLuong}"/>
                             <GridViewColumn Header="Đơn giá" 

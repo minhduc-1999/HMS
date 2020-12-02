@@ -28,9 +28,19 @@ namespace GUI_Clinic.View.Windows
             InitCommand();
         }
 
+        public wdPhieuNhapThuoc(string maDuocSi)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            _ = InitDataAsync();
+            InitCommand();
+            maDuocSiNhapThuoc = maDuocSi;
+        }
+
         #region Property
         public int SoLuong { get; set; }
         public double DonGia { get; set; }
+        public string maDuocSiNhapThuoc { get; set; }
         //public List<int> ListSTT { get; set; }
         //public string TenThuocMoi { get; set; }
         //public string CongDungThuocMoi { get; set; }
@@ -106,14 +116,8 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    //if (BUSManager.ThuocBUS.IsThuocDaTonTai(themThuoc))
-                    //{
-                    //    List.Add(themThuoc);
-                    //}
-                    //else
-                    //{
-                    //    MsgBox.Show("Thuốc bạn chọn chưa có loại đơn vị này");
-                    //}
+                    List.Add(themThuoc);
+                    
                     //ListDonViGroupWithThuoc = null;
 
                     cbxTenThuoc.SelectedIndex = -1;
@@ -150,10 +154,9 @@ namespace GUI_Clinic.View.Windows
         }
 
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
-        {
-            if (List.Count != 0 && ucControlBar.currentNV != null)
+        {            
+            if (List.Count != 0)
             {
-                string maDuocSiNhapThuoc = ucControlBar.currentNV.MaNhanVien;
                 DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, maDuocSiNhapThuoc, 0);
                 //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuocAsync(phieuNhapThuoc, ListPNT);
                 //string tempID = phieuNhapThuoc.MaPNT;
@@ -179,7 +182,7 @@ namespace GUI_Clinic.View.Windows
 
                 BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc);
 
-                this.Close();
+                Close();
             }
             else
             {
