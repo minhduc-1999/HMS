@@ -117,5 +117,20 @@ namespace GUI_Clinic.View.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            grdBtnDangXuat.Visibility = Visibility.Visible;
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            grdBtnDangXuat.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnDangXuat_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
     }
 }

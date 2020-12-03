@@ -57,8 +57,8 @@
 
         <Grid Grid.Row="1" x:Name="grdInfo">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Name="tblTieuDe"
@@ -71,13 +71,21 @@
                        FontWeight="Bold"
                        Foreground="#0078D7" />
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            <Grid Grid.Column="1"
+                  MouseLeave="Grid_MouseLeave">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock x:Name="tblTenNhanVien"
+                <Grid Grid.Column="0"
+                      MouseEnter="Grid_MouseEnter">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="tblTenNhanVien"
                            Grid.Row="0"
                            FontSize="20"
                            FontWeight="Bold"
@@ -85,13 +93,32 @@
                            Foreground="#0078D7"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
-                <TextBlock x:Name="tblChucVu"
+                    <TextBlock x:Name="tblChucVu"
                            Grid.Row="1"
                            FontSize="15"
                            Margin="10 0"
                            Foreground="Gray"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Column="1" 
+                      x:Name="grdBtnDangXuat"
+                      Visibility="Collapsed">
+                    <Button Width="40"
+                            Height="40"
+                            Margin="10"
+                            Click="btnDangXuat_Click"
+                            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                            ToolTip="Đăng xuất"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                                        Kind="Logout"
+                                        Height="24"
+                                        Width="24" />   
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
