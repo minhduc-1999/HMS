@@ -96,21 +96,7 @@ namespace GUI_Clinic.View.Windows
                 {
                     MsgBox.Show(e.Message, MessageType.Error);
                     tbxCMND.Clear();
-                }
-                //if (BUSManager.BenhNhanBUS.AddBenhNhanAsync(benhNhan))
-                //{
-                //    //ListBN1.Add(benhNhan);
-                //    //ListBN2.Add(benhNhan);
-                //    //if (ckbDangKy.IsChecked.Value)
-                //    //{
-                //    //    DangKyKham(benhNhan);
-                //    //    MsgBox.Show("Thêm mới bệnh nhân và đăng ký khám thành công", MessageType.Info);
-                //    //}
-                //    //else
-                //    //    MsgBox.Show("Thêm mới bệnh nhân thành công", MessageType.Info);
-                //}
-                //else
-                //MsgBox.Show("Thông tin bệnh nhân đã tồn tại", MessageType.Error);
+                }                
             });
 
             UpdateCommand = new RelayCommand<Window>((p) =>

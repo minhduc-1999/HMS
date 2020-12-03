@@ -15,10 +15,6 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public BUS_Account(DAL_Account dAL_Account) : base(dAL_Account)
-        {
-
-        }
 
         public bool LoadNPNhanVien(DTO_Account acc)
         {

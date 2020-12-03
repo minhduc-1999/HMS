@@ -61,14 +61,12 @@ namespace DAL_Clinic.DAL
             ObservableCollection<DTO_BenhNhan> res = null;
             using (var context = new SQLServerDBContext())
             {
-                //context.Database.Log = s => Debug.WriteLine(s);
-                //context.BenhNhan.Load();
-                //res = context.BenhNhan.Local;
+                context.Database.Log = s => Debug.WriteLine(s);
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
-                    var list = await context.BenhNhan.SqlQuery("select * from BENHNHAN").ToListAsync();
-                    res = new ObservableCollection<DTO_BenhNhan>(list);
+                    await context.BenhNhan.LoadAsync();
+                    res =new ObservableCollection<DTO_BenhNhan>(context.BenhNhan.Local);
                 }
                 catch (Exception e)
                 {

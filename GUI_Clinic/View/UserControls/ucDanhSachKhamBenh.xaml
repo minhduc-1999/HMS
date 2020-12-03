@@ -63,7 +63,7 @@
                                        x:Name="tblSoBN"
                                        FontWeight="Bold"
                                        Margin="10"
-                                       Text="{Binding CurSignedList.Count}">
+                                       Text="{Binding ElementName=lvDSKham, Path=ItemsSource.Count}">
                             </TextBlock>
                         </Grid>
                     </Grid>
@@ -88,7 +88,7 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <DatePicker HorizontalAlignment="Right"
+                                <DatePicker HorizontalAlignment="Right"                                            
                                             x:Name="dpkNgayKham"
                                             VerticalAlignment="Center"
                                             SelectedDateChanged="dpkNgayKham_SelectedDateChanged"
@@ -102,7 +102,6 @@
                                       Margin="0">
                                 <Grid>
                                     <ListView x:Name="lvDSKham"
-                                              SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                                               ScrollViewer.CanContentScroll="True"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Grid.ColumnSpan="2">
@@ -113,9 +112,10 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                                                 <GridViewColumn Header="Mã bệnh nhân"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding MaBenhNhan}"></GridViewColumn>
                                                 <GridViewColumn Header="Họ và tên"
-                                                                DisplayMemberBinding="{Binding TenBenhNhan}"></GridViewColumn>
+                                                                Width="auto"
+                                                                DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
                                                 <GridViewColumn Header="Giới tính">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
@@ -137,12 +137,16 @@
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>
+                                                <GridViewColumn Header="Số CMND"
+                                                                DisplayMemberBinding="{Binding SoCMND}"></GridViewColumn>
                                                 <GridViewColumn Header="Ngày sinh"
                                                                 DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                                                 <GridViewColumn Header="Địa chỉ"
                                                                 DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
                                                 <GridViewColumn Header="Số điện thoại"
                                                                 DisplayMemberBinding="{Binding SoDienThoai}"></GridViewColumn>
+                                                <GridViewColumn Header="Email"
+                                                                DisplayMemberBinding="{Binding Email}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -184,7 +188,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition />
-                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
                                                    VerticalAlignment="Center"
@@ -192,23 +196,28 @@
                                                    HorizontalAlignment="Left"
                                                    FontSize="16">
                                         </TextBlock>
-                                        <Grid Grid.Column="1">
+                                        <Grid Grid.Column="1" Margin="0 0 10 0">
                                             <ComboBox BorderBrush="#0078D7"
                                                       x:Name="cbxDSBenhNhan"
                                                       BorderThickness="2"
+                                                      HorizontalContentAlignment="Left"
                                                       IsEditable="True"
-                                                      Margin="0 0 20 0"
-                                                      ItemsSource="{Binding ListBN2, Mode=OneWay}"
+                                                      Margin="0,0,0,0"
                                                       KeyUp="cbxDSBenhNhan_KeyUp"
-                                                      VerticalAlignment="Center"
+                                                      VerticalAlignment="Top"
                                                       FontSize="16">
                                             </ComboBox>
                                         </Grid>
                                         <Grid Grid.Column="2">
-                                            <Button Width="20"
-                                                    Height="20"
-                                                    x:Name="btnThemBN"
-                                                    Click="btnThemBN_Click" />
+                                            <Button x:Name="btnThemBN"
+                                                    Click="btnThemBN_Click"                                         
+                                                    Style="{StaticResource MaterialDesignFlatButton}"           >
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="AccountAddOutline"
+                                                                                 Width="25"
+                                                                                 Height="25"/>
+                                                    </StackPanel>
+                                            </Button>
                                         </Grid>
                                     </Grid>
                                     <Grid Grid.Row="2"
@@ -227,9 +236,11 @@
                                             <ComboBox BorderBrush="#0078D7"
                                                       x:Name="cbxPhong"
                                                       BorderThickness="2"
+                                                      Width="{Binding ElementName=cbxDSBenhNhan, Path=ActualWidth, Mode=OneWay}"
+                                                      HorizontalAlignment="Left"
                                                       IsEditable="True"
-                                                      Margin="0 0 20 0"
-                                                      ItemsSource="{Binding ListPhongKham, Mode=OneWay}"
+                                                      Margin="0 0 0 0"
+                                                      ItemsSource="{Binding ListRoom, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                       KeyUp="cbxPhong_KeyUp"
                                                       VerticalAlignment="Center"
                                                       FontSize="16">

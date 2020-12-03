@@ -15,10 +15,6 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public BUS_Phong(DAL_Phong dAL_Phong) : base(dAL_Phong)
-        {
-
-        }
         public async Task<ObservableCollection<DTO_Phong>> GetListPhongAsync()
         {
             return await DALManager.PhongDAL.GetListPhongAsync();

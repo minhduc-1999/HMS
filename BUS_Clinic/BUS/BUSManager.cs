@@ -26,13 +26,22 @@ namespace BUS_Clinic.BUS
         private static BUS_Account _accountBUS;
         private static BUS_Group _groupBUS;
         private static BUS_Phong _phongBUS;
-
+        private static BUS_PKDaKhoa _pkDaKhoaBUS;
+        public static BUS_PKDaKhoa PKDaKhoaBUS
+        {
+            get
+            {
+                if (_pkDaKhoaBUS == null)
+                    _pkDaKhoaBUS = new BUS_PKDaKhoa();
+                return _pkDaKhoaBUS;
+            }
+        }
         public static BUS_BenhNhan BenhNhanBUS
         {
             get
             {
                 if (_benhNhanBUS == null)
-                    _benhNhanBUS = new BUS_BenhNhan(DALManager.BenhNhanDAL);
+                    _benhNhanBUS = new BUS_BenhNhan();
                 return _benhNhanBUS;
             }
         }
@@ -42,7 +51,7 @@ namespace BUS_Clinic.BUS
             get
             {
                 if (_nhanVienBUS == null)
-                    _nhanVienBUS = new BUS_NhanVien(DALManager.NhanVienDAL);
+                    _nhanVienBUS = new BUS_NhanVien();
                 return _nhanVienBUS;
             }
         }
@@ -150,7 +159,7 @@ namespace BUS_Clinic.BUS
             get
             {
                 if (_accountBUS == null)
-                    _accountBUS = new BUS_Account(DALManager.AccountDAL);
+                    _accountBUS = new BUS_Account();
                 return _accountBUS;
             }
         }
@@ -160,7 +169,7 @@ namespace BUS_Clinic.BUS
             get
             {
                 if (_groupBUS == null)
-                    _groupBUS = new BUS_Group(DALManager.GroupDAL);
+                    _groupBUS = new BUS_Group();
                 return _groupBUS;
             }
         }
@@ -170,7 +179,7 @@ namespace BUS_Clinic.BUS
             get
             {
                 if (_phongBUS == null)
-                    _phongBUS = new BUS_Phong(DALManager.PhongDAL);
+                    _phongBUS = new BUS_Phong();
                 return _phongBUS;
             }
         }

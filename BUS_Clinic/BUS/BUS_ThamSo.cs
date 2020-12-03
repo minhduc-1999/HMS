@@ -17,15 +17,30 @@ namespace BUS_Clinic.BUS
         }
         public int GetTienKham()
         {
-            return DALManager.ThamSoDAL.GetListThamSo().Where(x => x.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri;
+            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri;
+            return 1;
         }
         public int GetSoBNToiDa()
         {
-            return DALManager.ThamSoDAL.GetListThamSo().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault().GiaTri;
+            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault().GiaTri;
+            return 1;
         }
         public DTO_ThamSo GetThamSoSoBNToiDa()
         {
-            return DALManager.ThamSoDAL.GetListThamSo().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault();
+            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault();
+            return null;
+        }
+        public async Task<ObservableCollection<DTO_ThamSo>> GetListAsync()
+        {
+            try
+            {
+                var res = await DALManager.ThamSoDAL.GetListAsync();
+                return res;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DTO_Clinic.Person;
+using System.Data;
+using System.Data.Entity;
 
 namespace DAL_Clinic.DAL
 {
@@ -16,24 +19,33 @@ namespace DAL_Clinic.DAL
         {
 
         }
-        public async Task<string> AddPhieuKhamDaKhoaAsync(DTO_PKDaKhoa pKDaKhoa)
+        public async Task<List<string>> AddPhieuKhamDaKhoaAsync(DTO_PKDaKhoa pKDaKhoa)
         {
             using (var context = new SQLServerDBContext())
             {
+                var returnCode = new SqlParameter();
+                returnCode.ParameterName = "@ReturnCode";
+                returnCode.SqlDbType = SqlDbType.Int;
+                returnCode.Direction = ParameterDirection.Output;
                 string res = null;
                 try
                 {
-                    res = await context.Database.SqlQuery<string>("exec proc_PKDAKHOA_insert @1",
+                    res = await context.Database.SqlQuery<string>("exec @ReturnCode = proc_PKDK_insert @1, @2, @3",
                         new SqlParameter[]
                         {
-                            new SqlParameter("@1", pKDaKhoa.NgayKham)
+                            new SqlParameter("@1", pKDaKhoa.NgayKham),
+                            new SqlParameter("@2", pKDaKhoa.MaBenhNhan),
+                            new SqlParameter("@3", pKDaKhoa.MaNhanVien),
+                            returnCode
                         }).FirstOrDefaultAsync();
+                    var code = ((int)returnCode.Value).ToString();
+                    return new List<string> { code, res };
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR] " + e.Message);
+                    Debug.WriteLine("[ERROR ADD PKDK] " + e.Message);
+                    throw e;
                 }
-                return res;
             }
         }
 
@@ -85,8 +97,8 @@ namespace DAL_Clinic.DAL
             {
                 try
                 {
-                    var list = await context.PKDaKhoa.SqlQuery("select * from PKDAKHOA").ToListAsync();
-                    res = new ObservableCollection<DTO_PKDaKhoa>(list);
+                    await context.PKDaKhoa.LoadAsync();
+                    res = new ObservableCollection<DTO_PKDaKhoa>(context.PKDaKhoa.Local);
                 }
                 catch (Exception e)
                 {
@@ -94,6 +106,31 @@ namespace DAL_Clinic.DAL
                 }
             }
             return res;
+        }
+        public List<DTO_BenhNhan> GetListBNByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                //try
+                //{
+                    var list = context.PKDaKhoa.Where(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year).Select(p => p.BenhNhan).ToList();
+                    return list;
+                //}
+                //catch (Exception e)
+                //{
+                //    Debug.WriteLine("[ERROR GetListBNbyDate PKDK] " + e.Message);
+                //    throw e;
+                //}
+            }
+        }
+
+        public int GetAmountByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                int res = context.PKDaKhoa.Count(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year);
+                return res;
+            }
         }
     }
 }

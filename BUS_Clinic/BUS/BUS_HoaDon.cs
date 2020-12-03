@@ -1,50 +1,41 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic.Form;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BUS_Clinic.BUS
 {
     public class BUS_HoaDon : BaseBUS
     {
-        public void LoadNPPhieuKhamBenh(DTO_HoaDon hoaDon)
+        public async Task<string> AddHoaDonAsync(DTO_HoaDon hd)
         {
-            //DALManager.HoaDonDAL.LoadNPPhieuKhamBenh(hoaDon);
+            try
+            {
+                var res = await DALManager.HoaDonDAL.AddHoaDonAsync(hd);
+                if (res.Count == 2)
+                {
+                    var code = Convert.ToInt32(res[0]);
+                    if (code == SUCCESS_CODE)
+                        return res[1];
+                }
+                throw new Exception("Đã có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
 
-        public void AddHoaDon(DTO_HoaDon hd)//, DTO_ pkb)
-        {
-            //hd.Id = pkb.Id;
-            //DALManager.HoaDonDAL.AddHoaDon(hd);
-            //DTO_CTBaoCaoDoanhThu cTBaoCaoDoanhThu = new DTO_CTBaoCaoDoanhThu(hd);
-            //BUSManager.CTBaoCaoDoanhThuBUS.AddCTBaoCaoDoanhThu(cTBaoCaoDoanhThu);
-        }
-        public double TinhTienThuoc()//DTO_PhieuKhamBenh phieuKhamBenh)
-        {
-            //BUSManager.PhieuKhamBenhBUS.LoadNPDSCTPhieuKhamBenh(phieuKhamBenh);
-            //double tienThuoc = 0;
-            //foreach (DTO_CTPhieuKhamBenh item in phieuKhamBenh.DSCTPhieuKhamBenh)
-            //{
-            //    tienThuoc += item.ThanhTien;
-            //}
-            //return tienThuoc;
-            return 10;
-        }
 
         public ObservableCollection<DTO_HoaDon> GetListHoaDon()
         {
             return DALManager.HoaDonDAL.GetListHoaDon();
         }
 
-        public void XuatHoaDon(DTO_HoaDon hoaDon)// ,DTO_PhieuKhamBenh phieuKhamBenh)
-        {
-            //hoaDon.TienKham = BUSManager.ThamSoBUS.GetTienKham();
-            //hoaDon.TienThuoc = TinhTienThuoc(phieuKhamBenh);
-            //hoaDon.ThanhTien = hoaDon.TienKham + hoaDon.TienThuoc;
-            //AddHoaDon(hoaDon, phieuKhamBenh);
-        }
-
-        public DTO_HoaDon GetHoaDonById (string id)
+        public DTO_HoaDon GetHoaDonById(string id)
         {
             DTO_HoaDon hoaDon = GetListHoaDon().Where(x => x.MaHoaDon == id).FirstOrDefault();
             return hoaDon;

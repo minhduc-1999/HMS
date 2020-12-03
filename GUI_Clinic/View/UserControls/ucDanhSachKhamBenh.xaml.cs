@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
@@ -7,11 +8,15 @@ using GUI_Clinic.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using DTO_Clinic.Form;
+using System.Linq;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -28,146 +33,135 @@ namespace GUI_Clinic.View.UserControls
             InitCommand();
         }
         #region Property
-        public ObservableCollection<DTO_BenhNhan> ListBN1 { get; set; }
-        public ObservableCollection<DTO_BenhNhan> ListBN2 { get; set; }
+        public ObservableCollection<DTO_Phong> ListRoom { get; set; }
+        public ObservableCollection<DTO_BenhNhan> ListPatient { get; set; }
+        public ObservableCollection<DTO_BenhNhan> ExaminedPatientList { get; set; }
         public List<string> MatchBNList { get; set; }
-        public ObservableCollection<DTO_BenhNhan> CurSignedList { get; set; }
-        public List<string> RegionIDList { get; set; }
-        public DTO_ThamSo thamSo { get; set; }
-        public CollectionView ListDKView { get; set; }
+        public ObservableCollection<DTO_ThamSo> ListThamSo { get; set; }
+        public DTO_NhanVien CurrentNV { get; set; }
+        public int CurrentPatientAmount { get; set; }
         #endregion
         #region Command
-        public ICommand AddPatientCommand { get; set; }
         public ICommand SignedCommand { get; set; }
         #endregion
         #region
         public event EventHandler PatientSigned;
         #endregion
-        public async System.Threading.Tasks.Task InitDataAsync()
+        public async Task InitDataAsync()
         {
-            //RegionIDList = new List<string>();
-            ////Doc danh sach ma vung so dien thoai
-            //string line = "";
-            //StreamReader streamReader = new StreamReader(System.IO.Path.Combine(Environment.CurrentDirectory.Replace("bin\\Debug", ""), "Resource\\MAVUNG.txt"));
-
-            //while ((line = streamReader.ReadLine()) != null)
-            //{
-            //    RegionIDList.Add(line);
-            //}
-            //dpkNgayKham.SelectedDate = DateTime.Now;
-            ////set itemsource cho list view danh sách khám
-            //ListBN1 = new ObservableCollection<DTO_BenhNhan>(BUSManager.BenhNhanBUS.GetListBN());
-            ListBN2 = await BUSManager.BenhNhanBUS.GetListBNAsync();
-            //CurSignedList = new ObservableCollection<DTO_BenhNhan>();
-            ////set itemsource
-            cbxDSBenhNhan.ItemsSource = ListBN2;
-            //lvDSKham.ItemsSource = CurSignedList;
-            ////Lọc danh sách khám theo ngày
-            //PreLoadCurListBN();
-            ////Khoi tao filter danh sach kham
-            //ListDKView = (CollectionView)CollectionViewSource.GetDefaultView(ListBN1);
-            //ListDKView.Filter = BenhNhanFilterDate;
-            ////Load tham so
-            //thamSo = BUSManager.ThamSoBUS.GetThamSoSoBNToiDa();
-            ////
-            //cbxMaVungSDT.SelectedIndex = 223;
+            dpkNgayKham.SelectedDate = DateTime.Now;
+            CurrentPatientAmount = BUSManager.PKDaKhoaBUS.GetAmountByDate(DateTime.Now);
+            var loadListPatientTask = BUSManager.BenhNhanBUS.GetListBNAsync();
+            var loadListRoomTask = BUSManager.PhongBUS.GetListPhongAsync();
+            var loadListThamSo = BUSManager.ThamSoBUS.GetListAsync();
+            var initDataTasks = new List<Task> { loadListPatientTask, loadListRoomTask, loadListThamSo };
+            while (initDataTasks.Count > 0)
+            {
+                Task finishedTask = await Task.WhenAny(initDataTasks);
+                if (finishedTask == loadListPatientTask)
+                {
+                    ListPatient = loadListPatientTask.Result;
+                    cbxDSBenhNhan.ItemsSource = ListPatient;
+                    //Debug.WriteLine("[INFO] Init data done!\n");
+                }
+                else if (finishedTask == loadListRoomTask)
+                {
+                    ListRoom = loadListRoomTask.Result;
+                    cbxPhong.ItemsSource = ListRoom;
+                }
+                else if (finishedTask == loadListThamSo)
+                {
+                    ListThamSo = loadListThamSo.Result;
+                }
+                initDataTasks.Remove(finishedTask);
+            }
         }
         public void InitCommand()
         {
-
-        }
-        private bool BenhNhanFilterDate(Object item)
-        {
-            if (String.IsNullOrEmpty(dpkNgayKham.Text))
+            SignedCommand = new RelayCommand<Window>((p) =>
             {
-                return false;
-            }
-            else
+                if (cbxPhong.SelectedIndex == -1 || cbxDSBenhNhan.SelectedIndex == -1)
+                    return false;
+                return true;
+            }, async (p) =>
             {
-                if (MatchBNList != null)
-                    return (MatchBNList.Contains((item as DTO_BenhNhan).MaBenhNhan));
-                return false;
-            }
+                var maxPatient = ListThamSo.Where(ts => ts.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault().GiaTri;
+                if(CurrentPatientAmount >= maxPatient)
+                {
+                    MsgBox.Show("Đã tiếp nhận đủ số bệnh nhân trong ngày", MessageType.Error);
+                    return;
+                }
+                var benhNhan = cbxDSBenhNhan.SelectedItem as DTO_BenhNhan;
+                var hoaDon = new DTO_HoaDon()
+                {
+                    ChiTiet = "Tiền khám bệnh",
+                    ThanhTien = ListThamSo.Where(ts => ts.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri,
+                    NgayLap = DateTime.Now,
+                    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDDichVu,
+                    MaBenhNhan = benhNhan.MaBenhNhan,
+                    MaNhanVien = CurrentNV.MaNhanVien
+                };
+                var res = await BUSManager.HoaDonBUS.AddHoaDonAsync(hoaDon);
+                if(string.IsNullOrEmpty(res))
+                {
+                    MsgBox.Show("Tạo hoá đơn không thành công, vui lòng thử lại", MessageType.Error);
+                    return;
+                }
+                var phong = cbxPhong.SelectedItem as DTO_Phong;
+                var phieuKhamDaKhoa = new DTO_PKDaKhoa()
+                {
+                    NgayKham = DateTime.Now,
+                    MaNhanVien = CurrentNV.MaNhanVien,
+                    MaBenhNhan = benhNhan.MaBenhNhan
+                };
+                try
+                {
+                    var maPKDK = await BUSManager.PKDaKhoaBUS.AddPhieuKhamDaKhoaAsync(phieuKhamDaKhoa);
+                    if (!string.IsNullOrEmpty(maPKDK))
+                    {
+                        MsgBox.Show("Đăng ký khám bệnh thành công", MessageType.Info);
+                        if(dpkNgayKham.SelectedDate.Value.Date == DateTime.Now.Date)
+                        {
+                            ExaminedPatientList.Add(benhNhan);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    MsgBox.Show(e.Message, MessageType.Error);
+                }
+                cbxDSBenhNhan.SelectedIndex = -1;
+                cbxPhong.SelectedIndex = -1;
+            });
         }
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dpkNgayKham.SelectedDate.HasValue)
             {
-                if (dpkNgayKham.SelectedDate.Value.ToString("d") == DateTime.Now.ToString("d"))
-                {
-                    lvDSKham.ItemsSource = CurSignedList;
-                }
-                else
-                {
-                    lvDSKham.ItemsSource = ListBN1;
-                    RefreshList();
-                }
+                var curDate = (sender as DatePicker).SelectedDate.Value;
+                ExaminedPatientList = BUSManager.PKDaKhoaBUS.GetListBNByDate(curDate);
+                lvDSKham.ItemsSource = ExaminedPatientList;
             }
         }
-        private void RefreshList()
-        {
-            //MatchBNList = BUSManager.PhieuKhamBenhBUS.GetListPKB(dpkNgayKham.SelectedDate.Value.ToString("d"));
-            ListDKView.Refresh();
-        }
-        private void DangKyKham(DTO_BenhNhan bn)
-        {
-            if (CheckConstraintMaxPatient())
-            {
-                if (CurSignedList.Contains(bn))
-                {
-                    MsgBox.Show("Bệnh nhân này đã được đăng ký", MessageType.Error);
-                    return;
-                }
-                CurSignedList.Add(bn);
-                if (PatientSigned != null)
-                    PatientSigned(bn, new EventArgs());
-            }
-            else
-                MsgBox.Show("Số lượt khám của hôm nay đã hết", MessageType.Error);
-        }
-        private bool CheckConstraintMaxPatient()
-        {
-            if (CurSignedList.Count < thamSo.GiaTri)
-                return true;
-            return false;
-        }
-        private void PreLoadCurListBN()
-        {
-            //var listBN = BUSManager.PhieuKhamBenhBUS.GetListPKB(DateTime.Now.ToString("d"));
-            //foreach (var id in listBN)
-            //{
-            //    var bn = BUSManager.BenhNhanBUS.GetBenhNhanById(id);
-            //    CurSignedList.Add(bn);
-            //}
-        }
-
         private void cbxDSBenhNhan_KeyUp(object sender, KeyEventArgs e)
         {
-            //var Cmb = sender as ComboBox;
-            //CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Cmb.ItemsSource);
+            var Cmb = sender as ComboBox;
+            CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Cmb.ItemsSource);
 
-            //itemsViewOriginal.Filter = ((o) =>
-            //{
-            //    if (String.IsNullOrEmpty(Cmb.Text))
-            //        return true;
-            //    else
-            //    {
-            //        return ((o as DTO_BenhNhan).TenBenhNhan.IndexOf(Cmb.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-            //    }
-            //});
-            //itemsViewOriginal.Refresh();
+            itemsViewOriginal.Filter = ((o) =>
+            {
+                if (String.IsNullOrEmpty(Cmb.Text))
+                    return true;
+                else
+                {
+                    return ((o as DTO_BenhNhan).HoTen.IndexOf(Cmb.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                }
+            });
+            itemsViewOriginal.Refresh();
         }
         public bool RemovePatientSigned(DTO_BenhNhan bn)
         {
-            if (CurSignedList.Contains(bn))
-            {
-                return CurSignedList.Remove(bn);
-            }
-            else
-            {
-                return false;
-            }
-
+            return true;
         }
 
         private void btnThemBN_Click(object sender, RoutedEventArgs e)
@@ -180,12 +174,25 @@ namespace GUI_Clinic.View.UserControls
         private void WdbenhNhan_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var wd = sender as wdBenhNhan;
-            ListBN2.Add(wd.BenhNhan);
+            if (wd.BenhNhan != null)
+                ListPatient.Add(wd.BenhNhan);
         }
 
         private void cbxPhong_KeyUp(object sender, KeyEventArgs e)
         {
+            var Cmb = sender as ComboBox;
+            CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Cmb.ItemsSource);
 
+            itemsViewOriginal.Filter = ((o) =>
+            {
+                if (String.IsNullOrEmpty(Cmb.Text))
+                    return true;
+                else
+                {
+                    return ((o as DTO_Phong).TenPhong.IndexOf(Cmb.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                }
+            });
+            itemsViewOriginal.Refresh();
         }
     }
 }

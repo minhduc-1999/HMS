@@ -31,7 +31,6 @@
                 return _benhNhanDAL;
             }
         }
-
         public static DAL_NhanVien NhanVienDAL
         {
             get
@@ -50,7 +49,6 @@
                 return _cachDungDAL;
             }
         }
-
         public static DAL_Benh BenhDAL
         {
             get
@@ -60,7 +58,6 @@
                 return _benhDAL;
             }
         }
-
         public static DAL_Thuoc ThuocDAL
         {
             get
@@ -70,7 +67,6 @@
                 return _thuocDAL;
             }
         }
-
         public static DAL_PhieuNhapThuoc PhieuNhapThuocDAL
         {
             get
@@ -80,7 +76,6 @@
                 return _phieuNhapThuocDAL;
             }
         }
-
         public static DAL_CTPhieuNhapThuoc CTPhieuNhapThuocDAL
         {
             get
@@ -99,7 +94,6 @@
                 return _bcSuDungThuocDAL;
             }
         }
-
         public static DAL_BCDoanhThu BCDoanhThuDAL 
         {
             get
@@ -109,7 +103,6 @@
                 return _bcDoanhThuDAL;
             }
         }
-
         public static DAL_CTBaoCaoDoanhThu CTBaoCaoDoanhThuDAL
         {
             get
@@ -128,7 +121,6 @@
                 return _hoaDonDAL;
             }
         }
-
         public static DAL_ThamSo ThamSoDAL 
         { 
             get
@@ -138,7 +130,6 @@
                 return _thamSoDAL;
             }
         }
-
         public static DAL_Account AccountDAL
         {
             get
@@ -148,7 +139,6 @@
                 return _accountDAL;
             }
         }
-
         public static DAL_Phong PhongDAL
         {
             get
@@ -158,17 +148,15 @@
                 return _phongDAL;
             }
         }
-
         public static DAL_PKDaKhoa PKDaKhoaDAL
         {
             get
             {
                 if (_pKDaKhoa == null)
                     _pKDaKhoa = new DAL_PKDaKhoa();
-                return PKDaKhoaDAL;
+                return _pKDaKhoa;
             }
         }
-
         public static DAL_PKChuyenKhoa PKChuyenKhoaDAL
         {
             get
@@ -178,7 +166,6 @@
                 return PKChuyenKhoaDAL;
             }
         }
-
         public static DAL_DonThuoc DonThuocDAL
         {
             get
@@ -188,7 +175,6 @@
                 return DonThuocDAL;
             }
         }
-
         public static DAL_CTDonThuoc CTDonThuocDAL
         {
             get
@@ -198,8 +184,6 @@
                 return CTDonThuocDAL;
             }
         }
-
-
         public static DAL_Group GroupDAL
         {
             get

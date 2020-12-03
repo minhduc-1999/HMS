@@ -13,10 +13,6 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public BUS_Thuoc(DAL_Thuoc dAL_Thuoc) : base(dAL_Thuoc)
-        {
-
-        }
         public bool LoadNP_CTPhieuNhapThuoc(DTO_Thuoc thuoc)
         {
             return DALManager.ThuocDAL.LoadNP_CTPhieuNhapThuoc(thuoc);
