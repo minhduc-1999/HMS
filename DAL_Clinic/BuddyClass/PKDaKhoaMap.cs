@@ -29,7 +29,7 @@ namespace DAL_Clinic.BuddyClass
                 .WithMany(n => n.DS_PKDKDaTao)
                 .HasForeignKey(p => p.MaNhanVien)
                 .WillCascadeOnDelete(false) ;
-            HasRequired(p => p.BacSiChuaTri)
+            HasOptional(p => p.BacSiChuaTri)
                 .WithMany(bs => bs.DS_PKDKhoaDaKham)
                 .HasForeignKey(p => p.MaBacSi)
                 .WillCascadeOnDelete(false);

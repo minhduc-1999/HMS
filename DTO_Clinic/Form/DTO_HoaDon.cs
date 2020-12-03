@@ -14,12 +14,12 @@ namespace DTO_Clinic.Form
         public string ChiTiet { get => _chiTiet; set { _chiTiet = value; OnPropertyChanged(); } }
         public double ThanhTien { get => _thanhTien; set { _thanhTien = value; OnPropertyChanged(); } }
         public DateTime NgayLap { get => _ngayLap; set { _ngayLap = value; OnPropertyChanged(); } }
-        public int LoaiHoaDon { get => _loaiHD; set { _loaiHD = value; OnPropertyChanged(); } }
+        public LoaiHD LoaiHoaDon { get => _loaiHD; set { _loaiHD = value; OnPropertyChanged(); } }
 
         private string _chiTiet;
         private double _thanhTien;
         private DateTime _ngayLap;
-        private int _loaiHD;
+        private LoaiHD _loaiHD;
 
         public DTO_HoaDon(): base()
         {

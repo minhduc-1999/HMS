@@ -14,10 +14,6 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public BUS_BenhNhan(DAL_BenhNhan dAL_BenhNhan) : base(dAL_BenhNhan)
-        {
-
-        }
         public async Task<DTO_BenhNhan> GetBenhNhanByIdAsync(string maBenhNhan)
         {
             return await DALManager.BenhNhanDAL.GetBNByID(maBenhNhan);

@@ -1,4 +1,4 @@
-use HMS
+﻿use HMS
 GO
 ALTER PROC [dbo].[proc_BenhNhan_insert]
     @hoten nvarchar(50),
@@ -56,3 +56,60 @@ AS
 	go
 --select * from BENHNHAN
 --exec proc_BenhNhan_insert N'32132', '2020-11-3', 0, N'1', '1', '1', '1'
+-----------------V2.1-------------------------------------
+ALTER Proc [dbo].[proc_PKDK_insert]
+	@ngaykham datetime,
+	@mabenhnhan nvarchar(128),
+	@manhanvien nvarchar(128)
+AS
+BEGIN
+	BEGIN TRY
+        declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKDK'
+		select @max = COUNT(*) from PKDAKHOA
+		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
+		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, null, @manhanvien, null)
+		select @id
+        return -9999
+    END TRY
+    BEGIN CATCH
+        declare @code varchar(10)
+        set @code = ERROR_NUMBER()
+        --select @code
+		select ERROR_MESSAGE()
+        return ERROR_STATE()
+    END CATCH;
+END;
+go
+ALTER Proc [dbo].[proc_HoaDon_insert]
+	@chitiet nvarchar(max),
+	@thanhtien float,
+	@ngaylap datetime,
+	@loaihoadon int,
+	@mabenhnhan nvarchar(128),
+	@manhanvien nvarchar(128)
+AS
+BEGIN		
+	BEGIN TRY
+        declare @id nvarchar(128), @max int, @prefix varchar(2) = 'HD'
+		select @max = COUNT(*) from HOADON
+		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
+		if @loaihoadon = 1
+			set @thanhtien = 0
+		insert into HOADON values (@id, 0, @chitiet, @thanhtien, @ngaylap, @loaihoadon, @mabenhnhan, @manhanvien)
+		select @id
+        return -9999
+    END TRY
+    BEGIN CATCH
+        --declare @code varchar(10)
+        --set @code = ERROR_NUMBER()
+        --select @code
+		select ERROR_MESSAGE()
+        return ERROR_STATE()
+    END CATCH;
+END;
+go
+insert into THAMSO values (N'Số bệnh nhân tối đa 1 ngày', 100)
+insert into THAMSO values (N'Tiền Chụp X-Quang', 200000)
+insert into THAMSO values (N'Tiền khám', 100000)
+insert into THAMSO values (N'Tiền xét nghiệm', 200000)
+go

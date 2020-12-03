@@ -20,7 +20,6 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
             this.DataContext = this;
-
             InitDataAsync();
         }
 

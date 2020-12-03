@@ -15,17 +15,14 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public BUS_Group(DAL_Group dAL_Group) : base(dAL_Group)
-        {
-
-        }
+        
         public async Task<ObservableCollection<DTO_Group>> GetListNhomAsync()
         {
             return await DALManager.GroupDAL.GetListNhomAsync();
         }
-        public async Task<DTO_Group> GetNhomByID(string strMaNhom)
+        public DTO_Group GetNhomByID(string strMaNhom)
         {
-            return await DALManager.GroupDAL.GetNhomByID(strMaNhom);
+            return DALManager.GroupDAL.GetNhomByID(strMaNhom);
         }
     }
 }
