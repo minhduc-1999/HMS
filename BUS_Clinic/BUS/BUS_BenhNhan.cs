@@ -1,6 +1,8 @@
 ﻿using DAL_Clinic.DAL;
+using DTO_Clinic.Form;
 using DTO_Clinic.Person;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +61,30 @@ namespace BUS_Clinic.BUS
         public bool LoadNP_DSPKDK(DTO_BenhNhan bn)
         {
             return DALManager.BenhNhanDAL.LoadNP_DSPKDK(bn);
+        }
+
+        public DTO_PKDaKhoa GetPKDKMoiNhat(DTO_BenhNhan bn)
+        {
+            DTO_PKDaKhoa res = null;
+            LoadNP_DSPKDK(bn);
+            foreach (DTO_PKDaKhoa item in bn.DS_PKDaKhoa)
+            {
+                if (item != null)
+                {
+                    if (res != null)
+                    {
+                        if (res.NgayKham < item.NgayKham)
+                        {
+                            res = item;
+                        }
+                    }
+                    else
+                    {
+                        res = item;
+                    }
+                }
+            }
+            return res;
         }
     }
 }

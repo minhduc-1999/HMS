@@ -31,6 +31,7 @@ namespace GUI_Clinic.View
             InitializeComponent();
             ucControlBar.SetProfileInfo(currentNV);
             uc_QuanLyNhanVien.currentNV = currentNV;
+            uc_DanhSachKhamChuyenKhoa.CurrentNV = currentNV;
             uc_QuanLyThuoc.maDuocSi = currentNV.MaNhanVien;
             uc_DanhSachKhamBenh.CurrentNV = currentNV;
             GetListNhomAsync();

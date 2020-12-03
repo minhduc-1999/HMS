@@ -113,3 +113,30 @@ insert into THAMSO values (N'Tiền Chụp X-Quang', 200000)
 insert into THAMSO values (N'Tiền khám', 100000)
 insert into THAMSO values (N'Tiền xét nghiệm', 200000)
 go
+
+
+-------------------------------V2.2-----------------------------------
+ALTER Proc [dbo].[proc_PKCK_insert]
+	@ngaykham datetime,
+	@yeucau nvarchar(max),
+	@manhanvien nvarchar(128),
+	@maphieukhamdakhoa nvarchar(128)
+AS
+BEGIN
+	BEGIN TRY
+        declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKCK'
+		select @max = COUNT(*) from PKCHUYENKHOA
+		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
+		insert into PKCHUYENKHOA values (@id, 0, @ngaykham, @yeucau, '', @manhanvien, @maphieukhamdakhoa, null)
+		select @id
+        return -9999
+    END TRY
+    BEGIN CATCH
+        declare @code varchar(10)
+        set @code = ERROR_NUMBER()
+        --select @code
+		select ERROR_MESSAGE()
+        return ERROR_STATE()
+    END CATCH;
+END;
+go

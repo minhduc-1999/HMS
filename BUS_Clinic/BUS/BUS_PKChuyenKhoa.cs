@@ -1,6 +1,7 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic;
 using DTO_Clinic.Form;
+using DTO_Clinic.Person;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,9 +23,28 @@ namespace BUS_Clinic.BUS
         {
             DALManager.PKChuyenKhoaDAL.LoadNPYeuCau(pKChuyenKhoa);
         }
-        public async Task AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
+        public async Task<string> AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
         {
-            await DALManager.PKChuyenKhoaDAL.AddPhieuKhamChuyenKhoaAsync(pKChuyenKhoa);
+            try
+            {
+                var res = await DALManager.PKChuyenKhoaDAL.AddPhieuKhamChuyenKhoaAsync(pKChuyenKhoa);
+                if (res.Count == 2)
+                {
+                    var code = Convert.ToInt32(res[0]);
+                    if (code == SUCCESS_CODE)
+                        return res[1];
+                }
+                throw new Exception("Đã có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public ObservableCollection<DTO_BenhNhan> GetListBNByDate(DateTime date)
+        {
+            var res = new ObservableCollection<DTO_BenhNhan>(DALManager.PKChuyenKhoaDAL.GetListBNByDate(date));
+            return res;
         }
         public async Task<ObservableCollection<DTO_PKChuyenKhoa>> GetListPKCKAsync()
         {

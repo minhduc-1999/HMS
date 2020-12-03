@@ -163,7 +163,7 @@
             {
                 if (_pKChuyenKhoa == null)
                     _pKChuyenKhoa = new DAL_PKChuyenKhoa();
-                return PKChuyenKhoaDAL;
+                return _pKChuyenKhoa;
             }
         }
         public static DAL_DonThuoc DonThuocDAL

@@ -1,7 +1,9 @@
 ﻿using DTO_Clinic.Form;
+using DTO_Clinic.Person;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -15,27 +17,45 @@ namespace DAL_Clinic.DAL
         {
 
         }
-        public async Task<string> AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
+        public async Task<List<string>> AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
         {
             using (var context = new SQLServerDBContext())
             {
+                var returnCode = new SqlParameter();
+                returnCode.ParameterName = "@ReturnCode";
+                returnCode.SqlDbType = SqlDbType.Int;
+                returnCode.Direction = ParameterDirection.Output;
                 string res = null;
                 try
                 {
-                    res = await context.Database.SqlQuery<string>("exec proc_PKDAKHOA_insert @1",
+                    res = await context.Database.SqlQuery<string>("exec @ReturnCode = proc_PKCK_insert @1, @2, @3, @4",
                         new SqlParameter[]
                         {
-                            new SqlParameter("@1", pKChuyenKhoa.MaPKDaKhoa)
+                            new SqlParameter("@1", pKChuyenKhoa.NgayKham),
+                            new SqlParameter("@2", pKChuyenKhoa.YeuCau),
+                            new SqlParameter("@3", pKChuyenKhoa.MaNhanVien),
+                            new SqlParameter("@4", pKChuyenKhoa.PhieuKhamDaKhoa.MaPKDK),
+                            returnCode
                         }).FirstOrDefaultAsync();
+                    var code = ((int)returnCode.Value).ToString();
+                    return new List<string> { code, res };
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("[ERROR] " + e.Message);
+                    Debug.WriteLine("[ERROR ADD PKCK] " + e.Message);
+                    throw e;
                 }
-                return res;
             }
         }
 
+        public List<DTO_BenhNhan> GetListBNByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var list = context.PKChuyenKhoa.Where(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year).Select(p => p.PhieuKhamDaKhoa.BenhNhan).ToList();
+                return list;
+            }
+        }
 
         public async Task<ObservableCollection<DTO_PKChuyenKhoa>> GetListPKCKAsync()
         {
@@ -63,7 +83,7 @@ namespace DAL_Clinic.DAL
                 {
                     context.PKChuyenKhoa.Attach(pKChuyenKhoa);
                     var entry = context.Entry(pKChuyenKhoa);
-                    if (!entry.Reference(p => p.MaPKDaKhoa).IsLoaded)
+                    //if (!entry.Reference(p => p.MaPKDaKhoa).IsLoaded)
                         entry.Reference(p => p.MaPKDaKhoa).Load();
                     return true;
                 }

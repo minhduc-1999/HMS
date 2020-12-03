@@ -27,6 +27,16 @@ namespace BUS_Clinic.BUS
         private static BUS_Group _groupBUS;
         private static BUS_Phong _phongBUS;
         private static BUS_PKDaKhoa _pkDaKhoaBUS;
+        private static BUS_PKChuyenKhoa _pkChuyenKhoaBUS;
+        public static BUS_PKChuyenKhoa PKChuyenKhoaBUS
+        {
+            get
+            {
+                if (_pkChuyenKhoaBUS == null)
+                    _pkChuyenKhoaBUS = new BUS_PKChuyenKhoa();
+                return _pkChuyenKhoaBUS;
+            }
+        }
         public static BUS_PKDaKhoa PKDaKhoaBUS
         {
             get
