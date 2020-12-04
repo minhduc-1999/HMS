@@ -1,6 +1,7 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic.Form;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,17 +29,13 @@ namespace BUS_Clinic.BUS
             }
 
         }
-
-
-        public ObservableCollection<DTO_HoaDon> GetListHoaDon()
+        public List<DTO_HoaDon> GetListByMonth(int month, int year)
         {
-            return DALManager.HoaDonDAL.GetListHoaDon();
+            return DALManager.HoaDonDAL.GetListByMonth(month, year);
         }
-
         public DTO_HoaDon GetHoaDonById(string id)
         {
-            DTO_HoaDon hoaDon = GetListHoaDon().Where(x => x.MaHoaDon == id).FirstOrDefault();
-            return hoaDon;
+            return null;
         }
     }
 }
