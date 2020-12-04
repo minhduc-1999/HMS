@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
     <Compile Include="Component\DTO_Thuoc.cs" />
+    <Compile Include="Component\DTO_YeuCau.cs" />
     <Compile Include="Form\DTO_BCDoanhThu.cs" />
     <Compile Include="Form\DTO_BCSudungThuoc.cs" />
     <Compile Include="Component\DTO_Benh.cs" />
