@@ -33,7 +33,9 @@
         <materialDesign:Card Grid.Row="1" Margin="5">
             <Grid>
                 <StackPanel Margin="5 0 0 5" Orientation="Horizontal" >
-                    <ComboBox x:Name="cbxThang" Margin="5 5 15 5"   materialDesign:HintAssist.Hint="Tháng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <ComboBox x:Name="cbxThang" Margin="5 5 15 5"   
+                              materialDesign:HintAssist.Hint="Tháng" 
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
                     <ComboBox x:Name="cbxNam" Margin="5 5 15 5"  materialDesign:HintAssist.Hint="Năm" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                     <Button x:Name="btnLocBaoCao" 
                             Command="{Binding FilterBaoCaoCommand}"
@@ -75,7 +77,6 @@
                   Header="Chi tiết doanh thu"
                   Style="{DynamicResource MaterialDesignCardGroupBox}">
             <ListView x:Name="lvCTBaoCaoDoanhThu"
-                      ItemsSource="{Binding ListCTBCDT, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.CanContentScroll="True"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
@@ -109,8 +110,17 @@
         <materialDesign:Card x:Name="crdTongDoanhThu" Grid.Row="3" Margin="5" Height="50">
             <Grid>
                 <DockPanel>
-                    <TextBlock x:Name="tblTongDoanhThu" Text="{Binding bCDoanhThu.TongDoanhThu, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}" FontSize="25" Margin="5" Foreground="#0078D7" FontWeight="Bold" DockPanel.Dock="Right" VerticalAlignment="Center"/>
-                    <TextBlock Text="Tổng doanh thu:" FontSize="20" Margin="5" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="tblTongDoanhThu"
+                               FontSize="25"
+                               Margin="5" 
+                               Foreground="#0078D7" 
+                               FontWeight="Bold" 
+                               DockPanel.Dock="Right" 
+                               VerticalAlignment="Center"/>
+                    <TextBlock Text="Tổng doanh thu:" 
+                               FontSize="20" Margin="5" 
+                               DockPanel.Dock="Right" 
+                               VerticalAlignment="Center"/>
                     <Border></Border>
                 </DockPanel>
             </Grid>

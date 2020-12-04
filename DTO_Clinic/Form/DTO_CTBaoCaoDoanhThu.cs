@@ -8,14 +8,14 @@ namespace DTO_Clinic.Form
         private int _thang;
         private int _nam;
         private int _soBenhNhan;
-        private float _doanhThu;
-        private float _tyLe;
+        private double _doanhThu;
+        private double _tyLe;
         public int Ngay { get => _ngay; set { _ngay = value; OnPropertyChanged(); } }
         public int Thang { get => _thang; set { _thang = value; OnPropertyChanged(); } }
         public int Nam { get => _nam; set { _nam = value; OnPropertyChanged(); } }
         public int SoBenhNhan { get =>_soBenhNhan; set { _soBenhNhan = value; OnPropertyChanged(); } }
-        public float DoanhThu { get => _doanhThu; set { _doanhThu = value; OnPropertyChanged(); } }
-        public float TyLe { get => _tyLe; set { _tyLe = value; OnPropertyChanged(); } }
+        public double DoanhThu { get => _doanhThu; set { _doanhThu = value; OnPropertyChanged(); } }
+        public double TyLe { get => _tyLe; set { _tyLe = value; OnPropertyChanged(); } }
         public virtual DTO_BCDoanhThu BCDoanhThu { get; set; }
         public DTO_CTBaoCaoDoanhThu() : base()
         {

@@ -28,14 +28,10 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
-            TongSoBenhNhan = 0;
             BUSManager.BCDoanhThuBUS.LoadNPCTBaoCaoDoanhThu(bCDoanhThu);
             ListCTBCDT = bCDoanhThu.DS_CTBaoCaoDoanhThu;
-            foreach (DTO_CTBaoCaoDoanhThu item in ListCTBCDT)
-            {
-                TongSoBenhNhan += item.SoBenhNhan;
-            }
-            lvTongHop.Items.Add(new MyItem { TongBenhNhan = TongSoBenhNhan, TongDoanhThu = bCDoanhThu.TongDoanhThu});
+
+            lvTongHop.ItemsSource = new List<DTO_BCDoanhThu>() { bCDoanhThu };
             lvCTBCDT.ItemsSource = ListCTBCDT;
             tblThangNam.Text = bCDoanhThu.Thang.ToString() + "/" + bCDoanhThu.Nam.ToString();
         }
@@ -84,11 +80,5 @@ namespace GUI_Clinic.View.Windows
 
             return parent;
         }
-    }
-
-    public class MyItem
-    {
-        public int TongBenhNhan { get; set; }
-        public float TongDoanhThu { get; set; }
     }
 }

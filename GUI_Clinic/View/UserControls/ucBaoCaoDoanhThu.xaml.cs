@@ -1,23 +1,13 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
-using GUI_Clinic.View.Windows;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using GUI_Clinic.Command;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DTO_Clinic.Form;
+using System.Windows.Data;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -36,11 +26,9 @@ namespace GUI_Clinic.View.UserControls
         }
 
         #region Property
-        private ObservableCollection<DTO_BCDoanhThu> ListBCDT { get; set; }
-        private ICollection<DTO_CTBaoCaoDoanhThu> ListCTBCDT { get; set; }
-        public DTO_BCDoanhThu bCDoanhThu { get; set; }
-        private List<int> ListThang { get; set; }
-        private List<int> ListNam { get; set; }
+        public DTO_BCDoanhThu BCDoanhThu { get; set; }
+        public List<int> ListThang { get; set; }
+        public List<int> ListNam { get; set; }
 
         #endregion
 
@@ -54,34 +42,12 @@ namespace GUI_Clinic.View.UserControls
             ListThang = Enumerable.Range(1, 12).ToList();
             cbxThang.ItemsSource = ListThang;
             cbxThang.SelectedIndex = DateTime.Now.Month - 1;
-            ListNam = Enumerable.Range(1950, 100).ToList();
+            var curYear = DateTime.Now.Year;
+            ListNam = Enumerable.Range(2000, curYear - 2000 + 1).ToList();
             cbxNam.ItemsSource = ListNam;
-            cbxNam.SelectedIndex = DateTime.Now.Year - 1950;
+            cbxNam.SelectedIndex = DateTime.Now.Year - 2000;
 
-            ListBCDT = BUSManager.BCDoanhThuBUS.GetListBCDoanhThu();
-
-            bCDoanhThu = null;
-            ListCTBCDT = null;
-            //foreach (DTO_BCDoanhThu item in ListBCDT)
-            //{
-            //    if (item.Thang == int.Parse(cbxThang.Text) && item.Nam == int.Parse(cbxNam.Text))
-            //    {
-            //        bCDoanhThu = item;
-            //    }
-            //}
-            if (bCDoanhThu != null)
-            {
-                BUSManager.BCDoanhThuBUS.LoadNPCTBaoCaoDoanhThu(bCDoanhThu);
-                ListCTBCDT = bCDoanhThu.DS_CTBaoCaoDoanhThu;
-                lvCTBaoCaoDoanhThu.ItemsSource = ListCTBCDT;
-                crdTongDoanhThu.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                lvCTBaoCaoDoanhThu.ItemsSource = ListCTBCDT;
-                crdTongDoanhThu.Visibility = Visibility.Collapsed;
-            }
-
+            BCDoanhThu = null;
         }
 
         public void InitCommand()
@@ -90,12 +56,12 @@ namespace GUI_Clinic.View.UserControls
             {
                 if (String.IsNullOrEmpty(cbxThang.Text) ||
                     String.IsNullOrEmpty(cbxNam.Text))
-                {
                     return false;
-                }
-                else if (bCDoanhThu != null)
+                if (BCDoanhThu != null)
                 {
-                    if (cbxThang.Text == bCDoanhThu.Thang.ToString() && cbxNam.Text == bCDoanhThu.Nam.ToString())
+                    if (cbxThang.Text == BCDoanhThu.Thang.ToString() && cbxNam.Text == BCDoanhThu.Nam.ToString() 
+                    && cbxThang.Text != DateTime.Now.Month.ToString()
+                    && cbxNam.Text != DateTime.Now.Year.ToString())
                     {
                         return false;
                     }
@@ -103,42 +69,39 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                bCDoanhThu = null;
-                ListCTBCDT = null;
-                foreach (DTO_BCDoanhThu item in ListBCDT)
+                var month = Convert.ToInt32(cbxThang.Text);
+                var year = Convert.ToInt32(cbxNam.Text);
+                BCDoanhThu = BUSManager.BCDoanhThuBUS.GetBCDoanhThu(month, year);
+                if (BCDoanhThu != null)
                 {
-                    if(item.Thang == int.Parse(cbxThang.Text) && item.Nam == int.Parse(cbxNam.Text))
-                    {
-                        bCDoanhThu = item;
-                    }
-
-                }
-                if(bCDoanhThu!=null)
-                {
-                    BUSManager.BCDoanhThuBUS.LoadNPCTBaoCaoDoanhThu(bCDoanhThu);
-                    ListCTBCDT = bCDoanhThu.DS_CTBaoCaoDoanhThu;
-                    lvCTBaoCaoDoanhThu.ItemsSource = ListCTBCDT;
+                    lvCTBaoCaoDoanhThu.ItemsSource = BCDoanhThu.DS_CTBaoCaoDoanhThu;
                     crdTongDoanhThu.Visibility = Visibility.Visible;
+                    var binding = new Binding
+                    {
+                        Source = BCDoanhThu,
+                        Path = new PropertyPath("TongDoanhThu"),
+                        StringFormat = "{0:N0} VNĐ"
+                    };
+                    tblTongDoanhThu.SetBinding(TextBlock.TextProperty, binding);
                 }
                 else
                 {
-                    lvCTBaoCaoDoanhThu.ItemsSource = ListCTBCDT;
                     crdTongDoanhThu.Visibility = Visibility.Collapsed;
                 }
-               
+
             });
             InBaoCaoCommand = new RelayCommand<Window>((p) =>
             {
                 if (String.IsNullOrEmpty(cbxThang.Text) ||
                     String.IsNullOrEmpty(cbxNam.Text) ||
-                    bCDoanhThu == null)
+                    BCDoanhThu == null)
                 {
                     return false;
                 }
                 return true;
             }, (p) =>
             {
-                //wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(bCDoanhThu);
+                //wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(BCDoanhThu);
                 //baoCaoDoanhThu.ShowDialog();
             });
         }
