@@ -107,6 +107,14 @@
                           Foreground="White" 
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           SelectionChanged="ListViewMenu_SelectionChanged">
+
+                    <ListViewItem x:Name="itemQLBenhNhan" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Height="25" Width="25" Margin="5 10"/>
+                            <TextBlock Text="Quản lý bệnh nhân" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+                    </ListViewItem>
+
                     <ListViewItem x:Name="itemDSKhamBenh" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Doctor"  Height="25" Width="25" Margin="5 10"/>
@@ -182,13 +190,6 @@
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="itemQLBenhNhan" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Account" Height="25" Width="25" Margin="5 10"/>
-                            <TextBlock Text="Quản lý bệnh nhân" VerticalAlignment="Center" Margin="7 10" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
-                        </StackPanel>
-                    </ListViewItem>
-                    
                     <ListViewItem x:Name="itemQLThuoc" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Medicine" Height="25" Width="25" Margin="5 10"/>
