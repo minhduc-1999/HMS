@@ -17,9 +17,9 @@ namespace BUS_Clinic.BUS
         {
             return DALManager.ThuocDAL.LoadNP_CTPhieuNhapThuoc(thuoc);
         }
-        public async Task AddThuocAsync(DTO_Thuoc thuoc)
+        public async Task<string> AddThuocAsync(DTO_Thuoc thuoc)
         {
-            await DALManager.ThuocDAL.AddThuocAsync(thuoc);
+            return await DALManager.ThuocDAL.AddThuocAsync(thuoc);
         }
         public async Task<ObservableCollection<DTO_Thuoc>> GetListThuocAsync()
         {

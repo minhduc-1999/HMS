@@ -57,9 +57,13 @@ namespace DAL_Clinic.DAL
             }
         }
 
-        public ObservableCollection<DTO_HoaDon> GetListHoaDon()
+        public List<DTO_HoaDon> GetListByMonth(int month, int year)
         {
-            return null; 
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.HoaDon.Where(hd => hd.NgayLap.Month == month && hd.NgayLap.Year == year).ToList();
+                return res;
+            }
         }
 
         public bool LoadNPBenhNhan(DTO_HoaDon hoaDon)

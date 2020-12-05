@@ -8,8 +8,6 @@ using GUI_Clinic.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +34,6 @@ namespace GUI_Clinic.View.UserControls
         public ObservableCollection<DTO_Phong> ListRoom { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListPatient { get; set; }
         public ObservableCollection<DTO_BenhNhan> ExaminedPatientList { get; set; }
-        public List<string> MatchBNList { get; set; }
         public ObservableCollection<DTO_ThamSo> ListThamSo { get; set; }
         public DTO_NhanVien CurrentNV { get; set; }
         public int CurrentPatientAmount { get; set; }

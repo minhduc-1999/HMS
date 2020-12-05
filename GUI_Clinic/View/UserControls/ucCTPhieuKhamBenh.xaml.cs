@@ -283,8 +283,9 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnKhamChuyenKhoa_Click(object sender, RoutedEventArgs e)
         {
-            wdYeuCauKhamChuyenKhoa wd = new wdYeuCauKhamChuyenKhoa();
-            wd.ShowDialog();
+            wdYeuCauKhamChuyenKhoa wdYeuCau = new wdYeuCauKhamChuyenKhoa();
+            wdYeuCau.benhNhan = this.benhNhan;
+            wdYeuCau.ShowDialog();
         }
 
         private void btnXuatDon_Click(object sender, RoutedEventArgs e)
