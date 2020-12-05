@@ -4,6 +4,7 @@ using DTO_Clinic.Form;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
+using GUI_Clinic.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,9 +22,11 @@ namespace GUI_Clinic.View.UserControls
     public partial class ucDanhSachKhamChuyenKhoa : UserControl
     {
         public ICommand SignedCommand { get; set; }
+        public ICommand XemHoaDonCommand { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBN1 { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNDaDK { get; set; }
         public ObservableCollection<DTO_ThamSo> ListThamSo { get; set; }
+        public ObservableCollection<DTO_HoaDon> ListHDCuaBNDaDK { get; set; }
         public DTO_NhanVien CurrentNV { get; set; }
         public DTO_BenhNhan selectedBN { get; set; }
 
@@ -47,10 +50,10 @@ namespace GUI_Clinic.View.UserControls
             {
                 var hoaDon = new DTO_HoaDon()
                 {
-                    ChiTiet = "Tiền khám bệnh khám chuyên khoa",
+                    ChiTiet = "Tiền khám chuyên khoa",
                     ThanhTien = ListThamSo.Where(ts => ts.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri,
                     NgayLap = DateTime.Now,
-                    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDDichVu,
+                    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDKhamChuyenKhoa,
                     MaBenhNhan = selectedBN.MaBenhNhan,
                     MaNhanVien = CurrentNV.MaNhanVien
                 };
@@ -78,6 +81,8 @@ namespace GUI_Clinic.View.UserControls
                         if (dpkNgayKham.SelectedDate.Value.Date == DateTime.Now.Date)
                         {
                             ListBNDaDK.Add(selectedBN);
+                            //BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
+                            //ListHDCuaBNDaDK.Add(hoaDon);
                         }
                     }
                 }
@@ -86,6 +91,18 @@ namespace GUI_Clinic.View.UserControls
                     MsgBox.Show(e.Message, MessageType.Error);
                 }
 
+            });
+
+            XemHoaDonCommand = new RelayCommand<Window>((p) =>
+            {
+                if (selectedBN == null)
+                    return false;
+                return true;
+            }, async (p) =>
+            {
+                ListHDCuaBNDaDK = BUSManager.HoaDonBUS.GetListHDCKByDate(dpkNgayKham.SelectedDate.Value);
+                wdHoaDon hoaDon = new wdHoaDon(ListHDCuaBNDaDK[lvDanhSachDaDKKhamCK.SelectedIndex]);
+                hoaDon.ShowDialog();
             });
         }
 
@@ -121,7 +138,8 @@ namespace GUI_Clinic.View.UserControls
                 lvDanhSachDaDKKhamCK.SelectedIndex = -1;
                 UpdateSelectedBN(lvDanhSachDuocYeuCauKhamCK.SelectedItem as DTO_BenhNhan);
                 tblTrangThai.Text = "Chưa đăng ký";
-                grdBtnDKKham.Visibility = Visibility.Visible;
+                btnDangKy.Visibility = Visibility.Visible;
+                btnHoaDon.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -132,7 +150,8 @@ namespace GUI_Clinic.View.UserControls
                 lvDanhSachDuocYeuCauKhamCK.SelectedIndex = -1;
                 UpdateSelectedBN(lvDanhSachDaDKKhamCK.SelectedItem as DTO_BenhNhan);
                 tblTrangThai.Text = "Đã đăng ký";
-                grdBtnDKKham.Visibility = Visibility.Collapsed;
+                btnDangKy.Visibility = Visibility.Collapsed;
+                btnHoaDon.Visibility = Visibility.Visible;
             }
         }
 
@@ -163,6 +182,7 @@ namespace GUI_Clinic.View.UserControls
             {
                 var curDate = (sender as DatePicker).SelectedDate.Value;
                 ListBNDaDK = BUSManager.PKChuyenKhoaBUS.GetListBNByDate(curDate);
+                ListHDCuaBNDaDK = BUSManager.HoaDonBUS.GetListHDCKByDate(curDate);
                 if (ListBNDaDK != null)
                 {
                     //lvDanhSachDaDKKhamCK.ItemsSource = ListBNDaDK;

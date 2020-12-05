@@ -27,6 +27,7 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
+            BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
             HoaDon = hoaDon;
         }
         #region Property

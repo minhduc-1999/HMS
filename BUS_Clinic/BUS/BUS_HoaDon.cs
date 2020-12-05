@@ -29,6 +29,15 @@ namespace BUS_Clinic.BUS
 
         }
 
+        public bool LoadNPBenhNhan(DTO_HoaDon hoaDon)
+        {
+            return DALManager.HoaDonDAL.LoadNPBenhNhan(hoaDon);
+        }
+        public ObservableCollection<DTO_HoaDon> GetListHDCKByDate(DateTime date)
+        {
+            var res = new ObservableCollection<DTO_HoaDon>(DALManager.HoaDonDAL.GetListHDCKByDate(date));
+            return res;
+        }
 
         public ObservableCollection<DTO_HoaDon> GetListHoaDon()
         {

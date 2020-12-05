@@ -59,6 +59,9 @@ namespace GUI_Clinic.View.Windows
         {
             ListPhong = await BUSManager.PhongBUS.GetListPhongAsync();
             cbxPhong.ItemsSource = ListPhong;
+
+            dpkNgaySinh.SelectedDate = DateTime.Now;
+            grdAcc.Visibility = Visibility.Collapsed;
         }
 
         private async Task InitDataAsync()

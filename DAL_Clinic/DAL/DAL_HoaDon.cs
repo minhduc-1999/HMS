@@ -46,11 +46,40 @@ namespace DAL_Clinic.DAL
                     throw e;
                 }
             }
-        }     
+        }
+
+        public List<DTO_HoaDon> GetListHDCKByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var list = context.HoaDon.Where(p => p.NgayLap.Day == dt.Day && p.NgayLap.Month == dt.Month && p.NgayLap.Year == dt.Year && p.LoaiHoaDon == DTO_HoaDon.LoaiHD.HDKhamChuyenKhoa).ToList();
+                return list;
+            }
+        }
 
         public ObservableCollection<DTO_HoaDon> GetListHoaDon()
         {
             return null; 
+        }
+
+        public bool LoadNPBenhNhan(DTO_HoaDon hoaDon)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.HoaDon.Attach(hoaDon);
+                    var entry = context.Entry(hoaDon);
+                    //if (!entry.Reference(p => p.Nhom).IsLoaded)
+                    entry.Reference(p => p.BenhNhan).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL HOADON] {e.Message}");
+                return false;
+            }
         }
     }
 }

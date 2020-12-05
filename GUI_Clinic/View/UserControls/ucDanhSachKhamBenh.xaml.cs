@@ -97,7 +97,7 @@ namespace GUI_Clinic.View.UserControls
                     ChiTiet = "Tiền khám bệnh",
                     ThanhTien = ListThamSo.Where(ts => ts.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri,
                     NgayLap = DateTime.Now,
-                    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDDichVu,
+                    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDKhamDaKhoa,
                     MaBenhNhan = benhNhan.MaBenhNhan,
                     MaNhanVien = CurrentNV.MaNhanVien
                 };

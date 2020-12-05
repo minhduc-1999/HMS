@@ -6,7 +6,7 @@ namespace DTO_Clinic.Form
 {
     public class DTO_HoaDon : BaseModel
     {
-        public enum LoaiHD { HDDichVu, HDThuoc };
+        public enum LoaiHD { HDKhamDaKhoa, HDKhamChuyenKhoa, HDThuoc };
 
         public string MaHoaDon { get; set; }
         private bool _isDeleted;

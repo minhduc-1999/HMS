@@ -319,8 +319,8 @@
             <Grid Grid.Row="11">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" x:Name="grdAcc">
                     <Button x:Name="btnAccount"
@@ -339,7 +339,7 @@
                             Command="{Binding UpdateCommand}"
                             Content="Cập nhật"
                             Width="100"
-                            HorizontalAlignment="Center"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>
@@ -350,7 +350,7 @@
                             Command="{Binding CancelCommand}"
                             Content="Huỷ"
                             Width="100"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Background="#0078D7"
                             BorderBrush="#0078D7"></Button>

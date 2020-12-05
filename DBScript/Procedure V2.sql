@@ -88,12 +88,12 @@ ALTER Proc [dbo].[proc_HoaDon_insert]
 	@mabenhnhan nvarchar(128),
 	@manhanvien nvarchar(128)
 AS
-BEGIN		
+BEGIN
 	BEGIN TRY
         declare @id nvarchar(128), @max int, @prefix varchar(2) = 'HD'
 		select @max = COUNT(*) from HOADON
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		if @loaihoadon = 1
+		if @loaihoadon = 2
 			set @thanhtien = 0
 		insert into HOADON values (@id, 0, @chitiet, @thanhtien, @ngaylap, @loaihoadon, @mabenhnhan, @manhanvien)
 		select @id
