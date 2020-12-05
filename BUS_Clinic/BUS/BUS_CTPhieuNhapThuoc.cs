@@ -36,12 +36,18 @@ namespace BUS_Clinic.BUS
 
             foreach (DTO_Thuoc item in listThuoc)
             {
+                DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc;
                 if (!BUSManager.ThuocBUS.IsThuocDaTonTai(item))
                 {
-                    await BUSManager.ThuocBUS.AddThuocAsync(item);
+                    string thuocID = await BUSManager.ThuocBUS.AddThuocAsync(item);
+
+                    cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, thuocID, item.SoLuong, item.DonGia);
+                }
+                else
+                {
+                    cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                 }
 
-                DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                 DALManager.CTPhieuNhapThuocDAL.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
             }
         }

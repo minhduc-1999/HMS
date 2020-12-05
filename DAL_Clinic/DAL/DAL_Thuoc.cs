@@ -43,7 +43,7 @@ namespace DAL_Clinic.DAL
                 {
                     var donVi = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
                     var tenThuoc = new SqlParameter("@2", System.Data.SqlDbType.NVarChar);
-                    var congDung = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    var congDung = new SqlParameter("@3", System.Data.SqlDbType.NVarChar);
                     donVi.Value = thuoc.DonVi;
                     tenThuoc.Value = thuoc.TenThuoc;
                     congDung.Value = thuoc.CongDung;

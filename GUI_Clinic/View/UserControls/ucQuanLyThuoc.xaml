@@ -195,6 +195,8 @@
                                                     DisplayMemberBinding="{Binding MaPNT}"/>
                                     <GridViewColumn Header="Ngày nhập" 
                                                     DisplayMemberBinding="{Binding NgayNhap, StringFormat='dd/MM/yyyy'}"/>
+                                    <GridViewColumn Header="Người nhập" 
+                                                    DisplayMemberBinding="{Binding NguoiLap.HoTen}"/>
                                     <GridViewColumn Header="Tổng tiền" 
                                                     DisplayMemberBinding="{Binding TongTien, StringFormat={}{0:N0} VNĐ}"/>
                                 </GridView>

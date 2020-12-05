@@ -19,6 +19,10 @@ namespace BUS_Clinic.BUS
         {
             return DALManager.PhieuNhapThuocDAL.LoadNP_CTPhieuNhapThuoc(phieuNhapThuoc);
         }
+        public bool LoadNP_NhanVien(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        {
+            return DALManager.PhieuNhapThuocDAL.LoadNP_NhanVien(phieuNhapThuoc);
+        }
         public async Task AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
             await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);

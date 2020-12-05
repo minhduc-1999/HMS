@@ -61,13 +61,13 @@ namespace GUI_Clinic.View.UserControls
             //BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
 
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
-            //foreach (DTO_Thuoc item in ListThuoc)
-            //{
-            //    BUSManager.ThuocBUS.LoadNPDonVi(item);
-            //}
-
             ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
             ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
+
+            foreach (DTO_PhieuNhapThuoc item in ListPNT)
+            {
+                BUSManager.PhieuNhapThuocBUS.LoadNP_NhanVien(item);
+            }
 
             lvThuoc.ItemsSource = ListThuoc;
             lvPhieuNhapThuoc.ItemsSource = ListPNT;
@@ -142,9 +142,9 @@ namespace GUI_Clinic.View.UserControls
             wd.Closing += Wd_Closing;
         }
 
-        private async void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            InitDataAsync();
         }
 
         private void lvThuoc_MouseDoubleClick(object sender, MouseButtonEventArgs e)

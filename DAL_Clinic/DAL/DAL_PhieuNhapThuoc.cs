@@ -32,6 +32,25 @@ namespace DAL_Clinic.DAL
                 return false;
             }
         }
+        public bool LoadNP_NhanVien(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.PhieuNhapThuoc.Attach(phieuNhapThuoc);
+                    var entry = context.Entry(phieuNhapThuoc);
+                    if (!entry.Reference(p => p.NguoiLap).IsLoaded)
+                        entry.Reference(p => p.NguoiLap).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL PHIEU NHAP THUOC] {e.Message}");
+                return false;
+            }
+        }
         public async Task<string> AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
             using (var context = new SQLServerDBContext())
