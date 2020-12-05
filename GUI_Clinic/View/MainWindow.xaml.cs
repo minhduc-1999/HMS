@@ -79,7 +79,7 @@ namespace GUI_Clinic.View
                         itemThietLapKhac.Visibility = Visibility.Collapsed;
                         itemQLNhanVien.Visibility = Visibility.Collapsed;
                         btnSetting.Visibility = Visibility.Collapsed;
-                        ListViewMenu.SelectedIndex = 2;
+                        ListViewMenu.SelectedIndex = 0;
                         break;
                     case 2: //BSCK
                         itemBCDoanhThu.Visibility = Visibility.Collapsed;
@@ -94,7 +94,7 @@ namespace GUI_Clinic.View
                         itemThietLapKhac.Visibility = Visibility.Collapsed;
                         itemQLNhanVien.Visibility = Visibility.Collapsed;
                         btnSetting.Visibility = Visibility.Collapsed;
-                        ListViewMenu.SelectedIndex = 3;
+                        ListViewMenu.SelectedIndex = 0;
                         break;
                     case 3: //DUOCSI
                         itemBCDoanhThu.Visibility = Visibility.Collapsed;
@@ -109,7 +109,7 @@ namespace GUI_Clinic.View
                         itemThietLapKhac.Visibility = Visibility.Collapsed;
                         itemQLNhanVien.Visibility = Visibility.Collapsed;
                         btnSetting.Visibility = Visibility.Collapsed;
-                        ListViewMenu.SelectedIndex = 4;
+                        ListViewMenu.SelectedIndex = 5;
                         break;
                     case 4: //THUTUC
                         itemBCDoanhThu.Visibility = Visibility.Visible;
