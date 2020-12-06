@@ -82,13 +82,13 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvDanhSachPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
-            //if (item != null)
-            //{
-            //    //Mo PKB tuong ung
-            //    wdPhieuKhamBenh phieuKhamBenh = new wdPhieuKhamBenh(item);
-            //    phieuKhamBenh.ShowDialog();
-            //}
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PKDaKhoa;
+            if (item != null)
+            {
+                //Mo PKB tuong ung
+                wdPhieuKhamBenh phieuKhamBenh = new wdPhieuKhamBenh(item);
+                phieuKhamBenh.ShowDialog();
+            }
         }
 
         private void lvBenhNhan_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,27 +23,15 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdPhieuKhamBenh : Window
     {
-        //public wdPhieuKhamBenh(DTO_PhieuKhamBenh phieuKhamBenh)
-        //{
-        //    InitializeComponent();
-        //    this.DataContext = this;
-
-        //    BUSManager.PhieuKhamBenhBUS.LoadNPBenh(phieuKhamBenh);
-        //    BUSManager.PhieuKhamBenhBUS.LoadNPBenhNhan(phieuKhamBenh);
-        //    BUSManager.PhieuKhamBenhBUS.LoadNPDSCTPhieuKhamBenh(phieuKhamBenh);
-        //    foreach (DTO_CTPhieuKhamBenh item in phieuKhamBenh.DSCTPhieuKhamBenh)
-        //    {
-        //        BUSManager.CTPhieuKhamBenhBUS.LoadNPThuoc(item);
-        //        BUSManager.ThuocBUS.LoadNPDonVi(item.Thuoc);
-        //        BUSManager.CTPhieuKhamBenhBUS.LoadNPCachDung(item);
-        //    }
-
-        //    tblTenBenhNhan.Text = phieuKhamBenh.BenhNhan.TenBenhNhan;
-        //    tblNgayKham.Text = phieuKhamBenh.NgayKham.ToString();
-        //    tblTrieuChung.Text = phieuKhamBenh.TrieuChung;
-        //    tblDuDoanLoaiBenh.Text = phieuKhamBenh.Benh.TenBenh;
-        //    lvMedicine.ItemsSource = phieuKhamBenh.DSCTPhieuKhamBenh;
-        //}
+        public DTO_PKDaKhoa PKDaKhoa { get; set; }
+        public wdPhieuKhamBenh(DTO_PKDaKhoa pkDaKhoa)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkDaKhoa);
+            PKDaKhoa = pkDaKhoa;           
+                     
+        }
 
         private void btnInPhieu_Click(object sender, RoutedEventArgs e)
         {

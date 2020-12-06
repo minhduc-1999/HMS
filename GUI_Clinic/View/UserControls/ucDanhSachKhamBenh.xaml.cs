@@ -90,6 +90,11 @@ namespace GUI_Clinic.View.UserControls
                     return;
                 }
                 var benhNhan = cbxDSBenhNhan.SelectedItem as DTO_BenhNhan;
+                if(BUSManager.PKDaKhoaBUS.IsSigned(benhNhan))
+                {
+                    MsgBox.Show("Bệnh nhân đã đăng ký khám. Vui lòng kiểm tra lại", MessageType.Error);
+                    return;
+                }
                 var hoaDon = new DTO_HoaDon()
                 {
                     ChiTiet = "Tiền khám bệnh",
@@ -105,6 +110,7 @@ namespace GUI_Clinic.View.UserControls
                     MsgBox.Show("Tạo hoá đơn không thành công, vui lòng thử lại", MessageType.Error);
                     return;
                 }
+                hoaDon.MaHoaDon = res;
                 wdHoaDon wdHoaDon = new wdHoaDon(hoaDon);
                 wdHoaDon.ShowDialog();
                 var phong = cbxPhong.SelectedItem as DTO_Phong;

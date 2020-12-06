@@ -69,7 +69,6 @@ namespace DAL_Clinic.DAL
             }
 
         }
-
         public bool LoadNPBenhNhan(DTO_PKDaKhoa pKDaKhoa)
         {
             try
@@ -89,7 +88,6 @@ namespace DAL_Clinic.DAL
                 return false;
             }
         }
-
         public async Task<ObservableCollection<DTO_PKDaKhoa>> GetListPKDKAsync()
         {
             ObservableCollection<DTO_PKDaKhoa> res = null;
@@ -123,7 +121,6 @@ namespace DAL_Clinic.DAL
                 //}
             }
         }
-
         public int GetAmountByDate(DateTime dt)
         {
             using (var context = new SQLServerDBContext())
@@ -131,6 +128,28 @@ namespace DAL_Clinic.DAL
                 int res = context.PKDaKhoa.Count(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year);
                 return res;
             }
+        }
+        public bool isSigned(DTO_BenhNhan bn)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    var res = context.PKDaKhoa.Count(p => p.MaBenhNhan == bn.MaBenhNhan 
+                    && p.NgayKham.Day == DateTime.Now.Day && p.NgayKham.Month == DateTime.Now.Month && p.NgayKham.Year == DateTime.Now.Year
+                    && (p.MaBacSi == null || p.MaBenh == null || p.ChanDoan == null));
+                    if (res == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+                
+            }    
         }
     }
 }

@@ -58,7 +58,11 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="tblTenBenhNhan" Grid.Row="0" FontSize="20" Margin="20 10 0 5"/>
+                    <TextBlock x:Name="tblTenBenhNhan" 
+                               Grid.Row="0" 
+                               FontSize="20"
+                               Text="{Binding PKDaKhoa.BenhNhan.HoTen}"
+                               Margin="20 10 0 5"/>
 
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -80,6 +84,7 @@
 
                             <TextBlock x:Name="tblNgayKham"
                                        Grid.Column="1"
+                                       Text="{Binding PKDaKhoa.NgayKham}"
                                        HorizontalAlignment="Left"
                                        Margin="0 5 20 5">
                             </TextBlock>
@@ -98,6 +103,7 @@
 
                             <TextBlock x:Name="tblTrieuChung"
                                        Grid.Column="1"
+                                       Text="{Binding PKDaKhoa.TrieuChung}"
                                        HorizontalAlignment="Left"
                                        Margin="0 5 20 5">
                             </TextBlock>
@@ -114,8 +120,9 @@
                                        Margin="20 5 0 10">
                             </TextBlock>
 
-                            <TextBlock x:Name="tblDuDoanLoaiBenh"
+                            <TextBlock x:Name="tblChanDoan"
                                        Grid.Column="1"
+                                       Text="{Binding PKDaKhoa.ChanDoan}"
                                        HorizontalAlignment="Left"
                                        Margin="0 5 20 5">
                             </TextBlock>
@@ -147,7 +154,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                             <GridViewColumn Header="Thuốc" DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
-                            <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                            <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Thuoc.DonVi}"></GridViewColumn>
                             <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
                             <GridViewColumn Header="Cách dùng" DisplayMemberBinding="{Binding CachDung.TenCachDung}"></GridViewColumn>
                         </GridView>

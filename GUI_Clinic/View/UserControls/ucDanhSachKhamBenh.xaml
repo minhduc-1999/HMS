@@ -172,13 +172,25 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment"
+                                                    Value="Center"></Setter>
+                                            <Setter Property="FontSize"
+                                                    Value="16"></Setter>
+                                            <Setter Property="FontWeight"
+                                                    Value="Bold" />
+                                            <Setter Property="HorizontalAlignment"
+                                                    Value="Left" />
+                                            <Setter Property="Margin"
+                                                    Value="0 5 20 0" />
+                                        </Style>
+                                    </Grid.Resources>
                                     <TextBlock Grid.Row="0"
                                                x:Name="tblDangKyKham"
                                                Margin="10"
                                                HorizontalAlignment="Center"
                                                Text="Đăng ký khám"
-                                               VerticalAlignment="Center"
                                                FontSize="25"
                                                FontWeight="Bold"
                                                Foreground="#0078D7" />
@@ -186,20 +198,15 @@
                                     <Grid Grid.Row="1"
                                           Margin="0 5 0 5">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="105" />
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
-                                                   VerticalAlignment="Center"
-                                                   Text="Bệnh nhân:"
-                                                   HorizontalAlignment="Left"
-                                                   FontSize="16">
+                                                   Text="Bệnh nhân:">
                                         </TextBlock>
                                         <Grid Grid.Column="1" Margin="0 0 10 0">
-                                            <ComboBox BorderBrush="#0078D7"
-                                                      x:Name="cbxDSBenhNhan"
-                                                      BorderThickness="2"
+                                            <ComboBox x:Name="cbxDSBenhNhan"
                                                       HorizontalContentAlignment="Left"
                                                       IsEditable="True"
                                                       Margin="0,0,0,0"
@@ -223,19 +230,14 @@
                                     <Grid Grid.Row="2"
                                           Margin="0 5 0 5">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="105" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
-                                                   VerticalAlignment="Center"
-                                                   Text="Phòng:"
-                                                   HorizontalAlignment="Left"
-                                                   FontSize="16">
+                                                   Text="Phòng:">
                                         </TextBlock>
                                         <Grid Grid.Column="1">
-                                            <ComboBox BorderBrush="#0078D7"
-                                                      x:Name="cbxPhong"
-                                                      BorderThickness="2"
+                                            <ComboBox x:Name="cbxPhong"
                                                       Width="{Binding ElementName=cbxDSBenhNhan, Path=ActualWidth, Mode=OneWay}"
                                                       HorizontalAlignment="Left"
                                                       IsEditable="True"
