@@ -21,14 +21,18 @@ namespace GUI_Clinic.View.UserControls
     /// </summary>
     public partial class ucDanhSachKhamChuyenKhoa : UserControl
     {
-        public ICommand SignedCommand { get; set; }
-        public ICommand XemHoaDonCommand { get; set; }
+        #region Properties
         public ObservableCollection<DTO_BenhNhan> ListBN1 { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNDaDK { get; set; }
         public ObservableCollection<DTO_ThamSo> ListThamSo { get; set; }
         public ObservableCollection<DTO_HoaDon> ListHDCuaBNDaDK { get; set; }
         public DTO_NhanVien CurrentNV { get; set; }
         public DTO_BenhNhan selectedBN { get; set; }
+        #endregion
+        #region Command
+        public ICommand SignedCommand { get; set; }
+        public ICommand XemHoaDonCommand { get; set; }
+        #endregion
 
         public ucDanhSachKhamChuyenKhoa()
         {
@@ -183,9 +187,10 @@ namespace GUI_Clinic.View.UserControls
                 var curDate = (sender as DatePicker).SelectedDate.Value;
                 ListBNDaDK = BUSManager.PKChuyenKhoaBUS.GetListBNByDate(curDate);
                 ListHDCuaBNDaDK = BUSManager.HoaDonBUS.GetListHDCKByDate(curDate);
-                if (ListBNDaDK != null)
+                if (ListBNDaDK != null 
+                    && lvDanhSachDaDKKhamCK != null)
                 {
-                    //lvDanhSachDaDKKhamCK.ItemsSource = ListBNDaDK;
+                    lvDanhSachDaDKKhamCK.ItemsSource = ListBNDaDK;
                 }
             }
         }

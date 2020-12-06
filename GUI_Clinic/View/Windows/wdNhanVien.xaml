@@ -102,9 +102,7 @@
                            Text="Họ và tên:">
                 </TextBlock>
                 <Grid Grid.Column="1">
-                    <TextBox BorderBrush="#0078D7"
-                             x:Name="tbxHoTen"
-                             BorderThickness="2"
+                    <TextBox x:Name="tbxHoTen"
                              Margin="0 5 20 5"
                              FontSize="16"
                              Text="{Binding currentNV.HoTen, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
@@ -123,9 +121,7 @@
                     </TextBlock>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Border BorderThickness="2"
-                            Background="White"
-                            BorderBrush="#0078D7"
+                    <Border Background="White"
                             Height="30"
                             HorizontalAlignment="Left">
                         <DatePicker Grid.Column="0"
@@ -155,9 +151,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <ComboBox BorderBrush="#0078D7"
-                              BorderThickness="2"
-                              x:Name="cbxGioiTinh"
+                    <ComboBox x:Name="cbxGioiTinh"
                               IsEditable="True"
                               Width="70"
                               Margin="0 5 10 5"
@@ -179,9 +173,7 @@
                            Text="Email:">
                 </TextBlock>
                 <Grid Grid.Column="1">
-                    <TextBox BorderBrush="#0078D7"
-                             x:Name="tbxEmail"
-                             BorderThickness="2"
+                    <TextBox x:Name="tbxEmail"
                              Margin="0 5 20 5"
                              FontSize="16"
                              Text="{Binding currentNV.Email,Mode=OneTime}"
@@ -198,9 +190,7 @@
                            Text="Địa chỉ:">
                 </TextBlock>
                 <Grid Grid.Column="1">
-                    <TextBox BorderBrush="#0078D7"
-                             x:Name="tbxDiaChi"
-                             BorderThickness="2"
+                    <TextBox x:Name="tbxDiaChi"
                              Margin="0 5 20 5"
                              FontSize="16"
                              Text="{Binding currentNV.DiaChi,Mode=OneTime}"
@@ -217,9 +207,7 @@
                            Text="SĐT:">
                 </TextBlock>
                 <Grid Grid.Column="1">
-                    <TextBox BorderBrush="#0078D7"
-                             x:Name="tbxSDT"
-                             BorderThickness="2"
+                    <TextBox x:Name="tbxSDT"
                              Margin="0 5 20 5"
                              FontSize="16"
                              MaxLength="{Binding currentNV.SoDienThoai.Length,Mode=OneTime}"
@@ -239,9 +227,7 @@
                            Text="Số CMND:">
                 </TextBlock>
                 <Grid Grid.Column="1">
-                    <TextBox BorderBrush="#0078D7"
-                             x:Name="tbxCMND"
-                             BorderThickness="2"
+                    <TextBox x:Name="tbxCMND"
                              Margin="0 5 20 5"
                              FontSize="16"
                              MaxLength="{Binding currentNV.SoCMND.Length,Mode=OneTime}"
@@ -266,9 +252,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <ComboBox BorderBrush="#0078D7"
-                              BorderThickness="2"
-                              x:Name="cbxChucVu"
+                    <ComboBox x:Name="cbxChucVu"
                               IsEditable="True"
                               Width="150"
                               Margin="0 5 10 5"
@@ -298,9 +282,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <ComboBox BorderBrush="#0078D7"
-                              BorderThickness="2"
-                              x:Name="cbxPhong"
+                    <ComboBox x:Name="cbxPhong"
                               Width="150"
                               Margin="0 5 10 5"
                               IsEditable="true"
