@@ -1,4 +1,4 @@
-﻿using BUS_Clinic.BUS;
+using BUS_Clinic.BUS;
 using DTO_Clinic;
 using DTO_Clinic.Component;
 using DTO_Clinic.Person;

@@ -65,7 +65,22 @@ namespace GUI_Clinic.View
                         itemQLNhanVien.Visibility = Visibility.Visible;
                         btnSetting.Visibility = Visibility.Visible;
                         ListViewMenu.SelectedIndex = 9;
-                        break;
+
+                    ////test
+                    // itemBCDoanhThu.Visibility = Visibility.Visible;
+                    // itemBCSuDungThuoc.Visibility = Visibility.Visible;
+                    // itemDSDonThuoc.Visibility = Visibility.Visible;
+                    // itemQLBenhNhan.Visibility = Visibility.Visible;
+                    // itemQLThuoc.Visibility = Visibility.Visible;
+                    // itemDSKhamBenh.Visibility = Visibility.Visible;
+                    // itemDSKhamChuyenKhoa.Visibility = Visibility.Visible;
+                    // itemQLPKB.Visibility = Visibility.Visible;
+                    // itemQLPKCK.Visibility = Visibility.Visible;
+                    // itemThietLapKhac.Visibility = Visibility.Visible;
+                    // itemQLNhanVien.Visibility = Visibility.Visible;
+                    // btnSetting.Visibility = Visibility.Visible;
+                    // ListViewMenu.SelectedIndex = 0;
+                    break;
                     case 1: //BSDK
                         itemBCDoanhThu.Visibility = Visibility.Collapsed;
                         itemBCSuDungThuoc.Visibility = Visibility.Collapsed;

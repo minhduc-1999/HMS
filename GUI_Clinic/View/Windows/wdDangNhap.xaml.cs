@@ -71,7 +71,7 @@ namespace GUI_Clinic.View.Windows
 
         private async Task InitMainWindowAsync(DTO_NhanVien nhanVien)
         {
-            ObservableCollection<DTO_Group>  ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
+            ObservableCollection<DTO_Group> ListNhom = await BUSManager.GroupBUS.GetListNhomAsync();
             MainWindow mainWindow = new MainWindow(nhanVien, ListNhom);
             mainWindow.Show();
             this.Close();
