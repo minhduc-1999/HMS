@@ -43,6 +43,7 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         #region
         public event EventHandler PatientSigned;
+        public event EventHandler PatientAdded;
         #endregion
         public async Task InitDataAsync()
         {
@@ -104,6 +105,8 @@ namespace GUI_Clinic.View.UserControls
                     MsgBox.Show("Tạo hoá đơn không thành công, vui lòng thử lại", MessageType.Error);
                     return;
                 }
+                wdHoaDon wdHoaDon = new wdHoaDon(hoaDon);
+                wdHoaDon.ShowDialog();
                 var phong = cbxPhong.SelectedItem as DTO_Phong;
                 var phieuKhamDaKhoa = new DTO_PKDaKhoa()
                 {
@@ -172,7 +175,10 @@ namespace GUI_Clinic.View.UserControls
         {
             var wd = sender as wdBenhNhan;
             if (wd.BenhNhan != null)
+            {
                 ListPatient.Add(wd.BenhNhan);
+                PatientAdded?.Invoke(wd.BenhNhan, new EventArgs());
+            }
         }
 
         private void cbxPhong_KeyUp(object sender, KeyEventArgs e)

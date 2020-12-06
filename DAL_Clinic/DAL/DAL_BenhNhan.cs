@@ -106,6 +106,21 @@ namespace DAL_Clinic.DAL
             }
             return res;
         }
-
+        public bool UpdateInfo(DTO_BenhNhan bn)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    context.Entry(bn).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
     }
 }

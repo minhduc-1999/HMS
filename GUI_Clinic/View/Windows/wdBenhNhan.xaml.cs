@@ -47,9 +47,10 @@ namespace GUI_Clinic.View.Windows
         }
         private bool IsHasDifference()
         {
-            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true) 
+            bool rel = BenhNhan.HoTen == tbxHoTen.Text && BenhNhan.GioiTinh == (cbxGioiTinh.SelectedIndex == 0 ? false : true)
                 && tbxDiaChi.Text == BenhNhan.DiaChi && tbxCMND.Text == BenhNhan.SoCMND
-                && tbxSDT.Text == BenhNhan.SoDienThoai && dpkNgaySinh.SelectedDate.Value.ToString("d") == BenhNhan.NgaySinh.ToString("d");
+                && tbxSDT.Text == BenhNhan.SoDienThoai && tbxEmail.Text == BenhNhan.Email
+                && dpkNgaySinh.SelectedDate.Value.ToString("d") == BenhNhan.NgaySinh.ToString("d");
             return !rel;
         }
         private void InitCommand()
@@ -96,7 +97,7 @@ namespace GUI_Clinic.View.Windows
                 {
                     MsgBox.Show(e.Message, MessageType.Error);
                     tbxCMND.Clear();
-                }                
+                }
             });
 
             UpdateCommand = new RelayCommand<Window>((p) =>
@@ -109,20 +110,43 @@ namespace GUI_Clinic.View.Windows
                        string.IsNullOrEmpty(tbxSDT.Text) ||
                        cbxGioiTinh.SelectedIndex == -1 ||
                        !dpkNgaySinh.SelectedDate.HasValue ||
-                       tbxSDT.Text.Length != tbxSDT.MaxLength)
+                       tbxSDT.Text.Length > tbxSDT.MaxLength)
                         return false;
                     if (!IsHasDifference())
                         return false;
                     return true;
                 }, (p) =>
                 {
-                    if (BUSManager.BenhNhanBUS.UpdateInfoBN(BenhNhan, tbxHoTen.Text, tbxDiaChi.Text, Convert.ToBoolean(cbxGioiTinh.SelectedIndex), tbxSDT.Text, dpkNgaySinh.SelectedDate.Value))
+                    var bn = new DTO_BenhNhan()
                     {
-                        MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
-                        this.Close();
+                        MaBenhNhan = BenhNhan.MaBenhNhan,
+                        HoTen = tbxHoTen.Text,
+                        GioiTinh = (cbxGioiTinh.SelectedIndex == 0 ? false : true),
+                        SoDienThoai = tbxSDT.Text,
+                        DiaChi = tbxDiaChi.Text,
+                        SoCMND = tbxCMND.Text,
+                        NgaySinh = dpkNgaySinh.SelectedDate.Value,
+                        Email = tbxEmail.Text
+                    };
+                    try
+                    {
+                        if (BUSManager.BenhNhanBUS.UpdateInfo(bn))
+                        {
+                            MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                            BenhNhan.HoTen = tbxHoTen.Text;
+                            BenhNhan.GioiTinh = (cbxGioiTinh.SelectedIndex == 0 ? false : true);
+                            BenhNhan.SoDienThoai = tbxSDT.Text;
+                            BenhNhan.DiaChi = tbxDiaChi.Text;
+                            BenhNhan.SoCMND = tbxCMND.Text;
+                            BenhNhan.NgaySinh = dpkNgaySinh.SelectedDate.Value;
+                            BenhNhan.Email = tbxEmail.Text;
+                            this.Close();
+                        }
                     }
-                    else
-                        MsgBox.Show("Thông tin bệnh nhân này đã tồn tại", MessageType.Error);
+                    catch (Exception e)
+                    {
+                        MsgBox.Show("Cập nhật thông tin thất bại. Vui lòng thử lại sau.", MessageType.Error);
+                    }
                 });
             CancelCommand = new RelayCommand<Window>((p) =>
             {

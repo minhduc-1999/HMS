@@ -47,25 +47,33 @@
                 <TextBlock Text="HÓA ĐƠN" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#0078D7"/>
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="20">
-                <Grid HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin"
+                                    Value="5" />
+                            <Setter Property="FontSize"
+                                    Value="15" />
+                        </Style>
+                    </Grid.Resources>
                     <StackPanel Grid.Column="0" Margin="10">
-                        <TextBlock x:Name="tblTenBenhNhan" Text="{Binding HoaDon.BenhNhan.HoTen}" 
-                                   FontSize="20" Margin="5"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Ngày khám:" FontSize="12" Margin="5"/>
-                            <TextBlock x:Name="tblNgayKham" Text="{Binding HoaDon.NgayLap}"
-                                       FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                            <TextBlock Text="Họ và tên:"/>
+                            <TextBlock x:Name="tblTenBenhNhan"
+                                       Text="{Binding HoaDon.BenhNhan.HoTen}"/>
+                        </StackPanel>                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ngày khám:"/>
+                            <TextBlock x:Name="tblNgayKham" 
+                                       Text="{Binding HoaDon.NgayLap}"
+                                       FontWeight="DemiBold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Mã bệnh nhân:" FontSize="12" Margin="5"/>
-                            <TextBlock x:Name="tblMaBenhNhan" Text="{Binding HoaDon.BenhNhan.MaBenhNhan}"
-                                FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                            <TextBlock Text="Mã bệnh nhân:" />
+                            <TextBlock x:Name="tblMaBenhNhan"
+                                       Text="{Binding HoaDon.BenhNhan.MaBenhNhan}"
+                                       FontWeight="DemiBold" />
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Họ Tên:" FontSize="12" Margin="5"/>
-                            <TextBlock x:Name="tblHoTen" Text="{Binding HoaDon.Id}"
-                                FontSize="12" Margin="5" FontWeight="DemiBold"/>
-                        </StackPanel>-->
                     </StackPanel>
                 </Grid>
 
@@ -78,54 +86,111 @@
                     <TextBlock Text="SỐ TIỀN (VNĐ)" Grid.Column="1" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right"/>
                 </Grid>
                 <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5"/>
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem>
-                        <Grid HorizontalAlignment="Stretch" Margin="2" Width="480">
+                <Grid>                    
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HoaDon.LoaiHD}"
+                                                 Value="2">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListViewItem>
+                                <Grid HorizontalAlignment="Stretch"
+                                      Margin="2"
+                                      Width="480">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Tiền khám"
+                                               Grid.Column="0" />
+                                    <TextBlock x:Name="tblTienKham"
+                                               Text="{Binding HoaDon.ThanhTien,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right" />
+                                </Grid>
+                            </ListViewItem>                            
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HoaDon.LoaiHD}"
+                                                 Value="2">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">                            
+                            <ListViewItem>
+                                <Grid HorizontalAlignment="Stretch"
+                                      Margin="2"
+                                      Width="480">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Tiền thuốc"
+                                               Grid.Column="0" />
+                                    <TextBlock x:Name="tblTienThuoc"
+                                               Text="{Binding HoaDon.TienThuoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right" />
+                                </Grid>
+                            </ListViewItem>
+                        </ListView>
+                        <Grid Margin="10 10 10 0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Tiền khám" Grid.Column="0"/>
-                            <TextBlock x:Name="tblTienKham" Text="{Binding HoaDon.ThanhTien,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}"
-                                Grid.Column="1" HorizontalAlignment="Right"/>
+                            <TextBlock Text="DANH SÁCH THUỐC"
+                                       Grid.Column="0"
+                                       FontSize="12"
+                                       FontWeight="ExtraLight" />
                         </Grid>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Grid HorizontalAlignment="Stretch" Margin="2" Width="480">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Tiền thuốc" Grid.Column="0"/>
-                            <TextBlock x:Name="tblTienThuoc" Text="{Binding HoaDon.TienThuoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VNĐ}" 
-                                       Grid.Column="1" HorizontalAlignment="Right"/>
-                        </Grid>
-                    </ListViewItem>
-                </ListView>
-                <Grid Margin="10 10 10 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="DANH SÁCH THUỐC" Grid.Column="0" FontSize="12" FontWeight="ExtraLight"/>
-                </Grid>
-                <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5"/>
-                <ListView x:Name="lvDSThuoc"
-                      AlternationCount="2"
-                      ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                        <Rectangle Fill="Black"
+                                   Height="1"
+                                   Margin="5 2"
+                                   Opacity="0.5" />
+                        <ListView x:Name="lvDSThuoc"
+                                  AlternationCount="2"
+                                  ScrollViewer.CanContentScroll="True"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="STT"
+                                                    DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                            <GridViewColumn Header="Thuốc" Width="200" DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
-                            <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
-                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuongDung}"></GridViewColumn>
-                            <GridViewColumn Header="Số tiền" Width="120" DisplayMemberBinding="{Binding SoLanDung}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                                    <GridViewColumn Header="Thuốc"
+                                                    Width="200"
+                                                    DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
+                                    <GridViewColumn Header="Đơn vị"
+                                                    DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                                    <GridViewColumn Header="Số lượng"
+                                                    DisplayMemberBinding="{Binding SoLuongDung}"></GridViewColumn>
+                                    <GridViewColumn Header="Số tiền"
+                                                    Width="120"
+                                                    DisplayMemberBinding="{Binding SoLanDung}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="20 0">
