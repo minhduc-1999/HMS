@@ -47,6 +47,7 @@ namespace GUI_Clinic.View.UserControls
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_CachDung> ListCachDung { get; set; }
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
+        public ObservableCollection<DTO_YeuCau> ListYeuCau { get; set; }
 
         private bool IsSave = false;
         #endregion
@@ -110,7 +111,8 @@ namespace GUI_Clinic.View.UserControls
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
             ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
-           // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
+            // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
+            ListYeuCau = new ObservableCollection<DTO_YeuCau>();
             lvThuoc.ItemsSource = ListCTPKB;
         }
         public void InitCommmand()
@@ -252,7 +254,7 @@ namespace GUI_Clinic.View.UserControls
             tbxTrieuChung.Clear();
             cbxChanDoan.SelectedIndex = -1;
 
-            ListCTPKB.Clear();
+            //ListCTPKB.Clear();
             lvThuoc.ItemsSource = null;
         }
         private static readonly Regex _regex = new Regex(@"([^0-9]+)|\s+", RegexOptions.Singleline); //regex that matches disallowed text
@@ -281,11 +283,20 @@ namespace GUI_Clinic.View.UserControls
             e.Handled = !IsTextAllowed(e.Text);
         }
 
-        private void btnKhamChuyenKhoa_Click(object sender, RoutedEventArgs e)
+
+         private void btnKhamChuyenKhoa_Click(object sender, RoutedEventArgs e)
         {
             wdYeuCauKhamChuyenKhoa wdYeuCau = new wdYeuCauKhamChuyenKhoa();
             wdYeuCau.benhNhan = this.benhNhan;
+            wdYeuCau.Closing += WdYeuCau_Closing;
             wdYeuCau.ShowDialog();
+        }
+
+        private void WdYeuCau_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var wd = sender as wdYeuCauKhamChuyenKhoa;
+            if (wd.yeuCau != null)
+                ListYeuCau.Add(wd.yeuCau);
         }
 
         private void btnXuatDon_Click(object sender, RoutedEventArgs e)

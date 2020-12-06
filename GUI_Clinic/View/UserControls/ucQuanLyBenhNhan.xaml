@@ -71,6 +71,9 @@
                         <ComboBoxItem>
                             Số điện thoại
                         </ComboBoxItem>
+                        <ComboBoxItem>
+                            Số CMND
+                        </ComboBoxItem>
                     </ComboBox>
                     <TextBox x:Name="tbxTimKiem"
                              Margin="5 5 15 3"
@@ -110,6 +113,7 @@
                       Grid.Column="0"
                       Style="{DynamicResource MaterialDesignCardGroupBox}">
                 <ListView x:Name="lvBenhNhan"
+                          ItemsSource="{Binding ListBN, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -167,8 +171,7 @@
                   Margin="5">
                 <GroupBox Header="Lịch sử khám"
                           Style="{DynamicResource MaterialDesignCardGroupBox}">
-                    <ListView ItemsSource="{Binding ListPKB}"
-                              SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
+                    <ListView SelectedItem="{Binding SelectedItem, Mode=OneWay}"
                               x:Name="lvDanhSachPKB"
                               ScrollViewer.CanContentScroll="True"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -180,7 +183,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                                 <GridViewColumn Header="Mã phiếu khám"
-                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                                DisplayMemberBinding="{Binding MaPKDK}"></GridViewColumn>
                                 <GridViewColumn Header="Ngày"
                                                 DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
                                 <GridViewColumn Header="Loại bệnh"

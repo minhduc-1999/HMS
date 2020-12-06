@@ -24,9 +24,8 @@ namespace GUI_Clinic.View.Windows
     public partial class wdYeuCauKhamChuyenKhoa : Window
     {
         #region Property
-        public DTO_BenhNhan benhNhan = new DTO_BenhNhan();
+        public DTO_BenhNhan benhNhan;
         public DTO_YeuCau yeuCau;
-        public ObservableCollection<DTO_YeuCau> ListBNYC { get; set; }
         #endregion
         public wdYeuCauKhamChuyenKhoa()
         {
@@ -36,7 +35,7 @@ namespace GUI_Clinic.View.Windows
         private void btnGuiYeuCau_Click(object sender, RoutedEventArgs e)
         {
             yeuCau = new DTO_YeuCau(benhNhan.MaBenhNhan, benhNhan.HoTen, tbxYeuCauKhamChuyenKhoa.Text);
-            this.ListBNYC.Add(yeuCau);
+            this.Close();
         }
 
         private void btnHuy_Click(object sender, RoutedEventArgs e)

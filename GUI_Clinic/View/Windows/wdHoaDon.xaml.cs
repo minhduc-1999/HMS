@@ -1,20 +1,7 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
 using DTO_Clinic.Form;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.Windows
 {
@@ -29,7 +16,7 @@ namespace GUI_Clinic.View.Windows
             this.DataContext = this;
             BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
             HoaDon = hoaDon;
-        }
+        }        
         #region Property
         public DTO_HoaDon HoaDon { get; set; }
         #endregion
@@ -47,7 +34,6 @@ namespace GUI_Clinic.View.Windows
             }
             finally
             {
-
                 this.IsEnabled = true;
             }
         }

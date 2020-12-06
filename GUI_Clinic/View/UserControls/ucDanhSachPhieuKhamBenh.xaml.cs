@@ -1,6 +1,7 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
 using DTO_Clinic.Person;
+using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
@@ -32,8 +33,9 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
             ucCTPKB.PKBAdded += UcCTPKB_PKBAdded;
-            InitData();
+            InitDataAsync();
             InitCommand();
+          //  lvBenhNhan.ItemsSource = ListDonThuoc;
             //grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
 
@@ -48,6 +50,7 @@ namespace GUI_Clinic.View.UserControls
         //public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
         public CollectionView ViewPKB { get; set; }
+        public ObservableCollection<DTO_PKDaKhoa> ListDonThuoc { get; set; }
         #endregion
         #region Command
         public ICommand TaoPhieuKhamCommand { get; set; }
@@ -55,14 +58,25 @@ namespace GUI_Clinic.View.UserControls
         #region
         public event EventHandler WaitingPatientRemoved;
         #endregion
-        public void InitData()
+        private async Task InitDataAsync()
         {
-            //ListPKB = new ObservableCollection<DTO_PhieuKhamBenh>(BUSManager.PhieuKhamBenhBUS.GetListPKB());
-            //ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
-            //lvDSPKB.ItemsSource = ListPKB;
-            //lvBenhNhan.ItemsSource = ListBNWaiting;
-            //ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKB);
-            //ViewPKB.Filter = PhieuKhamBenhFilter;
+            var loadListBNWaiting = BUSManager.BenhNhanBUS.GetListBNAsync(); //load benh nhan duoc yeu cau kham chuyen khoa tu dau do
+            var initDataTasks = new List<Task> { loadListBNWaiting };
+            while (initDataTasks.Count > 0)
+            {
+                Task finishedTask = await Task.WhenAny(initDataTasks);
+                if (finishedTask == loadListBNWaiting)
+                {
+                    ListBNWaiting = loadListBNWaiting.Result;
+                    lvBenhNhan.ItemsSource = ListBNWaiting;
+                }
+                //else if (finishedTask == loadListThamSo)
+                //{
+                //    ListThamSo = loadListThamSo.Result;
+                //}
+                initDataTasks.Remove(finishedTask);
+
+            }
         }
 
         public void InitCommand()

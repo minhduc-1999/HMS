@@ -74,7 +74,6 @@ namespace DAL_Clinic.DAL
                 {
                     context.HoaDon.Attach(hoaDon);
                     var entry = context.Entry(hoaDon);
-                    //if (!entry.Reference(p => p.Nhom).IsLoaded)
                     entry.Reference(p => p.BenhNhan).Load();
                     return true;
                 }

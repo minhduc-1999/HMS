@@ -52,10 +52,18 @@ namespace BUS_Clinic.BUS
                 return false;
             return true;
         }
-        public bool UpdateInfoBN(DTO_BenhNhan bn, string ten, string diachi, bool gioiTinh, string sdt, DateTime ngaySinh)
+        public bool UpdateInfo(DTO_BenhNhan bn)
         {
             //TODO
-            return true;
+            try
+            {
+                var res = DALManager.BenhNhanDAL.UpdateInfo(bn);
+                return res;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
         }
         public bool LoadNP_DSPKDK(DTO_BenhNhan bn)

@@ -35,7 +35,8 @@ namespace GUI_Clinic.View
             uc_QuanLyThuoc.maDuocSi = currentNV.MaNhanVien;
             uc_DanhSachKhamBenh.CurrentNV = currentNV;
             GetListNhomAsync();
-            uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
+            uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
+            //uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             if (ListNhom != null)
             {
@@ -48,7 +49,6 @@ namespace GUI_Clinic.View
                         break;
                     }
                 }
-
                 switch (index)
                 {
                     case 0: //ADMIN
@@ -65,7 +65,22 @@ namespace GUI_Clinic.View
                         itemQLNhanVien.Visibility = Visibility.Visible;
                         btnSetting.Visibility = Visibility.Visible;
                         ListViewMenu.SelectedIndex = 9;
-                        break;
+
+                    ////test
+                    // itemBCDoanhThu.Visibility = Visibility.Visible;
+                    // itemBCSuDungThuoc.Visibility = Visibility.Visible;
+                    // itemDSDonThuoc.Visibility = Visibility.Visible;
+                    // itemQLBenhNhan.Visibility = Visibility.Visible;
+                    // itemQLThuoc.Visibility = Visibility.Visible;
+                    // itemDSKhamBenh.Visibility = Visibility.Visible;
+                    // itemDSKhamChuyenKhoa.Visibility = Visibility.Visible;
+                    // itemQLPKB.Visibility = Visibility.Visible;
+                    // itemQLPKCK.Visibility = Visibility.Visible;
+                    // itemThietLapKhac.Visibility = Visibility.Visible;
+                    // itemQLNhanVien.Visibility = Visibility.Visible;
+                    // btnSetting.Visibility = Visibility.Visible;
+                    // ListViewMenu.SelectedIndex = 0;
+                    break;
                     case 1: //BSDK
                         itemBCDoanhThu.Visibility = Visibility.Collapsed;
                         itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
@@ -130,6 +145,11 @@ namespace GUI_Clinic.View
                         break;
                 }
             }
+        }
+
+        private void Uc_DanhSachKhamBenh_PatientAdded(object sender, EventArgs e)
+        {
+            uc_QuanLyBenhNhan.ThemBenhNhan(sender as DTO_BenhNhan);
         }
 
         public async Task GetListNhomAsync()

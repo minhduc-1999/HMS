@@ -1,4 +1,5 @@
 ﻿using BUS_Clinic.BUS;
+using DTO_Clinic.Form;
 using DTO_Clinic.Person;
 using GUI_Clinic.View.Windows;
 using System;
@@ -25,9 +26,7 @@ namespace GUI_Clinic.View.UserControls
 
         #region Property                
         public ObservableCollection<DTO_BenhNhan> ListBN { get; set; }
-       // public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
-        private string MaBenhNhanSelected;
-        public DTO_BenhNhan SelectedItem { get; set; }
+        public ObservableCollection<DTO_PKDaKhoa> ListPKDK { get; set; }
         #endregion
         #region Command
 
@@ -35,16 +34,10 @@ namespace GUI_Clinic.View.UserControls
         public async Task InitDataAsync()
         {
             ListBN = await BUSManager.BenhNhanBUS.GetListBNAsync();
-            //ListPKB = BUSManager.PhieuKhamBenhBUS.GetListPKB();
-
             lvBenhNhan.ItemsSource = ListBN;
-            ////lvDanhSachPKB.ItemsSource = ListPKB;
 
-            //CollectionView viewBenhNhan = (CollectionView)CollectionViewSource.GetDefaultView(lvBenhNhan.ItemsSource);
-            //viewBenhNhan.Filter = BenhNhanFilter;
-
-            //CollectionView viewPKB = (CollectionView)CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource);
-            //viewPKB.Filter = PKBFilter;
+            CollectionView viewBenhNhan = (CollectionView)CollectionViewSource.GetDefaultView(lvBenhNhan.ItemsSource);
+            viewBenhNhan.Filter = BenhNhanFilter;
         }
 
         private bool BenhNhanFilter(Object item)
@@ -55,36 +48,20 @@ namespace GUI_Clinic.View.UserControls
             }
             else
             {
-                if (cbxLoaiTiemKiem.SelectedIndex == 0)
+                switch (cbxLoaiTiemKiem.SelectedIndex)
                 {
-                    return ((item as DTO_BenhNhan).HoTen.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-                else if (cbxLoaiTiemKiem.SelectedIndex == 1)
-                {
-                    return ((item as DTO_BenhNhan).DiaChi.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-                else if (cbxLoaiTiemKiem.SelectedIndex == 2)
-                {
-                    return ((item as DTO_BenhNhan).SoDienThoai.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-                else
-                {
-                    return false;
+                    case 0:
+                        return ((item as DTO_BenhNhan).HoTen.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    case 1:
+                        return ((item as DTO_BenhNhan).DiaChi.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    case 2:
+                        return ((item as DTO_BenhNhan).SoDienThoai.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    case 3:
+                        return ((item as DTO_BenhNhan).SoCMND.IndexOf(tbxTimKiem.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    default:
+                        return false;
                 }
             }
-        }
-
-        private bool PKBFilter(Object item)
-        {
-            //if (MaBenhNhanSelected == null)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return (item as DTO_PhieuKhamBenh).MaBenhNhan == MaBenhNhanSelected;
-            //}
-            return true;
         }
 
         private void tbxTimKiem_TextChanged(object sender, TextChangedEventArgs e)
@@ -94,16 +71,13 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvBenhNhan_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var tempMaBenhNhanSelected = lvBenhNhan.SelectedItem;
-            //if (tempMaBenhNhanSelected != null)
-            //{
-            //    MaBenhNhanSelected = (lvBenhNhan.SelectedItem as DTO_BenhNhan).MaBenhNhan;
-            //    CollectionViewSource.GetDefaultView(lvDanhSachPKB.ItemsSource).Refresh();
-            //}
-            //else
-            //{
-            //    return;
-            //}
+            if (lvBenhNhan.SelectedItem != null)
+            {
+                var bn = lvBenhNhan.SelectedItem as DTO_BenhNhan;
+                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(bn);
+                ListPKDK = new ObservableCollection<DTO_PKDaKhoa>(bn.DS_PKDaKhoa);
+                lvDanhSachPKB.ItemsSource = ListPKDK;
+            }
         }
 
         private void lvDanhSachPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -119,13 +93,19 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvBenhNhan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_BenhNhan;
+            //var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_BenhNhan;
+            var item = lvBenhNhan.SelectedItem as DTO_BenhNhan;
             if (item != null)
             {
                 //Mo thong tin benh nhan tuong ung
                 wdBenhNhan benhNhan = new wdBenhNhan(item, wdBenhNhan.Action.Watch);
                 benhNhan.ShowDialog();
             }
+        }
+        public void ThemBenhNhan(DTO_BenhNhan bn)
+        {
+            if (bn != null)
+                ListBN.Add(bn);
         }
     }
 }
