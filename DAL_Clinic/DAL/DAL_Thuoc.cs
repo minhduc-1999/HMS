@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -73,8 +74,8 @@ namespace DAL_Clinic.DAL
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
-                    var list = await context.Thuoc.SqlQuery("select * from THUOC").ToListAsync();
-                    res = new ObservableCollection<DTO_Thuoc>(list);
+                    await context.Thuoc.LoadAsync();
+                    res = new ObservableCollection<DTO_Thuoc>(context.Thuoc.Local);
                 }
                 catch (Exception e)
                 {
@@ -93,7 +94,7 @@ namespace DAL_Clinic.DAL
             }
         }
 
-        public bool CheckIfThuocDaTonTai(DTO_Thuoc thuocMoi)
+        public bool IsThuocDaTonTai(DTO_Thuoc thuocMoi)
         {
             using (var context = new SQLServerDBContext())
             {
@@ -101,17 +102,28 @@ namespace DAL_Clinic.DAL
             }
         }
 
-        public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
+        public bool UpdateInfoThuoc(DTO_Thuoc thuoc, string ten, string congDung, double donGia)
         {
             using (var context = new SQLServerDBContext())
             {
-                var res = context.Thuoc.Where(c => (c.MaThuoc == thuocVuaNhap.MaThuoc) && (c.DonVi == thuocVuaNhap.DonVi)).FirstOrDefault();
+                var item = context.Thuoc.Where(t => t.TenThuoc == ten).FirstOrDefault();
 
-                if (res != null)
+                bool check;
+
+                if (item != null)
+                    check = item.MaThuoc == thuoc.MaThuoc;
+                else
+                    check = true;
+
+                if (check)
                 {
-                    res.SoLuong += thuocVuaNhap.SoLuong;
-                    res.DonGia = thuocVuaNhap.DonGia;
+                    thuoc.TenThuoc = ten;
+                    thuoc.CongDung = congDung;
+                    thuoc.DonGia = donGia;
+                    return true;
                 }
+                else
+                    return false;
             }
         }
     }

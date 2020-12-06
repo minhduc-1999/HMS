@@ -15,7 +15,7 @@ namespace BUS_Clinic.BUS
         }
         public void LoadNP_Thuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {
-            DALManager.CTPhieuNhapThuocDAL.LoadNP_PhieuNhapThuoc(cTPhieuNhapThuoc);
+            DALManager.CTPhieuNhapThuocDAL.LoadNP_Thuoc(cTPhieuNhapThuoc);
         }
         public void LoadNP_PhieuNhapThuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {

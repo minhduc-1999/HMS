@@ -33,7 +33,7 @@ namespace BUS_Clinic.BUS
 
         public bool IsThuocDaTonTai(DTO_Thuoc thuocMoi)
         {
-            return DALManager.ThuocDAL.CheckIfThuocDaTonTai(thuocMoi);
+            return DALManager.ThuocDAL.IsThuocDaTonTai(thuocMoi);
         }
 
         //public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
@@ -66,25 +66,10 @@ namespace BUS_Clinic.BUS
 
         //    return false;
         //}
-        //public bool UpdateInfoThuoc(DTO_Thuoc thuoc, string ten, string congDung, double donGia)
-        //{
-        //    var list = DALManager.ThuocDAL.GetListThuoc();
-        //    var item = list.Where(x => x.TenThuoc == ten).FirstOrDefault();
-        //    bool check;
-        //    if (item != null)
-        //        check = item.MaThuoc == thuoc.MaThuoc;
-        //    else
-        //        check = true;
-        //    if (check)
-        //    {
-        //        thuoc.TenThuoc = ten;
-        //        thuoc.CongDung = congDung;
-        //        thuoc.DonGia = donGia;
-        //        return true;
-        //    }
-        //    else
-        //        return false;
-        //}
+        public bool UpdateInfoThuoc(DTO_Thuoc thuoc, string ten, string congDung, double donGia)
+        {
+            return DALManager.ThuocDAL.UpdateInfoThuoc(thuoc, ten, congDung, donGia);
+        }
 
     }
 }

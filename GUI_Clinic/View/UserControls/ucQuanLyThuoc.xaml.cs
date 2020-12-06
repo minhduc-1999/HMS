@@ -68,6 +68,10 @@ namespace GUI_Clinic.View.UserControls
             {
                 BUSManager.PhieuNhapThuocBUS.LoadNP_NhanVien(item);
             }
+            foreach (DTO_CTPhieuNhapThuoc item in ListCTPNT)
+            {
+                BUSManager.CTPhieuNhapThuocBUS.LoadNP_Thuoc(item);
+            }
 
             lvThuoc.ItemsSource = ListThuoc;
             lvPhieuNhapThuoc.ItemsSource = ListPNT;
@@ -137,14 +141,24 @@ namespace GUI_Clinic.View.UserControls
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {
             wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi);
+            wd.Closing += Wd_Closing;
+
             wd.ShowDialog();
 
-            wd.Closing += Wd_Closing;
         }
 
-        private void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            InitDataAsync();
+            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            //ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
+            //ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
+
+            lvThuoc.ItemsSource = null;
+            lvThuoc.ItemsSource = ListThuoc;
+            lvThuoc.SelectedIndex = 0;
+            //CollectionViewSource.GetDefaultView(lvThuoc.ItemsSource).Refresh();
+            //lvPhieuNhapThuoc.ItemsSource = ListPNT;
+            //lvCTPhieuNhapThuoc.ItemsSource = ListCTPNT;
         }
 
         private void lvThuoc_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -153,8 +167,8 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 //Mo Thong tin thuoc tuong ung
-                //wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
-                //wdInfo.ShowDialog();
+                wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
+                wdInfo.ShowDialog();
             }
         }
     }
