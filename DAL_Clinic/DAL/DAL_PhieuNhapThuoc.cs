@@ -1,6 +1,7 @@
 ﻿using DTO_Clinic.Form;
 using System;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -97,8 +98,8 @@ namespace DAL_Clinic.DAL
             {
                 try
                 {
-                    var list = await context.PhieuNhapThuoc.SqlQuery("select * from PHIEUNHAPTHUOC").ToListAsync();
-                    res = new ObservableCollection<DTO_PhieuNhapThuoc>(list);
+                    await context.PhieuNhapThuoc.LoadAsync();
+                    res = new ObservableCollection<DTO_PhieuNhapThuoc>(context.PhieuNhapThuoc.Local);
                 }
                 catch (Exception e)
                 {

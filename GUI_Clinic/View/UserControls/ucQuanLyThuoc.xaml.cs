@@ -49,17 +49,8 @@ namespace GUI_Clinic.View.UserControls
 
         #endregion
 
-        private async Task InitDataAsync()
+        private async void InitDataAsync()
         {
-            //thuoc = new DTO_Thuoc("thuoc ngu", 2, 50000, 10, "ngu");
-            //BUSManager.ThuocBUS.AddThuoc(thuoc);
-
-            //phieuNhapThuoc = new DTO_PhieuNhapThuoc(Convert.ToDateTime("06/06/2020"), 500000000);
-            //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuoc(phieuNhapThuoc);
-
-            //cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(0, 0, 12, 500);
-            //BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
-
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
             ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
@@ -140,25 +131,8 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {
-            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi);
-            wd.Closing += Wd_Closing;
-
+            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi, ListThuoc, ListPNT, ListCTPNT);
             wd.ShowDialog();
-
-        }
-
-        private async void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
-            //ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
-            //ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
-
-            lvThuoc.ItemsSource = null;
-            lvThuoc.ItemsSource = ListThuoc;
-            lvThuoc.SelectedIndex = 0;
-            //CollectionViewSource.GetDefaultView(lvThuoc.ItemsSource).Refresh();
-            //lvPhieuNhapThuoc.ItemsSource = ListPNT;
-            //lvCTPhieuNhapThuoc.ItemsSource = ListCTPNT;
         }
 
         private void lvThuoc_MouseDoubleClick(object sender, MouseButtonEventArgs e)

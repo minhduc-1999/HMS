@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace BUS_Clinic.BUS
 {
@@ -34,6 +35,25 @@ namespace BUS_Clinic.BUS
         public bool IsThuocDaTonTai(DTO_Thuoc thuocMoi)
         {
             return DALManager.ThuocDAL.IsThuocDaTonTai(thuocMoi);
+        }
+
+        public void UpdateListThuoc(ObservableCollection<DTO_Thuoc> thuocHienThi, ObservableCollection<DTO_Thuoc> thuocMoi)
+        {
+            foreach (var item in thuocMoi)
+            {
+                bool has = IsThuocDaTonTai(item);
+
+                if (has)
+                {
+                    var kq = thuocHienThi.Where(t => t.TenThuoc == item.TenThuoc).FirstOrDefault();
+                    kq.SoLuong += item.SoLuong;
+                    kq.DonGia = item.DonGia;
+                }
+                else
+                {
+                    thuocHienThi.Add(item);
+                }
+            }
         }
 
         //public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)

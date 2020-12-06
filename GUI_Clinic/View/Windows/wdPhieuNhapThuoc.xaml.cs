@@ -28,25 +28,30 @@ namespace GUI_Clinic.View.Windows
             InitCommand();
         }
 
-        public wdPhieuNhapThuoc(string maDuocSi)
+        public wdPhieuNhapThuoc(string maDuocSi, ObservableCollection<DTO_Thuoc> listThuoc, ObservableCollection<DTO_PhieuNhapThuoc> listPNT, ObservableCollection<DTO_CTPhieuNhapThuoc> listCTPNT)
         {
             InitializeComponent();
             this.DataContext = this;
             _ = InitDataAsync();
             InitCommand();
             maDuocSiNhapThuoc = maDuocSi;
+            ListThuoc = listThuoc;
+            ListPNT = listPNT;
+            ListCTPNT = listCTPNT;
         }
 
         #region Property
         public int SoLuong { get; set; }
         public double DonGia { get; set; }
         public string maDuocSiNhapThuoc { get; set; }
+        public DTO_PhieuNhapThuoc phieuNhapThuoc { get; set; }
         //public List<int> ListSTT { get; set; }
         //public string TenThuocMoi { get; set; }
         //public string CongDungThuocMoi { get; set; }
         public DateTime NgayNhapThuoc { get; set; }
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_PhieuNhapThuoc> ListPNT { get; set; }
+        public ObservableCollection<DTO_CTPhieuNhapThuoc> ListCTPNT { get; set; }
         public List<string> ListDonViGroupWithThuoc { get; set; }
         public ObservableCollection<DTO_Thuoc> List { get; set; }
         #endregion
@@ -59,10 +64,10 @@ namespace GUI_Clinic.View.Windows
         {
             NgayNhapThuoc = DateTime.Now;
 
-            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            //ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             cbxTenThuoc.ItemsSource = ListThuoc;
 
-            ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
+            //ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
 
             //foreach (DTO_Thuoc item in ListThuoc)
             //{
@@ -117,8 +122,6 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.DonGia = DonGia;
 
                     List.Add(themThuoc);
-                    
-                    //ListDonViGroupWithThuoc = null;
 
                     cbxTenThuoc.SelectedIndex = -1;
                     cbxDonVi.SelectedIndex = -1;
@@ -157,30 +160,12 @@ namespace GUI_Clinic.View.Windows
         {            
             if (List.Count != 0)
             {
-                DTO_PhieuNhapThuoc phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, maDuocSiNhapThuoc, 0);
-                //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuocAsync(phieuNhapThuoc, ListPNT);
-                //string tempID = phieuNhapThuoc.MaPNT;
+                phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, maDuocSiNhapThuoc, 0);
 
-                //foreach (DTO_Thuoc item in List)
-                //{
-                //    if (!BUSManager.ThuocBUS.CheckIfThuocDaTonTai(item))
-                //    {
-                //        BUSManager.ThuocBUS.AddThuocAsync(item, ListThuoc);
-                //    }
-                //    else
-                //    {
-                //        BUSManager.ThuocBUS.UpdateThuocVuaNhap(item);
-                //    }
+                BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc, ListPNT, ListCTPNT);
 
-                //    DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
-                //    BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
-                //}
-
-                //BUSManager.PhieuNhapThuocBUS.TinhTongTien(phieuNhapThuoc);
-
-                //BUSManager.PhieuNhapThuocBUS.SaveChange();
-
-                BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc);
+                BUSManager.ThuocBUS.UpdateListThuoc(ListThuoc, List);
+                //ListPNT.Add(phieuNhapThuoc);
 
                 Close();
             }
@@ -194,8 +179,6 @@ namespace GUI_Clinic.View.Windows
         {
             cbxTenThuoc.Visibility = Visibility.Hidden;
             cbxDonVi.Visibility = Visibility.Hidden;
-            //tbxTenThuocMoi.Visibility = Visibility.Visible;
-            //tbxDonViThuocMoi.Visibility = Visibility.Visible;
             stpnlThuocMoi.Visibility = Visibility.Visible;
             tbxCongDungThuocMoi.Visibility = Visibility.Visible;
         }
@@ -204,8 +187,6 @@ namespace GUI_Clinic.View.Windows
         {
             cbxTenThuoc.Visibility = Visibility.Visible;
             cbxDonVi.Visibility = Visibility.Visible;
-            //tbxTenThuocMoi.Visibility = Visibility.Hidden;
-            //tbxDonViThuocMoi.Visibility = Visibility.Hidden;
             stpnlThuocMoi.Visibility = Visibility.Hidden;
             tbxCongDungThuocMoi.Visibility = Visibility.Collapsed;
         }
