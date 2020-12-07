@@ -26,7 +26,7 @@ namespace DTO_Clinic.Form
         public virtual DTO_BenhNhan BenhNhan { get; set; }
         public virtual DTO_DonThuoc DonThuoc { get; set; }
         public virtual ICollection<DTO_PKChuyenKhoa> DS_PKhamChuyenKhoa { get; set; }
-        public DTO_PKDaKhoa() : base() { }
+        public DTO_PKDaKhoa() : base() { _isDeleted = false; }
         public DTO_PKDaKhoa(string maBenhNhan, DateTime ngayKham, string maBenh, string trieuChung)
         {
             MaBenhNhan = maBenhNhan;

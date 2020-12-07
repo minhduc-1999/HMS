@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL_Clinic.DAL

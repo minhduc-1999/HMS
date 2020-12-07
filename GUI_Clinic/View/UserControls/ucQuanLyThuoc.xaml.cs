@@ -49,17 +49,8 @@ namespace GUI_Clinic.View.UserControls
 
         #endregion
 
-        private async Task InitDataAsync()
+        private async void InitDataAsync()
         {
-            //thuoc = new DTO_Thuoc("thuoc ngu", 2, 50000, 10, "ngu");
-            //BUSManager.ThuocBUS.AddThuoc(thuoc);
-
-            //phieuNhapThuoc = new DTO_PhieuNhapThuoc(Convert.ToDateTime("06/06/2020"), 500000000);
-            //BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuoc(phieuNhapThuoc);
-
-            //cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(0, 0, 12, 500);
-            //BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
-
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
             ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
@@ -67,6 +58,10 @@ namespace GUI_Clinic.View.UserControls
             foreach (DTO_PhieuNhapThuoc item in ListPNT)
             {
                 BUSManager.PhieuNhapThuocBUS.LoadNP_NhanVien(item);
+            }
+            foreach (DTO_CTPhieuNhapThuoc item in ListCTPNT)
+            {
+                BUSManager.CTPhieuNhapThuocBUS.LoadNP_Thuoc(item);
             }
 
             lvThuoc.ItemsSource = ListThuoc;
@@ -136,15 +131,8 @@ namespace GUI_Clinic.View.UserControls
 
         private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {
-            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi);
+            wdPhieuNhapThuoc wd = new wdPhieuNhapThuoc(maDuocSi, ListThuoc, ListPNT, ListCTPNT);
             wd.ShowDialog();
-
-            wd.Closing += Wd_Closing;
-        }
-
-        private void Wd_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            InitDataAsync();
         }
 
         private void lvThuoc_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -153,8 +141,8 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 //Mo Thong tin thuoc tuong ung
-                //wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
-                //wdInfo.ShowDialog();
+                wdThongTinThuoc wdInfo = new wdThongTinThuoc(item);
+                wdInfo.ShowDialog();
             }
         }
     }

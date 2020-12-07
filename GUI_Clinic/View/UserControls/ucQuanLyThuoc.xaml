@@ -104,7 +104,6 @@
                         <GroupBox Header="Thuốc trong kho"
                                   Style="{DynamicResource MaterialDesignCardGroupBox}">
                             <ListView x:Name="lvThuoc"
-                                      SelectedItem="{Binding SlectedItem, Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True"
                                       MouseDoubleClick="lvThuoc_MouseDoubleClick"
                                       ScrollViewer.VerticalScrollBarVisibility="Auto">

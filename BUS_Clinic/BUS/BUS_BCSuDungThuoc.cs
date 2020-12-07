@@ -6,9 +6,9 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_BCSuDungThuoc : BaseBUS
     {
-        public void AddBCSuDungThuoc(DTO_BCSudungThuoc bCSudungThuoc)
+        public async void AddBCSuDungThuoc(DTO_BCSudungThuoc bCSudungThuoc)
         {
-            ObservableCollection<DTO_BCSudungThuoc> ListBCSDT = GetListBCSuDungThuoc();
+            ObservableCollection<DTO_BCSudungThuoc> ListBCSDT = await GetListBCSuDungThuocAsync();
             //bool flag = true;
             foreach (DTO_BCSudungThuoc item in ListBCSDT)
             {
@@ -22,9 +22,9 @@ namespace BUS_Clinic.BUS
             bCSudungThuoc.SoLanDung++;
             DALManager.BCSuDungThuocDAL.AddBCSuDungThuoc(bCSudungThuoc);
         }
-        public ObservableCollection<DTO_BCSudungThuoc> GetListBCSuDungThuoc()
+        public async System.Threading.Tasks.Task<ObservableCollection<DTO_BCSudungThuoc>> GetListBCSuDungThuocAsync()
         {
-            return DALManager.BCSuDungThuocDAL.GetListBCSuDungThuoc();
+            return await DALManager.BCSuDungThuocDAL.GetListBCSuDungThuocAsync();
         }
     }
 }

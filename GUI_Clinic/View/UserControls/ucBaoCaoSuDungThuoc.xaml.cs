@@ -32,7 +32,7 @@ namespace GUI_Clinic.View.UserControls
             InitializeComponent();
             this.DataContext = this;
 
-            InitData();
+            InitDataAsync();
             InitCommand();
         }
 
@@ -48,7 +48,7 @@ namespace GUI_Clinic.View.UserControls
         public ICommand InBaoCaoCommand { get; set; }
         #endregion
 
-        public void InitData()
+        public async void InitDataAsync()
         {
             ListThang = Enumerable.Range(1, 12).ToList();
             cbxThang.ItemsSource = ListThang;
@@ -57,7 +57,7 @@ namespace GUI_Clinic.View.UserControls
             cbxNam.ItemsSource = ListNam;
             cbxNam.SelectedIndex = DateTime.Now.Year - 1950;
 
-            ListBCSDT = BUSManager.BCSuDungThuocBUS.GetListBCSuDungThuoc();
+            ListBCSDT = await BUSManager.BCSuDungThuocBUS.GetListBCSuDungThuocAsync();
             lvBCSDT.ItemsSource = ListBCSDT;
         }
 

@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using DTO_Clinic.Form;
 using System.Windows.Data;
+using GUI_Clinic.View.Windows;
+using DTO_Clinic.Person;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -16,6 +18,7 @@ namespace GUI_Clinic.View.UserControls
     /// </summary>
     public partial class ucBaoCaoDoanhThu : UserControl
     {
+        public DTO_NhanVien CurrentNhanVien { get; set; }
         public ucBaoCaoDoanhThu()
         {
             InitializeComponent();
@@ -101,8 +104,8 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                //wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(BCDoanhThu);
-                //baoCaoDoanhThu.ShowDialog();
+                wdInBaoCaoDoanhThu baoCaoDoanhThu = new wdInBaoCaoDoanhThu(BCDoanhThu, CurrentNhanVien);
+                baoCaoDoanhThu.ShowDialog();
             });
         }
     }

@@ -15,7 +15,7 @@ namespace BUS_Clinic.BUS
         }
         public void LoadNP_Thuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {
-            DALManager.CTPhieuNhapThuocDAL.LoadNP_PhieuNhapThuoc(cTPhieuNhapThuoc);
+            DALManager.CTPhieuNhapThuocDAL.LoadNP_Thuoc(cTPhieuNhapThuoc);
         }
         public void LoadNP_PhieuNhapThuoc(DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc)
         {
@@ -27,29 +27,36 @@ namespace BUS_Clinic.BUS
             return await DALManager.CTPhieuNhapThuocDAL.GetListCTPNTAsync();
         }
 
-        public async Task AddCTPhieuNhapThuocAsync(ObservableCollection<DTO_Thuoc> listThuoc, DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task AddCTPhieuNhapThuocAsync(ObservableCollection<DTO_Thuoc> listThuoc, DTO_PhieuNhapThuoc phieuNhapThuoc, ObservableCollection<DTO_PhieuNhapThuoc> listPNT, ObservableCollection<DTO_CTPhieuNhapThuoc> listCTPNT)
         {
-            string tempID = await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
+            string tempID = await BUSManager.PhieuNhapThuocBUS.AddPhieuNhapThuocAsync(phieuNhapThuoc);
 
             if (tempID == null)
                 return;
+
+            phieuNhapThuoc.MaPNT = tempID;
 
             foreach (DTO_Thuoc item in listThuoc)
             {
                 DTO_CTPhieuNhapThuoc cTPhieuNhapThuoc;
                 if (!BUSManager.ThuocBUS.IsThuocDaTonTai(item))
                 {
-                    string thuocID = await BUSManager.ThuocBUS.AddThuocAsync(item);
+                    item.MaThuoc = await BUSManager.ThuocBUS.AddThuocAsync(item);
 
-                    cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, thuocID, item.SoLuong, item.DonGia);
+                    cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                 }
                 else
                 {
                     cTPhieuNhapThuoc = new DTO_CTPhieuNhapThuoc(tempID, item.MaThuoc, item.SoLuong, item.DonGia);
                 }
-
                 DALManager.CTPhieuNhapThuocDAL.AddCTPhieuNhapThuoc(cTPhieuNhapThuoc);
+
+                LoadNP_Thuoc(cTPhieuNhapThuoc);
+                listCTPNT.Add(cTPhieuNhapThuoc);
             }
+
+
+            BUSManager.PhieuNhapThuocBUS.UpdatePNT(listPNT, phieuNhapThuoc, listCTPNT);
         }
     }
 }

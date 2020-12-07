@@ -56,30 +56,30 @@ namespace GUI_Clinic.View.Windows
                 return true;
             }, (p) =>
             {
-                //if (BUSManager.ThuocBUS.UpdateInfoThuoc(Thuoc, tbxTenThuoc.Text, tbxCongDung.Text, Convert.ToDouble(tbxDonGia.Text)))
-                //{
-                //    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
-                //    this.Close();
-                //}
-                //else
-                //    MsgBox.Show("Tên thuốc này đã tồn tại", MessageType.Error);
+                if (BUSManager.ThuocBUS.UpdateInfoThuoc(Thuoc, tbxTenThuoc.Text, tbxCongDung.Text, Convert.ToDouble(tbxDonGia.Text)))
+                {
+                    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                    Close();
+                }
+                else
+                    MsgBox.Show("Tên thuốc này đã tồn tại", MessageType.Error);
             });
             CancelCommand = new RelayCommand<Window>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                this.Close();
+                Close();
             });
         }
         private void btnShutdown_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
         private void tbx_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

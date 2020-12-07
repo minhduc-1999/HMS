@@ -1,19 +1,10 @@
 ﻿using BUS_Clinic.BUS;
-using DTO_Clinic;
 using DTO_Clinic.Form;
-using System;
+using DTO_Clinic.Person;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.Windows
 {
@@ -22,14 +13,15 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdInBaoCaoDoanhThu : Window
     {
+        public DTO_NhanVien NguoiTao { get; set; }
         private ICollection<DTO_CTBaoCaoDoanhThu> ListCTBCDT { get; set; }
-        private int TongSoBenhNhan { get; set; }
-        public wdInBaoCaoDoanhThu(DTO_BCDoanhThu bCDoanhThu)
+        public wdInBaoCaoDoanhThu(DTO_BCDoanhThu bCDoanhThu, DTO_NhanVien nv)
         {
             InitializeComponent();
             this.DataContext = this;
             BUSManager.BCDoanhThuBUS.LoadNPCTBaoCaoDoanhThu(bCDoanhThu);
             ListCTBCDT = bCDoanhThu.DS_CTBaoCaoDoanhThu;
+            NguoiTao = nv;
 
             lvTongHop.ItemsSource = new List<DTO_BCDoanhThu>() { bCDoanhThu };
             lvCTBCDT.ItemsSource = ListCTBCDT;
@@ -54,7 +46,6 @@ namespace GUI_Clinic.View.Windows
             }
             finally
             {
-
                 this.IsEnabled = true;
             }
         }

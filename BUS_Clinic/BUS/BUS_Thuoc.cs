@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace BUS_Clinic.BUS
 {
@@ -33,7 +34,26 @@ namespace BUS_Clinic.BUS
 
         public bool IsThuocDaTonTai(DTO_Thuoc thuocMoi)
         {
-            return DALManager.ThuocDAL.CheckIfThuocDaTonTai(thuocMoi);
+            return DALManager.ThuocDAL.IsThuocDaTonTai(thuocMoi);
+        }
+
+        public void UpdateListThuoc(ObservableCollection<DTO_Thuoc> thuocHienThi, ObservableCollection<DTO_Thuoc> thuocMoi)
+        {
+            foreach (var item in thuocMoi)
+            {
+                bool has = IsThuocDaTonTai(item);
+
+                if (has)
+                {
+                    var kq = thuocHienThi.Where(t => t.TenThuoc == item.TenThuoc).FirstOrDefault();
+                    kq.SoLuong += item.SoLuong;
+                    kq.DonGia = item.DonGia;
+                }
+                else
+                {
+                    thuocHienThi.Add(item);
+                }
+            }
         }
 
         //public void UpdateThuocVuaNhap(DTO_Thuoc thuocVuaNhap)
@@ -66,25 +86,10 @@ namespace BUS_Clinic.BUS
 
         //    return false;
         //}
-        //public bool UpdateInfoThuoc(DTO_Thuoc thuoc, string ten, string congDung, double donGia)
-        //{
-        //    var list = DALManager.ThuocDAL.GetListThuoc();
-        //    var item = list.Where(x => x.TenThuoc == ten).FirstOrDefault();
-        //    bool check;
-        //    if (item != null)
-        //        check = item.MaThuoc == thuoc.MaThuoc;
-        //    else
-        //        check = true;
-        //    if (check)
-        //    {
-        //        thuoc.TenThuoc = ten;
-        //        thuoc.CongDung = congDung;
-        //        thuoc.DonGia = donGia;
-        //        return true;
-        //    }
-        //    else
-        //        return false;
-        //}
+        public bool UpdateInfoThuoc(DTO_Thuoc thuoc, string ten, string congDung, double donGia)
+        {
+            return DALManager.ThuocDAL.UpdateInfoThuoc(thuoc, ten, congDung, donGia);
+        }
 
     }
 }

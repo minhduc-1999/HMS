@@ -55,5 +55,9 @@ namespace BUS_Clinic.BUS
         {
             return DALManager.PKDaKhoaDAL.GetAmountByDate(dt);
         }
+        public bool IsSigned(DTO_BenhNhan bn)
+        {
+            return DALManager.PKDaKhoaDAL.isSigned(bn);
+        }
     }
 }

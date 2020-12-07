@@ -23,10 +23,22 @@ namespace BUS_Clinic.BUS
         {
             return DALManager.PhieuNhapThuocDAL.LoadNP_NhanVien(phieuNhapThuoc);
         }
-        public async Task AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
+        public async Task<string> AddPhieuNhapThuocAsync(DTO_PhieuNhapThuoc phieuNhapThuoc)
         {
-            await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
-            
+            return await DALManager.PhieuNhapThuocDAL.AddPhieuNhapThuocAsync(phieuNhapThuoc);
+        }
+        public void UpdatePNT(ObservableCollection<DTO_PhieuNhapThuoc> listPNT, DTO_PhieuNhapThuoc phieuNhapThuoc, ObservableCollection<DTO_CTPhieuNhapThuoc> listCTPNT)
+        {
+            List<double> kq = listCTPNT.Where(c => c.MaPNT == phieuNhapThuoc.MaPNT).Select(c => c.ThanhTien).ToList<double>();
+
+            foreach (var item in kq)
+            {
+                phieuNhapThuoc.TongTien += item;
+            }
+
+            LoadNP_NhanVien(phieuNhapThuoc);
+
+            listPNT.Add(phieuNhapThuoc);
         }
         //public void TransferTongTien(DTO_PhieuNhapThuoc phieuNhapThuoc)
         //{

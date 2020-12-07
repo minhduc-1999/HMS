@@ -16,65 +16,99 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         BorderBrush="#0078D7"
         BorderThickness="2"
-        Title="wdInBaoCaoDoanhThu" Height="842" Width="595" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None">
+        Title="wdInBaoCaoDoanhThu"
+        Height="842"
+        Width="595"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStyle="None">
     <Window.Resources>
-        <cvt:IndexConverter x:Key="IndexConverter"/>
+        <cvt:IndexConverter x:Key="IndexConverter" />
     </Window.Resources>
     <Grid>
 
         <Button x:Name="btnThoat"
                 Click="btnThoat_Click"
-                HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top">
-            <materialDesign:PackIcon Kind="Close"/>
+                HorizontalAlignment="Right"
+                Margin="10"
+                VerticalAlignment="Top">
+            <materialDesign:PackIcon Kind="Close" />
         </Button>
         <Button x:Name="btnIn"
                 Click="btnIn_Click"
-                HorizontalAlignment="Right" Margin="10 10 70 10" VerticalAlignment="Top">
-            <materialDesign:PackIcon Kind="Printer"/>
+                HorizontalAlignment="Right"
+                Margin="10 10 70 10"
+                VerticalAlignment="Top">
+            <materialDesign:PackIcon Kind="Printer" />
         </Button>
 
         <Grid x:Name="grdMain">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Grid x:Name="grdTieuDe" Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <Grid x:Name="grdTieuDe"
+                  Grid.Row="0"
+                  MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Image Margin="20"
-                   Grid.Column="0"
-                   Width="120"
-                   Height="120"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Source="/GUI_Clinic;component/Icons/clinic_120px_Blue.png"/>
-
-                <TextBlock x:Name="tblTitle" 
-                           Grid.Column="1"
-                           Margin="20 10"
-                           HorizontalAlignment="Left" 
-                           Text="Báo cáo doanh thu"
-                           VerticalAlignment="Center"
-                           FontSize="35"
-                           FontWeight="Bold" 
-                           Foreground="#0078D7"/>
+                       Grid.Column="0"
+                       Width="120"
+                       Height="120"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Source="/GUI_Clinic;component/Icons/clinic_120px_Blue.png" />
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center"></Setter>
+                            <Setter Property="FontSize"
+                                    Value="16"></Setter>
+                            <Setter Property="FontWeight"
+                                    Value="Bold" />
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Right" />
+                        </Style>
+                    </Grid.Resources>
+                    <TextBlock x:Name="tblTitle"
+                               HorizontalAlignment="Left"
+                               Text="Báo cáo doanh thu"
+                               VerticalAlignment="Bottom"
+                               FontSize="35"
+                               FontWeight="Bold"
+                               Foreground="#0078D7" />
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Người tạo: " />
+                        <TextBlock FontWeight="Normal"
+                            Text="{Binding NguoiTao.HoTen}" />
+                    </StackPanel>
+                </Grid>
+                
             </Grid>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0"
-                           HorizontalAlignment="Left" 
+                           HorizontalAlignment="Left"
                            Text="Báo cáo doanh thu tháng "
                            Foreground="Black"
                            FontWeight="Bold"
@@ -97,39 +131,44 @@
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                        <GridViewColumn Header="STT"
+                                        DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                        <GridViewColumn Header="Ngày" >
+                        <GridViewColumn Header="Ngày">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock>
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0}/{1}/{2}">
                                                 <Binding Path="Ngay" />
-                                                <Binding Path="Thang"/>
-                                                <Binding Path="Nam"/>
+                                                <Binding Path="Thang" />
+                                                <Binding Path="Nam" />
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Số bệnh nhân" DisplayMemberBinding="{Binding SoBenhNhan}"></GridViewColumn>
-                        <GridViewColumn Header="Doanh thu" Width="150" DisplayMemberBinding="{Binding DoanhThu, StringFormat={}{0} VNĐ}"></GridViewColumn>
-                        <GridViewColumn Header="Tỷ lệ" DisplayMemberBinding="{Binding TyLe, StringFormat={}{0:F2}%}"></GridViewColumn>
+                        <GridViewColumn Header="Số bệnh nhân"
+                                        DisplayMemberBinding="{Binding SoBenhNhan}"></GridViewColumn>
+                        <GridViewColumn Header="Doanh thu"
+                                        Width="150"
+                                        DisplayMemberBinding="{Binding DoanhThu,StringFormat={}{0:N0} VNĐ}"></GridViewColumn>
+                        <GridViewColumn Header="Tỷ lệ"
+                                        DisplayMemberBinding="{Binding TyLe, StringFormat={}{0:F2}%}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
 
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0"
-                           HorizontalAlignment="Left" 
+                           HorizontalAlignment="Left"
                            Text="Tổng hợp"
                            Foreground="Black"
                            FontWeight="Bold"
@@ -144,8 +183,11 @@
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tổng số bệnh nhân" DisplayMemberBinding="{Binding TongBenhNhan}" Width="287"></GridViewColumn>
-                        <GridViewColumn Header="Tổng doanh thu" DisplayMemberBinding="{Binding TongDoanhThu, StringFormat={}{0} VNĐ}"></GridViewColumn>
+                        <GridViewColumn Header="Tổng số bệnh nhân"
+                                        DisplayMemberBinding="{Binding TongBenhNhan}"
+                                        Width="287"></GridViewColumn>
+                        <GridViewColumn Header="Tổng doanh thu"
+                                        DisplayMemberBinding="{Binding TongDoanhThu,StringFormat={}{0:N0} VNĐ}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
