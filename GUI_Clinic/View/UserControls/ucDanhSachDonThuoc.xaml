@@ -30,17 +30,21 @@
         </Grid>
         <!--Cac element binding tu selected item-->
         <Grid x:Name="grdPhieuKhamBenh" Grid.Row="1">
-            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
                 <materialDesign:Card Margin="10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto" ></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid>
-                            <TextBlock x:Name="tblPhieuKhamBenh"
-                                        Grid.Row="0"
-                                        Text="Chi tiết đơn thuốc"
+                            <TextBlock Grid.Row="0"
+                                        Text="Thanh toán đơn thuốc"
                                         Foreground="Gray"
                                         FontWeight="Bold"
                                         FontSize="25"
@@ -146,6 +150,87 @@
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <Button x:Name="btnXoa"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                                                        ToolTip="Xóa"
+                                                        Background="#0078D7"
+                                                        BorderBrush="#0078D7"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Click="RemoveCategory">
+                                                                    <materialDesign:PackIcon Kind="Minus"
+                                                                                Height="15" Width="15" />
+                                                                </Button>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Button Command="{Binding }"
+                                    Content="Thanh toán"
+                                    Width="155"
+                                    Margin="0 0 10 5"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="#0078D7"
+                                    BorderBrush="#0078D7"></Button>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <Grid Grid.Column="1">
+                <materialDesign:Card Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <TextBlock  Grid.Row="0"
+                                        Text="Chi tiết đơn thuốc"
+                                        Foreground="Gray"
+                                        FontWeight="Bold"
+                                        FontSize="25"
+                                        Margin="10 12 10 8"
+                                        HorizontalAlignment="Left" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <GroupBox Header="Đơn thuốc"
+                                            Margin="5 10 10 10">
+                                    <Grid>
+                                        <ListView
+                                    ScrollViewer.CanContentScroll="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
+                                                                                {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
+                                                                                Converter={StaticResource IndexConverter}}"></GridViewColumn>
+                                                    <GridViewColumn Header="Mã thuốc"
+                                                        DisplayMemberBinding="{Binding MaThuoc}"></GridViewColumn>
+                                                    <GridViewColumn Header="Tên thuốc"
+                                                        DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
+                                                    <GridViewColumn Header="Số lượng"
+                                                        DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
+                                                    <GridViewColumn Header="Đơn vị"
+                                                        DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                                                    <GridViewColumn Header="Cách dùng"
+                                                        DisplayMemberBinding="{Binding CachDung}"></GridViewColumn>
+                                                    <GridViewColumn Header="" Width="40">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button
                                                         CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
                                                         ToolTip="Xóa"
