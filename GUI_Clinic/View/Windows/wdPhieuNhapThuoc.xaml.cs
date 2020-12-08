@@ -156,13 +156,13 @@ namespace GUI_Clinic.View.Windows
             });
         }
 
-        private void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
+        private async void btnNhapThuoc_Click(object sender, RoutedEventArgs e)
         {            
             if (List.Count != 0)
             {
                 phieuNhapThuoc = new DTO_PhieuNhapThuoc(NgayNhapThuoc, maDuocSiNhapThuoc, 0);
 
-                BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc, ListPNT, ListCTPNT);
+                await BUSManager.CTPhieuNhapThuocBUS.AddCTPhieuNhapThuocAsync(List, phieuNhapThuoc, ListPNT, ListCTPNT);
 
                 BUSManager.ThuocBUS.UpdateListThuoc(ListThuoc, List);
                 //ListPNT.Add(phieuNhapThuoc);
