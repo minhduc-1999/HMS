@@ -105,6 +105,7 @@ namespace DAL_Clinic.DAL
             }
             return res;
         }
+      
         public List<DTO_BenhNhan> GetListBNByDate(DateTime dt)
         {
             using (var context = new SQLServerDBContext())
@@ -121,6 +122,7 @@ namespace DAL_Clinic.DAL
                 //}
             }
         }
+
         public int GetAmountByDate(DateTime dt)
         {
             using (var context = new SQLServerDBContext())

@@ -37,7 +37,7 @@ namespace GUI_Clinic.View
             uc_BaoCaoDoanhThu.CurrentNhanVien = currentNV;
             GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
-            //uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
+            uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             if (ListNhom != null)
             {
@@ -53,35 +53,35 @@ namespace GUI_Clinic.View
                 switch (index)
                 {
                     case 0: //ADMIN
-                        itemBCDoanhThu.Visibility = Visibility.Collapsed;
-                        itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
-                        itemDSDonThuoc.Visibility = Visibility.Collapsed;
-                        itemQLBenhNhan.Visibility = Visibility.Collapsed;
-                        itemQLThuoc.Visibility = Visibility.Collapsed;
-                        itemDSKhamBenh.Visibility = Visibility.Collapsed;
-                        itemDSKhamChuyenKhoa.Visibility = Visibility.Collapsed;
-                        itemQLPKB.Visibility = Visibility.Collapsed;
-                        itemQLPKCK.Visibility = Visibility.Collapsed;
-                        itemThietLapKhac.Visibility = Visibility.Visible;
-                        itemQLNhanVien.Visibility = Visibility.Visible;
-                        btnSetting.Visibility = Visibility.Visible;
-                        ListViewMenu.SelectedIndex = 9;
+                    //    itemBCDoanhThu.Visibility = Visibility.Collapsed;
+                    //    itemBCSuDungThuoc.Visibility = Visibility.Collapsed;
+                    //    itemDSDonThuoc.Visibility = Visibility.Collapsed;
+                    //    itemQLBenhNhan.Visibility = Visibility.Collapsed;
+                    //    itemQLThuoc.Visibility = Visibility.Collapsed;
+                    //    itemDSKhamBenh.Visibility = Visibility.Collapsed;
+                    //    itemDSKhamChuyenKhoa.Visibility = Visibility.Collapsed;
+                    //    itemQLPKB.Visibility = Visibility.Collapsed;
+                    //    itemQLPKCK.Visibility = Visibility.Collapsed;
+                    //    itemThietLapKhac.Visibility = Visibility.Visible;
+                    //    itemQLNhanVien.Visibility = Visibility.Visible;
+                    //    btnSetting.Visibility = Visibility.Visible;
+                    //    ListViewMenu.SelectedIndex = 9;
 
-                    ////test
-                    // itemBCDoanhThu.Visibility = Visibility.Visible;
-                    // itemBCSuDungThuoc.Visibility = Visibility.Visible;
-                    // itemDSDonThuoc.Visibility = Visibility.Visible;
-                    // itemQLBenhNhan.Visibility = Visibility.Visible;
-                    // itemQLThuoc.Visibility = Visibility.Visible;
-                    // itemDSKhamBenh.Visibility = Visibility.Visible;
-                    // itemDSKhamChuyenKhoa.Visibility = Visibility.Visible;
-                    // itemQLPKB.Visibility = Visibility.Visible;
-                    // itemQLPKCK.Visibility = Visibility.Visible;
-                    // itemThietLapKhac.Visibility = Visibility.Visible;
-                    // itemQLNhanVien.Visibility = Visibility.Visible;
-                    // btnSetting.Visibility = Visibility.Visible;
-                    // ListViewMenu.SelectedIndex = 0;
-                    break;
+                    //test
+                     itemBCDoanhThu.Visibility = Visibility.Visible;
+                itemBCSuDungThuoc.Visibility = Visibility.Visible;
+                itemDSDonThuoc.Visibility = Visibility.Visible;
+                itemQLBenhNhan.Visibility = Visibility.Visible;
+                itemQLThuoc.Visibility = Visibility.Visible;
+                itemDSKhamBenh.Visibility = Visibility.Visible;
+                itemDSKhamChuyenKhoa.Visibility = Visibility.Visible;
+                itemQLPKB.Visibility = Visibility.Visible;
+                itemQLPKCK.Visibility = Visibility.Visible;
+                itemThietLapKhac.Visibility = Visibility.Visible;
+                itemQLNhanVien.Visibility = Visibility.Visible;
+                btnSetting.Visibility = Visibility.Visible;
+                ListViewMenu.SelectedIndex = 0;
+                break;
                     case 1: //BSDK
                         itemBCDoanhThu.Visibility = Visibility.Collapsed;
                         itemBCSuDungThuoc.Visibility = Visibility.Collapsed;

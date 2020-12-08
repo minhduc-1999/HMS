@@ -129,6 +129,7 @@ namespace GUI_Clinic.View.UserControls
                         if(dpkNgayKham.SelectedDate.Value.Date == DateTime.Now.Date)
                         {
                             ExaminedPatientList.Add(benhNhan);
+                            PatientSigned?.Invoke(benhNhan, new EventArgs());
                         }
                     }
                 }

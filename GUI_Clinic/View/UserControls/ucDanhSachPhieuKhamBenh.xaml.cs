@@ -35,7 +35,7 @@ namespace GUI_Clinic.View.UserControls
             ucCTPKB.PKBAdded += UcCTPKB_PKBAdded;
             InitDataAsync();
             InitCommand();
-          //  lvBenhNhan.ItemsSource = ListDonThuoc;
+            lvBenhNhan.ItemsSource = ListBNWaiting;
             //grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
 
@@ -47,10 +47,9 @@ namespace GUI_Clinic.View.UserControls
         }
 
         #region Property
-        //public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
         public CollectionView ViewPKB { get; set; }
-        public ObservableCollection<DTO_PKDaKhoa> ListDonThuoc { get; set; }
+        public ObservableCollection<DTO_PKDaKhoa> ListPKB { get; set; }
         #endregion
         #region Command
         public ICommand TaoPhieuKhamCommand { get; set; }
@@ -60,23 +59,8 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         private async Task InitDataAsync()
         {
-            var loadListBNWaiting = BUSManager.BenhNhanBUS.GetListBNAsync(); //load benh nhan duoc yeu cau kham chuyen khoa tu dau do
-            var initDataTasks = new List<Task> { loadListBNWaiting };
-            while (initDataTasks.Count > 0)
-            {
-                Task finishedTask = await Task.WhenAny(initDataTasks);
-                if (finishedTask == loadListBNWaiting)
-                {
-                    ListBNWaiting = loadListBNWaiting.Result;
-                    lvBenhNhan.ItemsSource = ListBNWaiting;
-                }
-                //else if (finishedTask == loadListThamSo)
-                //{
-                //    ListThamSo = loadListThamSo.Result;
-                //}
-                initDataTasks.Remove(finishedTask);
-
-            }
+            ListBNWaiting = BUSManager.PKDaKhoaBUS.GetListBNByDate(DateTime.Now.Date);
+            lvBenhNhan.ItemsSource = ListBNWaiting;
         }
 
         public void InitCommand()
@@ -129,6 +113,7 @@ namespace GUI_Clinic.View.UserControls
         }
         public void UpdateWaitingList(object bn)
         {
+            lvBenhNhan.ItemsSource = ListBNWaiting;
             var bNhan = bn as DTO_BenhNhan;
             ListBNWaiting.Add(bNhan);
         }
@@ -142,6 +127,17 @@ namespace GUI_Clinic.View.UserControls
                 if (WaitingPatientRemoved != null)
                     WaitingPatientRemoved(item, new EventArgs());
             }            
+        }
+
+        private void lvBenhNhan_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvBenhNhan.SelectedItem != null)
+            {
+                var bn = lvBenhNhan.SelectedItem as DTO_BenhNhan;
+                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(bn);
+                ListPKB = new ObservableCollection<DTO_PKDaKhoa>(bn.DS_PKDaKhoa);
+                lvDSPKB.ItemsSource = ListPKB;
+            }
         }
     }
 }

@@ -43,11 +43,12 @@ namespace GUI_Clinic.View.UserControls
         public int SoLuong { get; set; }
         private DTO_BenhNhan benhNhan = new DTO_BenhNhan();
         private DTO_PKDaKhoa phieuKhamBenh = new DTO_PKDaKhoa();
-        public ObservableCollection<DTO_PKDaKhoa> ListCTPKB { get; set; }
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_CachDung> ListCachDung { get; set; }
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
         public ObservableCollection<DTO_YeuCau> ListYeuCau { get; set; }
+        public ObservableCollection<DTO_CTDonThuoc> ListCTDonThuoc { get; set; }
+        public ObservableCollection<DTO_DonThuoc> ListDonThuoc { get; set; }
 
         private bool IsSave = false;
         #endregion
@@ -73,7 +74,10 @@ namespace GUI_Clinic.View.UserControls
             tblTenBenhNhan.Text = bn.HoTen;
             tblMaBenhNhan.Text = bn.MaBenhNhan;
             tblNgayKham.Text = DateTime.Now.ToString();
-            lvThuoc.ItemsSource = ListCTPKB;
+            lvThuoc.ItemsSource = ListCTDonThuoc;
+            cbxChanDoan.ItemsSource = ListBenh;
+            cbxCachDung.ItemsSource = ListCachDung;
+            cbxThuoc.ItemsSource = ListThuoc;
 
             phieuKhamBenh = new DTO_PKDaKhoa();
         }
@@ -111,9 +115,8 @@ namespace GUI_Clinic.View.UserControls
             ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
             ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
             ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
-            // ListCTPKB = new ObservableCollection<DTO_CTPhieuKhamBenh>();
             ListYeuCau = new ObservableCollection<DTO_YeuCau>();
-            lvThuoc.ItemsSource = ListCTPKB;
+            lvThuoc.ItemsSource = ListCTDonThuoc;
         }
         public void InitCommmand()
         {
@@ -127,37 +130,23 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
+                DTO_DonThuoc newDonThuoc = new DTO_DonThuoc();
+                //if (newDonThuoc.DS_CTDonThuoc == null)
+                //{
+                //    ListDonThuoc.Add(newDonThuoc);
+                //}
                 DTO_Thuoc newThuoc = cbxThuoc.SelectedItem as DTO_Thuoc;
-                //if (BUSManager.ThuocBUS.CheckIfSoLuongThuocDu(newThuoc, SoLuong))
-                //{
-                //    DTO_CTPhieuKhamBenh cTPhieuKhamBenh = new DTO_CTPhieuKhamBenh(phieuKhamBenh.Id, newThuoc.Id, (cbxCachDung.SelectedItem as DTO_CachDung).Id, SoLuong, newThuoc.DonGia);
-                //    BUSManager.ThuocBUS.LoadNPDonVi(newThuoc);
-                //    cTPhieuKhamBenh.Thuoc = newThuoc;
-                //    cTPhieuKhamBenh.CachDung = cbxCachDung.SelectedItem as DTO_CachDung;
+                DTO_CachDung newCachDung = cbxCachDung.SelectedItem as DTO_CachDung;
+                DTO_CTDonThuoc ctDonThuoc = new DTO_CTDonThuoc();
+                ctDonThuoc.Thuoc = newThuoc;
+                ctDonThuoc.MaThuoc = newThuoc.MaThuoc;
+                ctDonThuoc.MaCachDung = newCachDung.MaCachDung;
+                ctDonThuoc.SoLuong = Int32.Parse(tbxSoLuong.Text);
+                ctDonThuoc.MaDonThuoc = newDonThuoc.MaDonThuoc;
+               // newDonThuoc.DS_CTDonThuoc.Add(ctDonThuoc);
+                ListCTDonThuoc.Add(ctDonThuoc);
+                lvThuoc.ItemsSource = ListCTDonThuoc;
 
-                //    bool flag = true;
-                //    foreach (DTO_CTPhieuKhamBenh item in ListCTPKB)
-                //    {
-                //        if (item.Thuoc.Id == cTPhieuKhamBenh.Thuoc.Id)
-                //        {
-                //            flag = false;
-                //            break;
-                //        }
-                //    }
-                //    if (flag)
-                //    {
-                //        ListCTPKB.Add(cTPhieuKhamBenh);
-                //    }
-                //    else
-                //    {
-                //        MsgBox.Show("Thuốc đã có trong danh sách", MessageType.Error, MessageButtons.Ok);
-                //    }
-                //    ResetThuocInput();
-                //}
-                //else
-                //{
-                //    MsgBox.Show("Số lượng thuốc còn lại trong kho không đủ");
-                //}
             });
 
             InPhieuKhamCommand = new RelayCommand<Window>((p) =>

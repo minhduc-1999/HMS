@@ -38,6 +38,8 @@ namespace BUS_Clinic.BUS
         {
             return await DALManager.PKDaKhoaDAL.GetListPKDKAsync();
         }
+
+
         public ObservableCollection<DTO_BenhNhan> GetListBNByDate(DateTime date)
         {
             //try

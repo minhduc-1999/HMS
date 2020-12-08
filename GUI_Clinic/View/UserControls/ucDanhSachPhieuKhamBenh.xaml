@@ -107,16 +107,16 @@
                             <GroupBox Header="Danh sách bệnh nhân đang chờ">
                                 <ListView x:Name="lvBenhNhan"
                                           ScrollViewer.CanContentScroll="True"
-                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="lvBenhNhan_SelectionChanged">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                                             <GridViewColumn Header="Mã bệnh nhân"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding MaBenhNhan}"></GridViewColumn>
                                             <GridViewColumn Header="Họ và tên"
-                                                                DisplayMemberBinding="{Binding TenBenhNhan}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
                                             <GridViewColumn Header="Giới tính">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
@@ -201,7 +201,7 @@
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <GroupBox Header="Danh sách đơn thuốc"
+                        <GroupBox Header="Danh sách phiếu khám bệnh"
                                   Margin="0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -218,9 +218,9 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                                             <GridViewColumn Header="Mã PKB"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding MaPKDK}"></GridViewColumn>
                                             <GridViewColumn Header="Tên bệnh nhân"
-                                                                DisplayMemberBinding="{Binding BenhNhan.TenBenhNhan}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding BenhNhan.HoTen}"></GridViewColumn>
                                             <GridViewColumn Header="Ngày khám"
                                                                 DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
                                             <GridViewColumn Header="Triệu chứng"
