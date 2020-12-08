@@ -41,7 +41,7 @@ namespace BUS_Clinic.BUS
         {
             foreach (var item in thuocMoi)
             {
-                bool has = IsThuocDaTonTai(item);
+                bool has = thuocHienThi.Any(t => (t.TenThuoc.Equals(item.TenThuoc, StringComparison.OrdinalIgnoreCase))) && thuocHienThi.Any(t => (t.DonVi.Equals(item.DonVi, StringComparison.OrdinalIgnoreCase)));
 
                 if (has)
                 {
