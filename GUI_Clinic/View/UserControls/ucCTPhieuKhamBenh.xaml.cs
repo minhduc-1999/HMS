@@ -116,6 +116,7 @@ namespace GUI_Clinic.View.UserControls
             ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
             ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
             ListYeuCau = new ObservableCollection<DTO_YeuCau>();
+            ListCTDonThuoc = new ObservableCollection<DTO_CTDonThuoc>();
             lvThuoc.ItemsSource = ListCTDonThuoc;
         }
         public void InitCommmand()
@@ -143,7 +144,7 @@ namespace GUI_Clinic.View.UserControls
                 ctDonThuoc.MaCachDung = newCachDung.MaCachDung;
                 ctDonThuoc.SoLuong = Int32.Parse(tbxSoLuong.Text);
                 ctDonThuoc.MaDonThuoc = newDonThuoc.MaDonThuoc;
-               // newDonThuoc.DS_CTDonThuoc.Add(ctDonThuoc);
+                // newDonThuoc.DS_CTDonThuoc.Add(ctDonThuoc);
                 ListCTDonThuoc.Add(ctDonThuoc);
                 lvThuoc.ItemsSource = ListCTDonThuoc;
 

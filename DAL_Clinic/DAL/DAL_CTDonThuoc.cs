@@ -15,6 +15,14 @@ namespace DAL_Clinic.DAL
         public DAL_CTDonThuoc()
         {
         }
+        public void AddCTDonThuoc(DTO_CTDonThuoc cTDonThuoc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                context.CT_DonThuoc.Add(cTDonThuoc);
+                context.SaveChanges();
+            }
+        }
         public bool LoadNPThuoc(DTO_CTDonThuoc ctDonThuoc)
         {
             try

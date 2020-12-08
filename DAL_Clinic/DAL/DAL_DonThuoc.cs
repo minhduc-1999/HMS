@@ -3,10 +3,13 @@ using DTO_Clinic.Component;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace DAL_Clinic.DAL
 {
@@ -14,6 +17,28 @@ namespace DAL_Clinic.DAL
     {
         public DAL_DonThuoc()
         {
+        }
+        public async Task<string> AddDonThuocAsync(DTO_DonThuoc donThuoc)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                string res = null;
+                try
+                {
+                    var loiDan = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    loiDan.Value = donThuoc.LoiDan;
+                    res = await context.Database.SqlQuery<string>("exec proc_DonThuoc_insert @1",
+                        new SqlParameter[]
+                        {
+                            loiDan
+                        }).FirstOrDefaultAsync();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+                return res;
+            }
         }
         public bool LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
         {

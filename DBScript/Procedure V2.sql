@@ -140,3 +140,19 @@ BEGIN
     END CATCH;
 END;
 go
+
+---------------------------------------V2.3----------------
+--insert Phong proc
+create Proc proc_DonThuoc_insert
+	@loidan nvarchar(max)
+AS
+	BEGIN
+		declare @id nvarchar(128), @max int, @prefix varchar(2) = 'DT'
+		select @max = COUNT(*) from DONTHUOC
+		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
+		insert into PHONG values (@id, 0, @loidan)
+		select @id
+	END;
+	go
+--select * from DONTHUOC
+--exec proc_Phong_insert 'uong thuoc ngay 3 lan'
