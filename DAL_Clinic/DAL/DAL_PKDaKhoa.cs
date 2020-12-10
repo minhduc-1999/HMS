@@ -67,8 +67,28 @@ namespace DAL_Clinic.DAL
                 Debug.WriteLine($"[ERRROR DAL_PKDAKHOA] {e.Message}");
                 return false;
             }
+        }
+        public bool LoadNPDonThuoc(DTO_PKDaKhoa pKDaKhoa)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.PKDaKhoa.Attach(pKDaKhoa);
+                    var entry = context.Entry(pKDaKhoa);
+                    if (!entry.Reference(p => p.DonThuoc).IsLoaded)
+                        entry.Reference(p => p.DonThuoc).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL_PKDAKHOA] {e.Message}");
+                return false;
+            }
 
         }
+    
         public bool LoadNPBenhNhan(DTO_PKDaKhoa pKDaKhoa)
         {
             try
@@ -122,6 +142,7 @@ namespace DAL_Clinic.DAL
                 //}
             }
         }
+
 
         public int GetAmountByDate(DateTime dt)
         {

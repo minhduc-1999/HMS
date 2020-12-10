@@ -29,6 +29,7 @@ namespace GUI_Clinic.View.Windows
             InitializeComponent();
             this.DataContext = this;
             BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkDaKhoa);
+            BUSManager.PKDaKhoaBUS.LoadNPBenh(pkDaKhoa);
             PKDaKhoa = pkDaKhoa;           
                      
         }

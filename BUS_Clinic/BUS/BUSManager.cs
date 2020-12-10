@@ -28,6 +28,8 @@ namespace BUS_Clinic.BUS
         private static BUS_Phong _phongBUS;
         private static BUS_PKDaKhoa _pkDaKhoaBUS;
         private static BUS_PKChuyenKhoa _pkChuyenKhoaBUS;
+        private static BUS_DonThuoc _donThuocBUS;
+        private static BUS_CTDonThuoc _ctDonThuocBUS;
         public static BUS_PKChuyenKhoa PKChuyenKhoaBUS
         {
             get
@@ -191,6 +193,26 @@ namespace BUS_Clinic.BUS
                 if (_phongBUS == null)
                     _phongBUS = new BUS_Phong();
                 return _phongBUS;
+            }
+        }
+
+        public static BUS_DonThuoc DonThuocBUS
+        {
+            get
+            {
+                if (_donThuocBUS == null)
+                    _donThuocBUS = new BUS_DonThuoc();
+                return _donThuocBUS;
+            }
+        }
+
+        public static BUS_CTDonThuoc CTDonThuocBUS
+        {
+            get
+            {
+                if (_ctDonThuocBUS == null)
+                    _ctDonThuocBUS = new BUS_CTDonThuoc();
+                return _ctDonThuocBUS;
             }
         }
     }

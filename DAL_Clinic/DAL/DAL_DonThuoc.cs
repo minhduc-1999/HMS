@@ -1,5 +1,5 @@
 ﻿using DTO_Clinic.Form;
-using DTO_Clinic.Component;
+using DTO_Clinic.Person;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,28 +18,15 @@ namespace DAL_Clinic.DAL
         public DAL_DonThuoc()
         {
         }
-        public async Task<string> AddDonThuocAsync(DTO_DonThuoc donThuoc)
+        public void AddDonThuoc(DTO_DonThuoc donThuoc)
         {
-            using (var context = new SQLServerDBContext())
-            {
-                string res = null;
-                try
+                using (var context = new SQLServerDBContext())
                 {
-                    var loiDan = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
-                    loiDan.Value = donThuoc.LoiDan;
-                    res = await context.Database.SqlQuery<string>("exec proc_DonThuoc_insert @1",
-                        new SqlParameter[]
-                        {
-                            loiDan
-                        }).FirstOrDefaultAsync();
+                    context.DonThuoc.Add(donThuoc);
+                    context.SaveChanges();
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("[ERROR] " + e.Message);
-                }
-                return res;
-            }
         }
+       
         public bool LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
         {
             try

@@ -74,6 +74,7 @@ namespace GUI_Clinic.View.UserControls
             {
                 grdPhieuKhamBenh.Visibility = Visibility.Visible;
                 ucCTPKB.GetBenhNhan(lvBenhNhan.SelectedItem as DTO_BenhNhan);
+                ucCTPKB.phieuKhamBenh = ListPKB.Last();
             });
         }
 

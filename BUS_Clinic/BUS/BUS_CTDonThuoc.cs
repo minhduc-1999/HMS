@@ -14,13 +14,21 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPBenh(DTO_DonThuoc donThuoc)
+        public void LoadNPBenh(DTO_CTDonThuoc ctDonThuoc)
         {
-            DALManager.DonThuocDAL.LoadNPPKDaKhoa(donThuoc);
+            DALManager.CTDonThuocDAL.LoadNPDonThuoc(ctDonThuoc);
         }
-        public void LoadNP_CTDonThuoc(DTO_DonThuoc donThuoc)
+        public void LoadNP_DonThuoc(DTO_CTDonThuoc ctDonThuoc)
         {
-            DALManager.DonThuocDAL.LoadNP_CTDonThuoc(donThuoc);
+            DALManager.CTDonThuocDAL.LoadNPDonThuoc(ctDonThuoc);
+        }
+        public void LoadNPThuoc(DTO_CTDonThuoc ctDonThuoc)
+        {
+            DALManager.CTDonThuocDAL.LoadNPThuoc(ctDonThuoc);
+        }
+        public void LoadNPCachDung(DTO_CTDonThuoc ctDonThuoc)
+        {
+            DALManager.CTDonThuocDAL.LoadNPCachDung(ctDonThuoc);
         }
     }
 }

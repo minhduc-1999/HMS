@@ -1,5 +1,6 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic;
+using DTO_Clinic.Person;
 using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,19 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void LoadNPBenh(DTO_CTDonThuoc ctDonThuoc)
+        public void AddDonThuoc(DTO_DonThuoc donThuoc)
         {
-            DALManager.CTDonThuocDAL.LoadNPDonThuoc(ctDonThuoc);
+            DALManager.DonThuocDAL.AddDonThuoc(donThuoc);
         }
-        public void LoadNP_DonThuoc(DTO_CTDonThuoc ctDonThuoc)
+      
+        public void LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
         {
-            DALManager.CTDonThuocDAL.LoadNPDonThuoc(ctDonThuoc);
+            DALManager.DonThuocDAL.LoadNPPKDaKhoa(donThuoc);
         }
-        public void LoadNPThuoc(DTO_CTDonThuoc ctDonThuoc)
+        public void LoadNP_CTDonThuoc(DTO_DonThuoc donThuoc)
         {
-            DALManager.CTDonThuocDAL.LoadNPThuoc(ctDonThuoc);
+            DALManager.DonThuocDAL.LoadNP_CTDonThuoc(donThuoc);
         }
-        public void LoadNPCachDung(DTO_CTDonThuoc ctDonThuoc)
-        {
-            DALManager.CTDonThuocDAL.LoadNPThuoc(ctDonThuoc);
-        }
+
     }
 }
