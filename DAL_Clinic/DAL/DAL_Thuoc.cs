@@ -66,7 +66,7 @@ namespace DAL_Clinic.DAL
             }
         }
      
-        public async Task<ObservableCollection<DTO_Thuoc>> GetListThuocAsync()
+        public ObservableCollection<DTO_Thuoc> GetListThuoc()
         {
             ObservableCollection<DTO_Thuoc> res = null;
             using (var context = new SQLServerDBContext())
@@ -74,7 +74,7 @@ namespace DAL_Clinic.DAL
                 try
                 {
                     context.Database.Log = s => Debug.WriteLine(s);
-                    await context.Thuoc.LoadAsync();
+                    context.Thuoc.Load();
                     res = new ObservableCollection<DTO_Thuoc>(context.Thuoc.Local);
                 }
                 catch (Exception e)
@@ -124,6 +124,37 @@ namespace DAL_Clinic.DAL
                 }
                 else
                     return false;
+            }
+        }
+
+        public bool CheckIfSoLuongThuocDu(DTO_Thuoc thuocSuDung, int soLuongSuDung)
+        {
+            ObservableCollection<DTO_Thuoc> listThuoc = GetListThuoc();
+
+            var kq = listThuoc.Where(c => c.MaThuoc == thuocSuDung.MaThuoc).FirstOrDefault();
+
+            if (kq != null)
+            {
+                if (kq.SoLuong >= soLuongSuDung)
+                    return true;
+                return false;
+            }
+
+            return false;
+        }
+
+        public void SuDungThuoc(string maThuoc, int soLuongDung)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.Thuoc.Where(t => t.MaThuoc == maThuoc).FirstOrDefault();
+
+                if (res != null)
+                {
+                    res.SoLuong -= soLuongDung;
+                }
+
+                context.SaveChanges();
             }
         }
     }

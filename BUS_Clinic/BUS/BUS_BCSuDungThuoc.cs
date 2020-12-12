@@ -1,30 +1,41 @@
 ﻿using DAL_Clinic.DAL;
 using DTO_Clinic;
+using DTO_Clinic.Form;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace BUS_Clinic.BUS
 {
     public class BUS_BCSuDungThuoc : BaseBUS
     {
-        public async void AddBCSuDungThuoc(DTO_BCSudungThuoc bCSudungThuoc)
+        public void AddBCSuDungThuoc(DTO_BCSudungThuoc bCSudungThuoc)
         {
-            ObservableCollection<DTO_BCSudungThuoc> ListBCSDT = await GetListBCSuDungThuocAsync();
-            //bool flag = true;
-            foreach (DTO_BCSudungThuoc item in ListBCSDT)
-            {
-                if (item.MaThuoc == bCSudungThuoc.MaThuoc && item.Nam == bCSudungThuoc.Nam && item.Thang == bCSudungThuoc.Thang)
-                {
-                    item.SoLanDung++;
-                    item.SoLuongDung += bCSudungThuoc.SoLuongDung;
-                    return;
-                }
-            }
             bCSudungThuoc.SoLanDung++;
             DALManager.BCSuDungThuocDAL.AddBCSuDungThuoc(bCSudungThuoc);
         }
-        public async System.Threading.Tasks.Task<ObservableCollection<DTO_BCSudungThuoc>> GetListBCSuDungThuocAsync()
+
+        public bool CheckIfBCSDTTonTai(string maThuoc, DateTime ngaySuDung)
         {
-            return await DALManager.BCSuDungThuocDAL.GetListBCSuDungThuocAsync();
+            ObservableCollection<DTO_BCSudungThuoc> ListBCSDT = GetListBCSuDungThuoc();
+
+            return ListBCSDT.Any(t => (t.MaThuoc == maThuoc) && (t.Thang == ngaySuDung.Month) && (t.Nam == ngaySuDung.Year));
+        }
+
+        public ObservableCollection<DTO_BCSudungThuoc> GetListBCSuDungThuoc()
+        {
+            return DALManager.BCSuDungThuocDAL.GetListBCSuDungThuoc();
+        }
+
+        public void CapNhatBCSDThuoc(string maThuoc, DateTime ngaySuDung, int soLuongDung)
+        {
+            DALManager.BCSuDungThuocDAL.CapNhatBCSDThuoc(maThuoc, ngaySuDung, soLuongDung);
+        }
+
+        public bool LoadNP_Thuoc(DTO_BCSudungThuoc bCSudungThuoc)
+        {
+            return DALManager.BCSuDungThuocDAL.LoadNP_Thuoc(bCSudungThuoc);
         }
     }
 }

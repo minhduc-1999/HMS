@@ -21,6 +21,7 @@
         private static DAL_DonThuoc _donThuoc;
         private static DAL_CTDonThuoc _ctDonThuoc;
         private static DAL_Group _groupDAL;
+        private static DAL_CTHDThuoc _cTHDThuocDAL;
 
         public static DAL_BenhNhan BenhNhanDAL 
         { 
@@ -181,7 +182,7 @@
             {
                 if (_ctDonThuoc == null)
                     _ctDonThuoc = new DAL_CTDonThuoc();
-                return CTDonThuocDAL;
+                return _ctDonThuoc;
             }
         }
         public static DAL_Group GroupDAL
@@ -193,7 +194,15 @@
                 return _groupDAL;
             }
         }
-
+        public static DAL_CTHDThuoc CTHDThuocDAL
+        {
+            get
+            {
+                if (_cTHDThuocDAL == null)
+                    _cTHDThuocDAL = new DAL_CTHDThuoc();
+                return _cTHDThuocDAL;
+            }
+        }
 
     }
 }

@@ -104,7 +104,7 @@ namespace GUI_Clinic.View.UserControls
 
         public async Task InitDataAsync()
         {
-            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
             ListCachDung = await BUSManager.CachDungBUS.GetListCDAsync();
             ListBenh = await BUSManager.BenhBUS.GetListBenhAsync();
             ListYeuCau = new ObservableCollection<DTO_YeuCau>();

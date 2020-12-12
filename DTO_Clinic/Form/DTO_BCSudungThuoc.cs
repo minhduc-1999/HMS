@@ -1,7 +1,7 @@
 ﻿using DTO_Clinic.Component;
 using System;
 
-namespace DTO_Clinic
+namespace DTO_Clinic.Form
 {
     public class DTO_BCSudungThuoc:BaseModel
     {

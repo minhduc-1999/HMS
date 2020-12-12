@@ -35,10 +35,12 @@ namespace GUI_Clinic.View
             uc_QuanLyThuoc.maDuocSi = currentNV.MaNhanVien;
             uc_DanhSachKhamBenh.CurrentNV = currentNV;
             uc_BaoCaoDoanhThu.CurrentNhanVien = currentNV;
+            uc_DanhSachDonThuoc.maNhanvien = currentNV.MaNhanVien;
             GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
+            uc_DanhSachDonThuoc.ListThuoc = uc_QuanLyThuoc.ListThuoc;
             if (ListNhom != null)
             {
                 int index = -1;

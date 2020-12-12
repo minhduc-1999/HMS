@@ -33,6 +33,7 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
+            tbxTenDangNhap.Focus();
             InitDataAsync();
             InitCommand();
         }

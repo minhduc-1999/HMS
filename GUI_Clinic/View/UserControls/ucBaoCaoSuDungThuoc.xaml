@@ -87,7 +87,7 @@
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
                         <GridViewColumn Header="Thuốc" DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
-                        <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                        <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Thuoc.DonVi}"></GridViewColumn>
                         <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuongDung}"></GridViewColumn>
                         <GridViewColumn Header="Số lần dùng" DisplayMemberBinding="{Binding SoLanDung}"></GridViewColumn>
                     </GridView>

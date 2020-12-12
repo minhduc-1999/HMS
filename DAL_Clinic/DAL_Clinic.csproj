@@ -81,6 +81,7 @@
     <Compile Include="DAL\DAL_CachDung.cs" />
     <Compile Include="DAL\DAL_CTBaoCaoDoanhThu.cs" />
     <Compile Include="DAL\DAL_CTDonThuoc.cs" />
+    <Compile Include="DAL\DAL_CTHDThuoc.cs" />
     <Compile Include="DAL\DAL_CTPhieuNhapThuoc.cs" />
     <Compile Include="DAL\DAL_DonThuoc.cs" />
     <Compile Include="DAL\DAL_Group.cs" />

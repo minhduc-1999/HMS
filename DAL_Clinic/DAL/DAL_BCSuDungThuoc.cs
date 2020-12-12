@@ -1,4 +1,5 @@
 ﻿using DTO_Clinic;
+using DTO_Clinic.Form;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,14 +25,14 @@ namespace DAL_Clinic.DAL
                 context.SaveChanges();
             }
         }
-        public async Task<ObservableCollection<DTO_BCSudungThuoc>> GetListBCSuDungThuocAsync()
+        public ObservableCollection<DTO_BCSudungThuoc> GetListBCSuDungThuoc()
         {
             ObservableCollection<DTO_BCSudungThuoc> res = null;
             using (var context = new SQLServerDBContext())
             {
                 try
                 {
-                    await context.BaoCaoSuDungThuoc.LoadAsync();
+                    context.BaoCaoSuDungThuoc.Load();
                     res = new ObservableCollection<DTO_BCSudungThuoc>(context.BaoCaoSuDungThuoc.Local);
                 }
                 catch (Exception e)
@@ -41,6 +42,41 @@ namespace DAL_Clinic.DAL
             }
             return res;
         }
-      
+
+        public void CapNhatBCSDThuoc(string maThuoc, DateTime ngaySuDung, int soLuongDung)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var res = context.BaoCaoSuDungThuoc.Where(t => (t.MaThuoc == maThuoc) && (t.Thang == ngaySuDung.Month) && (t.Nam == ngaySuDung.Year)).FirstOrDefault();
+
+                if (res != null)
+                {
+                    res.SoLanDung++;
+                    res.SoLuongDung += soLuongDung;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public bool LoadNP_Thuoc(DTO_BCSudungThuoc bCSudungThuoc)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.BaoCaoSuDungThuoc.Attach(bCSudungThuoc);
+                    var entry = context.Entry(bCSudungThuoc);
+                    if (!entry.Reference(p => p.Thuoc).IsLoaded)
+                        entry.Reference(p => p.Thuoc).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL BENH] {e.Message}");
+                return false;
+            }
+        }
     }
 }

@@ -31,7 +31,6 @@ namespace DAL_Clinic.DAL
                 {
                     context.CT_DonThuoc.Attach(ctDonThuoc);
                     var entry = context.Entry(ctDonThuoc);
-                    if (!entry.Reference(p => p.Thuoc).IsLoaded)
                         entry.Reference(p => p.Thuoc).Load();
                     return true;
                 }
@@ -50,7 +49,6 @@ namespace DAL_Clinic.DAL
                 {
                     context.CT_DonThuoc.Attach(ctDonThuoc);
                     var entry = context.Entry(ctDonThuoc);
-                    if (!entry.Reference(p => p.CachDung).IsLoaded)
                         entry.Reference(p => p.CachDung).Load();
                     return true;
                 }

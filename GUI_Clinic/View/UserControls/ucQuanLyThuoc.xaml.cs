@@ -51,7 +51,7 @@ namespace GUI_Clinic.View.UserControls
 
         private async void InitDataAsync()
         {
-            ListThuoc = await BUSManager.ThuocBUS.GetListThuocAsync();
+            ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
             ListPNT = await BUSManager.PhieuNhapThuocBUS.GetListPNTAsync();
             ListCTPNT = await BUSManager.CTPhieuNhapThuocBUS.GetListCTPNTAsync();
 
