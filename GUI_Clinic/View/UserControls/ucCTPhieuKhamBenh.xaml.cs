@@ -213,6 +213,7 @@ namespace GUI_Clinic.View.UserControls
                     {
                         item.CachDung = null;
                         item.DonThuoc = null;
+                        item.Thuoc = null;
                         BUSManager.CTDonThuocBUS.AddCTDonThuoc(item);
                     }
                     ResetPKB();
