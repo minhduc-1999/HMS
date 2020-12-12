@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Form;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using GUI_Clinic.View.Windows;
@@ -57,7 +58,9 @@ namespace GUI_Clinic.View.UserControls
             cbxNam.ItemsSource = ListNam;
             cbxNam.SelectedIndex = DateTime.Now.Year - 1950;
 
-            ListBCSDT = await BUSManager.BCSuDungThuocBUS.GetListBCSuDungThuocAsync();
+            ListBCSDT = BUSManager.BCSuDungThuocBUS.GetListBCSuDungThuoc();
+            foreach (var item in ListBCSDT)
+                BUSManager.BCSuDungThuocBUS.LoadNP_Thuoc(item);
             lvBCSDT.ItemsSource = ListBCSDT;
         }
 

@@ -58,18 +58,18 @@
                             </Grid.RowDefinitions>
                             <Grid x:Name="grdNhapThuoc" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <ComboBox x:Name="cbxThuoc"
-                                Margin="10"
-                                ItemsSource="{Binding ListThuoc}"
-                                materialDesign:HintAssist.Hint="Thuốc"
-                                IsEditable="True"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                              Margin="10"
+                                              materialDesign:HintAssist.Hint="Thuốc"
+                                              IsEditable="True"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                              SelectionChanged="cbxThuoc_SelectionChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding TenThuoc}"/>
@@ -78,12 +78,22 @@
                                     </ComboBox>
                                 </Grid>
                                 <Grid Grid.Column="1">
+                                    <ComboBox x:Name="cbxDonVi"
+                                              Margin="10"
+                                              materialDesign:HintAssist.Hint="Đơn vị"
+                                              IsEditable="True"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                              PreviewMouseLeftButtonDown="cbxDonVi_PreviewMouseLeftButtonDown">
+                                        
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Grid.Column="2">
                                     <TextBox x:Name="tbxSoLuong"
-                                                Margin="10"
-                                                materialDesign:HintAssist.Hint="Số lượng"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                                DataObject.Pasting="tbxSoLuong_Pasting"
-                                                PreviewTextInput="tbxSoLuong_PreviewTextInput">
+                                             Margin="10"
+                                             materialDesign:HintAssist.Hint="Số lượng"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                             DataObject.Pasting="tbxSoLuong_Pasting"
+                                             PreviewTextInput="tbxSoLuong_PreviewTextInput">
                                         <TextBox.Text>
                                             <Binding Path="SoLuong" UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
@@ -92,20 +102,6 @@
                                             </Binding>
                                         </TextBox.Text>
                                     </TextBox>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <ComboBox x:Name="cbxCachDung"
-                                Margin="10"
-                                ItemsSource="{Binding ListCachDung}"
-                                materialDesign:HintAssist.Hint="Cách dùng"
-                                IsEditable="True"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding TenCachDung}"/>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
                                 </Grid>
                                 <Grid Grid.Column="3">
                                     <Button x:Name="btnThemThuoc"
@@ -129,8 +125,9 @@
                                             Margin="5 10 10 10">
                                     <Grid>
                                         <ListView x:Name="lvThuoc"
-                                    ScrollViewer.CanContentScroll="True"
-                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                                  ItemsSource="{Binding List}"
+                                                  ScrollViewer.CanContentScroll="True"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
@@ -140,12 +137,12 @@
                                                         DisplayMemberBinding="{Binding MaThuoc}"></GridViewColumn>
                                                     <GridViewColumn Header="Tên thuốc"
                                                         DisplayMemberBinding="{Binding Thuoc.TenThuoc}"></GridViewColumn>
+                                                    <GridViewColumn Header="Đơn vị"
+                                                        DisplayMemberBinding="{Binding Thuoc.DonVi}"></GridViewColumn>
                                                     <GridViewColumn Header="Số lượng"
                                                         DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
-                                                    <GridViewColumn Header="Đơn vị"
-                                                        DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
-                                                    <GridViewColumn Header="Cách dùng"
-                                                        DisplayMemberBinding="{Binding CachDung}"></GridViewColumn>
+                                                    <GridViewColumn Header="Đơn giá"
+                                                        DisplayMemberBinding="{Binding DonGia}"></GridViewColumn>
                                                     <GridViewColumn Header="" Width="40">
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
@@ -172,7 +169,7 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
-                            <Button Command="{Binding }"
+                            <Button Command="{Binding ThanhToanCommand}"
                                     Content="Thanh toán"
                                     Width="155"
                                     Margin="0 0 10 5"

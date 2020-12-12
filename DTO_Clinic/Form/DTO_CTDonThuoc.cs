@@ -1,4 +1,6 @@
 ﻿using DTO_Clinic.Component;
+using System;
+
 namespace DTO_Clinic.Form
 {
     public class DTO_CTDonThuoc : BaseModel
@@ -17,6 +19,11 @@ namespace DTO_Clinic.Form
 
         public DTO_CTDonThuoc() : base()
         {
+        }
+
+        public static implicit operator DTO_CTDonThuoc(DTO_Thuoc v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

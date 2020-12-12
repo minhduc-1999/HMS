@@ -24,7 +24,7 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
-            _ = InitDataAsync();
+            InitDataAsync();
             InitCommand();
         }
 
@@ -32,12 +32,13 @@ namespace GUI_Clinic.View.Windows
         {
             InitializeComponent();
             this.DataContext = this;
-            _ = InitDataAsync();
-            InitCommand();
+
             maDuocSiNhapThuoc = maDuocSi;
             ListThuoc = listThuoc;
             ListPNT = listPNT;
             ListCTPNT = listCTPNT;
+            InitDataAsync();
+            InitCommand();
         }
 
         #region Property
@@ -60,7 +61,7 @@ namespace GUI_Clinic.View.Windows
         public ICommand ThemThuocCommand { get; set; }
         #endregion
 
-        private async Task InitDataAsync()
+        private void InitDataAsync()
         {
             NgayNhapThuoc = DateTime.Now;
 
@@ -121,7 +122,14 @@ namespace GUI_Clinic.View.Windows
                     themThuoc.SoLuong = SoLuong;
                     themThuoc.DonGia = DonGia;
 
-                    List.Add(themThuoc);
+                    if (!BUSManager.ThuocBUS.CheckIfThuocNhapTrung(List, themThuoc))
+                    {
+                        List.Add(themThuoc);
+                    }
+                    else
+                    {
+                        MsgBox.Show("Thuốc này đã được nhập");
+                    }
 
                     cbxTenThuoc.SelectedIndex = -1;
                     cbxDonVi.SelectedIndex = -1;
@@ -139,7 +147,14 @@ namespace GUI_Clinic.View.Windows
 
                     if (!BUSManager.ThuocBUS.IsThuocDaTonTai(thuocMoi))
                     {
-                        List.Add(thuocMoi);
+                        if (!BUSManager.ThuocBUS.CheckIfThuocNhapTrung(List, thuocMoi))
+                        {
+                            List.Add(thuocMoi);
+                        }
+                        else
+                        {
+                            MsgBox.Show("Thuốc này đã được nhập");
+                        }
                     }
                     else
                     {
