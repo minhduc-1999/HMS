@@ -15,18 +15,18 @@ namespace BUS_Clinic.BUS
         {
 
         }
-        public void AddDonThuoc(DTO_DonThuoc donThuoc)
+        public async Task<string> AddDonThuocAsync(DTO_DonThuoc donThuoc)
         {
-            DALManager.DonThuocDAL.AddDonThuoc(donThuoc);
+            return await DALManager.DonThuocDAL.AddDonThuocAsync(donThuoc);
         }
-      
+
         public void LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
         {
             DALManager.DonThuocDAL.LoadNPPKDaKhoa(donThuoc);
         }
-        public void LoadNP_CTDonThuoc(DTO_DonThuoc donThuoc)
+        public void LoadNP_DSCTDonThuoc(DTO_DonThuoc donThuoc)
         {
-            DALManager.DonThuocDAL.LoadNP_CTDonThuoc(donThuoc);
+            DALManager.DonThuocDAL.LoadNP_DSCTDonThuoc(donThuoc);
         }
 
     }

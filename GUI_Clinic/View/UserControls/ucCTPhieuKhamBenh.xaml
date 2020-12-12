@@ -31,6 +31,7 @@
                             <RowDefinition />
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock x:Name="tblTenBenhNhan"
@@ -77,6 +78,13 @@
                                      Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
                                      Margin="10 5 10 5"
                                      materialDesign:HintAssist.Hint="Triệu chứng"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <TextBox x:Name="tbxLoiDan"
+                                     Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="10 5 10 5"
+                                     materialDesign:HintAssist.Hint="Lời dặn của bác sĩ"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         </Grid>
                         <Grid Grid.Row="4">
@@ -200,7 +208,7 @@
                                         <GridViewColumn Header="Số lượng"
                                                             DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
                                         <GridViewColumn Header="Đơn vị"
-                                                            DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                                                            DisplayMemberBinding="{Binding Thuoc.DonVi}"></GridViewColumn>
                                         <GridViewColumn Header="Cách dùng"
                                                             DisplayMemberBinding="{Binding CachDung}"></GridViewColumn>
                                         <GridViewColumn Header="" Width="40">
@@ -208,6 +216,7 @@
                                                 <DataTemplate>
                                                     <Button x:Name="btnXoa"
                                                             CommandParameter="{Binding}"
+                                                            Visibility="{Binding ElementName=btnXuatDon, Path=Visibility, Mode=OneWay}"
                                                             Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
                                                             ToolTip="Xóa"
                                                             Background="#0078D7"
@@ -250,7 +259,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <Button x:Name="btnInPhieu"
-                        Command="{Binding }"
+                        Command="{Binding InPhieuKhamCommand}"
                         Content="In phiếu"
                         Width="155"
                         Margin="5 5 5 10"
@@ -270,13 +279,13 @@
             </Grid>
             <Grid Grid.Column="3">
                 <Button x:Name="btnXuatDon"
-                        Command="{Binding ThanhToanPhieuKhamCommand}"
+                        Command="{Binding XuatDonThuocCommand}"
                         Content="Xuất đơn thuốc"
                         Width="155"
                         Margin="5 5 5 10"
                         VerticalAlignment="Center"
                         Background="#0078D7"
-                        BorderBrush="#0078D7" Click="btnXuatDon_Click"></Button>
+                        BorderBrush="#0078D7"></Button>
             </Grid>
 
         </Grid>

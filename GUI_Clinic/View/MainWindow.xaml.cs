@@ -35,6 +35,7 @@ namespace GUI_Clinic.View
             uc_QuanLyThuoc.maDuocSi = currentNV.MaNhanVien;
             uc_DanhSachKhamBenh.CurrentNV = currentNV;
             uc_BaoCaoDoanhThu.CurrentNhanVien = currentNV;
+            uc_DanhSachPhieuKhamBenh.CurrentNV = currentNV;
             GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;

@@ -10,7 +10,6 @@ namespace DTO_Clinic.Component
         public bool IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
         public string TenBenh { get => _tenBenh; set { _tenBenh = value; OnPropertyChanged(); }  }
         private string _tenBenh;
-        public virtual ICollection<DTO_PKDaKhoa> DS_PKDaKhoa { get; set; }
 
         public DTO_Benh() : base()
         {

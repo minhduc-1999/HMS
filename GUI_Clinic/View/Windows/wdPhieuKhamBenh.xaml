@@ -143,7 +143,7 @@
         </materialDesign:Card>-->
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <ListView x:Name="lvMedicine" ItemsSource="{Binding ListCTPKB}"
+                <ListView x:Name="lvMedicine"
                           SelectedItem="{Binding SlectedItem, Mode=OneWayToSource}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"

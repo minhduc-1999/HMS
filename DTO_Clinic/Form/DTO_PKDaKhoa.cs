@@ -17,10 +17,8 @@ namespace DTO_Clinic.Form
         private string _chanDoan;
         public string ChanDoan { get => _chanDoan; set { _chanDoan = value; OnPropertyChanged(); } }
         public string MaBenhNhan { get; set; }
-        public string MaBenh { get; set; }
         public string MaNhanVien { get; set; }
         public string MaBacSi { get; set; }
-        public virtual DTO_Benh Benh { get; set; }
         public virtual DTO_NhanVien NguoiLap { get; set; }
         public virtual DTO_NhanVien BacSiChuaTri { get; set; }
         public virtual DTO_BenhNhan BenhNhan { get; set; }
@@ -30,7 +28,6 @@ namespace DTO_Clinic.Form
         public DTO_PKDaKhoa(string maBenhNhan, DateTime ngayKham, string maBenh, string trieuChung)
         {
             MaBenhNhan = maBenhNhan;
-            MaBenh = maBenh;
             NgayKham = ngayKham;
             TrieuChung = trieuChung;
             IsDeleted = false;

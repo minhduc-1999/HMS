@@ -29,8 +29,9 @@ namespace GUI_Clinic.View.Windows
             InitializeComponent();
             this.DataContext = this;
             BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkDaKhoa);
-            BUSManager.PKDaKhoaBUS.LoadNPBenh(pkDaKhoa);
-            PKDaKhoa = pkDaKhoa;           
+            BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkDaKhoa.DonThuoc);
+            PKDaKhoa = pkDaKhoa;
+            lvMedicine.ItemsSource = pkDaKhoa.DonThuoc.DS_CTDonThuoc;
                      
         }
 

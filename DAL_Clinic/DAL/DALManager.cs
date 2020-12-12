@@ -172,7 +172,7 @@
             {
                 if (_donThuoc == null)
                     _donThuoc = new DAL_DonThuoc();
-                return DonThuocDAL;
+                return _donThuoc;
             }
         }
         public static DAL_CTDonThuoc CTDonThuocDAL
@@ -181,7 +181,7 @@
             {
                 if (_ctDonThuoc == null)
                     _ctDonThuoc = new DAL_CTDonThuoc();
-                return CTDonThuocDAL;
+                return _ctDonThuoc;
             }
         }
         public static DAL_Group GroupDAL

@@ -49,25 +49,6 @@ namespace DAL_Clinic.DAL
             }
         }
 
-        public bool LoadNPBenh(DTO_PKDaKhoa pKDaKhoa)
-        {
-            try
-            {
-                using (var context = new SQLServerDBContext())
-                {
-                    context.PKDaKhoa.Attach(pKDaKhoa);
-                    var entry = context.Entry(pKDaKhoa);
-                    if (!entry.Reference(p => p.Benh).IsLoaded)
-                        entry.Reference(p => p.Benh).Load();
-                    return true;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"[ERRROR DAL_PKDAKHOA] {e.Message}");
-                return false;
-            }
-        }
         public bool LoadNPDonThuoc(DTO_PKDaKhoa pKDaKhoa)
         {
             try
@@ -142,6 +123,14 @@ namespace DAL_Clinic.DAL
                 //}
             }
         }
+        public List<DTO_PKDaKhoa> GetListPKBByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var list = context.PKDaKhoa.Where(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year).ToList();
+                return list;
+            }
+        }
 
 
         public int GetAmountByDate(DateTime dt)
@@ -152,6 +141,14 @@ namespace DAL_Clinic.DAL
                 return res;
             }
         }
+        public void UpdatePKDK(DTO_PKDaKhoa pkdk)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                context.Entry(pkdk).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
         public bool isSigned(DTO_BenhNhan bn)
         {
             using (var context = new SQLServerDBContext())
@@ -160,7 +157,7 @@ namespace DAL_Clinic.DAL
                 {
                     var res = context.PKDaKhoa.Count(p => p.MaBenhNhan == bn.MaBenhNhan 
                     && p.NgayKham.Day == DateTime.Now.Day && p.NgayKham.Month == DateTime.Now.Month && p.NgayKham.Year == DateTime.Now.Year
-                    && (p.MaBacSi == null || p.MaBenh == null || p.ChanDoan == null));
+                    && (p.MaBacSi == null ||  p.ChanDoan == null));
                     if (res == 0)
                     {
                         return false;

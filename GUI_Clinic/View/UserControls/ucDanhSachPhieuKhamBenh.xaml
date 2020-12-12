@@ -211,7 +211,7 @@
                                 <ListView x:Name="lvDSPKB"
                                           ScrollViewer.CanContentScroll="True"                                          
                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                          MouseDoubleClick="lvDSPKB_MouseDoubleClick" Grid.ColumnSpan="2">
+                                          MouseDoubleClick="lvDSPKB_MouseDoubleClick" Grid.ColumnSpan="2" Margin="1,0,-1,0">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
@@ -226,7 +226,7 @@
                                             <GridViewColumn Header="Triệu chứng"
                                                                 DisplayMemberBinding="{Binding TrieuChung}"></GridViewColumn>
                                             <GridViewColumn Header="Chẩn đoán"
-                                                            DisplayMemberBinding="{Binding Benh.TenBenh}"></GridViewColumn>
+                                                            DisplayMemberBinding="{Binding ChanDoan}"></GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

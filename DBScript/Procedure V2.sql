@@ -142,17 +142,39 @@ END;
 go
 
 ---------------------------------------V2.3----------------
---insert Phong proc
-create Proc proc_DonThuoc_insert
+--Alter DonThuoc proc
+ALTER Proc [dbo].[proc_DonThuoc_insert]
+	@id		nvarchar(max),
 	@loidan nvarchar(max)
 AS
 	BEGIN
-		declare @id nvarchar(128), @max int, @prefix varchar(2) = 'DT'
-		select @max = COUNT(*) from DONTHUOC
-		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PHONG values (@id, 0, @loidan)
+
+		insert into DONTHUOC values (@id, 0, @loidan)
 		select @id
 	END;
 	go
---select * from DONTHUOC
---exec proc_Phong_insert 'uong thuoc ngay 3 lan'
+------------------------------
+--ALTER PKDK proc
+	ALTER Proc [dbo].[proc_PKDK_insert]
+	@ngaykham datetime,
+	@mabenhnhan nvarchar(128),
+	@manhanvien nvarchar(128)
+AS
+BEGIN
+	BEGIN TRY
+        declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKDK'
+		select @max = COUNT(*) from PKDAKHOA
+		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
+		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, @manhanvien, null)
+		select @id
+        return -9999
+    END TRY
+    BEGIN CATCH
+        declare @code varchar(10)
+        set @code = ERROR_NUMBER()
+        --select @code
+		select ERROR_MESSAGE()
+        return ERROR_STATE()
+    END CATCH;
+END;
+

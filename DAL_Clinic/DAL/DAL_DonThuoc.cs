@@ -18,16 +18,33 @@ namespace DAL_Clinic.DAL
         public DAL_DonThuoc()
         {
         }
-        public void AddDonThuoc(DTO_DonThuoc donThuoc)
+        public async Task<string> AddDonThuocAsync(DTO_DonThuoc donThuoc)
         {
-                using (var context = new SQLServerDBContext())
+            using (var context = new SQLServerDBContext())
+            {
+                string res = null;
+                try
                 {
-                    context.DonThuoc.Add(donThuoc);
-                    context.SaveChanges();
+                    var maDon = new SqlParameter("@1", System.Data.SqlDbType.NVarChar);
+                    var loiDan = new SqlParameter("@2", System.Data.SqlDbType.NVarChar);
+                    maDon.Value = donThuoc.MaDonThuoc;
+                    loiDan.Value = donThuoc.LoiDan;
+                    res = await context.Database.SqlQuery<string>("exec proc_DonThuoc_insert @1, @2",
+                        new SqlParameter[]
+                        {
+                            maDon,
+                            loiDan
+                        }).FirstOrDefaultAsync();
                 }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("[ERROR] " + e.Message);
+                }
+                return res;
+            }
         }
-       
-        public bool LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
+
+            public bool LoadNPPKDaKhoa(DTO_DonThuoc donThuoc)
         {
             try
             {
@@ -46,7 +63,7 @@ namespace DAL_Clinic.DAL
                 return false;
             }
         }
-        public bool LoadNP_CTDonThuoc(DTO_DonThuoc donThuoc)
+        public bool LoadNP_DSCTDonThuoc(DTO_DonThuoc donThuoc)
         {
             try
             {

@@ -14,6 +14,10 @@ namespace BUS_Clinic.BUS
         {
 
         }
+        public void AddCTDonThuoc(DTO_CTDonThuoc cTDonThuoc)
+        {
+            DALManager.CTDonThuocDAL.AddCTDonThuoc(cTDonThuoc);
+        }
         public void LoadNPBenh(DTO_CTDonThuoc ctDonThuoc)
         {
             DALManager.CTDonThuocDAL.LoadNPDonThuoc(ctDonThuoc);

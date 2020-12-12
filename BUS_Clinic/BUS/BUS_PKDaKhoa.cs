@@ -8,10 +8,6 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_PKDaKhoa : BaseBUS
     {
-        public void LoadNPBenh(DTO_PKDaKhoa pKDaKhoa)
-        {
-            DALManager.PKDaKhoaDAL.LoadNPBenh(pKDaKhoa);
-        }
         public void LoadNPBenhNhan(DTO_PKDaKhoa pKDaKhoa)
         {
             DALManager.PKDaKhoaDAL.LoadNPBenhNhan(pKDaKhoa);
@@ -42,14 +38,18 @@ namespace BUS_Clinic.BUS
         {
             return await DALManager.PKDaKhoaDAL.GetListPKDKAsync();
         }
+        public void UpdatePKDK(DTO_PKDaKhoa pkdk)
+        {
+            DALManager.PKDaKhoaDAL.UpdatePKDK(pkdk);
+        }
 
 
         public ObservableCollection<DTO_BenhNhan> GetListBNByDate(DateTime date)
         {
             //try
             //{
-                var res = new ObservableCollection<DTO_BenhNhan>(DALManager.PKDaKhoaDAL.GetListBNByDate(date));
-                return res;
+                var list = new ObservableCollection<DTO_BenhNhan>(DALManager.PKDaKhoaDAL.GetListBNByDate(date));
+                return list;
             //}
             //catch(Exception e)
             //{
@@ -57,6 +57,12 @@ namespace BUS_Clinic.BUS
             //}
 
         }
+        public ObservableCollection<DTO_PKDaKhoa> GetListPKBByDate(DateTime date)
+        {
+            var list = new ObservableCollection<DTO_PKDaKhoa>(DALManager.PKDaKhoaDAL.GetListPKBByDate(date));
+            return list;
+        }
+
         public int GetAmountByDate(DateTime dt)
         {
             return DALManager.PKDaKhoaDAL.GetAmountByDate(dt);

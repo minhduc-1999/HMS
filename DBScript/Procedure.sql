@@ -189,4 +189,16 @@ AS
 --select * from HOADON
 --exec proc_HoaDon_insert 'Tien thuoc', '3000000', '2020-2-2', 1, 'BN00001', 'NV00001'
 
+--insert DonThuoc proc
+create Proc proc_DonThuoc_insert
+	@id		nvarchar(max),
+	@loidan nvarchar(max)
+AS
+	BEGIN
+
+		insert into DONTHUOC values (@id, 0, @loidan)
+		select @id
+	END;
+	go
+
 
