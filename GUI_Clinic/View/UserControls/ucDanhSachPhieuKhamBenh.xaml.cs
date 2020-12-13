@@ -46,7 +46,8 @@ namespace GUI_Clinic.View.UserControls
             if (WaitingPatientRemoved != null)
                 WaitingPatientRemoved(bn, new EventArgs());
             lvDSPKB.ItemsSource = null;
-            dpkNgayKham.SelectedDate = null;
+            grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
+            dpkNgayKham.SelectedDate = DateTime.Now;
         }
 
         #region Property
@@ -66,7 +67,10 @@ namespace GUI_Clinic.View.UserControls
             ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
             foreach (DTO_BenhNhan bn in BUSManager.PKDaKhoaBUS.GetListBNByDate(DateTime.Now.Date))
             {
-                if (bn.DS_PKDaKhoa.Last().DonThuoc == null)
+                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(bn);
+                DTO_PKDaKhoa pKDaKhoa = bn.DS_PKDaKhoa.Last();
+                BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pKDaKhoa);
+                if (pKDaKhoa.DonThuoc == null)
                     ListBNWaiting.Add(bn);
             };
             lvBenhNhan.ItemsSource = ListBNWaiting;

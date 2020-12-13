@@ -31,6 +31,11 @@ namespace GUI_Clinic.View.Windows
             BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkDaKhoa);
             BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkDaKhoa.DonThuoc);
             PKDaKhoa = pkDaKhoa;
+            foreach (DTO_CTDonThuoc item in pkDaKhoa.DonThuoc.DS_CTDonThuoc)
+            {
+                BUSManager.CTDonThuocBUS.LoadNPThuoc(item);
+                BUSManager.CTDonThuocBUS.LoadNPCachDung(item);
+            }
             lvMedicine.ItemsSource = pkDaKhoa.DonThuoc.DS_CTDonThuoc;
                      
         }

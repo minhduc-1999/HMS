@@ -95,10 +95,13 @@ namespace GUI_Clinic.View.UserControls
             BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkb);
             BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pkb);
             BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkb.DonThuoc);
-            foreach (DTO_CTDonThuoc item in pkb.DonThuoc.DS_CTDonThuoc)
+            if (pkb.DonThuoc != null)
             {
-                BUSManager.CTDonThuocBUS.LoadNPThuoc(item);
-                BUSManager.CTDonThuocBUS.LoadNPCachDung(item);
+                foreach (DTO_CTDonThuoc item in pkb.DonThuoc.DS_CTDonThuoc)
+                {
+                    BUSManager.CTDonThuocBUS.LoadNPThuoc(item);
+                    BUSManager.CTDonThuocBUS.LoadNPCachDung(item);
+                }
             }
             benhNhan = pkb.BenhNhan;
             tblTenBenhNhan.Text = benhNhan.HoTen;
@@ -205,7 +208,6 @@ namespace GUI_Clinic.View.UserControls
                         phieuKhamBenh.TrieuChung = tbxTrieuChung.Text;
                         phieuKhamBenh.MaBacSi = CurrentNV.MaNhanVien;
                         BUSManager.PKDaKhoaBUS.UpdatePKDK(phieuKhamBenh);
-
                     }
                     if (newDonThuoc.MaDonThuoc != null)
                         await BUSManager.DonThuocBUS.AddDonThuocAsync(newDonThuoc);
@@ -216,6 +218,8 @@ namespace GUI_Clinic.View.UserControls
                         item.Thuoc = null;
                         BUSManager.CTDonThuocBUS.AddCTDonThuoc(item);
                     }
+                    wdPhieuKhamBenh wDPhieuKhamBenh = new wdPhieuKhamBenh(phieuKhamBenh);
+                    wDPhieuKhamBenh.ShowDialog();
                     ResetPKB();
                     Finish(benhNhan, new EventArgs());
                 }
@@ -236,6 +240,7 @@ namespace GUI_Clinic.View.UserControls
             cbxChanDoan.IsHitTestVisible = false;
             tbxTrieuChung.IsHitTestVisible = false;
             tbxLoiDan.IsHitTestVisible = false;
+            btnInPhieu.Visibility = Visibility.Visible;
             btnXuatDon.Visibility = Visibility.Collapsed;
             btnKhamChuyenKhoa.Visibility = Visibility.Collapsed;
             grdNhapThuoc.Visibility = Visibility.Collapsed;
@@ -246,6 +251,7 @@ namespace GUI_Clinic.View.UserControls
             cbxChanDoan.IsHitTestVisible = true;
             tbxTrieuChung.IsHitTestVisible = true;
             tbxLoiDan.IsHitTestVisible = true;
+            btnInPhieu.Visibility = Visibility.Collapsed;
             btnXuatDon.Visibility = Visibility.Visible;
             grdNhapThuoc.Visibility = Visibility.Visible;
             btnKhamChuyenKhoa.Visibility = Visibility.Visible;

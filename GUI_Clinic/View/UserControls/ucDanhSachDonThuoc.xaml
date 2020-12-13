@@ -206,7 +206,7 @@
                                 <GroupBox Header="Đơn thuốc"
                                             Margin="5 10 10 10">
                                     <Grid>
-                                        <ListView
+                                        <ListView x:Name="lvCTDonThuoc"
                                     ScrollViewer.CanContentScroll="True"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
                                             <ListView.View>
@@ -221,27 +221,9 @@
                                                     <GridViewColumn Header="Số lượng"
                                                         DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
                                                     <GridViewColumn Header="Đơn vị"
-                                                        DisplayMemberBinding="{Binding Thuoc.DonVi.TenDonVi}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding Thuoc.DonVi}"></GridViewColumn>
                                                     <GridViewColumn Header="Cách dùng"
                                                         DisplayMemberBinding="{Binding CachDung}"></GridViewColumn>
-                                                    <GridViewColumn Header="" Width="40">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <Button
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
-                                                        ToolTip="Xóa"
-                                                        Background="#0078D7"
-                                                        BorderBrush="#0078D7"
-                                                        Width="20"
-                                                        Height="20"
-                                                        Click="RemoveCategory">
-                                                                    <materialDesign:PackIcon Kind="Minus"
-                                                                                Height="15" Width="15" />
-                                                                </Button>
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
@@ -298,14 +280,14 @@
                                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                                            <GridViewColumn Header="Mã PKB"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                            <GridViewColumn Header="Mã Đơn Thuốc"
+                                                                DisplayMemberBinding="{Binding MaPKDK}"></GridViewColumn>
                                             <GridViewColumn Header="Ngày khám"
                                                                 DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
                                             <GridViewColumn Header="Triệu chứng"
                                                                 DisplayMemberBinding="{Binding TrieuChung}"></GridViewColumn>
                                             <GridViewColumn Header="Chẩn đoán"
-                                                            DisplayMemberBinding="{Binding Benh.TenBenh}"></GridViewColumn>
+                                                            DisplayMemberBinding="{Binding ChanDoan}"></GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

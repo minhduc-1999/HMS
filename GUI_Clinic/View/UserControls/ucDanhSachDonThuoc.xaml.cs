@@ -38,6 +38,7 @@ namespace GUI_Clinic.View.UserControls
         #region Property
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_CachDung> ListCD { get; set; }
+        public ObservableCollection<DTO_PKDaKhoa> ListPKB { get; set; }
         public ObservableCollection<DTO_CTHDThuoc> List { get; set; }
         //public List<string> ListTenCD { get; set; }
         public List<string> ListDonViGroupWithThuoc { get; set; }
@@ -57,7 +58,7 @@ namespace GUI_Clinic.View.UserControls
             //ListThuoc = BUSManager.ThuocBUS.GetListThuoc();
             ListCD = await BUSManager.CachDungBUS.GetListCDAsync();
             List = new ObservableCollection<DTO_CTHDThuoc>();
-
+            lvDSPKB.ItemsSource = BUSManager.PKDaKhoaBUS.GetListPKBByDate(DateTime.Now); 
             cbxThuoc.ItemsSource = ListThuoc;
         }
 
@@ -114,15 +115,6 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, (p) =>
             {
-                //var hoaDon = new DTO_HoaDon()
-                //{
-                //    ChiTiet = "Tiền thuốc",
-                //    0,
-                //    NgayLap = DateTime.Now,
-                //    LoaiHoaDon = DTO_HoaDon.LoaiHD.HDKhamDaKhoa,
-                //    MaBenhNhan = maNhanvien,
-                //    MaNhanVien = maNhanvien
-                //};
 
                 foreach (var item in List)
                 {
@@ -141,17 +133,49 @@ namespace GUI_Clinic.View.UserControls
 
                 List = null;
                 lvThuoc.ItemsSource = List;
+                ListPKB = null;
+                lvDSPKB.ItemsSource = ListPKB;
+                lvCTDonThuoc.ItemsSource = null;
+                dpkNgayKham.SelectedDate = null;
             });
         }
 
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (dpkNgayKham.SelectedDate.HasValue)
+            {
+                var curDate = (sender as DatePicker).SelectedDate.Value;
+                ListPKB = BUSManager.PKDaKhoaBUS.GetListPKBByDate(curDate);
+                foreach (DTO_PKDaKhoa item in ListPKB)
+                    BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(item);
+                lvDSPKB.ItemsSource = ListPKB;
+            }
         }
 
         private void lvDSPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PKDaKhoa;
+            if (item != null)
+            {
+                GetDonThuoc(item);
+            }
+        }
+        public void GetDonThuoc(DTO_PKDaKhoa pkb)
+        {
+            BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pkb);
+            BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkb.DonThuoc);
+            if (pkb.DonThuoc != null)
+            {
+                foreach (DTO_CTDonThuoc item in pkb.DonThuoc.DS_CTDonThuoc)
+                {
+                    BUSManager.CTDonThuocBUS.LoadNPThuoc(item);
+                    BUSManager.CTDonThuocBUS.LoadNPCachDung(item);
+                }
+            }
+            if (pkb.DonThuoc != null)
+            {
+                lvCTDonThuoc.ItemsSource = pkb.DonThuoc.DS_CTDonThuoc;
+            }
         }
 
         private void RemoveCategory(object sender, RoutedEventArgs e)

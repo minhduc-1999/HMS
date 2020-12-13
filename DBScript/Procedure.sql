@@ -110,7 +110,7 @@ AS
 		declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKDK'
 		select @max = COUNT(*) from PKDAKHOA
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, null, @manhanvien, @mabacsi)
+		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, @manhanvien, @mabacsi)
 		select @id
 	END;
 	go
