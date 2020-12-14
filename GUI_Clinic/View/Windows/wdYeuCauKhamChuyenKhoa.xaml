@@ -28,7 +28,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -44,13 +45,13 @@
                                Text="Nhập yêu cầu khám chuyên khoa:"
                                FontSize="20">
             </TextBlock>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="0,0,0,-11">
                 <TextBox BorderBrush="#0078D7"
                                  x:Name="tbxYeuCauKhamChuyenKhoa"
                                  BorderThickness="2"
-                                 Margin="0 5 5 0"
+                                 Margin="0,7,0,17"
                                  FontSize="16"
-                                 Height="130"
+                                 Height="115"
                                  TextWrapping="Wrap"
                                  Width="470"
                                  VerticalAlignment="Center"
@@ -58,8 +59,18 @@
                 </TextBox>
             </Grid>
         </Grid>
-
         <Grid Grid.Row="2"
+              Margin="20 0 20 -5">
+            <TextBlock Grid.Row="0"
+                                x:Name="tblWarning"
+                               Text="Vui lòng nhập yêu cầu trước khi gửi!"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Visibility="Collapsed"
+                               FontSize="15" Foreground="#DDFF0000">
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="3"
               Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

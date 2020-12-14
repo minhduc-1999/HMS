@@ -430,7 +430,7 @@
                                                    x:Name="tblYeuCau"
                                                    MaxWidth="300"
                                                    Foreground="Black"
-                                                   Text="Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình Bình ">
+                                                   Text="">
                             </TextBlock>
                         </Grid>
 

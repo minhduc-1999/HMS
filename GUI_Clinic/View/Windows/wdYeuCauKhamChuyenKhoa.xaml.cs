@@ -34,8 +34,16 @@ namespace GUI_Clinic.View.Windows
 
         private void btnGuiYeuCau_Click(object sender, RoutedEventArgs e)
         {
-            yeuCau = new DTO_YeuCau(benhNhan.MaBenhNhan, benhNhan.HoTen, tbxYeuCauKhamChuyenKhoa.Text);
-            this.Close();
+            if (tbxYeuCauKhamChuyenKhoa.Text != "")
+            {
+                yeuCau = new DTO_YeuCau(benhNhan.MaBenhNhan, benhNhan.HoTen, tbxYeuCauKhamChuyenKhoa.Text);
+                tblWarning.Visibility = Visibility.Collapsed;
+                this.Close();
+            }
+            else
+            {
+                tblWarning.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnHuy_Click(object sender, RoutedEventArgs e)

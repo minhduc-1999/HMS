@@ -38,6 +38,9 @@ namespace GUI_Clinic.View.UserControls
         public ICommand SignedCommand { get; set; }
         public ICommand XemHoaDonCommand { get; set; }
         #endregion
+        #region 
+        public event EventHandler PatientSigned;
+        #endregion
 
         public ucDanhSachKhamChuyenKhoa()
         {
@@ -94,7 +97,9 @@ namespace GUI_Clinic.View.UserControls
                             {
                                 ListYCDaDK = new ObservableCollection<DTO_YeuCau>();
                             }
+                            PatientSigned?.Invoke(selectedBN, new EventArgs());
                             ListYCDaDK.Add(ListYC[lvDanhSachDuocYeuCauKhamCK.SelectedIndex]);
+                            ListBNYC.Remove(selectedBN);
                             //BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
                             //ListHDCuaBNDaDK.Add(hoaDon);
                         }

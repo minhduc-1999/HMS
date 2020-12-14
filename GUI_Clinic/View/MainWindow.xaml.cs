@@ -40,6 +40,7 @@ namespace GUI_Clinic.View
             GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
+            uc_DanhSachKhamChuyenKhoa.PatientSigned += Uc_DanhSachKhamChuyenKhoa_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             uc_DanhSachDonThuoc.ListThuoc = uc_QuanLyThuoc.ListThuoc;
             uc_DanhSachPhieuKhamBenh.setUCDSKCK(uc_DanhSachKhamChuyenKhoa);
@@ -171,7 +172,10 @@ namespace GUI_Clinic.View
         {
             uc_DanhSachPhieuKhamBenh.UpdateWaitingList(sender);
         }
-
+        private void Uc_DanhSachKhamChuyenKhoa_PatientSigned(object sender, EventArgs e)
+        {
+            uc_DanhSachPhieuKhamChuyenKhoa.UpdateWaitingList(sender);
+        }
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ListViewMenu.SelectedIndex;

@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Form;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
@@ -45,7 +46,7 @@ namespace GUI_Clinic.View.UserControls
         }
 
         #region Property
-        //public ObservableCollection<DTO_PhieuKhamBenh> ListPKB { get; set; }
+        public ObservableCollection<DTO_PKChuyenKhoa> ListPKCK { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
         public CollectionView ViewPKB { get; set; }
         #endregion
@@ -57,12 +58,12 @@ namespace GUI_Clinic.View.UserControls
         #endregion
         public void InitData()
         {
-            //ListPKB = new ObservableCollection<DTO_PhieuKhamBenh>(BUSManager.PhieuKhamBenhBUS.GetListPKB());
-            //ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
-            //lvDSPKB.ItemsSource = ListPKB;
-            //lvBenhNhan.ItemsSource = ListBNWaiting;
-            //ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKB);
-            //ViewPKB.Filter = PhieuKhamBenhFilter;
+            ListPKCK = new ObservableCollection<DTO_PKChuyenKhoa>();
+            ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
+            lvDSPKB.ItemsSource = ListPKCK;
+            lvBenhNhan.ItemsSource = ListBNWaiting;
+            ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKCK);
+            ViewPKB.Filter = PhieuKhamBenhFilter;
         }
 
         public void InitCommand()
@@ -75,7 +76,7 @@ namespace GUI_Clinic.View.UserControls
             }, (p) =>
             {
                 grdPhieuKhamBenh.Visibility = Visibility.Visible;
-                //ucCTPKB.GetBenhNhan(lvBenhNhan.SelectedItem as DTO_BenhNhan);
+                ucCTPKCK.GetBenhNhan(lvBenhNhan.SelectedItem as DTO_BenhNhan);
             });
         }
 
@@ -106,15 +107,16 @@ namespace GUI_Clinic.View.UserControls
 
         private void lvDSPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PhieuKhamBenh;
-            //if (item != null)
-            //{
-            //    grdPhieuKhamBenh.Visibility = Visibility.Visible;
-            //    ucCTPKB.GetPKB(item);
-            //}
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PKChuyenKhoa;
+            if (item != null)
+            {
+                grdPhieuKhamBenh.Visibility = Visibility.Visible;
+              //  ucCTPKCK.GetPKCK(item);
+            }
         }
         public void UpdateWaitingList(object bn)
         {
+            lvBenhNhan.ItemsSource = ListBNWaiting;
             var bNhan = bn as DTO_BenhNhan;
             ListBNWaiting.Add(bNhan);
         }
