@@ -42,6 +42,7 @@ namespace GUI_Clinic.View
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             uc_DanhSachDonThuoc.ListThuoc = uc_QuanLyThuoc.ListThuoc;
+            uc_DanhSachPhieuKhamBenh.setUCDSKCK(uc_DanhSachKhamChuyenKhoa);
             if (ListNhom != null)
             {
                 int index = -1;

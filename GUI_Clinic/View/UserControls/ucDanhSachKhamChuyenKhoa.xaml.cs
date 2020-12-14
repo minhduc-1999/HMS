@@ -1,5 +1,6 @@
 ﻿using BUS_Clinic.BUS;
 using DTO_Clinic;
+using DTO_Clinic.Component;
 using DTO_Clinic.Form;
 using DTO_Clinic.Person;
 using GUI_Clinic.Command;
@@ -22,12 +23,16 @@ namespace GUI_Clinic.View.UserControls
     public partial class ucDanhSachKhamChuyenKhoa : UserControl
     {
         #region Properties
-        public ObservableCollection<DTO_BenhNhan> ListBN1 { get; set; }
+        public ObservableCollection<DTO_BenhNhan> ListBNYC { get; set; }
+
+        public ObservableCollection<DTO_YeuCau> ListYC { get; set; }
+        public ObservableCollection<DTO_YeuCau> ListYCDaDK { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNDaDK { get; set; }
         public ObservableCollection<DTO_ThamSo> ListThamSo { get; set; }
         public ObservableCollection<DTO_HoaDon> ListHDCuaBNDaDK { get; set; }
         public DTO_NhanVien CurrentNV { get; set; }
         public DTO_BenhNhan selectedBN { get; set; }
+
         #endregion
         #region Command
         public ICommand SignedCommand { get; set; }
@@ -71,7 +76,7 @@ namespace GUI_Clinic.View.UserControls
                 {
                     NgayKham = DateTime.Now,
                     MaNhanVien = CurrentNV.MaNhanVien,
-                    YeuCau = "them yeu cau vao day",
+                    YeuCau = tblYeuCau.Text,
                     MaPKDaKhoa = BUSManager.BenhNhanBUS.GetPKDKMoiNhat(selectedBN).MaPKDK,
                     PhieuKhamDaKhoa = BUSManager.BenhNhanBUS.GetPKDKMoiNhat(selectedBN)
                 };
@@ -85,6 +90,11 @@ namespace GUI_Clinic.View.UserControls
                         if (dpkNgayKham.SelectedDate.Value.Date == DateTime.Now.Date)
                         {
                             ListBNDaDK.Add(selectedBN);
+                            if (ListYCDaDK == null)
+                            {
+                                ListYCDaDK = new ObservableCollection<DTO_YeuCau>();
+                            }
+                            ListYCDaDK.Add(ListYC[lvDanhSachDuocYeuCauKhamCK.SelectedIndex]);
                             //BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
                             //ListHDCuaBNDaDK.Add(hoaDon);
                         }
@@ -110,21 +120,39 @@ namespace GUI_Clinic.View.UserControls
             });
         }
 
+        public async Task UpdateListBNYCAsync(DTO_YeuCau newYC)
+        {
+            DTO_BenhNhan newBNYC = await BUSManager.BenhNhanBUS.GetBenhNhanByIdAsync(newYC.MaBenhNhan);
+            if (ListYC == null)
+            {
+                ListYC = new ObservableCollection<DTO_YeuCau>();
+            }
+            ListYC.Add(newYC);
+            if (ListBNYC == null)
+            {
+                ListBNYC = new ObservableCollection<DTO_BenhNhan>();
+            }
+            ListBNYC.Add(newBNYC);
+            lvDanhSachDuocYeuCauKhamCK.ItemsSource = ListBNYC;
+        }
+
         private async Task InitDataAsync()
         {
-            var loadListBN1Task = BUSManager.BenhNhanBUS.GetListBNAsync(); //load benh nhan duoc yeu cau kham chuyen khoa tu dau do
+            lvDanhSachDuocYeuCauKhamCK.ItemsSource = ListBNYC;
+
             var loadListThamSo = BUSManager.ThamSoBUS.GetListAsync();
 
-            var initDataTasks = new List<Task> { loadListBN1Task, loadListThamSo };
+            var initDataTasks = new List<Task> { loadListThamSo };
             while (initDataTasks.Count > 0)
             {
                 Task finishedTask = await Task.WhenAny(initDataTasks);
-                if (finishedTask == loadListBN1Task)
-                {
-                    ListBN1 = loadListBN1Task.Result;
-                    lvDanhSachDuocYeuCauKhamCK.ItemsSource = ListBN1;
-                }
-                else if (finishedTask == loadListThamSo)
+                //if (finishedTask == loadListBN1Task)
+                //{
+                //    ListBN1 = loadListBN1Task.Result;
+                //    lvDanhSachDuocYeuCauKhamCK.ItemsSource = ListBN1;
+                //}
+                //else 
+                if (finishedTask == loadListThamSo)
                 {
                     ListThamSo = loadListThamSo.Result;
                 }
@@ -132,7 +160,7 @@ namespace GUI_Clinic.View.UserControls
 
             }
 
-            UpdateSelectedBN(null);
+            UpdateSelectedBN(null, -1);
         }
 
         private void lvDanhSachDuocYeuCauKhamCK_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -140,8 +168,8 @@ namespace GUI_Clinic.View.UserControls
             if (lvDanhSachDuocYeuCauKhamCK.SelectedIndex != -1)
             {
                 lvDanhSachDaDKKhamCK.SelectedIndex = -1;
-                UpdateSelectedBN(lvDanhSachDuocYeuCauKhamCK.SelectedItem as DTO_BenhNhan);
                 tblTrangThai.Text = "Chưa đăng ký";
+                UpdateSelectedBN(lvDanhSachDuocYeuCauKhamCK.SelectedItem as DTO_BenhNhan, lvDanhSachDuocYeuCauKhamCK.SelectedIndex);
                 btnDangKy.Visibility = Visibility.Visible;
                 btnHoaDon.Visibility = Visibility.Collapsed;
             }
@@ -152,14 +180,14 @@ namespace GUI_Clinic.View.UserControls
             if (lvDanhSachDaDKKhamCK.SelectedIndex != -1)
             {
                 lvDanhSachDuocYeuCauKhamCK.SelectedIndex = -1;
-                UpdateSelectedBN(lvDanhSachDaDKKhamCK.SelectedItem as DTO_BenhNhan);
                 tblTrangThai.Text = "Đã đăng ký";
+                UpdateSelectedBN(lvDanhSachDaDKKhamCK.SelectedItem as DTO_BenhNhan, lvDanhSachDaDKKhamCK.SelectedIndex);
                 btnDangKy.Visibility = Visibility.Collapsed;
                 btnHoaDon.Visibility = Visibility.Visible;
             }
         }
 
-        private void UpdateSelectedBN(DTO_BenhNhan bn)
+        private void UpdateSelectedBN(DTO_BenhNhan bn, int index)
         {
             selectedBN = bn;
             if (selectedBN != null)
@@ -172,7 +200,14 @@ namespace GUI_Clinic.View.UserControls
                 tblDiaChi.Text = selectedBN.DiaChi;
                 tblSDT.Text = selectedBN.SoDienThoai;
                 tblCMND.Text = selectedBN.SoCMND;
-                //Yeucau
+                if (tblTrangThai.Text == "Đã đăng ký")
+                {
+                    tblYeuCau.Text = ListYCDaDK[index].NoiDung;
+                }
+                else
+                {
+                    tblYeuCau.Text = ListYC[index].NoiDung;
+                }
             }
             else
             {

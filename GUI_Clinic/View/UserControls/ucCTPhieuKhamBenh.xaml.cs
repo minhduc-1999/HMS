@@ -48,6 +48,7 @@ namespace GUI_Clinic.View.UserControls
         private DTO_CTDonThuoc ctDonThuoc { get; set; }
 
         public DTO_NhanVien CurrentNV { get; set; }
+        public ucDanhSachKhamChuyenKhoa _ucDanhSachKhamChuyenKhoa { get; set; }
 
 
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
@@ -69,6 +70,11 @@ namespace GUI_Clinic.View.UserControls
         #region Event
         public event EventHandler Finish;
         #endregion
+
+        public void setUCDSKCK(ucDanhSachKhamChuyenKhoa uc)
+        {
+            _ucDanhSachKhamChuyenKhoa = uc;
+        }
         public void GetBenhNhan(DTO_BenhNhan bn)
         {
             EnablePKB();
@@ -310,7 +316,15 @@ namespace GUI_Clinic.View.UserControls
         {
             var wd = sender as wdYeuCauKhamChuyenKhoa;
             if (wd.yeuCau != null)
+            {
                 ListYeuCau.Add(wd.yeuCau);
+                if (_ucDanhSachKhamChuyenKhoa != null)
+                {
+                    _ucDanhSachKhamChuyenKhoa.UpdateListBNYCAsync(wd.yeuCau);
+                }
+            }
+
+
         }
     }
 }

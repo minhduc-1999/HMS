@@ -74,6 +74,12 @@ namespace GUI_Clinic.View.UserControls
                     ListBNWaiting.Add(bn);
             };
             lvBenhNhan.ItemsSource = ListBNWaiting;
+            
+        }
+
+        public void setUCDSKCK(ucDanhSachKhamChuyenKhoa uc)
+        {
+            ucCTPKB.setUCDSKCK(uc);
         }
 
         public void InitCommand()
