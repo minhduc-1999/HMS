@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.Entity;
+
 
 namespace DAL_Clinic.DAL
 {
@@ -56,6 +58,22 @@ namespace DAL_Clinic.DAL
                 return list;
             }
         }
+        public void UpdatePKCK(DTO_PKChuyenKhoa pkck)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                context.Entry(pkck).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        public List<DTO_PKChuyenKhoa> GetListPKCKByDate(DateTime dt)
+        {
+            using (var context = new SQLServerDBContext())
+            {
+                var list = context.PKChuyenKhoa.Where(p => p.NgayKham.Day == dt.Day && p.NgayKham.Month == dt.Month && p.NgayKham.Year == dt.Year).ToList();
+                return list;
+            }
+        }
 
         public async Task<ObservableCollection<DTO_PKChuyenKhoa>> GetListPKCKAsync()
         {
@@ -83,8 +101,8 @@ namespace DAL_Clinic.DAL
                 {
                     context.PKChuyenKhoa.Attach(pKChuyenKhoa);
                     var entry = context.Entry(pKChuyenKhoa);
-                    //if (!entry.Reference(p => p.MaPKDaKhoa).IsLoaded)
-                        entry.Reference(p => p.MaPKDaKhoa).Load();
+                    if (!entry.Reference(p => p.PhieuKhamDaKhoa).IsLoaded)
+                        entry.Reference(p => p.PhieuKhamDaKhoa).Load();
                     return true;
                 }
             }

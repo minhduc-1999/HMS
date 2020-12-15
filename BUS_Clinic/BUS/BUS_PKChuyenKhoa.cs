@@ -23,6 +23,10 @@ namespace BUS_Clinic.BUS
         {
             DALManager.PKChuyenKhoaDAL.LoadNPYeuCau(pKChuyenKhoa);
         }
+        public void UpdatePKCK(DTO_PKChuyenKhoa pkck)
+        {
+            DALManager.PKChuyenKhoaDAL.UpdatePKCK(pkck);
+        }
         public async Task<string> AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
         {
             try
@@ -44,6 +48,11 @@ namespace BUS_Clinic.BUS
         public ObservableCollection<DTO_BenhNhan> GetListBNByDate(DateTime date)
         {
             var res = new ObservableCollection<DTO_BenhNhan>(DALManager.PKChuyenKhoaDAL.GetListBNByDate(date));
+            return res;
+        }
+        public ObservableCollection<DTO_PKChuyenKhoa> GetListPKCKByDate(DateTime date)
+        {
+            var res = new ObservableCollection<DTO_PKChuyenKhoa>(DALManager.PKChuyenKhoaDAL.GetListPKCKByDate(date));
             return res;
         }
         public async Task<ObservableCollection<DTO_PKChuyenKhoa>> GetListPKCKAsync()

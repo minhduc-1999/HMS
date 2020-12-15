@@ -38,6 +38,7 @@ namespace GUI_Clinic.View.UserControls
             lvBenhNhan.ItemsSource = ListBNWaiting;
             grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
+        #region Event
 
         private void UcCTPKB_Finish(object sender, EventArgs e)
         {
@@ -49,7 +50,7 @@ namespace GUI_Clinic.View.UserControls
             grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
             dpkNgayKham.SelectedDate = DateTime.Now;
         }
-
+        #endregion
         #region Property
         public DTO_NhanVien CurrentNV { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
@@ -74,7 +75,6 @@ namespace GUI_Clinic.View.UserControls
                     ListBNWaiting.Add(bn);
             };
             lvBenhNhan.ItemsSource = ListBNWaiting;
-            
         }
 
         public void setUCDSKCK(ucDanhSachKhamChuyenKhoa uc)

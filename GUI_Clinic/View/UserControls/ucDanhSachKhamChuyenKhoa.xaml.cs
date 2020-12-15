@@ -97,8 +97,10 @@ namespace GUI_Clinic.View.UserControls
                             {
                                 ListYCDaDK = new ObservableCollection<DTO_YeuCau>();
                             }
-                            PatientSigned?.Invoke(selectedBN, new EventArgs());
+                            phieuKhamChuyenKhoa.MaPKCK = maPKCK;
+                            PatientSigned?.Invoke(phieuKhamChuyenKhoa, new EventArgs());
                             ListYCDaDK.Add(ListYC[lvDanhSachDuocYeuCauKhamCK.SelectedIndex]);
+                            ListYC.Remove(ListYC.ElementAt(ListBNYC.IndexOf(selectedBN)));
                             ListBNYC.Remove(selectedBN);
                             //BUSManager.HoaDonBUS.LoadNPBenhNhan(hoaDon);
                             //ListHDCuaBNDaDK.Add(hoaDon);

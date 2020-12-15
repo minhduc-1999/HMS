@@ -89,6 +89,25 @@ namespace DAL_Clinic.DAL
                 return false;
             }
         }
+        public bool LoadNP_DSPKCK(DTO_PKDaKhoa pKDaKhoa)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.PKDaKhoa.Attach(pKDaKhoa);
+                    var entry = context.Entry(pKDaKhoa);
+                    if (!entry.Collection(p => p.DS_PKhamChuyenKhoa).IsLoaded)
+                        entry.Collection(p => p.DS_PKhamChuyenKhoa).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR LOADNP_DSPKCK] {e.Message}");
+                return false;
+            }
+        }
         public async Task<ObservableCollection<DTO_PKDaKhoa>> GetListPKDKAsync()
         {
             ObservableCollection<DTO_PKDaKhoa> res = null;

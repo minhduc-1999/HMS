@@ -16,6 +16,10 @@ namespace BUS_Clinic.BUS
         {
             DALManager.PKDaKhoaDAL.LoadNPDonThuoc(pKDaKhoa);
         }
+        public void LoadNP_DSPKCK(DTO_PKDaKhoa pKDaKhoa)
+        {
+            DALManager.PKDaKhoaDAL.LoadNP_DSPKCK(pKDaKhoa);
+        }
         public async Task<string> AddPhieuKhamDaKhoaAsync(DTO_PKDaKhoa pKDaKhoa)
         {
             try

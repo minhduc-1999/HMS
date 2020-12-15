@@ -33,21 +33,26 @@ namespace GUI_Clinic.View.UserControls
         {
             InitializeComponent();
             this.DataContext = this;
-            //ucCTPKCK.PKBAdded += UcCTPKB_PKBAdded;
+            ucCTPKCK.Finish += UcCTPKCK_Finish;
             InitData();
             InitCommand();
+            grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
-
-        private void UcCTPKB_PKBAdded(object sender, EventArgs e)
+        #region Event
+        private void UcCTPKCK_Finish(object sender, EventArgs e)
         {
-            //var pkb = sender as DTO_PhieuKhamBenh;
-            //ListPKB.Add(pkb);
-            //ListBNWaiting.Remove(BUSManager.BenhNhanBUS.GetBenhNhanById(pkb.MaBenhNhan));
+            DTO_PKChuyenKhoa pkck = sender as DTO_PKChuyenKhoa;
+            ListPKCKPending.Remove(pkck);
+            if (WaitingPatientRemoved != null)
+                WaitingPatientRemoved(pkck, new EventArgs());
+            lvDSPKB.ItemsSource = null;
+            grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
+            dpkNgayKham.SelectedDate = DateTime.Now;
         }
-
+        #endregion
         #region Property
         public ObservableCollection<DTO_PKChuyenKhoa> ListPKCK { get; set; }
-        public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
+        public ObservableCollection<DTO_PKChuyenKhoa> ListPKCKPending { get; set; }
         public CollectionView ViewPKB { get; set; }
         #endregion
         #region Command
@@ -59,11 +64,19 @@ namespace GUI_Clinic.View.UserControls
         public void InitData()
         {
             ListPKCK = new ObservableCollection<DTO_PKChuyenKhoa>();
-            ListBNWaiting = new ObservableCollection<DTO_BenhNhan>();
+            ListPKCKPending = new ObservableCollection<DTO_PKChuyenKhoa>();
+            foreach(DTO_PKChuyenKhoa item in BUSManager.PKChuyenKhoaBUS.GetListPKCKByDate(DateTime.Now))
+            {
+                if (item.KetQua == "")
+                {
+                    BUSManager.PKChuyenKhoaBUS.LoadNPPKDaKhoa(item);
+                    BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(item.PhieuKhamDaKhoa);
+                    ListPKCKPending.Add(item);
+                }
+            }
             lvDSPKB.ItemsSource = ListPKCK;
-            lvBenhNhan.ItemsSource = ListBNWaiting;
+            lvBenhNhan.ItemsSource = ListPKCKPending;
             ViewPKB = (CollectionView)CollectionViewSource.GetDefaultView(ListPKCK);
-            ViewPKB.Filter = PhieuKhamBenhFilter;
         }
 
         public void InitCommand()
@@ -76,57 +89,50 @@ namespace GUI_Clinic.View.UserControls
             }, (p) =>
             {
                 grdPhieuKhamBenh.Visibility = Visibility.Visible;
-                ucCTPKCK.GetBenhNhan(lvBenhNhan.SelectedItem as DTO_BenhNhan);
+                DTO_PKChuyenKhoa pKChuyenKhoa = lvBenhNhan.SelectedItem as DTO_PKChuyenKhoa;
+                BUSManager.PKChuyenKhoaBUS.LoadNPPKDaKhoa(pKChuyenKhoa);
+                BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pKChuyenKhoa.PhieuKhamDaKhoa);
+                ucCTPKCK.GetNewPKCK(pKChuyenKhoa);
             });
         }
 
-        private bool PhieuKhamBenhFilter(Object item)
-        {
-            //if (!dpkNgayKham.SelectedDate.HasValue)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return ((item as DTO_PhieuKhamBenh).NgayKham.Date.Equals(dpkNgayKham.SelectedDate.Value.Date));
-            //}
-            return true;
-        }
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewPKB == null)
+            if (dpkNgayKham.SelectedDate.HasValue)
             {
-                return;
-            }
-            else
-            {
-                //ListPKB = new ObservableCollection<DTO_PhieuKhamBenh>(BUSManager.PhieuKhamBenhBUS.GetListPKB());
-                ViewPKB.Refresh();
+                var curDate = (sender as DatePicker).SelectedDate.Value;
+                ListPKCK = BUSManager.PKChuyenKhoaBUS.GetListPKCKByDate(curDate);
+                foreach (DTO_PKChuyenKhoa item in ListPKCK)
+                {
+                    BUSManager.PKChuyenKhoaBUS.LoadNPPKDaKhoa(item);
+                    BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(item.PhieuKhamDaKhoa);
+                }
+                lvDSPKB.ItemsSource = ListPKCK;
             }
         }
 
         private void lvDSPKB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            grdPhieuKhamBenh.Visibility = Visibility.Visible;
             var item = ((FrameworkElement)e.OriginalSource).DataContext as DTO_PKChuyenKhoa;
             if (item != null)
             {
-                grdPhieuKhamBenh.Visibility = Visibility.Visible;
-              //  ucCTPKCK.GetPKCK(item);
+                ucCTPKCK.GetPKCK(item);
             }
         }
-        public void UpdateWaitingList(object bn)
+        public void UpdateWaitingList(object pkChuyenKhoa)
         {
-            lvBenhNhan.ItemsSource = ListBNWaiting;
-            var bNhan = bn as DTO_BenhNhan;
-            ListBNWaiting.Add(bNhan);
+            var pkck = pkChuyenKhoa as DTO_PKChuyenKhoa;
+            ListPKCKPending.Add(pkck);
+            lvBenhNhan.ItemsSource = ListPKCKPending;
         }
         private void RemoveWaitingPatient(object sender, RoutedEventArgs e)
         {
             if (MsgBox.Show1("Bạn có chắc muốn xoá bệnh nhân khỏi danh sách chờ?", MessageType.Info, MessageButtons.YesNo))
             {
                 Button b = sender as Button;
-                DTO_BenhNhan item = b.CommandParameter as DTO_BenhNhan;
-                ListBNWaiting.Remove(item);
+                DTO_PKChuyenKhoa item = b.CommandParameter as DTO_PKChuyenKhoa;
+                ListPKCKPending.Remove(item);
                 if (WaitingPatientRemoved != null)
                     WaitingPatientRemoved(item, new EventArgs());
             }

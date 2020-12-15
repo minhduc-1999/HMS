@@ -1,0 +1,169 @@
+﻿<Window x:Class="GUI_Clinic.View.Windows.wdPhieuKhamChuyenKhoa"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Clinic.View.Windows"
+        xmlns:uc="clr-namespace:GUI_Clinic.View.UserControls"
+        mc:Ignorable="d"
+        xmlns:cvt="clr-namespace:GUI_Clinic.Converter"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowState="Normal"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Height="380" 
+        Width="1080"
+        BorderBrush="#0078D7"
+        BorderThickness="2">
+    <Window.Resources>
+        <cvt:IndexConverter x:Key="IndexConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:ucControlBar Grid.Row="0"/>
+
+        <Button x:Name="btnInPhieu" Grid.Row="1" Content="In phiếu" Margin="10 40" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#0078D7" BorderBrush="#0078D7"
+                Click="btnInPhieu_Click"></Button>
+
+        <Grid Grid.Row="1" x:Name="grdMain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="tblTitle" Margin="20 30" HorizontalAlignment="Left" Text="Phiếu khám chuyên khoa" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#0078D7"/>
+                <!--<Button x:Name="btnSave" Command="{Binding AddCommand}" Content="Lưu" Margin="5 5 235 5" Width="110" HorizontalAlignment="Right" VerticalAlignment="Center" Background="#0078D7" BorderBrush="#0078D7"></Button>-->
+            </Grid>
+
+            <materialDesign:Card Grid.Row="1" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="tblTenBenhNhan" 
+                               Grid.Row="0" 
+                               FontSize="20"
+                               Text="{Binding PKChuyenKhoa.PhieuKhamDaKhoa.BenhNhan.HoTen}"
+                               Margin="20 10 0 5"/>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="Ngày khám: "
+                                       Margin="20 5 0 5">
+                            </TextBlock>
+
+                            <TextBlock x:Name="tblNgayKham"
+                                       Grid.Column="1"
+                                       Text="{Binding PKChuyenKhoa.NgayKham}"
+                                       HorizontalAlignment="Left"
+                                       Margin="0 5 20 5">
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="Mã phiếu khám đa khoa: "
+                                       Margin="20 5 0 5">
+                            </TextBlock>
+
+                            <TextBlock x:Name="tblMaPKDK"
+                                       Grid.Column="1"
+                                       Text="{Binding PKChuyenKhoa.PhieuKhamDaKhoa.MaPKDK}"
+                                       HorizontalAlignment="Left"
+                                       Margin="0 5 20 5">
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="Yêu cầu: "
+                                       Margin="20 5 0 10">
+                            </TextBlock>
+
+                            <TextBlock x:Name="tblYeuCau"
+                                       Grid.Column="1"
+                                       Text="{Binding PKChuyenKhoa.YeuCau}"
+                                       HorizontalAlignment="Left"
+                                       Margin="0 5 20 5">
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+
+            
+
+
+            <!--<materialDesign:Card Grid.Row="1" Margin="5">
+            <WrapPanel>
+                <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
+                <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
+            </WrapPanel>
+        </materialDesign:Card>-->
+
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                                       Text="Kết quả: "
+                                       FontSize="13"
+                                       Margin="20 5 0 10">
+                    </TextBlock>
+                    <TextBlock x:Name="tblKetQua"
+                          Grid.Row="1"                                    
+                          FontSize="18"
+                          Text="{Binding PKChuyenKhoa.KetQua}"
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Margin="20 5 0 10">
+                    </TextBlock>
+                </Grid>
+            </materialDesign:Card>
+
+        </Grid>
+    </Grid>
+</Window>

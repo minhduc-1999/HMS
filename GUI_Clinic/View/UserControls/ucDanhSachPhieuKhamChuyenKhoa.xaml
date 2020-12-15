@@ -114,35 +114,12 @@
                                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                                                <GridViewColumn Header="Mã bệnh nhân"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                                <GridViewColumn Header="Họ và tên"
-                                                                DisplayMemberBinding="{Binding TenBenhNhan}"></GridViewColumn>
-                                                <GridViewColumn Header="Giới tính">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock>
-                                                                <TextBlock.Style>
-                                                                    <Style TargetType="TextBlock">
-                                                                        <Setter Property="Text"
-                                                                            Value="Nam"></Setter>
-                                                                        <Style.Triggers>
-                                                                            <DataTrigger Binding="{Binding GioiTinh}"
-                                                                                     Value="True">
-                                                                                <Setter Property="Text"
-                                                                                    Value="Nữ" />
-                                                                            </DataTrigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </TextBlock.Style>
-                                                            </TextBlock>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-                                                <GridViewColumn Header="Ngày sinh"
-                                                                DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                                <GridViewColumn Header=""
-                                                            Width="40">
+                                                <GridViewColumn Header="Mã phiếu khám chuyên khoa"
+                                                                DisplayMemberBinding="{Binding MaPKCK}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên bệnh nhân"
+                                                                DisplayMemberBinding="{Binding PhieuKhamDaKhoa.BenhNhan.HoTen}"></GridViewColumn>
+                                                <GridViewColumn Header="Yêu cầu"
+                                                                DisplayMemberBinding="{Binding YeuCau}">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
                                                         <Button x:Name="btnXoa"
@@ -202,7 +179,7 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <GroupBox Header="Danh sách phiếu khám bệnh"
+                            <GroupBox Header="Danh sách phiếu khám chuyên khoa"
                                   Margin="0">
                                 <Grid>
                                     <ListView x:Name="lvDSPKB"
@@ -214,16 +191,14 @@
                                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                                                <GridViewColumn Header="Mã PKB"
-                                                                DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                                <GridViewColumn Header="Mã PKCK"
+                                                                DisplayMemberBinding="{Binding MaPKCK}"></GridViewColumn>
                                                 <GridViewColumn Header="Tên bệnh nhân"
-                                                                DisplayMemberBinding="{Binding BenhNhan.TenBenhNhan}"></GridViewColumn>
+                                                                DisplayMemberBinding="{Binding PhieuKhamDaKhoa.BenhNhan.HoTen}"></GridViewColumn>
                                                 <GridViewColumn Header="Ngày khám"
                                                                 DisplayMemberBinding="{Binding NgayKham}"></GridViewColumn>
-                                                <GridViewColumn Header="Triệu chứng"
-                                                                DisplayMemberBinding="{Binding TrieuChung}"></GridViewColumn>
-                                                <GridViewColumn Header="Chẩn đoán"
-                                                            DisplayMemberBinding="{Binding Benh.TenBenh}"></GridViewColumn>
+                                                <GridViewColumn Header="Yêu cầu"
+                                                                DisplayMemberBinding="{Binding YeuCau}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>

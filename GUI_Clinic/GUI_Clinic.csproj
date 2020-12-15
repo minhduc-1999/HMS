@@ -151,6 +151,9 @@
     <Compile Include="View\Windows\wdNhanVien.xaml.cs">
       <DependentUpon>wdNhanVien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Windows\wdPhieuKhamChuyenKhoa.xaml.cs">
+      <DependentUpon>wdPhieuKhamChuyenKhoa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\wdPhieuKhamBenh.xaml.cs">
       <DependentUpon>wdPhieuKhamBenh.xaml</DependentUpon>
     </Compile>
@@ -298,6 +301,10 @@
     <Page Include="View\Windows\wdNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\wdPhieuKhamChuyenKhoa.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Windows\wdPhieuKhamBenh.xaml">
       <SubType>Designer</SubType>
