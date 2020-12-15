@@ -54,7 +54,7 @@ namespace GUI_Clinic.View.UserControls
         #region Property
         public DTO_NhanVien CurrentNV { get; set; }
         public ObservableCollection<DTO_BenhNhan> ListBNWaiting { get; set; }
-        public CollectionView ViewPKB { get; set; }
+        public DTO_BenhNhan benhNhan { get; set; }
         public ObservableCollection<DTO_PKDaKhoa> ListPKB { get; set; }
         #endregion
         #region Command
@@ -92,10 +92,13 @@ namespace GUI_Clinic.View.UserControls
             }, (p) =>
             {
                 grdPhieuKhamBenh.Visibility = Visibility.Visible;
-                ucCTPKB.GetBenhNhan(lvBenhNhan.SelectedItem as DTO_BenhNhan);
+                benhNhan = lvBenhNhan.SelectedItem as DTO_BenhNhan;
+                BUSManager.BenhNhanBUS.LoadNP_DSPKDK(benhNhan);
+                BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(benhNhan.DS_PKDaKhoa.Last());
+                ucCTPKB.GetPKB(benhNhan.DS_PKDaKhoa.Last());
                 ucCTPKB.phieuKhamBenh = ListPKB.Last();
                 ucCTPKB.CurrentNV = this.CurrentNV;
-            });
+            }); 
         }
 
         private void dpkNgayKham_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -116,7 +119,7 @@ namespace GUI_Clinic.View.UserControls
             if (item != null)
             {
                 grdPhieuKhamBenh.Visibility = Visibility.Visible;
-                ucCTPKB.GetPKB(item);
+                ucCTPKB.ViewPKB(item);
             }
         }
         public void UpdateWaitingList(object bn)
@@ -124,6 +127,12 @@ namespace GUI_Clinic.View.UserControls
             lvBenhNhan.ItemsSource = ListBNWaiting;
             var bNhan = bn as DTO_BenhNhan;
             ListBNWaiting.Add(bNhan);
+        }
+        public void UpdatePKCKList(object phieuKhamBenh)
+        {
+            InitDataAsync();
+            BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(phieuKhamBenh as DTO_PKDaKhoa);
+            BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(phieuKhamBenh as DTO_PKDaKhoa);
         }
         private void RemoveWaitingPatient(object sender, RoutedEventArgs e)
         {
@@ -144,6 +153,8 @@ namespace GUI_Clinic.View.UserControls
                 var bn = lvBenhNhan.SelectedItem as DTO_BenhNhan;
                 BUSManager.BenhNhanBUS.LoadNP_DSPKDK(bn);
                 ListPKB = new ObservableCollection<DTO_PKDaKhoa>(bn.DS_PKDaKhoa);
+                foreach (DTO_PKDaKhoa item in ListPKB)
+                    BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(item);
                 lvDSPKB.ItemsSource = ListPKB;
             }
         }

@@ -101,7 +101,6 @@ namespace DAL_Clinic.DAL
                 {
                     context.PKChuyenKhoa.Attach(pKChuyenKhoa);
                     var entry = context.Entry(pKChuyenKhoa);
-                    if (!entry.Reference(p => p.PhieuKhamDaKhoa).IsLoaded)
                         entry.Reference(p => p.PhieuKhamDaKhoa).Load();
                     return true;
                 }
@@ -113,7 +112,7 @@ namespace DAL_Clinic.DAL
             }
         }
 
-        public bool LoadNPBenhNhan(DTO_PKChuyenKhoa pKChuyenKhoa)
+        public bool LoadNPBacSi(DTO_PKChuyenKhoa pKChuyenKhoa)
         {
             try
             {
@@ -121,8 +120,8 @@ namespace DAL_Clinic.DAL
                 {
                     context.PKChuyenKhoa.Attach(pKChuyenKhoa);
                     var entry = context.Entry(pKChuyenKhoa);
-                    if (!entry.Reference(p => p.MaPKDaKhoa).IsLoaded)
-                        entry.Reference(p => p.MaPKDaKhoa).Load();
+                    if (!entry.Reference(p => p.BacSiThucHien).IsLoaded)
+                        entry.Reference(p => p.BacSiThucHien).Load();
                     return true;
                 }
             }
@@ -143,6 +142,25 @@ namespace DAL_Clinic.DAL
                     var entry = context.Entry(pKChuyenKhoa);
                     if (!entry.Reference(p => p.YeuCau).IsLoaded)
                         entry.Reference(p => p.YeuCau).Load();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"[ERRROR DAL_PKDAKHOA] {e.Message}");
+                return false;
+            }
+        }
+        public bool LoadNPKetQua(DTO_PKChuyenKhoa pKChuyenKhoa)
+        {
+            try
+            {
+                using (var context = new SQLServerDBContext())
+                {
+                    context.PKChuyenKhoa.Attach(pKChuyenKhoa);
+                    var entry = context.Entry(pKChuyenKhoa);
+                    if (!entry.Reference(p => p.KetQua).IsLoaded)
+                        entry.Reference(p => p.KetQua).Load();
                     return true;
                 }
             }

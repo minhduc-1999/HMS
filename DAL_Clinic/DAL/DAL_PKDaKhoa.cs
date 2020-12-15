@@ -97,7 +97,6 @@ namespace DAL_Clinic.DAL
                 {
                     context.PKDaKhoa.Attach(pKDaKhoa);
                     var entry = context.Entry(pKDaKhoa);
-                    if (!entry.Collection(p => p.DS_PKhamChuyenKhoa).IsLoaded)
                         entry.Collection(p => p.DS_PKhamChuyenKhoa).Load();
                     return true;
                 }

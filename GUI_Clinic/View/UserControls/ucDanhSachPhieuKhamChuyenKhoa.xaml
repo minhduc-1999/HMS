@@ -88,7 +88,7 @@
                                                FontSize="30"
                                                FontWeight="Bold"
                                                Margin="10"
-                                               Text="{Binding ListBNWaiting.Count}">
+                                               Text="{Binding ListPKCKPending.Count}">
                                         </TextBlock>
                                     </Grid>
                                     <Grid Grid.Column="2">
@@ -114,7 +114,7 @@
                                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource=
                                                                                    {RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, 
                                                                                    Converter={StaticResource IndexConverter}}"></GridViewColumn>
-                                                <GridViewColumn Header="Mã phiếu khám chuyên khoa"
+                                                <GridViewColumn Header="Mã PKCK"
                                                                 DisplayMemberBinding="{Binding MaPKCK}"></GridViewColumn>
                                                 <GridViewColumn Header="Tên bệnh nhân"
                                                                 DisplayMemberBinding="{Binding PhieuKhamDaKhoa.BenhNhan.HoTen}"></GridViewColumn>

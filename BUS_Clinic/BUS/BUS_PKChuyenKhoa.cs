@@ -23,9 +23,17 @@ namespace BUS_Clinic.BUS
         {
             DALManager.PKChuyenKhoaDAL.LoadNPYeuCau(pKChuyenKhoa);
         }
+        public void LoadNPKetQua(DTO_PKChuyenKhoa pKChuyenKhoa)
+        {
+            DALManager.PKChuyenKhoaDAL.LoadNPKetQua(pKChuyenKhoa);
+        }
         public void UpdatePKCK(DTO_PKChuyenKhoa pkck)
         {
             DALManager.PKChuyenKhoaDAL.UpdatePKCK(pkck);
+        }
+        public void LoadNPBacSi(DTO_PKChuyenKhoa pKChuyenKhoa)
+        {
+            DALManager.PKChuyenKhoaDAL.LoadNPBacSi(pKChuyenKhoa);
         }
         public async Task<string> AddPhieuKhamChuyenKhoaAsync(DTO_PKChuyenKhoa pKChuyenKhoa)
         {

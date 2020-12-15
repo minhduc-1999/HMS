@@ -38,10 +38,13 @@ namespace GUI_Clinic.View.UserControls
             InitCommand();
             grdPhieuKhamBenh.Visibility = Visibility.Collapsed;
         }
+
         #region Event
         private void UcCTPKCK_Finish(object sender, EventArgs e)
         {
             DTO_PKChuyenKhoa pkck = sender as DTO_PKChuyenKhoa;
+            BUSManager.PKChuyenKhoaBUS.LoadNPPKDaKhoa(pkck);
+            SavingPKCK?.Invoke(pkck.PhieuKhamDaKhoa, new EventArgs());
             ListPKCKPending.Remove(pkck);
             if (WaitingPatientRemoved != null)
                 WaitingPatientRemoved(pkck, new EventArgs());
@@ -54,12 +57,14 @@ namespace GUI_Clinic.View.UserControls
         public ObservableCollection<DTO_PKChuyenKhoa> ListPKCK { get; set; }
         public ObservableCollection<DTO_PKChuyenKhoa> ListPKCKPending { get; set; }
         public CollectionView ViewPKB { get; set; }
+        public DTO_NhanVien CurrentNV { get; set; }
         #endregion
         #region Command
         public ICommand TaoPhieuKhamCommand { get; set; }
         #endregion
         #region
         public event EventHandler WaitingPatientRemoved;
+        public event EventHandler SavingPKCK;
         #endregion
         public void InitData()
         {
@@ -92,6 +97,7 @@ namespace GUI_Clinic.View.UserControls
                 DTO_PKChuyenKhoa pKChuyenKhoa = lvBenhNhan.SelectedItem as DTO_PKChuyenKhoa;
                 BUSManager.PKChuyenKhoaBUS.LoadNPPKDaKhoa(pKChuyenKhoa);
                 BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pKChuyenKhoa.PhieuKhamDaKhoa);
+                ucCTPKCK.CurrentNV = this.CurrentNV;
                 ucCTPKCK.GetNewPKCK(pKChuyenKhoa);
             });
         }

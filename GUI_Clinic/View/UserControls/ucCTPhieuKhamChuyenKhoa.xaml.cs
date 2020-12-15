@@ -111,6 +111,7 @@ namespace GUI_Clinic.View.UserControls
                     if (MsgBox.Show1("Xác nhận lưu kết quả?", MessageType.Info, MessageButtons.YesNo))
                     {
                         phieuKhamChuyenKhoa.KetQua = tbxKetQuaKhamChuyenKhoa.Text;
+                        phieuKhamChuyenKhoa.MaBacSi = CurrentNV.MaNhanVien;
                         BUSManager.PKChuyenKhoaBUS.UpdatePKCK(phieuKhamChuyenKhoa);
                         Finish(phieuKhamChuyenKhoa, new EventArgs());
                         IsSave = true;

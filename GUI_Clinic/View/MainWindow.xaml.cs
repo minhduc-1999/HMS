@@ -37,6 +37,7 @@ namespace GUI_Clinic.View
             uc_BaoCaoDoanhThu.CurrentNhanVien = currentNV;
             uc_DanhSachDonThuoc.maNhanvien = currentNV.MaNhanVien;
             uc_DanhSachPhieuKhamBenh.CurrentNV = currentNV;
+            uc_DanhSachPhieuKhamChuyenKhoa.CurrentNV = currentNV;
             GetListNhomAsync();
             uc_DanhSachKhamBenh.PatientAdded += Uc_DanhSachKhamBenh_PatientAdded;
             uc_DanhSachKhamBenh.PatientSigned += Uc_DanhSachKhamBenh_PatientSigned;
@@ -44,6 +45,7 @@ namespace GUI_Clinic.View
             uc_DanhSachPhieuKhamBenh.WaitingPatientRemoved += Uc_DanhSachPhieuKhamBenh_WaitingPatientRemoved;
             uc_DanhSachDonThuoc.ListThuoc = uc_QuanLyThuoc.ListThuoc;
             uc_DanhSachPhieuKhamBenh.setUCDSKCK(uc_DanhSachKhamChuyenKhoa);
+            uc_DanhSachPhieuKhamChuyenKhoa.SavingPKCK += Uc_DanhSachPhieuKhamChuyenKhoa_SavingPKCK;
             if (ListNhom != null)
             {
                 int index = -1;
@@ -175,6 +177,10 @@ namespace GUI_Clinic.View
         private void Uc_DanhSachKhamChuyenKhoa_PatientSigned(object sender, EventArgs e)
         {
             uc_DanhSachPhieuKhamChuyenKhoa.UpdateWaitingList(sender);
+        }
+        private void Uc_DanhSachPhieuKhamChuyenKhoa_SavingPKCK(object sender, EventArgs e)
+        {
+            uc_DanhSachPhieuKhamBenh.UpdatePKCKList(sender);
         }
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

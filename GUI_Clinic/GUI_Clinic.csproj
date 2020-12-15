@@ -139,6 +139,9 @@
     <Compile Include="View\Windows\wdDangNhap.xaml.cs">
       <DependentUpon>wdDangNhap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Windows\wdDanhSachPhieuKhamChuyenKhoa.xaml.cs">
+      <DependentUpon>wdDanhSachPhieuKhamChuyenKhoa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\wdHoaDon.xaml.cs">
       <DependentUpon>wdHoaDon.xaml</DependentUpon>
     </Compile>
@@ -283,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\wdDangNhap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\wdDanhSachPhieuKhamChuyenKhoa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

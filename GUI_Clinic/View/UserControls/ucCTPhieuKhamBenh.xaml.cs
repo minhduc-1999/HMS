@@ -49,8 +49,6 @@ namespace GUI_Clinic.View.UserControls
 
         public DTO_NhanVien CurrentNV { get; set; }
         public ucDanhSachKhamChuyenKhoa _ucDanhSachKhamChuyenKhoa { get; set; }
-
-
         public ObservableCollection<DTO_Thuoc> ListThuoc { get; set; }
         public ObservableCollection<DTO_CachDung> ListCachDung { get; set; }
         public ObservableCollection<DTO_Benh> ListBenh { get; set; }
@@ -65,6 +63,7 @@ namespace GUI_Clinic.View.UserControls
         public ICommand ThemThuocCommand { get; set; }
         public ICommand InPhieuKhamCommand { get; set; }
         public ICommand XuatDonThuocCommand { get; set; }
+        public ICommand XemPKCKCommand { get; set; }
         #endregion
 
         #region Event
@@ -75,31 +74,44 @@ namespace GUI_Clinic.View.UserControls
         {
             _ucDanhSachKhamChuyenKhoa = uc;
         }
-        public void GetBenhNhan(DTO_BenhNhan bn)
-        {
-            EnablePKB();
-            ResetPKB();
-            IsSave = false;
-            btnXuatDon.Content = "Xuất đơn thuốc";
-
-            benhNhan = bn;
-            tblTenBenhNhan.Text = bn.HoTen;
-            tblMaBenhNhan.Text = bn.MaBenhNhan;
-            tblNgayKham.Text = DateTime.Now.ToString();
-            lvThuoc.ItemsSource = ListCTDonThuoc;
-            cbxChanDoan.ItemsSource = ListBenh;
-            cbxCachDung.ItemsSource = ListCachDung;
-            cbxThuoc.ItemsSource = ListThuoc;
-
-            phieuKhamBenh = new DTO_PKDaKhoa();
-        }
 
         public void GetPKB(DTO_PKDaKhoa pkb)
+        {
+            ResetPKB();
+            IsSave = false;
+            BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkb);
+            BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pkb);
+            BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(pkb);
+            BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkb.DonThuoc);
+            if (pkb.DonThuoc != null)
+            {
+                foreach (DTO_CTDonThuoc item in pkb.DonThuoc.DS_CTDonThuoc)
+                {
+                    BUSManager.CTDonThuocBUS.LoadNPThuoc(item);
+                    BUSManager.CTDonThuocBUS.LoadNPCachDung(item);
+                }
+            }
+            benhNhan = pkb.BenhNhan;
+            tblTenBenhNhan.Text = benhNhan.HoTen;
+            tblMaBenhNhan.Text = benhNhan.MaBenhNhan;
+            tblNgayKham.Text = pkb.NgayKham.ToString();
+            if (pkb.DonThuoc != null)
+            {
+                lvThuoc.ItemsSource = pkb.DonThuoc.DS_CTDonThuoc;
+                tbxLoiDan.Text = pkb.DonThuoc.LoiDan;
+            }
+            cbxChanDoan.Text = pkb.ChanDoan;
+            tbxTrieuChung.Text = pkb.TrieuChung;
+            phieuKhamBenh = pkb;
+            EnablePKB();
+        }
+        public void ViewPKB(DTO_PKDaKhoa pkb)
         {
             ResetPKB();
             IsSave = true;
             BUSManager.PKDaKhoaBUS.LoadNPBenhNhan(pkb);
             BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pkb);
+            BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(pkb);
             BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkb.DonThuoc);
             if (pkb.DonThuoc != null)
             {
@@ -144,8 +156,7 @@ namespace GUI_Clinic.View.UserControls
             {
                 if (string.IsNullOrEmpty(cbxThuoc.Text) ||
                     string.IsNullOrEmpty(tbxSoLuong.Text) || tbxSoLuong.Text == "0" ||
-                    string.IsNullOrEmpty(cbxCachDung.Text) ||
-                    IsSave == true)
+                    string.IsNullOrEmpty(cbxCachDung.Text) || IsSave == true)
                     return false;
                 return true;
             },  (p) =>
@@ -201,7 +212,6 @@ namespace GUI_Clinic.View.UserControls
                 return true;
             }, async (p)  =>
             {
-
                 if (IsSave == false)
                 {       
                     if (this.phieuKhamBenh.DonThuoc == null)
@@ -230,7 +240,22 @@ namespace GUI_Clinic.View.UserControls
                     Finish(benhNhan, new EventArgs());
                 }
                 IsSave = true;
-
+            });
+            XemPKCKCommand = new RelayCommand<Window>((p) =>
+            {
+                if (phieuKhamBenh != null)
+                {
+                    BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(phieuKhamBenh);
+                    if (phieuKhamBenh.DS_PKhamChuyenKhoa != null)
+                        if (phieuKhamBenh.DS_PKhamChuyenKhoa.Count == 0)
+                            return false;
+                }
+                return true;
+            }, (p) =>
+            {
+                BUSManager.PKDaKhoaBUS.LoadNP_DSPKCK(phieuKhamBenh);
+                wdDanhSachPhieuKhamChuyenKhoa wdDanhSachPhieuKhamChuyenKhoa = new wdDanhSachPhieuKhamChuyenKhoa(phieuKhamBenh);
+                wdDanhSachPhieuKhamChuyenKhoa.ShowDialog();
             });
         }
 
@@ -322,9 +347,8 @@ namespace GUI_Clinic.View.UserControls
                 {
                     _ucDanhSachKhamChuyenKhoa.UpdateListBNYCAsync(wd.yeuCau);
                 }
+                ResetPKB();
             }
-
-
         }
     }
 }
