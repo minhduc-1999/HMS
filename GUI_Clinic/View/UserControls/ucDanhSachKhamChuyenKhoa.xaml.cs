@@ -145,6 +145,7 @@ namespace GUI_Clinic.View.UserControls
 
         private async Task InitDataAsync()
         {
+            ListBNDaDK.Clear();
             lvDanhSachDuocYeuCauKhamCK.ItemsSource = ListBNYC;
 
             var loadListThamSo = BUSManager.ThamSoBUS.GetListAsync();
