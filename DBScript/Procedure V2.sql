@@ -67,7 +67,7 @@ BEGIN
         declare @id nvarchar(128), @max int, @prefix varchar(4) = 'PKDK'
 		select @max = COUNT(*) from PKDAKHOA
 		set @id = @prefix + RIGHT('00000'+CAST((@max + 1) AS VARCHAR(5)),5)
-		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, null, @manhanvien, null)
+		insert into PKDAKHOA values (@id, 0, @ngaykham, null, null, @mabenhnhan, @manhanvien, null)
 		select @id
         return -9999
     END TRY
@@ -155,7 +155,7 @@ AS
 	go
 ------------------------------
 --ALTER PKDK proc
-	ALTER Proc [dbo].[proc_PKDK_insert]
+ALTER Proc [dbo].[proc_PKDK_insert]
 	@ngaykham datetime,
 	@mabenhnhan nvarchar(128),
 	@manhanvien nvarchar(128)
