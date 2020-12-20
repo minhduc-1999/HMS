@@ -99,6 +99,7 @@
                                  Width="100" Height="45"
                                  Margin="5 5 15 5" 
                                  FontSize="16"
+                                 MaxLength="9"
                                  materialDesign:HintAssist.Hint="Số lượng" 
                                  DataObject.Pasting="tbxDonGia_Pasting"
                                  PreviewTextInput="tbxDonGia_PreviewTextInput"
@@ -116,6 +117,7 @@
                                  Margin="5 5 15 5" 
                                  materialDesign:HintAssist.Hint="Đơn giá" 
                                  FontSize="16"
+                                 MaxLength="9"
                                  DataObject.Pasting="tbxDonGia_Pasting"
                                  PreviewTextInput="tbxDonGia_PreviewTextInput"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}">

@@ -90,6 +90,7 @@
                                 <Grid Grid.Column="2">
                                     <TextBox x:Name="tbxSoLuong"
                                              Margin="10"
+                                             MaxLength="9"
                                              materialDesign:HintAssist.Hint="Số lượng"
                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                                              DataObject.Pasting="tbxSoLuong_Pasting"
