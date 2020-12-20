@@ -254,7 +254,7 @@
                 </ListView>
             </Grid>
 
-            <Button x:Name="btnSetting" 
+            <!--<Button x:Name="btnSetting" 
                     Grid.Row="2" 
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Left" 
@@ -264,7 +264,7 @@
                     ToolTip="Cài đặt"
                     Click="btnSetting_Click">
                 <materialDesign:PackIcon Kind="Settings"/>
-            </Button>
+            </Button>-->
 
         </Grid>
 

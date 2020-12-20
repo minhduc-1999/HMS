@@ -210,7 +210,9 @@
                     <TextBox x:Name="tbxSDT"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             MaxLength="{Binding currentNV.SoDienThoai.Length,Mode=OneTime}"
+                             MaxLength="12"
+                             DataObject.Pasting="tbxNumber_Pasting"
+                             PreviewTextInput="tbxNumber_PreviewTextInput"
                              Text="{Binding currentNV.SoDienThoai, Mode=OneTime}"
                              VerticalAlignment="Center"
                              />
@@ -230,9 +232,11 @@
                     <TextBox x:Name="tbxCMND"
                              Margin="0 5 20 5"
                              FontSize="16"
-                             MaxLength="{Binding currentNV.SoCMND.Length,Mode=OneTime}"
+                             MaxLength="12"
                              Text="{Binding currentNV.SoCMND, Mode=OneTime}"
                              VerticalAlignment="Center"
+                             DataObject.Pasting="tbxNumber_Pasting"
+                             PreviewTextInput="tbxNumber_PreviewTextInput" 
                               />
                     <!--DataObject.Pasting="tbxSDT_Pasting"
                              PreviewTextInput="tbxSDT_PreviewTextInput"-->
