@@ -1,10 +1,20 @@
-Hospital Management System
+# **HOSPITAL MANAGEMENT SYSTEM**
 
-Hướng dẫn:
-+ Sau khi pull commit 769ba37 (HEAD -> master, origin/master, alpha2) code template for BenhNhan DAL:
-	- Xoá DB cũ
-	- Chạy project để tạo DB mới
-	- Vào Microsoft SQL server Management -> opent 2 file Procedure.sql và Trigger.sql ở thư mục HMS/DBScript
-	- execute code trong 2 file để tạo procedure + trigger cần thiết
-	- done
+## 1.Giới thiệu
+Đồ án môn "Phát triển, vận hành, bảo trì phần mềm"
+<br> Giáo viên hướng dẫn: Nguyễn Thị Thanh Trúc
 
+## 2.Hướng dẫn cài đặt
+- Sử dụng Visual Studio để chạy project, sau khi ứng dụng đã chạy, database có tên "HMS" được tạo, sau đó tắt ứng dụng đi
+- Sử dụng Microsoft SQL server Management execute lần lượt các file Trigger.sql, Procedure.sql, và TestData.sql
+- Quay lại Visual Studio để chạy project, database đã đc tạo sẵn với các tài khoản mặc định để dễ dàng sử dụng
+- Để sử dụng tất cả chức chức năng, sử dụng tài khoản: admin, mật khẩu: admin
+- Để sử dụng chức năng của BS Đa khoa, sử dụng tài khoản: bsdk, mật khẩu: bsdk
+- Để sử dụng chức năng của BS Chuyên khoa, sử dụng tài khoản: bsck, mật khẩu: bsck
+- Để sử dụng chức năng của Dược sĩ, sử dụng tài khoản: duocsi, mật khẩu: duocsi
+- Để sử dụng chức năng của Nhân viên thủ tục, sử dụng tài khoản: thutuc, mật khẩu: thutuc
+
+## 3. Công nghệ sử dụng
+- C# .NET, WPF
+- Microsoft SQL server
+- Entity Framework
