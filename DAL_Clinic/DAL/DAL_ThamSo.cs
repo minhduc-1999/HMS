@@ -30,9 +30,23 @@ namespace DAL_Clinic.DAL
                 
             }
         }
-        public void UpdateThamSo(int TienKham, int SoBNToiDa)
+        public void UpdateThamSo(List<DTO_ThamSo> thamSo)
         {
-            
+            using (var context = new SQLServerDBContext())
+            {
+                try
+                {
+                    foreach(var ts in thamSo)
+                    {
+                        context.Entry(ts).State = EntityState.Modified;
+                    }
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
     }
 }

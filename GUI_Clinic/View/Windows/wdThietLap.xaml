@@ -21,13 +21,17 @@
         BorderBrush="#0078D7"
         BorderThickness="2"
         WindowStartupLocation="CenterScreen"
-        Title="wdThietLap" Height="400" Width="350"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown" 
+        Title="wdThietLap"
+        Height="400"
+        Width="350"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ShowInTaskbar="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -78,7 +82,8 @@
                      PreviewTextInput="tbxTienKham_PreviewTextInput"
                      DataObject.Pasting="tbxTienKham_Pasting">
                 <TextBox.Text>
-                    <Binding Path="TienKham" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="TienKham"
+                             Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <cvt:StringToIntValidationRule ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -87,6 +92,36 @@
             </TextBox>
         </Grid>
         <Grid Grid.Row="4">
+            <TextBlock x:Name="tblTienKhamCK"
+                       TextWrapping="Wrap"
+                       Text="Tiền khám chuyên khoa:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="18"
+                       Margin="20 10 10 10">
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="5">
+            <TextBox BorderBrush="#0078D7"
+                     x:Name="tbxTienKhamCK"
+                     BorderThickness="2"
+                     Margin="100 5 100 5"
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     PreviewTextInput="tbxTienKham_PreviewTextInput"
+                     DataObject.Pasting="tbxTienKham_Pasting">
+                <TextBox.Text>
+                    <Binding Path="TienKhamCK"
+                             UpdateSourceTrigger="PropertyChanged"
+                             Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <cvt:StringToIntValidationRule ValidationStep="RawProposedValue" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="6">
             <TextBlock x:Name="tblSoBNToiDa"
                        TextWrapping="Wrap"
                        Text="Số bệnh nhân tối đa trong ngày:"
@@ -96,7 +131,7 @@
                        Margin="20 10 10 10">
             </TextBlock>
         </Grid>
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="7">
             <TextBox BorderBrush="#0078D7"
                      x:Name="tbxSoBNToiDa"
                      BorderThickness="2"
@@ -106,7 +141,9 @@
                      PreviewTextInput="tbxTienKham_PreviewTextInput"
                      DataObject.Pasting="tbxTienKham_Pasting">
                 <TextBox.Text>
-                    <Binding Path="SoBNToiDa" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="SoBNToiDa" 
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <cvt:StringToIntValidationRule ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -114,7 +151,7 @@
                 </TextBox.Text>
             </TextBox>
         </Grid>
-        <Grid Grid.Row="6">
+        <Grid Grid.Row="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>

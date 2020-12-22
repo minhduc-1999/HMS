@@ -1,21 +1,14 @@
 ﻿using BUS_Clinic.BUS;
+using DTO_Clinic;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GUI_Clinic.View.Windows
 {
@@ -24,11 +17,12 @@ namespace GUI_Clinic.View.Windows
     /// </summary>
     public partial class wdThietLap : Window
     {
+        private ObservableCollection<DTO_ThamSo> thamSos;
         public wdThietLap()
         {
             InitializeComponent();
             InitCommand();
-            InitData();
+            InitDataAsync();
             this.DataContext = this;
         }
         #region Command
@@ -38,17 +32,25 @@ namespace GUI_Clinic.View.Windows
         #region Property
         public int TienKham { get; set; }
         public int SoBNToiDa { get; set; }
+        public int TienKhamCK { get; set; }
         #endregion
-        private void InitData()
+        private async System.Threading.Tasks.Task InitDataAsync()
         {
-            TienKham = BUSManager.ThamSoBUS.GetTienKham();
-            SoBNToiDa = BUSManager.ThamSoBUS.GetSoBNToiDa();
+            thamSos = await BUSManager.ThamSoBUS.GetListAsync();
+            TienKham = thamSos.Where(ts => ts.TenThamSo == "Tiền khám").Select(ts => ts.GiaTri).FirstOrDefault();
+            SoBNToiDa = thamSos.Where(ts => ts.TenThamSo == "Số bệnh nhân tối đa 1 ngày").Select(ts => ts.GiaTri).FirstOrDefault();
+            TienKhamCK = thamSos.Where(ts => ts.TenThamSo == "Tiền Chụp X-Quang").Select(ts => ts.GiaTri).FirstOrDefault();
+            tbxTienKhamCK.Text = TienKhamCK.ToString();
+            tbxTienKham.Text = TienKham.ToString();
+            tbxSoBNToiDa.Text = SoBNToiDa.ToString();
         }
-        private bool IsValueChanged(int curTienKham, int curBNMax)
+        private bool IsValueChanged(int curTienKham, int curBNMax, int curTienKhamCK)
         {
-            if (curBNMax != BUSManager.ThamSoBUS.GetSoBNToiDa())
+            if (curBNMax != thamSos.Where(ts => ts.TenThamSo == "Số bệnh nhân tối đa 1 ngày").Select(ts => ts.GiaTri).FirstOrDefault())
                 return true;
-            if (curTienKham != BUSManager.ThamSoBUS.GetTienKham())
+            if (curTienKham != thamSos.Where(ts => ts.TenThamSo == "Tiền khám").Select(ts => ts.GiaTri).FirstOrDefault())
+                return true;
+            if (curTienKhamCK != thamSos.Where(ts => ts.TenThamSo == "Tiền Chụp X-Quang").Select(ts => ts.GiaTri).FirstOrDefault())
                 return true;
             return false;
         }
@@ -56,15 +58,42 @@ namespace GUI_Clinic.View.Windows
         {
             UpdateCommand = new RelayCommand<Window>((p) =>
             {
-                if (!IsValueChanged(TienKham, SoBNToiDa) ||
+                if (!IsValueChanged(TienKham, SoBNToiDa, TienKhamCK) ||
                     string.IsNullOrEmpty(tbxTienKham.Text) || tbxTienKham.Text == "0" ||
                     string.IsNullOrEmpty(tbxSoBNToiDa.Text) || tbxSoBNToiDa.Text == "0")
                     return false;
                 return true;
             }, (p) =>
             {
-                BUSManager.ThamSoBUS.UpdateThamSo(TienKham, SoBNToiDa);
-                MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info);
+                List<DTO_ThamSo> list = new List<DTO_ThamSo>()
+                {
+                    new DTO_ThamSo()
+                    {
+                        TenThamSo = "Số bệnh nhân tối đa 1 ngày",
+                        GiaTri = SoBNToiDa
+                    },
+                    new DTO_ThamSo()
+                    {
+                        TenThamSo = "Tiền khám",
+                        GiaTri = TienKham
+                    },
+                    new DTO_ThamSo()
+                    {
+                        TenThamSo = "Tiền Chụp X-Quang",
+                        GiaTri = TienKhamCK
+                    }
+                };
+                try
+                {
+                    BUSManager.ThamSoBUS.UpdateThamSo(list);
+                    MsgBox.Show("Cập nhật thay đổi thành công", MessageType.Info, MessageButtons.Ok);
+
+                }
+                catch (Exception e)
+                {
+                    MsgBox.Show(e.Message, MessageType.Error, MessageButtons.Ok);
+                }
+
             });
             CancelCommand = new RelayCommand<Window>((p) =>
             {

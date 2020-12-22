@@ -3,6 +3,7 @@ using DTO_Clinic;
 using DTO_Clinic.Component;
 using GUI_Clinic.Command;
 using GUI_Clinic.CustomControl;
+using GUI_Clinic.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -349,6 +350,12 @@ namespace GUI_Clinic.View.UserControls
                     tbxTenCachDung.Clear();
                 }
             }
+        }
+
+        private void btnQuyDinh_Click(object sender, RoutedEventArgs e)
+        {
+            wdThietLap wd = new wdThietLap();
+            wd.ShowDialog();
         }
     }
 }

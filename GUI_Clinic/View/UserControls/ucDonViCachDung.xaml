@@ -12,12 +12,14 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Button x:Name="btnQuyDinh" Width="300" Click="btnQuyDinh_Click" Content="Thay đổi quy định"/>
         <!--Tieu de UC-->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -133,7 +135,7 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -249,7 +251,7 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <materialDesign:Card Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>

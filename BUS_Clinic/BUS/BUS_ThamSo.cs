@@ -11,25 +11,17 @@ namespace BUS_Clinic.BUS
 {
     public class BUS_ThamSo : BaseBUS
     {
-        public void UpdateThamSo(int TienKham, int SoBNToiDa)
+        public void UpdateThamSo(List<DTO_ThamSo> ts)
         {
-            DALManager.ThamSoDAL.UpdateThamSo(TienKham, SoBNToiDa);
+            try
+            {
+                DALManager.ThamSoDAL.UpdateThamSo(ts);
+            } catch 
+            {
+                throw new Exception("Có lỗi xảy ra. Vui lòng thử lại sau");
+            }
         }
-        public int GetTienKham()
-        {
-            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Tiền khám").FirstOrDefault().GiaTri;
-            return 1;
-        }
-        public int GetSoBNToiDa()
-        {
-            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault().GiaTri;
-            return 1;
-        }
-        public DTO_ThamSo GetThamSoSoBNToiDa()
-        {
-            //return DALManager.ThamSoDAL.GetListAsync().Where(x => x.TenThamSo == "Số bệnh nhân tối đa 1 ngày").FirstOrDefault();
-            return null;
-        }
+ 
         public async Task<ObservableCollection<DTO_ThamSo>> GetListAsync()
         {
             try
