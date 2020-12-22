@@ -19,6 +19,7 @@ using BUS_Clinic.BUS;
 using GUI_Clinic.CustomControl;
 using System.Text.RegularExpressions;
 using GUI_Clinic.Command;
+using GUI_Clinic.View.Windows;
 
 namespace GUI_Clinic.View.UserControls
 {
@@ -40,7 +41,7 @@ namespace GUI_Clinic.View.UserControls
         public ObservableCollection<DTO_CachDung> ListCD { get; set; }
         public ObservableCollection<DTO_PKDaKhoa> ListPKB { get; set; }
         public ObservableCollection<DTO_CTHDThuoc> List { get; set; }
-        //public List<string> ListTenCD { get; set; }
+        public DTO_PKDaKhoa phieuKhamBenh { get; set; }
         public List<string> ListDonViGroupWithThuoc { get; set; }
         public int SoLuong { get; set; }
         public double DonGia { get; set; }
@@ -127,11 +128,12 @@ namespace GUI_Clinic.View.UserControls
                     {
                         BUSManager.BCSuDungThuocBUS.CapNhatBCSDThuoc(item.MaThuoc, DateTime.Now, item.SoLuong);
                     }
-
                     BUSManager.ThuocBUS.SuDungThuoc(item.MaThuoc, item.SoLuong, item.Thuoc);
                 }
+                wdHoaDonThuoc wDHoaDonThuoc = new wdHoaDonThuoc(List);
+                wDHoaDonThuoc.ShowDialog();
 
-                List = null;
+            List = null;
                 lvThuoc.ItemsSource = List;
                 ListPKB = null;
                 lvDSPKB.ItemsSource = ListPKB;
@@ -162,6 +164,7 @@ namespace GUI_Clinic.View.UserControls
         }
         public void GetDonThuoc(DTO_PKDaKhoa pkb)
         {
+            phieuKhamBenh = pkb;
             BUSManager.PKDaKhoaBUS.LoadNPDonThuoc(pkb);
             BUSManager.DonThuocBUS.LoadNP_DSCTDonThuoc(pkb.DonThuoc);
             if (pkb.DonThuoc != null)

@@ -97,8 +97,7 @@
                                             SelectedDate="{x:Static sys:DateTime.Now}"
                                             VerticalAlignment="Center"
                                             Width="100"
-                                            Margin="10">
-                                </DatePicker>
+                                            Margin="10" Visibility="Collapsed"/>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <TextBlock VerticalAlignment="Center"

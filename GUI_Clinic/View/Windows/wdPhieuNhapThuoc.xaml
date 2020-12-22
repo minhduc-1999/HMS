@@ -57,7 +57,7 @@
                             SelectedDate="{Binding NgayNhapThuoc, Mode=TwoWay}" 
                             Width="130" Margin="5 5 130 10" 
                             materialDesign:HintAssist.Hint="Ngày nhập thuốc" 
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Visibility="Collapsed"/>
                 <Button x:Name="btnNhapThuoc"
                         Content="Nhập thuốc" 
                         Margin="5" 
