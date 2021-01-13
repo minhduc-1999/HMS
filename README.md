@@ -1,8 +1,8 @@
 # **HOSPITAL MANAGEMENT SYSTEM**
 
 ## 1.Giới thiệu
-Đồ án môn "Phát triển, vận hành, bảo trì phần mềm"
-<br> Giáo viên hướng dẫn: Nguyễn Thị Thanh Trúc
+Đồ án môn "Phương pháp phát triển phần mềm hướng đối tượng"
+<br> Giảng viên hướng dẫn: Lê Thanh Trọng
 
 ## 2.Hướng dẫn cài đặt
 - Sử dụng Visual Studio để chạy project, sau khi ứng dụng đã chạy, database có tên "HMS" được tạo, sau đó tắt ứng dụng đi
